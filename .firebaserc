@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "okr-app-de4fa": {
+      "hosting": {
+        "MyApp": [
+          "okr-app-de4fa"
+        ]
+      }
+    }
+  }
+}
