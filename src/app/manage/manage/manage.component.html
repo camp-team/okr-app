@@ -1,1 +1,26 @@
-<p>manage works!</p>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+    <mat-toolbar class="mat-toolbar header">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1>OKR APP</h1>
+    </mat-toolbar>
+  </mat-sidenav-content>
+
+  <mat-sidenav
+    #sidenav
+    fixedInViewport
+    fixedTopGap="64"
+    mode="side"
+    [opened]="opened"
+  >
+    <mat-nav-list>
+      <a mat-list-item>Example</a>
+      <a mat-list-item>ホーム</a>
+      <a mat-list-item>入力</a>
+      <a mat-list-item>利用規約</a>
+      <a mat-list-item>特定商取引法に基づく規約</a>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>
