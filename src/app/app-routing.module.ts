@@ -11,6 +11,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
   },
+  {
+    path: 'edit',
+    loadChildren: () =>
+      import('./manage/manage.module').then((m) => m.ManageModule),
+  },
 ];
 
 @NgModule({
