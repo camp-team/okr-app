@@ -1,1 +1,96 @@
-<h2>入力しよう</h2>
+<div class="main">
+  <div class="container">
+    <h2>入力しよう</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field>
+        <mat-label>タイトル</mat-label>
+        <input
+          formControlName="title"
+          type="text"
+          matInput
+          autocomplete="off"
+          required
+        />
+        <mat-error *ngIf="titleControl.hasError('required')"
+          >必須入力です</mat-error
+        >
+        <mat-error *ngIf="titleControl.hasError('maxlength')"
+          >長すぎます</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>期間</mat-label>
+        <input
+          formControlName="duration"
+          type="text"
+          matInput
+          autocomplete="off"
+          required
+        />
+        <mat-error *ngIf="durationControl.hasError('required')"
+          >必須入力です</mat-error
+        >
+        <mat-error *ngIf="durationControl.hasError('maxlength')"
+          >長すぎます</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>primary1</mat-label>
+        <input
+          formControlName="primary1"
+          type="text"
+          matInput
+          autocomplete="off"
+          required
+        />
+        <mat-error *ngIf="primary1Control.hasError('required')"
+          >必須入力です</mat-error
+        >
+        <mat-error *ngIf="primary1Control.hasError('maxlength')"
+          >長すぎます</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>primary2</mat-label>
+        <input
+          formControlName="primary2"
+          type="text"
+          matInput
+          autocomplete="off"
+          required
+        />
+        <mat-error *ngIf="primary2Control.hasError('required')"
+          >必須入力です</mat-error
+        >
+        <mat-error *ngIf="primary2Control.hasError('maxlength')"
+          >長すぎます</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>primary3</mat-label>
+        <input
+          formControlName="primary3"
+          type="text"
+          matInput
+          autocomplete="off"
+          required
+        />
+        <mat-error *ngIf="primary3Control.hasError('required')"
+          >必須入力です</mat-error
+        >
+        <mat-error *ngIf="primary3Control.hasError('maxlength')"
+          >長すぎます</mat-error
+        >
+      </mat-form-field>
+
+      <button [disabled]="form.invalid" mat-raised-button color="primary">
+        作成
+      </button>
+    </form>
+  </div>
+</div>
