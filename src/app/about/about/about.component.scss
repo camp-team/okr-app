@@ -10,3 +10,24 @@
     padding: 8px;
   }
 }
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.footer-navs {
+  margin-bottom: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+a {
+  text-decoration: none;
+  margin-right: 16px;
+  color: inherit;
+}
+.copyright {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 16px;
+}
