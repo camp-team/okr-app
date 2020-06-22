@@ -8,7 +8,7 @@
       </button>
       <h1>OKR APP</h1>
       <button
-        *ngIf="!user$"
+        *ngIf="!(user$ | async)"
         (click)="login()"
         mat-raised-button
         color="primary"
