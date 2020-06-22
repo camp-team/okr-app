@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./manage/manage.module').then((m) => m.ManageModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+  },
   {
     path: 'intl',
     loadChildren: () => import('./intl/intl.module').then((m) => m.IntlModule),
@@ -10,6 +19,8 @@ const routes: Routes = [
     path: 'manage',
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'about',
