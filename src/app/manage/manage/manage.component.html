@@ -7,8 +7,21 @@
         <mat-icon>menu</mat-icon>
       </button>
       <h1>OKR APP</h1>
-      <button (click)="login()" mat-raised-button color="primary">
+      <button
+        *ngIf="!user$"
+        (click)="login()"
+        mat-raised-button
+        color="primary"
+      >
         ログイン
+      </button>
+      <button
+        *ngIf="user$ | async"
+        (click)="logout()"
+        mat-raised-button
+        color="primary"
+      >
+        ログアウト
       </button>
     </mat-toolbar>
   </mat-sidenav-content>
