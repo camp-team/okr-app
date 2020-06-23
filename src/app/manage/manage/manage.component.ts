@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ManageComponent implements OnInit {
   opened: boolean;
+  user$ = this.authService.afUser$;
 
   constructor(
     private manageService: ManageService,
@@ -20,6 +21,10 @@ export class ManageComponent implements OnInit {
 
   login() {
     this.authService.login();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   ngOnInit(): void {}
