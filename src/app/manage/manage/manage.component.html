@@ -7,6 +7,13 @@
         <mat-icon>menu</mat-icon>
       </button>
       <h1>OKR APP</h1>
+      <span class="spacer"></span>
+
+      <div class="search">
+        <input type="text" autocomplete="off" value="検索" />
+        <mat-icon>search</mat-icon>
+      </div>
+
       <button
         *ngIf="!(user$ | async)"
         (click)="login()"

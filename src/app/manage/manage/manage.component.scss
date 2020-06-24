@@ -11,6 +11,29 @@ mat-sidenav {
   width: 230px;
 }
 
+.spacer {
+  flex: 1;
+}
+
+.search {
+  display: flex;
+  position: relative;
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 32px;
+    padding-left: 16px;
+    line-height: 32px;
+    border-radius: 16px;
+  }
+  mat-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+  }
+}
+
 mat-sidenav-content {
   z-index: 3;
   padding-top: 64px;
