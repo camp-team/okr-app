@@ -5,6 +5,7 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
+  providers: [],
 })
 export class EditComponent implements OnInit {
   form = this.fb.group({
