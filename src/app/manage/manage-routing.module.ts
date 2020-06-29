@@ -7,17 +7,17 @@ import { HomeComponent } from '../home/home/home.component';
 const routes: Routes = [
   {
     path: '',
-    component: ManageComponent,
-    children: [
-      {
-        path: 'edit',
-        component: EditComponent,
-      },
-      {
-        path: 'home',
-        component: HomeComponent,
-      },
-    ],
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./manage/manage.module').then((m) => m.ManageModule),
+  },
+  {
+    path: 'edit',
+    loadChildren: () => import('./edit/edit.module').then((m) => m.EditModule),
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then((m) => m.EditModule),
   },
 ];
 
