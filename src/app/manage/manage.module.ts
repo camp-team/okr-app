@@ -7,14 +7,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EditComponent } from '../edit/edit/edit.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
-  declarations: [ManageComponent, EditComponent],
+  declarations: [ManageComponent],
   imports: [
     CommonModule,
     ManageRoutingModule,
@@ -22,11 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatInputModule,
     MatButtonModule,
-    MatDatepickerModule,
   ],
 })
 export class ManageModule {}
