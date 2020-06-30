@@ -12,6 +12,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     AngularFireFunctionsModule,
     AngularFireAuthModule,
     MatNativeDateModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
