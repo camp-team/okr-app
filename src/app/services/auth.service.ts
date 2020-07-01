@@ -23,6 +23,7 @@ export class AuthService {
       this.snackBar.open('ログインしました', null, {
         duration: 2000,
       });
+      this.router.navigateByUrl('/manage/home');
     });
   }
 
