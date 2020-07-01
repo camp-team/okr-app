@@ -11,16 +11,17 @@ const routes: Routes = [
     children: [
       {
         path: 'edit',
-        component: EditComponent,
+        loadChildren: () =>
+          import('../edit/edit.module').then((m) => m.EditModule),
       },
       {
         path: 'home',
-        component: HomeComponent,
+        loadChildren: () =>
+          import('../home/home.module').then((m) => m.HomeModule),
       },
     ],
   },
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
