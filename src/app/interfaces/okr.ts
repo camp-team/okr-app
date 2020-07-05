@@ -4,4 +4,5 @@ export interface Okr {
   primary1: string;
   primary2: string;
   primary3: string;
+  trainerId: string;
 }
