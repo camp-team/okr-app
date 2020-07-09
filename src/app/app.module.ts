@@ -13,9 +13,10 @@ import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
