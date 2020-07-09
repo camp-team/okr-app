@@ -1,1 +1,3 @@
-<p>home works!</p>
+<div class="container">
+  <app-okr *ngIf="okr$ | async as okr" [okr]="okr"></app-okr>
+</div>

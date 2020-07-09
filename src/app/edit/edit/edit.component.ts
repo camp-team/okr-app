@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { OkrService } from 'src/app/services/okr.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-edit',
@@ -32,10 +34,23 @@ export class EditComponent implements OnInit {
     return this.form.get('primary3') as FormControl;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private okrService: OkrService,
+    private authService: AuthService
+  ) {}
 
   submit() {
     console.log(this.form.value);
+    const formData = this.form.value;
+    this.okrService.createOkr({
+      title: formData.title,
+      duration: formData.duration,
+      primary1: formData.primary1,
+      primary2: formData.primary2,
+      primary3: formData.primary3,
+      trainerId: this.authService.uid,
+    });
   }
   ngOnInit() {}
 }
