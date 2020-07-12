@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -29,6 +30,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AngularFireAuthModule,
     MatNativeDateModule,
     MatSnackBarModule,
+    MatButtonModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
