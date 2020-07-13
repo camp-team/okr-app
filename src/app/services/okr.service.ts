@@ -16,7 +16,7 @@ export class OkrService {
     private router: Router
   ) {}
 
-  createOkr(okr: Okr) {
+  editOkr(okr: Okr) {
     console.log(okr);
     const id = this.db.createId();
     return this.db

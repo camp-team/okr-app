@@ -43,7 +43,7 @@ export class EditComponent implements OnInit {
   submit() {
     console.log(this.form.value);
     const formData = this.form.value;
-    this.okrService.createOkr({
+    this.okrService.editOkr({
       title: formData.title,
       duration: formData.duration,
       primary1: formData.primary1,
