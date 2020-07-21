@@ -1,3 +1,5 @@
 <div class="container">
-  <app-okr *ngFor="let okr of okrs$ | async" [okr]="okr"></app-okr>
+  <div class="grid">
+    <app-okr *ngFor="let okr of okrs$ | async" [okr]="okr"></app-okr>
+  </div>
 </div>

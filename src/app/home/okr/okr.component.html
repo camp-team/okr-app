@@ -1,15 +1,13 @@
 <div class="okr">
   <div class="okr__body">
-    <div class="grid">
-      <mat-card>
-        <h1 class="okr__title">{{ okr.title }}</h1>
-        <p class="okr__duration">
-          {{ okr.duration.toDate() | date: 'yyyy年MM月dd日' }}
-        </p>
-        <p class="okr__primary1">{{ okr.primary1 }}</p>
-        <p class="okr__primary2">{{ okr.primary2 }}</p>
-        <p class="okr__primary3">{{ okr.primary3 }}</p>
-      </mat-card>
-    </div>
+    <mat-card>
+      <h1 class="okr__title">{{ okr.title }}</h1>
+      <h3 class="okr__duration">
+        期間:{{ okr.duration.toDate() | date: 'yyyy年MM月dd日' }}
+      </h3>
+      <p class="okr__primary1">・{{ okr.primary1 }}</p>
+      <p class="okr__primary2">・{{ okr.primary2 }}</p>
+      <p class="okr__primary3">・{{ okr.primary3 }}</p>
+    </mat-card>
   </div>
 </div>
