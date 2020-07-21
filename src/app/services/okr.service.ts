@@ -30,18 +30,7 @@ export class OkrService {
       });
   }
 
-  getOkr(trainerId: string): Observable<Okr> {
-    return this.db
-      .collection<Okr>('okrs', (ref) => ref.where('trainerId', '==', trainerId))
-      .valueChanges()
-      .pipe(
-        map((pets) => {
-          if (pets.length) {
-            return pets[0];
-          } else {
-            return null;
-          }
-        })
-      );
+  getOkrs(): Observable<Okr[]> {
+    return this.db.collection<Okr>(`okrs`).valueChanges();
   }
 }
