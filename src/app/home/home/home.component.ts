@@ -10,10 +10,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  okr$: Observable<Okr> = this.okrService.getOkr(this.authService.uid);
+  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
 
   constructor(
-    private okrService: OkrService,
+    public okrService: OkrService,
     private authService: AuthService
   ) {}
 
