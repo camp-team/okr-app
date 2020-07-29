@@ -3,9 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Okr } from '../interfaces/okr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -16,12 +14,15 @@ export class OkrService {
     private router: Router
   ) {}
 
-  editOkr(okr: Okr) {
+  editOkr(okr: Omit<Okr, 'id'>): Promise<void> {
     console.log(okr);
     const id = this.db.createId();
     return this.db
       .doc(`okrs/${id}`)
-      .set(okr)
+      .set({
+        id,
+        ...okr,
+      })
       .then(() => {
         this.snackBar.open('作成しました', null, {
           duration: 2000,
@@ -32,5 +33,10 @@ export class OkrService {
 
   getOkrs(): Observable<Okr[]> {
     return this.db.collection<Okr>(`okrs`).valueChanges();
+  }
+
+  getOkr(id: string): Observable<Okr> {
+    console.log(id);
+    return this.db.doc<Okr>(`okrs/${id}`).valueChanges();
   }
 }

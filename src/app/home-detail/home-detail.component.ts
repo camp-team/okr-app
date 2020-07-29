@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
-import { HomeComponent } from '../home/home/home.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home-detail',
@@ -11,20 +11,18 @@ import { HomeComponent } from '../home/home/home.component';
   styleUrls: ['./home-detail.component.scss'],
 })
 export class HomeDetailComponent implements OnInit {
-  okrs = this.homeComponentTs.okrs$;
-  okr;
+  okr$: Observable<Okr>;
 
   constructor(
     private route: ActivatedRoute,
     private db: AngularFirestore,
-    public okrService: OkrService,
-    private homeComponentTs: HomeComponent
+    public okrService: OkrService
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((map) => {
-      const id = +map.get('id');
-      this.okr = this.okrs[id - 1];
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.okr$ = this.okrService.getOkr(id);
     });
   }
 }
