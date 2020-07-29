@@ -6,7 +6,6 @@ import { HomeDetailComponent } from '../home-detail/home-detail.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: HomeComponent,
   },
   {
