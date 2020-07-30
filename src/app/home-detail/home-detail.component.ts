@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-detail',
@@ -20,9 +21,11 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      this.okr$ = this.okrService.getOkr(id);
-    });
+    this.okr$ = this.route.paramMap.pipe(
+      switchMap((map) => {
+        const id = map.get('id');
+        return this.okrService.getOkr(id);
+      })
+    );
   }
 }
