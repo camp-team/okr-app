@@ -6,9 +6,10 @@ import { HomeComponent } from './home/home.component';
 import { OkrComponent } from './okr/okr.component';
 import { MatCardModule } from '@angular/material/card';
 import { HomeDetailComponent } from '../home-detail/home-detail.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [HomeComponent, OkrComponent, HomeDetailComponent],
-  imports: [CommonModule, HomeRoutingModule, MatCardModule],
+  imports: [CommonModule, HomeRoutingModule, MatCardModule, MatButtonModule],
 })
 export class HomeModule {}
