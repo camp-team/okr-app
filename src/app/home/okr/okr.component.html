@@ -1,12 +1,12 @@
 <mat-card>
-  <div class="mat-card__body">
-    <h1 class="mat-card__title">{{ okr.title }}</h1>
-    <h3 class="mat-card__duration">
+  <div class="card__body">
+    <h1 class="card__title">{{ okr.title }}</h1>
+    <h3 class="card__duration">
       期間:{{ okr.duration.toDate() | date: 'yyyy年MM月dd日' }}
     </h3>
-    <p class="mat-card__primary1">・{{ okr.primary1 }}</p>
-    <p class="mat-card__primary2">・{{ okr.primary2 }}</p>
-    <p class="mat-card__primary3">・{{ okr.primary3 }}</p>
+    <p class="card__primary1">・{{ okr.primary1 }}</p>
+    <p class="card__primary2">・{{ okr.primary2 }}</p>
+    <p class="card__primary3">・{{ okr.primary3 }}</p>
     <button
       routerLink="/manage/home/{{ okr.id }}"
       mat-raised-button
