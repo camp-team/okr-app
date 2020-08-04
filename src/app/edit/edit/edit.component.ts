@@ -12,7 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class EditComponent implements OnInit {
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
-    duration: ['', [Validators.required, Validators.maxLength(40)]],
+    start: ['', [Validators.required, Validators.maxLength(40)]],
+    end: ['', [Validators.required, Validators.maxLength(40)]],
     primary1: ['', [Validators.required, Validators.maxLength(40)]],
     primary2: ['', [Validators.required, Validators.maxLength(40)]],
     primary3: ['', [Validators.required, Validators.maxLength(40)]],
@@ -21,8 +22,11 @@ export class EditComponent implements OnInit {
   get titleControl() {
     return this.form.get('title') as FormControl;
   }
-  get durationControl() {
-    return this.form.get('duration') as FormControl;
+  get startControl() {
+    return this.form.get('start') as FormControl;
+  }
+  get endControl() {
+    return this.form.get('end') as FormControl;
   }
   get primary1Control() {
     return this.form.get('primary1') as FormControl;
@@ -45,7 +49,8 @@ export class EditComponent implements OnInit {
     const formData = this.form.value;
     this.okrService.editOkr({
       title: formData.title,
-      duration: formData.duration,
+      start: formData.start,
+      end: formData.end,
       primary1: formData.primary1,
       primary2: formData.primary2,
       primary3: formData.primary3,
