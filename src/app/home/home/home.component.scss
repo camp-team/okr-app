@@ -8,3 +8,32 @@
   gap: 24px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
+
+.mat-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.mat-card:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mat-icon {
+  font-size: 36px;
+  width: 36px;
+  color: #1a73e8;
+}
+
+p {
+  color: #1a73e8;
+}
