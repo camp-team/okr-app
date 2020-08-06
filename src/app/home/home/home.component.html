@@ -4,8 +4,8 @@
     <mat-card routerLink="/manage/edit">
       <button>
         <mat-icon>add</mat-icon>
-        <p>目標を追加する</p>
       </button>
+      <p>目標を追加する</p>
     </mat-card>
     <app-okr *ngFor="let okr of okrs$ | async" [okr]="okr"></app-okr>
   </div>
