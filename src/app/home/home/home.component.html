@@ -1,5 +1,12 @@
 <div class="container">
+  <h2>OKR管理</h2>
   <div class="grid">
+    <mat-card routerLink="/manage/edit">
+      <button>
+        <mat-icon>add</mat-icon>
+      </button>
+      <p>目標を追加する</p>
+    </mat-card>
     <app-okr *ngFor="let okr of okrs$ | async" [okr]="okr"></app-okr>
   </div>
 </div>
