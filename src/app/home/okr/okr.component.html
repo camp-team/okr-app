@@ -1,9 +1,9 @@
 <mat-card>
   <div class="card">
     <h1 class="card__title">{{ okr.title }}</h1>
-    <p class="card__primary1">・{{ okr.primary1 }}</p>
-    <p class="card__primary2">・{{ okr.primary2 }}</p>
-    <p class="card__primary3">・{{ okr.primary3 }}</p>
+    <p class="card__primary1">{{ okr.primary1 }}</p>
+    <p class="card__primary2">{{ okr.primary2 }}</p>
+    <p class="card__primary3">{{ okr.primary3 }}</p>
     <p class="card__duration">
       期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
         okr.end.toDate() | date: 'yyyy年MM月dd日'
