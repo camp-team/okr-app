@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,13 +15,17 @@ import { AuthService } from 'src/app/services/auth.service';
   providers: [],
 })
 export class EditComponent implements OnInit {
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
     start: ['', [Validators.required, Validators.maxLength(40)]],
     end: ['', [Validators.required, Validators.maxLength(40)]],
     primary1: ['', [Validators.required, Validators.maxLength(40)]],
-    primary2: ['', [Validators.required, Validators.maxLength(40)]],
-    primary3: ['', [Validators.required, Validators.maxLength(40)]],
+    primary2: ['', [Validators.maxLength(40)]],
+    primary3: ['', [Validators.maxLength(40)]],
   });
 
   get titleControl() {
