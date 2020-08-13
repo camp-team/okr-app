@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HomeDetailComponent } from '../home-detail/home-detail.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [HomeComponent, OkrComponent, HomeDetailComponent],
@@ -16,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
   ],
 })
 export class HomeModule {}
