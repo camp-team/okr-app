@@ -5,7 +5,78 @@
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </p>
-  <p class="okr__primary1">・{{ okr.primary1 }}</p>
-  <p class="okr__primary2">・{{ okr.primary2 }}</p>
-  <p class="okr__primary3">・{{ okr.primary3 }}</p>
+
+  <p class="okr__primary1">
+    {{ okr.primary1 }}
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon class="menu">more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>open_in_full</mat-icon>
+        <span>コンテンツの詳細</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>create</mat-icon>
+        <span>テーブルに記載</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>warning</mat-icon>
+        <span>コンテンツを削除</span>
+      </button>
+    </mat-menu>
+  </p>
+
+  <p class="okr__primary2">
+    {{ okr.primary2 }}
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon class="menu">more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>open_in_full</mat-icon>
+        <span>コンテンツの詳細</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>create</mat-icon>
+        <span>テーブルに記載</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>コンテンツを削除</span>
+      </button>
+    </mat-menu>
+  </p>
+  <p class="okr__primary3">
+    {{ okr.primary3 }}
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon class="menu">more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>open_in_full</mat-icon>
+        <span>コンテンツの詳細</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>create</mat-icon>
+        <span>テーブルに記載</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>コンテンツを削除</span>
+      </button>
+    </mat-menu>
+  </p>
 </mat-card>
