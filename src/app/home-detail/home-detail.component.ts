@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { Observable } from 'rxjs';
@@ -13,14 +12,15 @@ import { switchMap } from 'rxjs/operators';
 })
 export class HomeDetailComponent implements OnInit {
   okr$: Observable<Okr>;
+  lists = 5;
 
-  constructor(
-    private route: ActivatedRoute,
-    private db: AngularFirestore,
-    public okrService: OkrService
-  ) {}
+  getTimes(count: number) {
+    return [...Array(count)].map((_, i) => i + 1);
+  }
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, public okrService: OkrService) {}
+
+  ngOnInit() {
     this.okr$ = this.route.paramMap.pipe(
       switchMap((map) => {
         const id = map.get('id');
