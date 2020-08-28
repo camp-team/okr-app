@@ -112,46 +112,42 @@
           >
           <h2>最後に<br />コンテンツを入力しましょう</h2>
           <h3>(入力が終わったら、作成ボタンをクリックしましょう)</h3>
-          <mat-form-field>
-            <mat-label>primary1</mat-label>
-            <input
-              formControlName="primary1"
-              type="text"
-              matInput
-              autocomplete="off"
-              required
-            />
-            <mat-error *ngIf="primary1Control.hasError('required')"
-              >必須入力です</mat-error
-            >
-            <mat-error *ngIf="primary1Control.hasError('maxlength')"
-              >文字数は最大で40文字までです</mat-error
-            >
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>primary2</mat-label>
-            <input
-              formControlName="primary2"
-              type="text"
-              matInput
-              autocomplete="off"
-            />
-            <mat-error *ngIf="primary2Control.hasError('maxlength')"
-              >文字数は最大で40文字までです</mat-error
-            >
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>primary3</mat-label>
-            <input
-              formControlName="primary3"
-              type="text"
-              matInput
-              autocomplete="off"
-            />
-            <mat-error *ngIf="primary3Control.hasError('maxlength')"
-              >文字数は最大で40文字までです</mat-error
-            >
-          </mat-form-field>
+
+          <div formArrayName="primary">
+            <div *ngFor="let option of primary.controls; let i = index">
+              <mat-form-field>
+                <mat-label> primary{{ i + 1 }} </mat-label>
+                <input
+                  [formControlName]="i"
+                  type="text"
+                  matInput
+                  autocomplete="off"
+                />
+                <mat-error *ngIf="option.hasError('maxlength')"
+                  >文字数は最大で40文字までです</mat-error
+                >
+              </mat-form-field>
+              <button
+                class="remcontents"
+                type="button"
+                (click)="removeOption(i)"
+                mat-icon-button
+              >
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="addcontents"
+            type="button"
+            mat-raised-button
+            (click)="addOptionForm()"
+          >
+            <mat-icon>add</mat-icon>
+            Add contents
+          </button>
+
           <div>
             <button mat-button matStepperPrevious>戻る</button>
             <button [disabled]="form.invalid" mat-raised-button color="primary">
