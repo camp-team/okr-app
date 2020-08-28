@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [EditComponent],
@@ -22,6 +23,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatButtonModule,
     MatDatepickerModule,
     MatStepperModule,
+    MatIconModule,
   ],
   providers: [],
 })
