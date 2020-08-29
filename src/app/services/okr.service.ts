@@ -17,10 +17,12 @@ export class OkrService {
   editOkr(okr: Omit<Okr, 'id'>): Promise<void> {
     console.log(okr);
     const id = this.db.createId();
+    const primary = this.db.createId();
     return this.db
-      .doc(`okrs/${id}`)
+      .doc(`okrs/${id},${primary}`)
       .set({
         id,
+        primary,
         ...okr,
       })
       .then(() => {
