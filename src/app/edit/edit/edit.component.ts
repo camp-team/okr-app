@@ -24,7 +24,7 @@ export class EditComponent implements OnInit {
     title: ['', [Validators.required, Validators.maxLength(40)]],
     start: ['', [Validators.required, Validators.maxLength(40)]],
     end: ['', [Validators.required, Validators.maxLength(40)]],
-    primary: this.fb.array([]),
+    primaries: this.fb.array([]),
   });
 
   get titleControl() {
@@ -36,8 +36,8 @@ export class EditComponent implements OnInit {
   get endControl() {
     return this.form.get('end') as FormControl;
   }
-  get primaryControl() {
-    return this.form.get('primary') as FormControl;
+  get primariesControl() {
+    return this.form.get('primaries') as FormControl;
   }
 
   constructor(
@@ -53,29 +53,26 @@ export class EditComponent implements OnInit {
       title: formData.title,
       start: formData.start,
       end: formData.end,
-      primary: formData.primary,
+      primaries: formData.primaries,
       trainerId: this.authService.uid,
     });
   }
 
   ngOnInit() {
     this.addOptionForm();
-    this.primary.valueChanges.subscribe((res) => {
-      console.log(JSON.stringify(this.form.value));
-    });
   }
 
   removeOption(i: number) {
-    this.primary.removeAt(i);
+    this.primaries.removeAt(i);
   }
 
   addOptionForm() {
-    this.primary.push(
+    this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(40)])
     );
   }
 
-  get primary(): FormArray {
-    return this.form.get('primary') as FormArray;
+  get primaries(): FormArray {
+    return this.form.get('primaries') as FormArray;
   }
 }
