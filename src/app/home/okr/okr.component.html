@@ -1,10 +1,9 @@
 <mat-card>
   <div class="card">
     <h1 class="card__title">{{ okr.title }}</h1>
-    <p>{{ okr.primaries[0] }}</p>
-    <p>{{ okr.primaries[1] }}</p>
-    <p>{{ okr.primaries[2] }}</p>
-    <p>{{ okr.primaries[3] }}</p>
+    <div *ngFor="let primary of okr.primaries; let i = index">
+      <p>{{ okr.primaries[i] }}</p>
+    </div>
     <p class="card__duration">
       期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
         okr.end.toDate() | date: 'yyyy年MM月dd日'
