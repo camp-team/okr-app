@@ -6,9 +6,9 @@
     }}
   </p>
 
-  <div *ngFor="let primary of okr.primaries; let i = index">
+  <div *ngFor="let primary of okr.primaries">
     <p class="okr__primary1">
-      {{ okr.primaries[i] }}
+      {{ primary }}
       <button
         mat-icon-button
         [matMenuTriggerFor]="menu"
