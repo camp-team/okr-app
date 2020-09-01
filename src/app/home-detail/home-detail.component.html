@@ -6,9 +6,9 @@
     }}
   </p>
 
-  <div *ngFor="let list of getTimes(lists); let i = index">
+  <div *ngFor="let primary of okr.primaries">
     <p class="okr__primary1">
-      {{ okr.primary[i] }}
+      {{ primary }}
       <button
         mat-icon-button
         [matMenuTriggerFor]="menu"
@@ -19,7 +19,7 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
           <mat-icon>open_in_full</mat-icon>
-          <span>コンテンツの詳細</span>
+          <span>詳細</span>
         </button>
         <button mat-menu-item routerLink="/spreadsheets/{{ okr.id }}">
           <mat-icon>create</mat-icon>

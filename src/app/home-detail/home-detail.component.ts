@@ -12,11 +12,6 @@ import { switchMap } from 'rxjs/operators';
 })
 export class HomeDetailComponent implements OnInit {
   okr$: Observable<Okr>;
-  lists = 5;
-
-  getTimes(count: number) {
-    return [...Array(count)].map((_, i) => i + 1);
-  }
 
   constructor(private route: ActivatedRoute, public okrService: OkrService) {}
 

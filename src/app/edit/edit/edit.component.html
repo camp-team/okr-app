@@ -113,8 +113,8 @@
           <h2>最後に<br />コンテンツを入力しましょう</h2>
           <h3>(入力が終わったら、作成ボタンをクリックしましょう)</h3>
 
-          <div formArrayName="primary">
-            <div *ngFor="let option of primary.controls; let i = index">
+          <div formArrayName="primaries">
+            <div *ngFor="let option of primaries.controls; let i = index">
               <mat-form-field>
                 <mat-label> primary{{ i + 1 }} </mat-label>
                 <input
