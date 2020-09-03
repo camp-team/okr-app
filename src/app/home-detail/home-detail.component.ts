@@ -23,8 +23,12 @@ export class HomeDetailComponent implements OnInit {
     title: ['', [Validators.required, Validators.maxLength(40)]],
     start: ['', [Validators.required, Validators.maxLength(40)]],
     end: ['', [Validators.required, Validators.maxLength(40)]],
-    primaries: [],
+    primaries: this.fb.array([]),
   });
+
+  get primariesControl() {
+    return this.form.get('primaries') as FormControl;
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +47,7 @@ export class HomeDetailComponent implements OnInit {
         this.form.patchValue(okr);
         console.log(okr);
         okr.primaries.forEach((primary) =>
-          this.form.primaries.push({
+          this.primaries.push({
             primary: [primary, [Validators.required]],
           })
         );
@@ -60,7 +64,7 @@ export class HomeDetailComponent implements OnInit {
   //   primary: [primary?.primary || '', [Validators.required]],
   // });
   // console.log(formGroup);
-  //   this.form.primaries.push(primary);
+  //   this.primaries.push(primary);
   // }
 
   rename() {
