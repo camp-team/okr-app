@@ -11,11 +11,13 @@ const routes: Routes = [
     children: [
       {
         path: 'terms',
-        component: TermsComponent,
+        loadChildren: () =>
+          import('../terms/terms.module').then((m) => m.TermsModule),
       },
       {
         path: 'legal',
-        component: LegalComponent,
+        loadChildren: () =>
+          import('../legal/legal.module').then((m) => m.LegalModule),
       },
     ],
   },
