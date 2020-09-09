@@ -20,9 +20,6 @@ export class HomeDetailComponent implements OnInit {
   okr$: Observable<Okr>;
 
   form = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(40)]],
-    start: ['', [Validators.required, Validators.maxLength(40)]],
-    end: ['', [Validators.required, Validators.maxLength(40)]],
     primaries: this.fb.array([]),
   });
 
@@ -46,11 +43,15 @@ export class HomeDetailComponent implements OnInit {
       .subscribe((okr) => {
         this.form.patchValue(okr);
         console.log(okr);
-        okr.primaries.forEach((primary) =>
-          this.primaries.push({
-            primary: [primary, [Validators.required]],
-          })
-        );
+        okr.primaries.forEach((primary) => {
+          console.log(primary);
+          this.primaries.push(
+            new FormControl(primary, [
+              Validators.required,
+              Validators.maxLength(40),
+            ])
+          );
+        });
       });
   }
 
@@ -58,22 +59,9 @@ export class HomeDetailComponent implements OnInit {
     return this.form.get('primaries') as FormArray;
   }
 
-  // addPrimary(primary?: Primary) {
-  //   console.log(primary);
-  // const formGroup = this.fb.group({
-  //   primary: [primary?.primary || '', [Validators.required]],
-  // });
-  // console.log(formGroup);
-  //   this.primaries.push(primary);
-  // }
-
   rename() {
-    this.okr$ = this.route.paramMap.pipe(
-      switchMap((map) => {
-        const id = map.get('id');
-        return this.okrService.getOkr(id);
-      })
-    );
+    console.log(this.form.value);
+    this.okrService.updateOkr(this.form.value);
   }
 
   ngOnInit() {
