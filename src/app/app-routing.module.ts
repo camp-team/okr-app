@@ -28,6 +28,10 @@ const routes: Routes = [
       import('./about/about.module').then((m) => m.AboutModule),
   },
   {
+    path: 'intl',
+    loadChildren: () => import('./intl/intl.module').then((m) => m.IntlModule),
+  },
+  {
     path: '**',
     component: NotFoundComponent,
   },

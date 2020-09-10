@@ -22,8 +22,12 @@
           <span>詳細</span>
         </button>
         <button mat-menu-item routerLink="/spreadsheets/{{ okr.id }}">
-          <mat-icon>create</mat-icon>
+          <mat-icon>title</mat-icon>
           <span>テーブルに記載</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>create</mat-icon>
+          <span>名前の変更</span>
         </button>
         <button mat-menu-item>
           <mat-icon>warning</mat-icon>
@@ -31,5 +35,25 @@
         </button>
       </mat-menu>
     </p>
+    <form [formGroup]="form">
+      <div formArrayName="primaries">
+        <div *ngFor="let option of primaries.controls; let i = index">
+          <mat-form-field>
+            <input
+              formControlName="primary"
+              type="text"
+              matInput
+              required
+              autocomplete="off"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
   </div>
+  <ng-container *ngFor="let ctrl of primaries.controls; index as i">
+    <div [formGroupName]="i">
+      <input formControlName="primary" required />
+    </div>
+  </ng-container>
 </mat-card>
