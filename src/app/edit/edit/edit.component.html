@@ -7,9 +7,9 @@
       >
         <form [formGroup]="form">
           <ng-template matStepLabel>目標を入力しましょう(手順 1/3)</ng-template>
-          <h2>まず<br />目標を入力しましょう</h2>
+          <h2>まず<br />(個人or組織)の目標を入力しましょう</h2>
           <mat-form-field>
-            <mat-label>タイトル</mat-label>
+            <mat-label>Objectives</mat-label>
             <input
               formControlName="title"
               type="text"
@@ -47,6 +47,7 @@
             >開始日と終了日を入力しましょう(手順 2/3)</ng-template
           >
           <h2>次に<br />開始日終了日を入力しましょう</h2>
+          <h3>*推奨1ヶ月〜四半期(設定、追跡、再評価)</h3>
           <mat-form-field>
             <mat-label>開始日</mat-label>
             <input
@@ -108,9 +109,9 @@
       >
         <form [formGroup]="form" (ngSubmit)="submit()">
           <ng-template matStepLabel
-            >コンテンツを入力しましょう(手順 3/3)</ng-template
+            >主要な結果を入力しましょう(手順 3/3)</ng-template
           >
-          <h2>最後に<br />コンテンツを入力しましょう</h2>
+          <h2>最後に<br />主要な結果を入力しましょう(推奨2〜5つ)</h2>
           <h3>(入力が終わったら、作成ボタンをクリックしましょう)</h3>
 
           <div formArrayName="primaries">
