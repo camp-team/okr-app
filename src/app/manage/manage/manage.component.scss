@@ -15,16 +15,27 @@ mat-sidenav {
   flex: 1;
 }
 
+mat-nav-list {
+  mat-icon {
+    margin-right: 24px;
+  }
+}
+
 .search {
+  color: rgba(0, 0, 0, 0.24);
   display: flex;
   position: relative;
+  margin: 0 24px;
   input {
+    color: rgba(0, 0, 0, 0.24);
+    border-color: rgba(0, 0, 0, 0.24);
     -webkit-appearance: none;
     -moz-appearance: none;
     padding-right: 32px;
     padding-left: 16px;
     line-height: 32px;
     border-radius: 16px;
+    border: 1px solid;
   }
   mat-icon {
     position: absolute;
@@ -52,4 +63,10 @@ button {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0 16px;
   height: 64px;
+}
+
+.copyright {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 13px;
+  padding: 16px;
 }
