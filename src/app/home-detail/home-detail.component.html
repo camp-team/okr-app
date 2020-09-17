@@ -5,55 +5,41 @@
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </p>
-
-  <div *ngFor="let primary of okr.primaries">
-    <p class="okr__primary1">
-      {{ primary }}
-      <button
-        mat-icon-button
-        [matMenuTriggerFor]="menu"
-        aria-label="Example icon-button with a menu"
-      >
-        <mat-icon class="menu">more_horiz</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>open_in_full</mat-icon>
-          <span>詳細</span>
-        </button>
-        <button mat-menu-item routerLink="/spreadsheets/{{ okr.id }}">
-          <mat-icon>title</mat-icon>
-          <span>テーブルに記載</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>create</mat-icon>
-          <span>名前の変更</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>warning</mat-icon>
-          <span>コンテンツを削除</span>
-        </button>
-      </mat-menu>
-    </p>
-    <form [formGroup]="form">
-      <div formArrayName="primaries">
-        <div *ngFor="let option of primaries.controls; let i = index">
-          <mat-form-field>
-            <input
-              formControlName="primary"
-              type="text"
-              matInput
-              required
-              autocomplete="off"
-            />
-          </mat-form-field>
-        </div>
-      </div>
-    </form>
+  <!-- *ngForで配列の中身を1つずつ取り出す -->
+  <div *ngFor="let ctrl of okr.primaries; let i = index">
+    <p>{{ ctrl }}</p>
+    <!-- 自作テーブル作成 -->
+    <table class="border" [formGroup]="row">
+      <thead>
+        <tr>
+          <th class="header-left">key result</th>
+          <th>Target</th>
+          <th>current</th>
+          <th>percentage</th>
+          <th class="header-right">lastupdate</th>
+        </tr>
+      </thead>
+      <!-- レコード追加 -->
+      <tbody class="border">
+        <tr *ngFor="let row of tableForm.controls; index as i">
+          <ng-container [formGroupName]="i">
+            <td class="header-left">
+              <input type="text" formControlName="title" />
+            </td>
+            <td><input type="text" formControlName="target" /></td>
+            <td><input type="text" formControlName="current" /></td>
+            <td><input type="text" formControlName="percentage" /></td>
+            <td class="header-right">
+              <input type="text" formControlName="lastupdata" />
+            </td>
+            <td>
+              <button type="button" (click)="removeRow(i)">remove</button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+      <button (click)="addRow()">Add row</button>
+    </table>
+    <!-- 自作テーブル終了 -->
   </div>
-  <ng-container *ngFor="let ctrl of primaries.controls; index as i">
-    <div [formGroupName]="i">
-      <input formControlName="primary" required />
-    </div>
-  </ng-container>
 </mat-card>
