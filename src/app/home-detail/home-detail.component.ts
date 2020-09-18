@@ -5,6 +5,7 @@ import { OkrService } from '../services/okr.service';
 import { Observable, of } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -20,16 +21,24 @@ export class HomeDetailComponent implements OnInit {
   okr$: Observable<Okr>;
 
   // formArray
-  tableForm = this.fb.array([]);
+  tableForm: FormArray = this.fb.array([]);
 
   // formgroup
-  row = this.fb.group({
-    title: ['', [Validators.required]],
-    target: ['', [Validators.required]],
-    current: ['', [Validators.required]],
-    percentage: ['', [Validators.required]],
-    lastupdata: ['', [Validators.required]],
-  });
+  addRow() {
+    const row = this.fb.group({
+      title: ['', [Validators.required]],
+      target: ['', [Validators.required]],
+      current: ['', [Validators.required]],
+      percentage: ['', [Validators.required]],
+      lastUpdated: ['', [Validators.required]],
+    });
+    this.tableForm.push(row);
+    console.log(row);
+  }
+
+  get rows(): FormGroup[] {
+    return this.tableForm.controls as FormGroup[];
+  }
 
   removeRow(index: number) {
     this.tableForm.removeAt(index);
@@ -48,11 +57,5 @@ export class HomeDetailComponent implements OnInit {
         return this.okrService.getOkr(id);
       })
     );
-  }
-
-  // レコード追加
-  addRow() {
-    this.tableForm.push(this.row);
-    console.log(this.row);
   }
 }
