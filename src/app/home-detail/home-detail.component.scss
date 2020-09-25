@@ -1,10 +1,38 @@
-.mat-icon-button {
+.table {
+  min-width: 1000px;
+  border-collapse: collapse;
+  th,
+  td {
+    border: 1px solid rgba(0, 0, 0, 0.36);
+    width: 900px;
+    color: rgba(0, 0, 0, 0.36);
+    font-weight: 300;
+  }
+  .header-left,
+  .body-left {
+    border-left-style: none;
+  }
+  .header-right,
+  .body-right {
+    border-right-style: none;
+  }
+  input {
+    width: 98%;
+    height: 100%;
+    border-style: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+.add-row,
+.remove-row {
+  font-size: 14px;
+  border-style: none;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.36);
   &:hover {
     background-color: rgba(0, 0, 0, 0.12);
   }
-}
-.menu {
-  font-size: 18px;
-  line-height: 20px;
-  opacity: 0.6;
 }
