@@ -16,8 +16,8 @@ export class HomeDetailComponent implements OnInit {
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   okr: Okr;
 
-  tableBody = [];
-  tableForm = [];
+  tableTitle = [];
+  tableData = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -28,10 +28,8 @@ export class HomeDetailComponent implements OnInit {
   ngOnInit() {
     this.okr$.subscribe((item) => {
       item.primaries.forEach((primary) => {
-        this.tableBody.push(primary);
-        this.tableForm.push(this.fb.array([]));
-        console.log(this.tableBody);
-        console.log(this.tableForm);
+        this.tableTitle.push(primary);
+        this.tableData.push(this.fb.array([]));
       });
     });
   }
@@ -44,10 +42,10 @@ export class HomeDetailComponent implements OnInit {
       percentage: ['', [Validators.required]],
       lastUpdated: ['', [Validators.required]],
     });
-    this.tableForm[primaryIndex].push(row);
+    this.tableData[primaryIndex].push(row);
   }
 
-  removeRow(primaryIndex: number) {
-    this.tableForm[primaryIndex].removeAt();
+  remove(primaryIndex: number) {
+    this.tableData[primaryIndex].removeAt();
   }
 }

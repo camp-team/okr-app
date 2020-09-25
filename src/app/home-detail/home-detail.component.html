@@ -5,8 +5,8 @@
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </h3>
-  <div *ngFor="let primary of tableBody; index as primaryIndex">
-    <p>{{ primary }}</p>
+  <div *ngFor="let title of tableTitle; index as primaryIndex">
+    <p>{{ title }}</p>
     <table class="table">
       <thead>
         <tr>
@@ -17,8 +17,8 @@
           <th class="header-right">lastupdate</th>
         </tr>
       </thead>
-      <tbody class="body">
-        <tr *ngFor="let row of tableForm[primaryIndex].controls">
+      <tbody>
+        <tr *ngFor="let row of tableData[primaryIndex].controls">
           <ng-container [formGroup]="row">
             <td class="body-left">
               <input type="text" formControlName="title" />
@@ -29,11 +29,7 @@
             <td class="body-right">
               <input type="text" formControlName="lastUpdated" />
             </td>
-            <div
-              class="remove-row"
-              type="button"
-              (click)="removeRow(primaryIndex)"
-            >
+            <div class="remove" type="button" (click)="remove(primaryIndex)">
               remove
             </div>
           </ng-container>
