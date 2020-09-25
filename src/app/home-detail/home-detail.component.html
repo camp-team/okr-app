@@ -1,47 +1,45 @@
-<!-- コレクションを取得して、タイトルと日付を表示 -->
 <mat-card *ngIf="okr$ | async as okr">
   <h1 class="okr__title">{{ okr.title }}</h1>
-  <p class="okr__start">
+  <h3 class="okr__start">
     期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
-  </p>
-  <!-- okr.primaries(美白,笑顔,健康(title)+subTasks[](title,current,percentage,target,lastupdated))を取得して -->
-  <div *ngFor="let primary of okr.primaries; index as i">
-    <!-- 親(美白,笑顔,健康)[] -->
-    <p>{{ primary }}{{ i }}</p>
-    <!-- テーブル実装subTasks[]が親primary[]を参照させたい。 -->
-    <table class="border">
+  </h3>
+  <div *ngFor="let primary of tableBody; index as primaryIndex">
+    <p>{{ primary }}</p>
+    <table class="table">
       <thead>
         <tr>
-          <th class="header-left">Title{{ i }}</th>
+          <th class="header-left">Title</th>
           <th>Target</th>
           <th>current</th>
           <th>percentage</th>
           <th class="header-right">lastupdate</th>
         </tr>
       </thead>
-      <!-- レコード追加 -->
-      <tbody class="border">
-        <tr *ngFor="let row of rows; index as i">
+      <tbody class="body">
+        <tr *ngFor="let row of tableForm[primaryIndex].controls">
           <ng-container [formGroup]="row">
-            <td class="header-left">
+            <td class="body-left">
               <input type="text" formControlName="title" />
             </td>
             <td><input type="text" formControlName="target" /></td>
             <td><input type="text" formControlName="current" /></td>
             <td><input type="text" formControlName="percentage" /></td>
-            <td class="header-right">
+            <td class="body-right">
               <input type="text" formControlName="lastUpdated" />
             </td>
-            <td>
-              <button type="button" (click)="removeRow(i)">remove</button>
-            </td>
+            <div
+              class="remove-row"
+              type="button"
+              (click)="removeRow(primaryIndex)"
+            >
+              remove
+            </div>
           </ng-container>
         </tr>
       </tbody>
     </table>
-    <!-- 何番のテーブルに追加するのか指定 -->
-    <button (click)="addRow(i)">Add row{{ i }}</button>
+    <div class="add-row" (click)="addRow(primaryIndex)">＋Add row</div>
   </div>
 </mat-card>
