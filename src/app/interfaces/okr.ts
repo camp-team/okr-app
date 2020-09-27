@@ -1,9 +1,18 @@
 import { firestore } from 'firebase';
 export interface Okr {
-  title: string;
   start: firestore.Timestamp;
   end: firestore.Timestamp;
-  primaries: string;
-  trainerId: string;
+  CreatorId: string;
   id: string;
+  title: string;
+  primaries: {
+    title: string;
+    subTasks: {
+      title: string;
+      terget: number;
+      current: number;
+      percentage: number;
+      lastupdated: Date;
+    }[];
+  }[];
 }

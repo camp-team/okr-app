@@ -6,6 +6,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
     canLoad: [AuthGuard],

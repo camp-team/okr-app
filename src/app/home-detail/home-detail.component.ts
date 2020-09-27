@@ -2,14 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
-import { Observable, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
-import {
-  FormBuilder,
-  Validators,
-  FormControl,
-  FormArray,
-} from '@angular/forms';
+import { Observable } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home-detail',
@@ -17,60 +11,41 @@ import {
   styleUrls: ['./home-detail.component.scss'],
 })
 export class HomeDetailComponent implements OnInit {
-  okr$: Observable<Okr>;
+  private okrId = this.route.snapshot.paramMap.get('id');
 
-  form = this.fb.group({
-    primaries: this.fb.array([]),
-  });
+  okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
+  okr: Okr;
 
-  get primariesControl() {
-    return this.form.get('primaries') as FormControl;
-  }
+  tableTitle = [];
+  tableData = [];
 
   constructor(
     private route: ActivatedRoute,
     public okrService: OkrService,
     private fb: FormBuilder
-  ) {
-    this.route.paramMap
-      .pipe(
-        switchMap((map) => {
-          const id = map.get('id');
-          console.log(id);
-          return id ? this.okrService.getOkr(id) : of(null);
-        })
-      )
-      .subscribe((okr) => {
-        this.form.patchValue(okr);
-        console.log(okr);
-        okr.primaries.forEach((primary) => {
-          console.log(primary);
-          this.primaries.push(
-            new FormControl(primary, [
-              Validators.required,
-              Validators.maxLength(40),
-            ])
-          );
-        });
-      });
-  }
-
-  get primaries(): FormArray {
-    return this.form.get('primaries') as FormArray;
-  }
-
-  rename() {
-    console.log(this.form.value);
-    this.okrService.updateOkr(this.form.value);
-  }
+  ) {}
 
   ngOnInit() {
-    this.okr$ = this.route.paramMap.pipe(
-      switchMap((map) => {
-        const id = map.get('id');
-        console.log(id);
-        return this.okrService.getOkr(id);
-      })
-    );
+    this.okr$.subscribe((item) => {
+      item.primaries.forEach((primary) => {
+        this.tableTitle.push(primary);
+        this.tableData.push(this.fb.array([]));
+      });
+    });
+  }
+
+  addRow(primaryIndex: number) {
+    const row = this.fb.group({
+      title: ['', [Validators.required]],
+      target: ['', [Validators.required]],
+      current: ['', [Validators.required]],
+      percentage: ['', [Validators.required]],
+      lastUpdated: ['', [Validators.required]],
+    });
+    this.tableData[primaryIndex].push(row);
+  }
+
+  remove(primaryIndex: number) {
+    this.tableData[primaryIndex].removeAt();
   }
 }
