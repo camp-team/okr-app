@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.afUser$.pipe(
+    return this.authService.user$.pipe(
       map((user) => !!user),
       tap((isLoggedIn) => {
         console.log(isLoggedIn);
@@ -41,7 +41,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     route: Route,
     segments: UrlSegment[]
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.afUser$.pipe(
+    return this.authService.user$.pipe(
       map((user) => !!user),
       take(1),
       tap((isLoggedIn) => {
