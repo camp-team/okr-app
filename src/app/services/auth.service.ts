@@ -32,6 +32,10 @@ export class AuthService {
     private db: AngularFirestore
   ) {}
 
+  getUser(userId: string) {
+    return this.db.doc<User>(`users/${userId}`).valueChanges();
+  }
+
   login() {
     const provider = new auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });

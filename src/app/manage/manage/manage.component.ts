@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageService } from './manage.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-manage',
@@ -15,12 +14,11 @@ export class ManageComponent implements OnInit {
 
   constructor(
     private manageService: ManageService,
-    private authService: AuthService,
-    private userService: UserService
+    private authService: AuthService
   ) {
     this.manageService.toggle(),
       this.manageService.isOpen$.subscribe((opened) => (this.opened = opened));
-    this.userService.getUser(this.authService.uid).subscribe((result) => {
+    this.authService.getUser(this.authService.uid).subscribe((result) => {
       this.avatarURL = result?.avatarURL;
     });
   }
