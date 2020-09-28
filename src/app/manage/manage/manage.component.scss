@@ -70,3 +70,13 @@ button {
   font-size: 13px;
   padding: 16px;
 }
+
+.mypage {
+  grid-area: icon;
+  justify-self: end;
+}
+.avatar-image {
+  border-radius: 50%;
+  width: 40px;
+  background: center/cover;
+}
