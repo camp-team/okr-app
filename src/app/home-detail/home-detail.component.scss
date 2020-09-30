@@ -3,10 +3,27 @@
   border-collapse: collapse;
   th,
   td {
+    position: relative;
     border: 1px solid rgba(0, 0, 0, 0.36);
     width: 900px;
     color: rgba(0, 0, 0, 0.36);
     font-weight: 300;
+  }
+  td:hover .open {
+    display: inline;
+    display: flex;
+  }
+  .open {
+    position: absolute;
+    right: 9%;
+    top: 0%;
+    width: 35px;
+    display: none;
+    cursor: pointer;
+    mat-icon {
+      padding-top: 4px;
+      font-size: 14px;
+    }
   }
   .header-left,
   .body-left {
@@ -20,9 +37,6 @@
     width: 98%;
     height: 100%;
     border-style: none;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
-    }
   }
 }
 
