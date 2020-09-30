@@ -45,7 +45,8 @@ export class HomeDetailComponent implements OnInit {
     this.tableData[primaryIndex].push(row);
   }
 
-  remove(primaryIndex: number) {
-    this.tableData[primaryIndex].removeAt();
+  remove(primaryIndex: number, rowIndex: number) {
+    this.tableData[primaryIndex].removeAt(rowIndex);
+    console.log(this.tableData[primaryIndex]);
   }
 }

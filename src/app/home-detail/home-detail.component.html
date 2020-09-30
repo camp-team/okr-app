@@ -18,9 +18,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of tableData[primaryIndex].controls">
+        <tr
+          *ngFor="
+            let row of tableData[primaryIndex].controls;
+            index as rowIndex
+          "
+        >
           <ng-container [formGroup]="row">
             <td class="body-left">
+              <div class="open">
+                <mat-icon>open_in_full</mat-icon>
+                open
+              </div>
               <input type="text" formControlName="title" />
             </td>
             <td><input type="text" formControlName="target" /></td>
@@ -29,7 +38,11 @@
             <td class="body-right">
               <input type="text" formControlName="lastUpdated" />
             </td>
-            <div class="remove" type="button" (click)="remove(primaryIndex)">
+            <div
+              class="remove"
+              type="button"
+              (click)="remove(primaryIndex, rowIndex)"
+            >
               remove
             </div>
           </ng-container>
