@@ -54,7 +54,7 @@ export class EditComponent implements OnInit {
       start: formData.start,
       end: formData.end,
       primaries: formData.primaries,
-      trainerId: this.authService.uid,
+      CreatorId: this.authService.uid,
     });
   }
 

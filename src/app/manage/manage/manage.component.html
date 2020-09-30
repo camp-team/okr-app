@@ -10,26 +10,33 @@
       <span class="spacer"></span>
 
       <div class="search">
-        <input type="text" autocomplete="off" value="検索" />
+        <input type="text" autocomplete="off" placeholder="検索" />
         <mat-icon>search</mat-icon>
       </div>
 
-      <button
-        *ngIf="!(user$ | async)"
-        (click)="login()"
-        mat-raised-button
-        color="primary"
-      >
-        ログイン
-      </button>
-      <button
-        *ngIf="user$ | async"
-        (click)="logout()"
-        mat-raised-button
-        color="primary"
-      >
-        ログアウト
-      </button>
+      <div class="mypage">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          *ngIf="user$ | async as user"
+        >
+          <img [src]="avatarURL" alt="avater" class="avatar-image" />
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
+            <mat-icon>login</mat-icon>
+            <span>ログイン</span>
+          </button>
+          <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>ログアウト</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>support_argent</mat-icon>
+            <span>開発者を応援する</span>
+          </button>
+        </mat-menu>
+      </div>
     </mat-toolbar>
   </mat-sidenav-content>
 
@@ -55,7 +62,7 @@
         OKRについて
       </a>
       <a mat-list-item routerLink="/intl/terms">
-        <mat-icon>rule</mat-icon>
+        <mat-icon>supervised_user_circle</mat-icon>
         利用規約
       </a>
       <a mat-list-item routerLink="/intl/legal">
