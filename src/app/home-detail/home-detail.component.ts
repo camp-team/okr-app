@@ -4,6 +4,8 @@ import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
 
 @Component({
   selector: 'app-home-detail',
@@ -22,7 +24,8 @@ export class HomeDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public okrService: OkrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -47,6 +50,15 @@ export class HomeDetailComponent implements OnInit {
 
   remove(primaryIndex: number, rowIndex: number) {
     this.tableData[primaryIndex].removeAt(rowIndex);
-    console.log(this.tableData[primaryIndex]);
+  }
+
+  openOkrDialog(primaryIndex: number) {
+    this.dialog.open(OkrDialogComponent, {
+      width: '640px',
+      data: {
+        tableTitle: this.tableTitle[primaryIndex],
+        tableData: this.tableData[primaryIndex],
+      },
+    });
   }
 }

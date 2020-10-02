@@ -11,9 +11,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OkrDialogComponent } from '../home-detail/okr-dialog/okr-dialog.component';
 
 @NgModule({
-  declarations: [HomeComponent, OkrComponent, HomeDetailComponent],
+  declarations: [
+    HomeComponent,
+    OkrComponent,
+    HomeDetailComponent,
+    OkrDialogComponent,
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -25,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    MatDialogModule,
   ],
 })
 export class HomeModule {}

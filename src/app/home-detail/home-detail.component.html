@@ -26,17 +26,17 @@
         >
           <ng-container [formGroup]="row">
             <td class="body-left">
-              <div class="open">
+              <div class="open" (click)="openOkrDialog(primaryIndex)">
                 <mat-icon>open_in_full</mat-icon>
                 open
               </div>
-              <input type="text" formControlName="title" />
+              <input type="text" formControlName="title" required />
             </td>
-            <td><input type="text" formControlName="target" /></td>
-            <td><input type="text" formControlName="current" /></td>
-            <td><input type="text" formControlName="percentage" /></td>
+            <td><input type="text" formControlName="target" required /></td>
+            <td><input type="text" formControlName="current" required /></td>
+            <td><input type="text" formControlName="percentage" required /></td>
             <td class="body-right">
-              <input type="text" formControlName="lastUpdated" />
+              <input type="text" formControlName="lastUpdated" required />
             </td>
             <div
               class="remove"
