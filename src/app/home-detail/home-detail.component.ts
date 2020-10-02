@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { Observable } from 'rxjs';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
 
@@ -17,6 +17,7 @@ export class HomeDetailComponent implements OnInit {
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   okr: Okr;
+  row: FormGroup;
 
   tableTitle = [];
   tableData = [];
@@ -38,14 +39,14 @@ export class HomeDetailComponent implements OnInit {
   }
 
   addRow(primaryIndex: number) {
-    const row = this.fb.group({
+    this.row = this.fb.group({
       title: ['', [Validators.required]],
       target: ['', [Validators.required]],
       current: ['', [Validators.required]],
       percentage: ['', [Validators.required]],
       lastUpdated: ['', [Validators.required]],
     });
-    this.tableData[primaryIndex].push(row);
+    this.tableData[primaryIndex].push(this.row);
   }
 
   remove(primaryIndex: number, rowIndex: number) {
