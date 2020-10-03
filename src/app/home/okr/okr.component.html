@@ -1,7 +1,7 @@
 <mat-card>
   <div class="card">
     <h1 class="card__title">{{ okr.title }}</h1>
-    <div *ngFor="let primary of okr.primaries">
+    <div *ngFor="let primary of primaries$ | async">
       <p>{{ primary }}</p>
     </div>
     <p class="card__duration">

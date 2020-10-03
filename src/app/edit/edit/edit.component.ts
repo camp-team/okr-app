@@ -8,6 +8,10 @@ import {
 } from '@angular/forms';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Okr } from 'src/app/interfaces/okr';
+import { Primary } from 'src/app/interfaces/primary';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -43,18 +47,27 @@ export class EditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private okrService: OkrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   submit() {
     console.log(this.form.value);
     const formData = this.form.value;
-    this.okrService.editOkr({
+    const okrValue: Omit<Okr, 'id'> = {
       title: formData.title,
       start: formData.start,
       end: formData.end,
-      primaries: formData.primaries,
       CreatorId: this.authService.uid,
+    };
+    const detaArray = formData.primaries;
+    console.log(detaArray);
+    this.okrService.createTest(okrValue, detaArray).then(() => {
+      this.snackBar.open('作成しました', null, {
+        duration: 2000,
+      });
+      this.router.navigateByUrl('manage/home');
     });
   }
 

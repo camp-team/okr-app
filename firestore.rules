@@ -11,5 +11,8 @@ service cloud.firestore {
       allow update: if request.auth.uid == resource.data.CreatorId && resource.data.CreatorId == request.resource.data.CreatorId;
       allow delete: if request.auth.uid == resource.data.CreatorId;
     }
+    match /{documents=**} {
+      allow read, write: if true;
+    }
   }
 }

@@ -5,14 +5,4 @@ export interface Okr {
   CreatorId: string;
   id: string;
   title: string;
-  primaries: {
-    title: string;
-    subTasks: {
-      title: string;
-      terget: number;
-      current: number;
-      percentage: number;
-      lastupdated: Date;
-    }[];
-  }[];
 }

@@ -10,7 +10,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="header-left">Title</th>
+          <th class="header-left">Key</th>
           <th>Target</th>
           <th>current</th>
           <th>percentage</th>
@@ -24,13 +24,22 @@
             index as rowIndex
           "
         >
-          <ng-container [formGroup]="row">
+          <ng-container
+            [formGroup]="row"
+            (ngSubmit)="createCellData(primaryIndex)"
+          >
             <td class="body-left">
               <div class="open" (click)="openOkrDialog(primaryIndex)">
                 <mat-icon>open_in_full</mat-icon>
                 open
               </div>
-              <input type="text" formControlName="title" required />
+              <input
+                type="text"
+                formControlName="key"
+                required
+                (oneclick)="updateCellData()"
+              />
+              <input type="submit" (click)="createCellData(primaryIndex)" />
             </td>
             <td><input type="text" formControlName="target" required /></td>
             <td><input type="text" formControlName="current" required /></td>
