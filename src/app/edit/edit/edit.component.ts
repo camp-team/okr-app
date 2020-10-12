@@ -53,17 +53,16 @@ export class EditComponent implements OnInit {
   ) {}
 
   submit() {
-    console.log(this.form.value);
     const formData = this.form.value;
     const okrValue: Omit<Okr, 'id'> = {
       title: formData.title,
       start: formData.start,
+      primaries: formData.primaries,
       end: formData.end,
       CreatorId: this.authService.uid,
     };
-    const detaArray = formData.primaries;
-    console.log(detaArray);
-    this.okrService.createTest(okrValue, detaArray).then(() => {
+    const primaryArray = formData.primaries;
+    this.okrService.createOkr(okrValue, primaryArray).then(() => {
       this.snackBar.open('作成しました', null, {
         duration: 2000,
       });

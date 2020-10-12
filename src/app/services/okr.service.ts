@@ -16,8 +16,7 @@ export class OkrService {
     private authsearvice: AuthService
   ) {}
 
-  createTest(okr: Omit<Okr, 'id'>, primaries: string[]): Promise<void> {
-    console.log(okr);
+  createOkr(okr: Omit<Okr, 'id'>, primaries: string[]): Promise<void> {
     const id = this.db.createId();
     return this.db
       .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
@@ -27,7 +26,6 @@ export class OkrService {
       })
       .then(() => {
         primaries.forEach((primary) => {
-          console.log(primary);
           this.createPrimary(primary, id);
         });
       });
@@ -125,8 +123,5 @@ export class OkrService {
       ...cellData,
     };
     return this.db.doc(`users/${uid}/okrs/${okrId}`).update(newValue);
-    // set(okrId, {
-    //   merge: true,
-    // });
   }
 }

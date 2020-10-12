@@ -2,7 +2,7 @@
   <div class="card">
     <h1 class="card__title">{{ okr.title }}</h1>
     <div *ngFor="let primary of primaries$ | async">
-      <p>{{ primary }}</p>
+      <p>{{ primary.title }}</p>
     </div>
     <p class="card__duration">
       期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
