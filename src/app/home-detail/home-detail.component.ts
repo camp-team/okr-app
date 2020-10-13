@@ -12,6 +12,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
 import { AuthService } from '../services/auth.service';
+import { SubTask } from '../interfaces/sub-task';
 
 @Component({
   selector: 'app-home-detail',
@@ -21,6 +22,7 @@ import { AuthService } from '../services/auth.service';
 export class HomeDetailComponent implements OnInit {
   private uid = this.authService.uid;
   private okrId = this.route.snapshot.paramMap.get('id');
+  private primaryId: any = this.okrService.getPrimaries(this.okrId);
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   okr: Okr;
@@ -76,19 +78,20 @@ export class HomeDetailComponent implements OnInit {
     this.tableData[primaryIndex].removeAt(rowIndex);
   }
 
-  updateCellData() {
-    const formData = this.row.value;
-    const newValue = {
-      key: formData.key,
-    };
-    this.okrService.updateOkrCell(this.uid, this.okrId, newValue).then(() => {
-      this.row.markAsPristine();
-    });
-  }
+  updateCellData() {}
 
   createCellData(primaryIndex: number) {}
 
   openOkrDialog(primaryIndex: number) {
+    const formData = this.row.value;
+    const subTaskValue: Omit<SubTask, 'id'> = {
+      key: formData.string,
+      terget: formData.number,
+      current: formData.number,
+      percentage: formData.number,
+      lastupdated: formData.data,
+    };
+    this.okrService.createSubTask(subTaskValue, this.primaryId, this.okrId);
     this.dialog.open(OkrDialogComponent, {
       width: '640px',
       data: {

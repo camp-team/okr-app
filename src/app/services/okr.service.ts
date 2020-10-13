@@ -42,7 +42,11 @@ export class OkrService {
       .set(value);
   }
 
-  createSubTask(subTask: SubTask, primaryId: string, okrId: string) {
+  createSubTask(
+    subTask: Omit<SubTask, 'id'>,
+    primaryId: string,
+    okrId: string
+  ) {
     const id = this.db.createId();
     return this.db
       .doc<SubTask>(
