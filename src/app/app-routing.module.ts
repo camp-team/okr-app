@@ -9,8 +9,8 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
-    // canLoad: [AuthGuard],
-    // canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'intl',
@@ -20,17 +20,11 @@ const routes: Routes = [
     path: 'manage',
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
-    // canLoad: [AuthGuard],
-    // canActivate: [AuthGuard],
   },
   {
     path: 'about',
     loadChildren: () =>
       import('./about/about.module').then((m) => m.AboutModule),
-  },
-  {
-    path: 'intl',
-    loadChildren: () => import('./intl/intl.module').then((m) => m.IntlModule),
   },
   {
     path: '**',
