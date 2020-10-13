@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Okr } from '../interfaces/okr';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
@@ -33,9 +31,8 @@ export class OkrService {
 
   createPrimary(primary: string, okrId: string) {
     const id = this.db.createId();
-    console.log(primary);
     const value = {
-      title: primary,
+      titles: primary,
       id,
     };
     return this.db
@@ -45,11 +42,7 @@ export class OkrService {
       .set(value);
   }
 
-  creatSubTask(
-    subTask: SubTask,
-    okrId: string,
-    primaryId: string
-  ): Promise<void> {
+  createSubTask(subTask: SubTask, primaryId: string, okrId: string) {
     const id = this.db.createId();
     return this.db
       .doc<SubTask>(
@@ -83,6 +76,7 @@ export class OkrService {
   }
 
   getPrimary(okrid: string, primaryId: string): Observable<Primary> {
+    console.log(primaryId);
     console.log(okrid);
     return this.db
       .doc<Primary>(

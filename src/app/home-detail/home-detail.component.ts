@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
@@ -38,12 +38,12 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.okr$.subscribe((item) => {
-    //   item.primaries.forEach((primary) => {
-    //     this.tableTitle.push(primary);
-    //     this.tableData.push(this.fb.array([]));
-    //   });
-    // });
+    this.okr$.subscribe((okr) => {
+      okr.primaries.forEach((primary) => {
+        this.tableTitle.push(primary);
+        this.tableData.push(this.fb.array([]));
+      });
+    });
   }
 
   addRow(primaryIndex: number) {
@@ -84,7 +84,6 @@ export class HomeDetailComponent implements OnInit {
     this.okrService.updateOkrCell(this.uid, this.okrId, newValue).then(() => {
       this.row.markAsPristine();
     });
-    console.log(newValue);
   }
 
   createCellData(primaryIndex: number) {}
