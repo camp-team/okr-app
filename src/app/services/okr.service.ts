@@ -61,7 +61,6 @@ export class OkrService {
   }
 
   getOkr(id: string): Observable<Okr> {
-    console.log(id);
     return this.db
       .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
       .valueChanges();
@@ -76,8 +75,6 @@ export class OkrService {
   }
 
   getPrimary(okrid: string, primaryId: string): Observable<Primary> {
-    console.log(primaryId);
-    console.log(okrid);
     return this.db
       .doc<Primary>(
         `users/${this.authsearvice.uid}/okrs/${okrid}/primaries/${primaryId}`
