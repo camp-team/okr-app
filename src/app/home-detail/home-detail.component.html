@@ -36,16 +36,43 @@
               <input
                 type="text"
                 formControlName="key"
+                autocomplete="off"
                 required
                 (click)="updateCellData()"
               />
               <input type="submit" (click)="createCellData(primaryIndex)" />
             </td>
-            <td><input type="text" formControlName="target" required /></td>
-            <td><input type="text" formControlName="current" required /></td>
-            <td><input type="text" formControlName="percentage" required /></td>
+            <td>
+              <input
+                type="text"
+                formControlName="target"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="current"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="percentage"
+                autocomplete="off"
+                required
+              />
+            </td>
             <td class="body-right">
-              <input type="text" formControlName="lastUpdated" required />
+              <input
+                type="text"
+                formControlName="lastUpdated"
+                autocomplete="off"
+                required
+              />
             </td>
             <div
               class="remove"

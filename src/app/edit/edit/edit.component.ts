@@ -63,9 +63,7 @@ export class EditComponent implements OnInit {
     };
     const primaryArray = formData.primaries;
     this.okrService.createOkr(okrValue, primaryArray).then(() => {
-      this.snackBar.open('作成しました', null, {
-        duration: 2000,
-      });
+      this.snackBar.open('作成しました', null);
       this.router.navigateByUrl('manage/home');
     });
   }
