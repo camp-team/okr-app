@@ -17,7 +17,6 @@ export class AuthService {
     switchMap((afUser) => {
       if (afUser) {
         this.uid = afUser && afUser.uid;
-        console.log(afUser.uid);
         return this.db.doc<User>(`users/${afUser.uid}`).valueChanges();
       } else {
         return of(null);
