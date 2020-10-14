@@ -31,7 +31,7 @@ export class OkrService {
 
   createPrimary(primary: string, okrId: string) {
     const id = this.db.createId();
-    const value = {
+    const value: Primary = {
       titles: primary,
       id,
     };
