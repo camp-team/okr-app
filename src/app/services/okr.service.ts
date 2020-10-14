@@ -98,7 +98,6 @@ export class OkrService {
     primaryId: string,
     subTaskId: string
   ): Observable<SubTask> {
-    console.log(okrId);
     return this.db
       .doc<SubTask>(
         `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
