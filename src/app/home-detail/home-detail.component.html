@@ -10,7 +10,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="header-left">Title</th>
+          <th class="header-left">Key</th>
           <th>Target</th>
           <th>current</th>
           <th>percentage</th>
@@ -18,18 +18,67 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of tableData[primaryIndex].controls">
-          <ng-container [formGroup]="row">
+        <tr
+          *ngFor="
+            let row of tableData[primaryIndex].controls;
+            index as rowIndex
+          "
+        >
+          <ng-container
+            [formGroup]="row"
+            (ngSubmit)="createCellData(primaryIndex)"
+          >
             <td class="body-left">
-              <input type="text" formControlName="title" />
+              <div class="open" (click)="openOkrDialog(primaryIndex)">
+                <mat-icon>open_in_full</mat-icon>
+                open
+              </div>
+              <input
+                type="text"
+                formControlName="key"
+                autocomplete="off"
+                required
+                (oneclick)="updateCellData()"
+              />
+              <input type="submit" (click)="createCellData(primaryIndex)" />
             </td>
-            <td><input type="text" formControlName="target" /></td>
-            <td><input type="text" formControlName="current" /></td>
-            <td><input type="text" formControlName="percentage" /></td>
+            <td>
+              <input
+                type="text"
+                formControlName="target"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="current"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="percentage"
+                autocomplete="off"
+                required
+              />
+            </td>
             <td class="body-right">
-              <input type="text" formControlName="lastUpdated" />
+              <input
+                type="text"
+                formControlName="lastUpdated"
+                autocomplete="off"
+                required
+              />
             </td>
-            <div class="remove" type="button" (click)="remove(primaryIndex)">
+            <div
+              class="remove"
+              type="button"
+              (click)="remove(primaryIndex, rowIndex)"
+            >
               remove
             </div>
           </ng-container>

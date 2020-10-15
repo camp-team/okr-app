@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Okr } from '../interfaces/okr';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { Primary } from '../interfaces/primary';
+import { SubTask } from '../interfaces/sub-task';
 @Injectable({
   providedIn: 'root',
 })
 export class OkrService {
   constructor(
     private db: AngularFirestore,
-    private snackBar: MatSnackBar,
-    private router: Router,
     private authsearvice: AuthService
   ) {}
 
-  editOkr(okr: Omit<Okr, 'id'>): Promise<void> {
-    console.log(okr);
+  createOkr(okr: Omit<Okr, 'id'>, primaries: string[]): Promise<void> {
     const id = this.db.createId();
     return this.db
       .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
@@ -26,10 +23,34 @@ export class OkrService {
         ...okr,
       })
       .then(() => {
-        this.snackBar.open('作成しました', null, {
-          duration: 2000,
+        primaries.forEach((primary) => {
+          this.createPrimary(primary, id);
         });
-        this.router.navigateByUrl('manage/home');
+      });
+  }
+
+  createPrimary(primary: string, okrId: string) {
+    const id = this.db.createId();
+    const value: Primary = {
+      titles: primary,
+      id,
+    };
+    return this.db
+      .doc<Primary>(
+        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${id}`
+      )
+      .set(value);
+  }
+
+  createSubTask(subTask: SubTask, primaryId: string, okrId: string) {
+    const id = this.db.createId();
+    return this.db
+      .doc<SubTask>(
+        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${id}`
+      )
+      .set({
+        id,
+        ...subTask,
       });
   }
 
@@ -40,15 +61,57 @@ export class OkrService {
   }
 
   getOkr(id: string): Observable<Okr> {
-    console.log(id);
     return this.db
       .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
       .valueChanges();
   }
 
-  updateOkr(okr: Okr): Promise<void> {
-    return this.db.doc(`okrs/${okr.id}`).set(okr, {
-      merge: true,
-    });
+  getPrimaries(okrId: string): Observable<Primary[]> {
+    return this.db
+      .collection<Primary>(
+        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries`
+      )
+      .valueChanges();
+  }
+
+  getPrimary(okrid: string, primaryId: string): Observable<Primary> {
+    return this.db
+      .doc<Primary>(
+        `users/${this.authsearvice.uid}/okrs/${okrid}/primaries/${primaryId}`
+      )
+      .valueChanges();
+  }
+
+  getSubTasks(okrId: string, primaryId: string): Observable<SubTask[]> {
+    return this.db
+      .collection<SubTask>(
+        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks`
+      )
+      .valueChanges();
+  }
+
+  getSubTask(
+    okrId: string,
+    primaryId: string,
+    subTaskId: string
+  ): Observable<SubTask> {
+    return this.db
+      .doc<SubTask>(
+        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
+      )
+      .valueChanges();
+  }
+
+  updateOkrCell(
+    uid: string,
+    okrId: string,
+    cellData: Partial<
+      Omit<Okr, 'start' | 'end' | 'CreatorId' | 'id' | 'title' | 'primaries'>
+    >
+  ): Promise<void> {
+    const newValue = {
+      ...cellData,
+    };
+    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(newValue);
   }
 }

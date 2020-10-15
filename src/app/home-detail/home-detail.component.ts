@@ -1,9 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { Observable } from 'rxjs';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home-detail',
@@ -11,10 +19,12 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./home-detail.component.scss'],
 })
 export class HomeDetailComponent implements OnInit {
+  private uid = this.authService.uid;
   private okrId = this.route.snapshot.paramMap.get('id');
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   okr: Okr;
+  row: FormGroup;
 
   tableTitle = [];
   tableData = [];
@@ -22,12 +32,14 @@ export class HomeDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public okrService: OkrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.okr$.subscribe((item) => {
-      item.primaries.forEach((primary) => {
+    this.okr$.subscribe((okr) => {
+      okr.primaries.forEach((primary) => {
         this.tableTitle.push(primary);
         this.tableData.push(this.fb.array([]));
       });
@@ -35,17 +47,54 @@ export class HomeDetailComponent implements OnInit {
   }
 
   addRow(primaryIndex: number) {
-    const row = this.fb.group({
-      title: ['', [Validators.required]],
+    this.row = this.fb.group({
+      key: ['', [Validators.required]],
       target: ['', [Validators.required]],
       current: ['', [Validators.required]],
       percentage: ['', [Validators.required]],
       lastUpdated: ['', [Validators.required]],
     });
-    this.tableData[primaryIndex].push(row);
+    this.tableData[primaryIndex].push(this.row);
+  }
+  get key(): FormControl {
+    return this.row.get('key') as FormControl;
+  }
+  get target(): FormControl {
+    return this.row.get('target') as FormControl;
+  }
+  get current(): FormControl {
+    return this.row.get('current') as FormControl;
+  }
+  get percentage(): FormControl {
+    return this.row.get('percentage') as FormControl;
+  }
+  get lastUpdated(): FormControl {
+    return this.row.get('lastUpdated') as FormControl;
   }
 
-  remove(primaryIndex: number) {
-    this.tableData[primaryIndex].removeAt();
+  remove(primaryIndex: number, rowIndex: number) {
+    this.tableData[primaryIndex].removeAt(rowIndex);
+  }
+
+  updateCellData() {
+    const formData = this.row.value;
+    const newValue = {
+      key: formData.key,
+    };
+    this.okrService.updateOkrCell(this.uid, this.okrId, newValue).then(() => {
+      this.row.markAsPristine();
+    });
+  }
+
+  createCellData(primaryIndex: number) {}
+
+  openOkrDialog(primaryIndex: number) {
+    this.dialog.open(OkrDialogComponent, {
+      width: '640px',
+      data: {
+        tableTitle: this.tableTitle[primaryIndex],
+        tableData: this.tableData[primaryIndex],
+      },
+    });
   }
 }

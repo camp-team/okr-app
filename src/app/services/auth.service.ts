@@ -17,7 +17,6 @@ export class AuthService {
     switchMap((afUser) => {
       if (afUser) {
         this.uid = afUser && afUser.uid;
-        console.log(afUser.uid);
         return this.db.doc<User>(`users/${afUser.uid}`).valueChanges();
       } else {
         return of(null);
@@ -40,18 +39,14 @@ export class AuthService {
     const provider = new auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth.signInWithPopup(provider).then(() => {
-      this.snackBar.open('ログインしました', null, {
-        duration: 2000,
-      });
+      this.snackBar.open('ログインしました', null);
       this.router.navigateByUrl('/manage/home');
     });
   }
 
   logout() {
     this.afAuth.signOut().then(() => {
-      this.snackBar.open('ログアウトしました', null, {
-        duration: 2000,
-      });
+      this.snackBar.open('ログアウトしました', null);
     });
     this.router.navigateByUrl('/about');
   }
