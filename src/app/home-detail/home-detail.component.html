@@ -40,12 +40,12 @@
                 required
                 (click)="updateCellData()"
               />
-              <input type="submit" (click)="createCellData(primaryIndex)" />
+              <input type="submit" />
             </td>
             <td>
               <input
                 type="text"
-                formControlName="target"
+                formControlName="terget"
                 autocomplete="off"
                 required
               />
@@ -69,7 +69,7 @@
             <td class="body-right">
               <input
                 type="text"
-                formControlName="lastUpdated"
+                formControlName="LastUpdated"
                 autocomplete="off"
                 required
               />
@@ -81,6 +81,7 @@
             >
               remove
             </div>
+            <button (click)="createCellData(primaryIndex)">作る</button>
           </ng-container>
         </tr>
       </tbody>
