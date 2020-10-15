@@ -4,5 +4,5 @@ export interface SubTask {
   terget: number;
   current: number;
   percentage: number;
-  lastupdated: Date;
+  LastUpdated: Date;
 }
