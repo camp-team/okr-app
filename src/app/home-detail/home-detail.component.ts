@@ -21,7 +21,6 @@ import { Primary } from '../interfaces/primary';
   styleUrls: ['./home-detail.component.scss'],
 })
 export class HomeDetailComponent implements OnInit {
-  private uid = this.authService.uid;
   private okrId = this.route.snapshot.queryParamMap.get('v');
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
@@ -79,8 +78,6 @@ export class HomeDetailComponent implements OnInit {
     this.tableData[primaryIndex].removeAt(rowIndex);
   }
 
-  updateCellData() {}
-
   createCellData(primaryId: string) {
     const formData = this.row.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
@@ -97,7 +94,7 @@ export class HomeDetailComponent implements OnInit {
     this.dialog.open(OkrDialogComponent, {
       width: '640px',
       data: {
-        tableTitle: this.primaries[primaryIndex],
+        primaries: this.primaries[primaryIndex],
         tableData: this.tableData[primaryIndex],
       },
     });
