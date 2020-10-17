@@ -5,8 +5,8 @@
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </h3>
-  <div *ngFor="let title of tableTitle; index as primaryIndex">
-    <p>{{ title }}</p>
+  <div *ngFor="let primary of primaries; index as primaryIndex">
+    <p>{{ primary.titles }}</p>
     <table class="table">
       <thead>
         <tr>
