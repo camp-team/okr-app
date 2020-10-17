@@ -26,7 +26,7 @@
         >
           <ng-container
             [formGroup]="row"
-            (ngSubmit)="createCellData(primaryIndex)"
+            (ngSubmit)="createCellData(primary.id)"
           >
             <td class="body-left">
               <div class="open" (click)="openOkrDialog(primaryIndex)">
@@ -81,7 +81,7 @@
             >
               remove
             </div>
-            <button (click)="createCellData(primaryIndex)">作る</button>
+            <button (click)="createCellData(primary.id)">作る</button>
           </ng-container>
         </tr>
       </tbody>

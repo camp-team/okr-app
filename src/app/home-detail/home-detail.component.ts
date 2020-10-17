@@ -23,7 +23,6 @@ import { Primary } from '../interfaces/primary';
 export class HomeDetailComponent implements OnInit {
   private uid = this.authService.uid;
   private okrId = this.route.snapshot.queryParamMap.get('v');
-  private primaryId: any = this.okrService.getPrimaries(this.okrId);
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   okr: Okr;
@@ -31,24 +30,6 @@ export class HomeDetailComponent implements OnInit {
 
   primaries: Primary[] = [];
   tableData = [];
-
-  constructor(
-    private route: ActivatedRoute,
-    public okrService: OkrService,
-    private fb: FormBuilder,
-    private dialog: MatDialog,
-    private authService: AuthService
-  ) {}
-
-  ngOnInit() {
-    const okrIds = this.okrService.getPrimaries(this.okrId);
-    okrIds.subscribe((primaries) => {
-      primaries.forEach((primary) => {
-        this.primaries.push(primary);
-        this.tableData.push(this.fb.array([]));
-      });
-    });
-  }
 
   addRow(primaryIndex: number) {
     this.row = this.fb.group({
@@ -76,13 +57,31 @@ export class HomeDetailComponent implements OnInit {
     return this.row.get('LastUpdated') as FormControl;
   }
 
+  constructor(
+    private route: ActivatedRoute,
+    public okrService: OkrService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    const okrIds = this.okrService.getPrimaries(this.okrId);
+    okrIds.subscribe((primaries) => {
+      primaries.forEach((primary) => {
+        this.primaries.push(primary);
+        this.tableData.push(this.fb.array([]));
+      });
+    });
+  }
+
   remove(primaryIndex: number, rowIndex: number) {
     this.tableData[primaryIndex].removeAt(rowIndex);
   }
 
   updateCellData() {}
 
-  createCellData(primaryIndex: number) {
+  createCellData(primaryId: string) {
     const formData = this.row.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
       key: formData.key,
@@ -91,11 +90,7 @@ export class HomeDetailComponent implements OnInit {
       percentage: formData.percentage,
       LastUpdated: formData.LastUpdated,
     };
-    this.okrService.createSubTask(
-      subTaskValue,
-      this.primaryId[primaryIndex],
-      this.okrId
-    );
+    this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
   }
 
   openOkrDialog(primaryIndex: number) {
