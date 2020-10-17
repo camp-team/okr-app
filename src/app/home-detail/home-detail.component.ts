@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
 import { AuthService } from '../services/auth.service';
 import { SubTask } from '../interfaces/sub-task';
+import { Primary } from '../interfaces/primary';
 
 @Component({
   selector: 'app-home-detail',
@@ -21,14 +22,14 @@ import { SubTask } from '../interfaces/sub-task';
 })
 export class HomeDetailComponent implements OnInit {
   private uid = this.authService.uid;
-  private okrId = this.route.snapshot.paramMap.get('id');
+  private okrId = this.route.snapshot.queryParamMap.get('v');
   private primaryId: any = this.okrService.getPrimaries(this.okrId);
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   okr: Okr;
   row: FormGroup;
 
-  tableTitle = [];
+  primaries: Primary[] = [];
   tableData = [];
 
   constructor(
@@ -40,9 +41,10 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.okr$.subscribe((okr) => {
-      okr.primaries.forEach((primary) => {
-        this.tableTitle.push(primary);
+    const okrIds = this.okrService.getPrimaries(this.okrId);
+    okrIds.subscribe((primaries) => {
+      primaries.forEach((primary) => {
+        this.primaries.push(primary);
         this.tableData.push(this.fb.array([]));
       });
     });
@@ -51,18 +53,18 @@ export class HomeDetailComponent implements OnInit {
   addRow(primaryIndex: number) {
     this.row = this.fb.group({
       key: ['', [Validators.required]],
-      target: ['', [Validators.required]],
+      terget: ['', [Validators.required]],
       current: ['', [Validators.required]],
       percentage: ['', [Validators.required]],
-      lastUpdated: ['', [Validators.required]],
+      LastUpdated: ['', [Validators.required]],
     });
     this.tableData[primaryIndex].push(this.row);
   }
   get key(): FormControl {
     return this.row.get('key') as FormControl;
   }
-  get target(): FormControl {
-    return this.row.get('target') as FormControl;
+  get terget(): FormControl {
+    return this.row.get('terget') as FormControl;
   }
   get current(): FormControl {
     return this.row.get('current') as FormControl;
@@ -70,8 +72,8 @@ export class HomeDetailComponent implements OnInit {
   get percentage(): FormControl {
     return this.row.get('percentage') as FormControl;
   }
-  get lastUpdated(): FormControl {
-    return this.row.get('lastUpdated') as FormControl;
+  get LastUpdated(): FormControl {
+    return this.row.get('LastUpdated') as FormControl;
   }
 
   remove(primaryIndex: number, rowIndex: number) {
@@ -80,22 +82,27 @@ export class HomeDetailComponent implements OnInit {
 
   updateCellData() {}
 
-  createCellData(primaryIndex: number) {}
-
-  openOkrDialog(primaryIndex: number) {
+  createCellData(primaryIndex: number) {
     const formData = this.row.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
-      key: formData.string,
-      terget: formData.number,
-      current: formData.number,
-      percentage: formData.number,
-      lastupdated: formData.data,
+      key: formData.key,
+      terget: formData.terget,
+      current: formData.current,
+      percentage: formData.percentage,
+      LastUpdated: formData.LastUpdated,
     };
-    this.okrService.createSubTask(subTaskValue, this.primaryId, this.okrId);
+    this.okrService.createSubTask(
+      subTaskValue,
+      this.primaryId[primaryIndex],
+      this.okrId
+    );
+  }
+
+  openOkrDialog(primaryIndex: number) {
     this.dialog.open(OkrDialogComponent, {
       width: '640px',
       data: {
-        tableTitle: this.tableTitle[primaryIndex],
+        tableTitle: this.primaries[primaryIndex],
         tableData: this.tableData[primaryIndex],
       },
     });
