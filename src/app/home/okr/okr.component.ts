@@ -17,6 +17,5 @@ export class OkrComponent implements OnInit {
 
   ngOnInit(): void {
     this.primaries$ = this.okrService.getPrimaries(this.okr.id);
-    console.log(this.primaries$);
   }
 }
