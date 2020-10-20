@@ -22,7 +22,7 @@ import { Primary } from '../interfaces/primary';
 })
 export class HomeDetailComponent implements OnInit {
   private okrId = this.route.snapshot.queryParamMap.get('v');
-
+  private uid = this.authService.uid;
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   okr: Okr;
   row: FormGroup;
@@ -88,6 +88,20 @@ export class HomeDetailComponent implements OnInit {
       LastUpdated: formData.LastUpdated,
     };
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
+  }
+
+  updateOkrCellData(primaryId: string) {
+    console.log(primaryId);
+    const subTaskId: any = this.okrService.getSubTasks(
+      this.uid,
+      this.okrId,
+      primaryId
+    );
+    console.log(this.uid);
+    console.log(this.okrId);
+    console.log(primaryId);
+    console.log(subTaskId);
+    this.okrService.updateOkrCell(this.uid, this.okrId, primaryId, subTaskId);
   }
 
   openOkrDialog(primaryIndex: number) {

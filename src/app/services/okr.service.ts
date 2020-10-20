@@ -86,10 +86,14 @@ export class OkrService {
       .valueChanges();
   }
 
-  getSubTasks(okrId: string, primaryId: string): Observable<SubTask[]> {
+  getSubTasks(
+    uid: string,
+    okrId: string,
+    primaryId: string
+  ): Observable<SubTask[]> {
     return this.db
       .collection<SubTask>(
-        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks`
+        `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks`
       )
       .valueChanges();
   }
@@ -109,13 +113,13 @@ export class OkrService {
   updateOkrCell(
     uid: string,
     okrId: string,
-    cellData: Partial<
-      Omit<Okr, 'start' | 'end' | 'CreatorId' | 'id' | 'title' | 'primaries'>
-    >
+    primaryId: string,
+    subTaskId: string
   ): Promise<void> {
-    const newValue = {
-      ...cellData,
-    };
-    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(newValue);
+    return this.db
+      .doc(
+        `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
+      )
+      .update(subTaskId);
   }
 }
