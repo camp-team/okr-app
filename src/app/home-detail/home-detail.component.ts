@@ -3,15 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { Observable } from 'rxjs';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
-import { AuthService } from '../services/auth.service';
 import { SubTask } from '../interfaces/sub-task';
 import { Primary } from '../interfaces/primary';
 
@@ -21,16 +15,19 @@ import { Primary } from '../interfaces/primary';
   styleUrls: ['./home-detail.component.scss'],
 })
 export class HomeDetailComponent implements OnInit {
-  test = [];
   private okrId = this.route.snapshot.queryParamMap.get('v');
-  private uid = this.authService.uid;
+
+  rowArrays = [];
+  primaryIdArray = [];
+  primaryArray: Primary[] = [];
+
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   primaries$: Observable<Primary[]> = this.okrService.getPrimaries(this.okrId);
   subTasks$: Observable<SubTask[]> = this.okrService.getSubTasksCollection(
     this.okrId
   );
-  okr: Okr;
-  form: FormGroup = this.fb.group({
+
+  form = this.fb.group({
     key: ['', [Validators.required]],
     terget: ['', [Validators.required]],
     current: ['', [Validators.required]],
@@ -38,12 +35,6 @@ export class HomeDetailComponent implements OnInit {
     LastUpdated: ['', [Validators.required]],
   });
 
-  primaries: Primary[] = [];
-  subTask = [];
-
-  addRow(primaryIndex: number) {
-    this.subTask[primaryIndex].push(this.form);
-  }
   get key(): FormControl {
     return this.form.get('key') as FormControl;
   }
@@ -64,20 +55,19 @@ export class HomeDetailComponent implements OnInit {
     private route: ActivatedRoute,
     public okrService: OkrService,
     private fb: FormBuilder,
-    private dialog: MatDialog,
-    private authService: AuthService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.primaries$.subscribe((primaries) => {
       primaries.forEach((primary) => {
-        this.primaries.push(primary);
-        this.subTask.push(this.fb.array([]));
+        this.primaryArray.push(primary);
+        this.rowArrays.push(this.fb.array([]));
       });
     });
     this.primaries$.subscribe((primaries) => {
       primaries.forEach((primary) => {
-        this.test.push(primary.id);
+        this.primaryIdArray.push(primary.id);
       });
     });
     this.subTasks$.subscribe((subTasks) => {
@@ -85,11 +75,15 @@ export class HomeDetailComponent implements OnInit {
     });
   }
 
-  remove(primaryIndex: number, formIndex: number) {
-    this.subTask[primaryIndex].removeAt(formIndex);
+  addRow(primaryArrayIndex: number) {
+    this.rowArrays[primaryArrayIndex].push(this.form);
   }
 
-  createCellData(primaryId: string) {
+  remove(primaryArrayIndex: number, rowIndex: number) {
+    this.rowArrays[primaryArrayIndex].removeAt(rowIndex);
+  }
+
+  subTaskData(primaryId: string) {
     const formData = this.form.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
       okrId: this.okrId,
@@ -102,12 +96,12 @@ export class HomeDetailComponent implements OnInit {
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
   }
 
-  openOkrDialog(primaryIndex: number) {
+  openOkrDialog(primaryArrayIndex: number) {
     this.dialog.open(OkrDialogComponent, {
       width: '640px',
       data: {
-        primaries: this.primaries[primaryIndex],
-        subTask: this.subTask[primaryIndex],
+        primaryArray: this.primaryArray[primaryArrayIndex],
+        rowArrays: this.rowArrays[primaryArrayIndex],
       },
     });
   }

@@ -1,13 +1,15 @@
-<mat-card *ngIf="okr$ | async as okr">
+<ng-container *ngIf="okr$ | async as okr">
   <h1 class="okr__title">{{ okr.title }}</h1>
   <h3 class="okr__start">
     期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </h3>
-  <ng-container *ngFor="let primary of primaries; index as primaryIndex">
-    <form [formGroup]="form" (ngSubmit)="createCellData(primary.id)">
-      <p>{{ primary.titles }}</p>
+  <ng-container
+    *ngFor="let primaryKey of primaryArray; index as primaryArrayIndex"
+  >
+    <p>{{ primaryKey.titles }}</p>
+    <form [formGroup]="form" (ngSubmit)="subTaskData(primaryKey.id)">
       <table class="table">
         <thead>
           <tr>
@@ -21,12 +23,12 @@
         <tbody>
           <tr
             *ngFor="
-              let row of subTask[primaryIndex].controls;
+              let row of rowArrays[primaryArrayIndex].controls;
               index as rowIndex
             "
           >
             <td class="body-left">
-              <div class="open" (click)="openOkrDialog(primaryIndex)">
+              <div class="open" (click)="openOkrDialog(primaryArrayIndex)">
                 <mat-icon>open_in_full</mat-icon>
                 open
               </div>
@@ -72,16 +74,15 @@
             <div
               class="remove"
               type="button"
-              (click)="remove(primaryIndex, rowIndex)"
+              (click)="remove(primaryArrayIndex, rowIndex)"
             >
               remove
             </div>
-            <button (click)="createCellData(primary.id)">作る</button>
+            <button (click)="subTaskData(primaryKey.id)">作る</button>
           </tr>
         </tbody>
       </table>
     </form>
-
-    <div class="add-row" (click)="addRow(primaryIndex)">＋Add row</div>
+    <div class="add-row" (click)="addRow(primaryArrayIndex)">＋Add row</div>
   </ng-container>
-</mat-card>
+</ng-container>
