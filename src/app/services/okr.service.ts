@@ -58,14 +58,6 @@ export class OkrService {
       });
   }
 
-  getSubTasksCollection(okrId: string): Observable<SubTask[]> {
-    return this.db
-      .collectionGroup<SubTask>('subTasks', (ref) =>
-        ref.where('okrId', '==', okrId)
-      )
-      .valueChanges();
-  }
-
   getOkrs(): Observable<Okr[]> {
     return this.db
       .collection<Okr>(`users/${this.authsearvice.uid}/okrs`)
@@ -102,6 +94,14 @@ export class OkrService {
     return this.db
       .doc<SubTask>(
         `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
+      )
+      .valueChanges();
+  }
+
+  getSubTasksCollection(okrId: string): Observable<SubTask[]> {
+    return this.db
+      .collectionGroup<SubTask>('subTasks', (ref) =>
+        ref.where('okrId', '==', okrId)
       )
       .valueChanges();
   }
