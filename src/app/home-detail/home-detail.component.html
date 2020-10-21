@@ -5,28 +5,25 @@
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </h3>
-  <div *ngFor="let primary of primaries; index as primaryIndex">
-    <p>{{ primary.titles }}</p>
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="header-left">Key</th>
-          <th>Target</th>
-          <th>current</th>
-          <th>percentage</th>
-          <th class="header-right">lastupdate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="
-            let row of tableData[primaryIndex].controls;
-            index as rowIndex
-          "
-        >
-          <ng-container
-            [formGroup]="row"
-            (ngSubmit)="createCellData(primary.id)"
+  <ng-container *ngFor="let primary of primaries; index as primaryIndex">
+    <form [formGroup]="form" (ngSubmit)="createCellData(primary.id)">
+      <p>{{ primary.titles }}</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="header-left">Key</th>
+            <th>Target</th>
+            <th>current</th>
+            <th>percentage</th>
+            <th class="header-right">lastupdate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let row of subTask[primaryIndex].controls;
+              index as rowIndex
+            "
           >
             <td class="body-left">
               <div class="open" (click)="openOkrDialog(primaryIndex)">
@@ -39,7 +36,6 @@
                 autocomplete="off"
                 required
               />
-              <button (click)="updateOkrCellData(primary.id)">保存</button>
             </td>
             <td>
               <input
@@ -81,10 +77,11 @@
               remove
             </div>
             <button (click)="createCellData(primary.id)">作る</button>
-          </ng-container>
-        </tr>
-      </tbody>
-    </table>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+
     <div class="add-row" (click)="addRow(primaryIndex)">＋Add row</div>
-  </div>
+  </ng-container>
 </mat-card>

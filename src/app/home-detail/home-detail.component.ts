@@ -21,39 +21,43 @@ import { Primary } from '../interfaces/primary';
   styleUrls: ['./home-detail.component.scss'],
 })
 export class HomeDetailComponent implements OnInit {
+  test = [];
   private okrId = this.route.snapshot.queryParamMap.get('v');
   private uid = this.authService.uid;
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
+  primaries$: Observable<Primary[]> = this.okrService.getPrimaries(this.okrId);
+  subTasks$: Observable<SubTask[]> = this.okrService.getSubTasksCollection(
+    this.okrId
+  );
   okr: Okr;
-  row: FormGroup;
+  form: FormGroup = this.fb.group({
+    key: ['', [Validators.required]],
+    terget: ['', [Validators.required]],
+    current: ['', [Validators.required]],
+    percentage: ['', [Validators.required]],
+    LastUpdated: ['', [Validators.required]],
+  });
 
   primaries: Primary[] = [];
-  tableData = [];
+  subTask = [];
 
   addRow(primaryIndex: number) {
-    this.row = this.fb.group({
-      key: ['', [Validators.required]],
-      terget: ['', [Validators.required]],
-      current: ['', [Validators.required]],
-      percentage: ['', [Validators.required]],
-      LastUpdated: ['', [Validators.required]],
-    });
-    this.tableData[primaryIndex].push(this.row);
+    this.subTask[primaryIndex].push(this.form);
   }
   get key(): FormControl {
-    return this.row.get('key') as FormControl;
+    return this.form.get('key') as FormControl;
   }
   get terget(): FormControl {
-    return this.row.get('terget') as FormControl;
+    return this.form.get('terget') as FormControl;
   }
   get current(): FormControl {
-    return this.row.get('current') as FormControl;
+    return this.form.get('current') as FormControl;
   }
   get percentage(): FormControl {
-    return this.row.get('percentage') as FormControl;
+    return this.form.get('percentage') as FormControl;
   }
   get LastUpdated(): FormControl {
-    return this.row.get('LastUpdated') as FormControl;
+    return this.form.get('LastUpdated') as FormControl;
   }
 
   constructor(
@@ -65,22 +69,30 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const okrIds = this.okrService.getPrimaries(this.okrId);
-    okrIds.subscribe((primaries) => {
+    this.primaries$.subscribe((primaries) => {
       primaries.forEach((primary) => {
         this.primaries.push(primary);
-        this.tableData.push(this.fb.array([]));
+        this.subTask.push(this.fb.array([]));
       });
+    });
+    this.primaries$.subscribe((primaries) => {
+      primaries.forEach((primary) => {
+        this.test.push(primary.id);
+      });
+    });
+    this.subTasks$.subscribe((subTasks) => {
+      this.form.patchValue({ ...subTasks });
     });
   }
 
-  remove(primaryIndex: number, rowIndex: number) {
-    this.tableData[primaryIndex].removeAt(rowIndex);
+  remove(primaryIndex: number, formIndex: number) {
+    this.subTask[primaryIndex].removeAt(formIndex);
   }
 
   createCellData(primaryId: string) {
-    const formData = this.row.value;
+    const formData = this.form.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
+      okrId: this.okrId,
       key: formData.key,
       terget: formData.terget,
       current: formData.current,
@@ -90,26 +102,12 @@ export class HomeDetailComponent implements OnInit {
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
   }
 
-  updateOkrCellData(primaryId: string) {
-    console.log(primaryId);
-    const subTaskId: any = this.okrService.getSubTasks(
-      this.uid,
-      this.okrId,
-      primaryId
-    );
-    console.log(this.uid);
-    console.log(this.okrId);
-    console.log(primaryId);
-    console.log(subTaskId);
-    this.okrService.updateOkrCell(this.uid, this.okrId, primaryId, subTaskId);
-  }
-
   openOkrDialog(primaryIndex: number) {
     this.dialog.open(OkrDialogComponent, {
       width: '640px',
       data: {
         primaries: this.primaries[primaryIndex],
-        tableData: this.tableData[primaryIndex],
+        subTask: this.subTask[primaryIndex],
       },
     });
   }
