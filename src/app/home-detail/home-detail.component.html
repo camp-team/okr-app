@@ -5,84 +5,86 @@
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </h3>
-  <ng-container
-    *ngFor="let primaryKey of primaryArray; index as primaryArrayIndex"
-  >
-    <p>{{ primaryKey.titles }}</p>
-    <form [formGroup]="form" (ngSubmit)="subTaskData(primaryKey.id)">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="header-left">Key</th>
-            <th>Target</th>
-            <th>current</th>
-            <th>percentage</th>
-            <th class="header-right">lastupdate</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="
-              let row of rowArrays[primaryArrayIndex].controls;
-              index as rowIndex
-            "
-          >
-            <td class="body-left">
-              <div class="open" (click)="openOkrDialog(primaryArrayIndex)">
-                <mat-icon>open_in_full</mat-icon>
-                open
-              </div>
-              <input
-                type="text"
-                formControlName="key"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="terget"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="current"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="percentage"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td class="body-right">
-              <input
-                type="text"
-                formControlName="LastUpdated"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <div
-              class="remove"
-              type="button"
-              (click)="remove(primaryArrayIndex, rowIndex)"
-            >
-              remove
+</ng-container>
+
+<ng-container
+  *ngFor="let primaryKey of primaryArray; index as primaryArrayIndex"
+>
+  <p>{{ primaryKey.titles }}</p>
+  <form [formGroup]="form" (ngSubmit)="subTaskData(primaryKey.id)">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="header-left">Key</th>
+          <th>Target</th>
+          <th>current</th>
+          <th>percentage</th>
+          <th class="header-right">lastupdate</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="
+            let row of rowArrays[primaryArrayIndex].controls;
+            index as rowIndex
+          "
+        >
+          <td class="body-left">
+            <div class="open" (click)="openOkrDialog(primaryArrayIndex)">
+              <mat-icon>open_in_full</mat-icon>
+              open
             </div>
-            <button (click)="subTaskData(primaryKey.id)">作る</button>
-          </tr>
-        </tbody>
-      </table>
-    </form>
-    <div class="add-row" (click)="addRow(primaryArrayIndex)">＋Add row</div>
-  </ng-container>
+            <input
+              type="text"
+              formControlName="key"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              formControlName="terget"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              formControlName="current"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              formControlName="percentage"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td class="body-right">
+            <input
+              type="text"
+              formControlName="LastUpdated"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <div
+            class="remove"
+            type="button"
+            (click)="remove(primaryArrayIndex, rowIndex)"
+          >
+            remove
+          </div>
+          <button (click)="subTaskData(primaryKey.id)">作る</button>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <div class="add-row" (click)="addRow(primaryArrayIndex)">＋Add row</div>
 </ng-container>
