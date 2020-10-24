@@ -87,10 +87,10 @@ export class HomeDetailComponent implements OnInit {
     const formData = this.form.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
       okrId: this.okrId,
-      key: formData.key,
-      terget: formData.terget,
-      current: formData.current,
-      percentage: formData.percentage,
+      Key: formData.Key,
+      Terget: formData.Terget,
+      Current: formData.Current,
+      Percentage: formData.Percentage,
       LastUpdated: formData.LastUpdated,
     };
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);

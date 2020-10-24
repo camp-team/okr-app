@@ -1,9 +1,9 @@
 export interface SubTask {
   id: string;
-  key: string;
-  terget: number;
-  current: number;
-  percentage: number;
+  Key: string;
+  Terget: number;
+  Current: number;
+  Percentage: number;
   LastUpdated: Date;
   okrId: string;
 }
