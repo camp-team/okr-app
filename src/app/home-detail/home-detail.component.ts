@@ -28,10 +28,10 @@ export class HomeDetailComponent implements OnInit {
   );
 
   form = this.fb.group({
-    key: ['', [Validators.required]],
-    terget: ['', [Validators.required]],
-    current: ['', [Validators.required]],
-    percentage: ['', [Validators.required]],
+    Key: ['', [Validators.required]],
+    Terget: ['', [Validators.required]],
+    Current: ['', [Validators.required]],
+    Percentage: ['', [Validators.required]],
     LastUpdated: ['', [Validators.required]],
   });
 
