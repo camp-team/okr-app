@@ -42,7 +42,11 @@ export class OkrService {
       .set(value);
   }
 
-  createSubTask(subTask: SubTask, primaryId: string, okrId: string) {
+  createSubTask(
+    subTask: Omit<SubTask, 'id'>,
+    primaryId: string,
+    okrId: string
+  ) {
     const id = this.db.createId();
     return this.db
       .doc<SubTask>(
@@ -82,14 +86,6 @@ export class OkrService {
       .valueChanges();
   }
 
-  getSubTasks(okrId: string, primaryId: string): Observable<SubTask[]> {
-    return this.db
-      .collection<SubTask>(
-        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks`
-      )
-      .valueChanges();
-  }
-
   getSubTask(
     okrId: string,
     primaryId: string,
@@ -102,16 +98,24 @@ export class OkrService {
       .valueChanges();
   }
 
-  updateOkrCell(
+  getSubTasksCollection(okrId: string): Observable<SubTask[]> {
+    return this.db
+      .collectionGroup<SubTask>('subTasks', (ref) =>
+        ref.where('okrId', '==', okrId)
+      )
+      .valueChanges();
+  }
+
+  updateSubTask(
     uid: string,
     okrId: string,
-    cellData: Partial<
-      Omit<Okr, 'start' | 'end' | 'CreatorId' | 'id' | 'title' | 'primaries'>
-    >
+    primaryId: string[],
+    subTaskId: string
   ): Promise<void> {
-    const newValue = {
-      ...cellData,
-    };
-    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(newValue);
+    return this.db
+      .doc(
+        `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
+      )
+      .update(subTaskId);
   }
 }

@@ -1,12 +1,17 @@
-<mat-card *ngIf="okr$ | async as okr">
+<ng-container *ngIf="okr$ | async as okr">
   <h1 class="okr__title">{{ okr.title }}</h1>
   <h3 class="okr__start">
     期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
       okr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </h3>
-  <div *ngFor="let title of tableTitle; index as primaryIndex">
-    <p>{{ title }}</p>
+</ng-container>
+
+<ng-container
+  *ngFor="let primaryKey of primaryArray; index as primaryArrayIndex"
+>
+  <p>{{ primaryKey.titles }}</p>
+  <form [formGroup]="form" (ngSubmit)="subTaskData(primaryKey.id)">
     <table class="table">
       <thead>
         <tr>
@@ -17,74 +22,69 @@
           <th class="header-right">lastupdate</th>
         </tr>
       </thead>
+
       <tbody>
         <tr
           *ngFor="
-            let row of tableData[primaryIndex].controls;
+            let row of rowArrays[primaryArrayIndex].controls;
             index as rowIndex
           "
         >
-          <ng-container
-            [formGroup]="row"
-            (ngSubmit)="createCellData(primaryIndex)"
-          >
-            <td class="body-left">
-              <div class="open" (click)="openOkrDialog(primaryIndex)">
-                <mat-icon>open_in_full</mat-icon>
-                open
-              </div>
-              <input
-                type="text"
-                formControlName="key"
-                autocomplete="off"
-                required
-                (oneclick)="updateCellData()"
-              />
-              <input type="submit" (click)="createCellData(primaryIndex)" />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="target"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="current"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="percentage"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td class="body-right">
-              <input
-                type="text"
-                formControlName="lastUpdated"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <div
-              class="remove"
-              type="button"
-              (click)="remove(primaryIndex, rowIndex)"
-            >
-              remove
+          <td class="body-left">
+            <div class="open" (click)="openOkrDialog(primaryArrayIndex)">
+              <mat-icon>open_in_full</mat-icon>
+              open
             </div>
-          </ng-container>
+            <input
+              type="text"
+              formControlName="Key"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              formControlName="Terget"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              formControlName="Current"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              formControlName="Percentage"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <td class="body-right">
+            <input
+              type="text"
+              formControlName="LastUpdated"
+              autocomplete="off"
+              required
+            />
+          </td>
+          <div
+            class="remove"
+            type="button"
+            (click)="remove(primaryArrayIndex, rowIndex)"
+          >
+            remove
+          </div>
+          <button (click)="subTaskData(primaryKey.id)">作る</button>
         </tr>
       </tbody>
     </table>
-    <div class="add-row" (click)="addRow(primaryIndex)">＋Add row</div>
-  </div>
-</mat-card>
+  </form>
+  <div class="add-row" (click)="addRow(primaryArrayIndex)">＋Add row</div>
+</ng-container>
