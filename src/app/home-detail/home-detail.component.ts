@@ -71,7 +71,9 @@ export class HomeDetailComponent implements OnInit {
       });
     });
     this.subTasks$.subscribe((subTasks) => {
-      this.form.patchValue({ ...subTasks });
+      subTasks.forEach((subTask) => {
+        this.form.patchValue({ ...subTask });
+      });
     });
   }
 
