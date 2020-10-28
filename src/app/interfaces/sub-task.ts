@@ -6,4 +6,5 @@ export interface SubTask {
   Percentage: number;
   LastUpdated: Date;
   okrId: string;
+  primaryId: string;
 }
