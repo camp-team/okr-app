@@ -7,6 +7,7 @@ import {
   FormArray,
   FormBuilder,
   FormControl,
+  FormGroup,
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -39,6 +40,7 @@ export class HomeDetailComponent implements OnInit {
   subTasks$: Observable<SubTask[]> = this.okrService.getSubTasksCollection(
     this.okrId
   );
+  row: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,8 +53,6 @@ export class HomeDetailComponent implements OnInit {
   ngOnInit() {
     combineLatest([this.primaries$, this.subTasks$]).subscribe(
       ([primaries, subTasks]) => {
-        console.log(primaries);
-        console.log(subTasks);
         primaries.forEach((primary) => {
           this.primaryArray.push(primary);
           this.rows[primary.id] = this.fb.array([]);
@@ -66,16 +66,14 @@ export class HomeDetailComponent implements OnInit {
   }
 
   addRow(primaryId: string, value: string = '') {
-    console.log(value);
-    const row = this.fb.group({
+    this.row = this.fb.group({
       Key: [value, [Validators.required]],
       Terget: ['', [Validators.required]],
       Current: ['', [Validators.required]],
       Percentage: ['', [Validators.required]],
       LastUpdated: ['', [Validators.required]],
     });
-    console.log(this.rows[primaryId]);
-    this.rows[primaryId].push(row);
+    this.rows[primaryId].push(this.row);
   }
 
   remove(primaryId: string, rowIndex: number) {
@@ -84,7 +82,6 @@ export class HomeDetailComponent implements OnInit {
 
   subTaskData(primaryId: string) {
     const formData = this.row.value;
-    console.log(formData);
     const subTaskValue: Omit<SubTask, 'id'> = {
       okrId: this.okrId,
       primaryId,

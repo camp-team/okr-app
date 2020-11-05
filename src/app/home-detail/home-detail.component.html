@@ -7,11 +7,9 @@
   </h3>
 </ng-container>
 
-<ng-container
-  *ngFor="let primaryKey of primaryArray; index as primaryArrayIndex"
->
-  <p>{{ primaryKey.titles }}</p>
-  <form [formGroup]="form" (ngSubmit)="subTaskData(primaryKey.id)">
+<ng-container *ngFor="let primary of primaryArray; index as primaryArrayIndex">
+  <p>{{ primary.titles }}</p>
+  <form [formGroup]="rows[primary.id]" (ngSubmit)="subTaskData(primary.id)">
     <table class="table">
       <thead>
         <tr>
@@ -24,67 +22,69 @@
       </thead>
 
       <tbody>
-        <tr
-          *ngFor="
-            let row of rowArrays[primaryArrayIndex].controls;
-            index as rowIndex
-          "
-        >
-          <td class="body-left">
-            <div class="open" (click)="openOkrDialog(primaryArrayIndex)">
-              <mat-icon>open_in_full</mat-icon>
-              open
+        <tr *ngFor="let row of rows[primary.id].controls; index as rowIndex">
+          <ng-container [formGroupName]="rowIndex">
+            <td class="body-left">
+              <div
+                class="open"
+                (click)="openOkrDialog(primary.id, primaryArrayIndex)"
+              >
+                <mat-icon>open_in_full</mat-icon>
+                open
+              </div>
+              <input
+                type="text"
+                formControlName="Key"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="Terget"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="Current"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="Percentage"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <td class="body-right">
+              <input
+                type="text"
+                formControlName="LastUpdated"
+                autocomplete="off"
+                required
+              />
+            </td>
+            <div
+              class="remove"
+              type="button"
+              (click)="remove(primary.id, rowIndex)"
+            >
+              remove
             </div>
-            <input
-              type="text"
-              formControlName="Key"
-              autocomplete="off"
-              required
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              formControlName="Terget"
-              autocomplete="off"
-              required
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              formControlName="Current"
-              autocomplete="off"
-              required
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              formControlName="Percentage"
-              autocomplete="off"
-              required
-            />
-          </td>
-          <td class="body-right">
-            <input
-              type="text"
-              formControlName="LastUpdated"
-              autocomplete="off"
-              required
-            />
-          </td>
-          <div
-            class="remove"
-            type="button"
-            (click)="remove(primaryArrayIndex, rowIndex)"
-          >
-            remove
-          </div>
-          <button (click)="subTaskData(primaryKey.id)">作る</button>
+            <button [disabled]="row.pristine" (click)="subTaskData(primary.id)">
+              作る
+            </button>
+          </ng-container>
         </tr>
       </tbody>
     </table>
   </form>
-  <div class="add-row" (click)="addRow(primaryArrayIndex)">＋Add row</div>
+  <div class="add-row" (click)="addRow(primary.id)">＋Add row</div>
 </ng-container>
