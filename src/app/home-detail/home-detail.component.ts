@@ -3,13 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { combineLatest, Observable } from 'rxjs';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
 import { SubTask } from '../interfaces/sub-task';
@@ -57,7 +51,6 @@ export class HomeDetailComponent implements OnInit {
           this.primaryArray.push(primary);
           this.rows[primary.id] = this.fb.array([]);
         });
-
         subTasks.forEach((subTask) => {
           this.addRow(subTask.primaryId, subTask.Key);
         });
@@ -74,13 +67,6 @@ export class HomeDetailComponent implements OnInit {
       LastUpdated: ['', [Validators.required]],
     });
     this.rows[primaryId].push(this.row);
-  }
-
-  remove(primaryId: string, rowIndex: number) {
-    this.rows[primaryId].removeAt(rowIndex);
-  }
-
-  subTaskData(primaryId: string) {
     const formData = this.row.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
       okrId: this.okrId,
@@ -93,6 +79,12 @@ export class HomeDetailComponent implements OnInit {
     };
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
   }
+
+  remove(primaryId: string, rowIndex: number) {
+    this.rows[primaryId].removeAt(rowIndex);
+  }
+
+  createSubTaskData(primaryId: string) {}
 
   openOkrDialog(id: string, index: number) {
     this.dialog.open(OkrDialogComponent, {

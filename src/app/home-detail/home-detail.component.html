@@ -9,7 +9,10 @@
 
 <ng-container *ngFor="let primary of primaryArray; index as primaryArrayIndex">
   <p>{{ primary.titles }}</p>
-  <form [formGroup]="rows[primary.id]" (ngSubmit)="subTaskData(primary.id)">
+  <form
+    [formGroup]="rows[primary.id]"
+    (ngSubmit)="createSubTaskData(primary.id)"
+  >
     <table class="table">
       <thead>
         <tr>
@@ -78,7 +81,7 @@
             >
               remove
             </div>
-            <button [disabled]="row.pristine" (click)="subTaskData(primary.id)">
+            <button type="button" (click)="createSubTaskData(primary.id)">
               作る
             </button>
           </ng-container>
