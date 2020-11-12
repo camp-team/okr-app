@@ -9,7 +9,7 @@ import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
 import { SubTask } from '../interfaces/sub-task';
 import { Primary } from '../interfaces/primary';
 import { AuthService } from '../services/auth.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-detail',
@@ -45,17 +45,28 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    combineLatest([this.primaries$, this.subTasks$]).subscribe(
-      ([primaries, subTasks]) => {
+    combineLatest([this.primaries$, this.subTasks$])
+      .pipe(take(1))
+      .subscribe(([primaries, subTasks]) => {
         primaries.forEach((primary) => {
           this.primaryArray.push(primary);
           this.rows[primary.id] = this.fb.array([]);
         });
         subTasks.forEach((subTask) => {
-          this.addRow(subTask.primaryId, subTask.Key);
+          this.initRows(subTask.primaryId, subTask.Key);
         });
-      }
-    );
+      });
+  }
+
+  initRows(primaryId: string, value: string = '') {
+    this.row = this.fb.group({
+      Key: [value, [Validators.required]],
+      Terget: ['', [Validators.required]],
+      Current: ['', [Validators.required]],
+      Percentage: ['', [Validators.required]],
+      LastUpdated: ['', [Validators.required]],
+    });
+    this.rows[primaryId].push(this.row);
   }
 
   addRow(primaryId: string, value: string = '') {
@@ -83,8 +94,6 @@ export class HomeDetailComponent implements OnInit {
   remove(primaryId: string, rowIndex: number) {
     this.rows[primaryId].removeAt(rowIndex);
   }
-
-  createSubTaskData(primaryId: string) {}
 
   openOkrDialog(id: string, index: number) {
     this.dialog.open(OkrDialogComponent, {
