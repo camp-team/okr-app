@@ -53,18 +53,19 @@ export class HomeDetailComponent implements OnInit {
           this.rows[primary.id] = this.fb.array([]);
         });
         subTasks.forEach((subTask) => {
-          this.initRows(subTask.primaryId, subTask.Key);
+          this.initRows(subTask.primaryId, subTask.id, subTask.Key);
         });
       });
   }
 
-  initRows(primaryId: string, value: string = '') {
+  initRows(primaryId: string, subTaskId: string, value: string = '') {
     this.row = this.fb.group({
       Key: [value, [Validators.required]],
       Terget: ['', [Validators.required]],
       Current: ['', [Validators.required]],
       Percentage: ['', [Validators.required]],
       LastUpdated: ['', [Validators.required]],
+      subTaskId,
     });
     this.rows[primaryId].push(this.row);
   }
@@ -93,6 +94,16 @@ export class HomeDetailComponent implements OnInit {
 
   remove(primaryId: string, rowIndex: number) {
     this.rows[primaryId].removeAt(rowIndex);
+  }
+
+  updateSubTaskData(primaryId: string, subTaskId: string, row: SubTask) {
+    this.okrService.updateSubTask(
+      this.authService.uid,
+      this.okrId,
+      primaryId,
+      subTaskId,
+      row
+    );
   }
 
   openOkrDialog(id: string, index: number) {
