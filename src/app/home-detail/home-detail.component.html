@@ -33,6 +33,9 @@
                 open
               </div>
               <input
+                (keyup)="
+                  updateSubTaskData(primary.id, row.value.subTaskId, row.value)
+                "
                 type="text"
                 formControlName="Key"
                 autocomplete="off"
@@ -78,14 +81,6 @@
             >
               remove
             </div>
-            <button
-              type="button"
-              (click)="
-                updateSubTaskData(primary.id, row.value.subTaskId, row.value)
-              "
-            >
-              作る
-            </button>
           </ng-container>
         </tr>
       </tbody>

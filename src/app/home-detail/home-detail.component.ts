@@ -58,7 +58,7 @@ export class HomeDetailComponent implements OnInit {
       });
   }
 
-  initRows(primaryId: string, subTaskId: string, value: string = '') {
+  initRows(primaryId: string, subTaskId: string, value: string) {
     this.row = this.fb.group({
       Key: [value, [Validators.required]],
       Terget: ['', [Validators.required]],
