@@ -7,7 +7,7 @@
   </h3>
 </ng-container>
 
-<ng-container *ngFor="let primary of primaryArray; index as primaryArrayIndex">
+<ng-container *ngFor="let primary of primaries; index as primaryArrayIndex">
   <p>{{ primary.titles }}</p>
   <form [formGroup]="rows[primary.id]">
     <table class="table">
