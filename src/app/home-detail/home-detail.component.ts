@@ -23,7 +23,7 @@ export class HomeDetailComponent implements OnInit {
     [keyName: string]: FormArray;
   } = {};
   primaryIdArray = [];
-  primaryArray: Primary[] = [];
+  primaries: Primary[] = [];
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   primaries$: Observable<Primary[]> = this.authService.user$.pipe(
@@ -49,7 +49,7 @@ export class HomeDetailComponent implements OnInit {
       .pipe(take(1))
       .subscribe(([primaries, subTasks]) => {
         primaries.forEach((primary) => {
-          this.primaryArray.push(primary);
+          this.primaries.push(primary);
           this.rows[primary.id] = this.fb.array([]);
         });
         subTasks.forEach((subTask) => {
@@ -110,7 +110,7 @@ export class HomeDetailComponent implements OnInit {
     this.dialog.open(OkrDialogComponent, {
       width: '640px',
       data: {
-        primaryArray: this.primaryArray[index],
+        primaries: this.primaries[index],
         rowArrays: this.rows[id],
       },
     });
