@@ -53,18 +53,18 @@ export class HomeDetailComponent implements OnInit {
           this.rows[primary.id] = this.fb.array([]);
         });
         subTasks.forEach((subTask) => {
-          this.initRows(subTask.primaryId, subTask.id, subTask.Key);
+          this.initRows(subTask.primaryId, subTask.id, subTask.key);
         });
       });
   }
 
   initRows(primaryId: string, subTaskId: string, value: string) {
     this.row = this.fb.group({
-      Key: [value, [Validators.required]],
-      Terget: ['', [Validators.required]],
-      Current: ['', [Validators.required]],
-      Percentage: ['', [Validators.required]],
-      LastUpdated: ['', [Validators.required]],
+      key: [value, [Validators.required]],
+      target: ['', [Validators.required]],
+      current: ['', [Validators.required]],
+      percentage: ['', [Validators.required]],
+      lastUpdated: ['', [Validators.required]],
       subTaskId,
     });
     this.rows[primaryId].push(this.row);
@@ -72,22 +72,22 @@ export class HomeDetailComponent implements OnInit {
 
   addRow(primaryId: string, value: string = '') {
     this.row = this.fb.group({
-      Key: [value, [Validators.required]],
-      Terget: ['', [Validators.required]],
-      Current: ['', [Validators.required]],
-      Percentage: ['', [Validators.required]],
-      LastUpdated: ['', [Validators.required]],
+      key: [value, [Validators.required]],
+      target: ['', [Validators.required]],
+      current: ['', [Validators.required]],
+      percentage: ['', [Validators.required]],
+      lastUpdated: ['', [Validators.required]],
     });
     this.rows[primaryId].push(this.row);
     const formData = this.row.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
       okrId: this.okrId,
       primaryId,
-      Key: formData.Key,
-      Terget: formData.Terget,
-      Current: formData.Current,
-      Percentage: formData.Percentage,
-      LastUpdated: formData.LastUpdated,
+      key: formData.key,
+      target: formData.target,
+      current: formData.current,
+      percentage: formData.percentage,
+      lastUpdated: formData.lastUpdated,
     };
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
   }
