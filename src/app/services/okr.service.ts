@@ -109,13 +109,14 @@ export class OkrService {
   updateSubTask(
     uid: string,
     okrId: string,
-    primaryId: string[],
-    subTaskId: string
+    primaryId: string,
+    subTaskId: string,
+    subTask: SubTask
   ): Promise<void> {
     return this.db
       .doc(
         `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
       )
-      .update(subTaskId);
+      .update(subTask);
   }
 }

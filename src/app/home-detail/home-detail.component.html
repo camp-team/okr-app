@@ -7,20 +7,17 @@
   </h3>
 </ng-container>
 
-<ng-container *ngFor="let primary of primaryArray; index as primaryArrayIndex">
+<ng-container *ngFor="let primary of primaries; index as primaryArrayIndex">
   <p>{{ primary.titles }}</p>
-  <form
-    [formGroup]="rows[primary.id]"
-    (ngSubmit)="createSubTaskData(primary.id)"
-  >
+  <form [formGroup]="rows[primary.id]">
     <table class="table">
       <thead>
         <tr>
-          <th class="header-left">Key</th>
-          <th>Target</th>
+          <th class="header-left">key</th>
+          <th>target</th>
           <th>current</th>
           <th>percentage</th>
-          <th class="header-right">lastupdate</th>
+          <th class="header-right">lastUpdate</th>
         </tr>
       </thead>
 
@@ -36,8 +33,11 @@
                 open
               </div>
               <input
+                (keyup)="
+                  updateSubTaskData(primary.id, row.value.subTaskId, row.value)
+                "
                 type="text"
-                formControlName="Key"
+                formControlName="key"
                 autocomplete="off"
                 required
               />
@@ -53,7 +53,7 @@
             <td>
               <input
                 type="text"
-                formControlName="Current"
+                formControlName="current"
                 autocomplete="off"
                 required
               />
@@ -61,7 +61,7 @@
             <td>
               <input
                 type="text"
-                formControlName="Percentage"
+                formControlName="percentage"
                 autocomplete="off"
                 required
               />
@@ -69,7 +69,7 @@
             <td class="body-right">
               <input
                 type="text"
-                formControlName="LastUpdated"
+                formControlName="lastUpdated"
                 autocomplete="off"
                 required
               />
@@ -81,9 +81,6 @@
             >
               remove
             </div>
-            <button type="button" (click)="createSubTaskData(primary.id)">
-              作る
-            </button>
           </ng-container>
         </tr>
       </tbody>

@@ -9,7 +9,7 @@ import { OkrDialogComponent } from './okr-dialog/okr-dialog.component';
 import { SubTask } from '../interfaces/sub-task';
 import { Primary } from '../interfaces/primary';
 import { AuthService } from '../services/auth.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-detail',
@@ -23,7 +23,7 @@ export class HomeDetailComponent implements OnInit {
     [keyName: string]: FormArray;
   } = {};
   primaryIdArray = [];
-  primaryArray: Primary[] = [];
+  primaries: Primary[] = [];
 
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   primaries$: Observable<Primary[]> = this.authService.user$.pipe(
@@ -45,37 +45,49 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    combineLatest([this.primaries$, this.subTasks$]).subscribe(
-      ([primaries, subTasks]) => {
+    combineLatest([this.primaries$, this.subTasks$])
+      .pipe(take(1))
+      .subscribe(([primaries, subTasks]) => {
         primaries.forEach((primary) => {
-          this.primaryArray.push(primary);
+          this.primaries.push(primary);
           this.rows[primary.id] = this.fb.array([]);
         });
         subTasks.forEach((subTask) => {
-          this.addRow(subTask.primaryId, subTask.Key);
+          this.initRows(subTask.primaryId, subTask.id, subTask.key);
         });
-      }
-    );
+      });
+  }
+
+  initRows(primaryId: string, subTaskId: string, value: string) {
+    this.row = this.fb.group({
+      key: [value, [Validators.required]],
+      target: ['', [Validators.required]],
+      current: ['', [Validators.required]],
+      percentage: ['', [Validators.required]],
+      lastUpdated: ['', [Validators.required]],
+      subTaskId,
+    });
+    this.rows[primaryId].push(this.row);
   }
 
   addRow(primaryId: string, value: string = '') {
     this.row = this.fb.group({
-      Key: [value, [Validators.required]],
-      Terget: ['', [Validators.required]],
-      Current: ['', [Validators.required]],
-      Percentage: ['', [Validators.required]],
-      LastUpdated: ['', [Validators.required]],
+      key: [value, [Validators.required]],
+      target: ['', [Validators.required]],
+      current: ['', [Validators.required]],
+      percentage: ['', [Validators.required]],
+      lastUpdated: ['', [Validators.required]],
     });
     this.rows[primaryId].push(this.row);
     const formData = this.row.value;
     const subTaskValue: Omit<SubTask, 'id'> = {
       okrId: this.okrId,
       primaryId,
-      Key: formData.Key,
-      Terget: formData.Terget,
-      Current: formData.Current,
-      Percentage: formData.Percentage,
-      LastUpdated: formData.LastUpdated,
+      key: formData.key,
+      target: formData.target,
+      current: formData.current,
+      percentage: formData.percentage,
+      lastUpdated: formData.lastUpdated,
     };
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
   }
@@ -84,13 +96,21 @@ export class HomeDetailComponent implements OnInit {
     this.rows[primaryId].removeAt(rowIndex);
   }
 
-  createSubTaskData(primaryId: string) {}
+  updateSubTaskData(primaryId: string, subTaskId: string, row: SubTask) {
+    this.okrService.updateSubTask(
+      this.authService.uid,
+      this.okrId,
+      primaryId,
+      subTaskId,
+      row
+    );
+  }
 
   openOkrDialog(id: string, index: number) {
     this.dialog.open(OkrDialogComponent, {
       width: '640px',
       data: {
-        primaryArray: this.primaryArray[index],
+        primaries: this.primaries[index],
         rowArrays: this.rows[id],
       },
     });
