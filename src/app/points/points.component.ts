@@ -8,22 +8,21 @@ import { Component, OnInit } from '@angular/core';
 export class PointsComponent implements OnInit {
   readonly points = [
     {
-      icon: 'supervisor_account',
-      title: '短期間',
-      text:
-        'テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト ',
+      icon: 'edit',
+      title: '成果',
+      text: '個人の目標に紐づいた複数の中規模・小規模な成果を設定します。',
     },
     {
-      icon: 'supervisor_account',
-      title: '短期間',
+      icon: 'save_alt',
+      title: '創造性',
       text:
-        'テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト ',
+        '目標が明確になり、自分の果たす役割が明らかになり、無駄な思想や混乱を削減します。',
     },
     {
-      icon: 'supervisor_account',
-      title: '短期間',
+      icon: 'show_chart',
+      title: '可視化',
       text:
-        'テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト テスト ',
+        '数値や文字のデータを人が直観的にわかりやすい形で表すことで、データの比較を一目で分かるようにします。',
     },
   ];
 
