@@ -1,32 +1,41 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #000;
-}
+@import 'variables';
+@import 'mixins';
 
-.nav {
-  &__item {
-    padding: 8px;
+.hero {
+  &__image {
+    text-align: center;
+    margin: 32px auto 0;
+    padding-top: 70px;
+    margin-bottom: 20px;
+    img {
+      max-width: 200px;
+      @include sm {
+        max-width: 250px;
+      }
+    }
   }
-}
-
-h1 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  font-size: 54px;
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
-}
-
-.login {
-  text-align: center;
-  padding: 24px;
-}
-
-.top-image {
-  text-align: center;
+  &__main-text {
+    font-size: 35px;
+    text-align: center;
+    letter-spacing: -0.025em;
+    margin: 0 0 8px;
+    font-weight: 700;
+    @include sm {
+      font-size: 47px;
+    }
+  }
+  &__sub-text {
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.6);
+    @include sm {
+      font-size: 16px;
+    }
+  }
+  &__action {
+    text-align: center;
+    margin: 24px 0 72px;
+  }
 }
