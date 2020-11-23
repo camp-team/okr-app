@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HeroComponent } from '../hero/hero.component';
 import { HeaderComponent } from '../header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
+    MatTooltipModule,
   ],
 })
 export class AboutModule {}
