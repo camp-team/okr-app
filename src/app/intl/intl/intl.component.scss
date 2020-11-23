@@ -1,12 +1,49 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #000;
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.nav {
-  &__item {
-    padding: 8px;
+.header {
+  z-index: 3;
+  padding-top: 64px;
+
+  &__bar {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 0 16px;
+    height: 64px;
+  }
+  &__nav {
+    background-color: #fff;
+    border: none;
+    margin: 3px 16px 0 0;
+    cursor: pointer;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.sidenav {
+  top: 64px;
+  width: 230px;
+
+  mat-icon {
+    margin-right: 24px;
+  }
+
+  footer {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 13px;
+    padding: 16px;
   }
 }
