@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.header {
+  background-color: #fff;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.23);
+
+  &__inner {
+    justify-content: space-between;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+  &__right {
+    display: flex;
+  }
+  &__nav {
+    list-style: none;
+    a {
+      font-size: 14px;
+      padding: 0 21px;
+      letter-spacing: 1.3px;
+    }
+  }
+  &__login {
+    margin-top: 15px;
+    width: 90px;
+    height: 40px;
+  }
+}

@@ -10,12 +10,14 @@ ul {
   text-align: center;
   margin-bottom: 40px;
   h2 {
-    font-size: 32px;
+    font-size: 24px;
+    @include sm {
+      font-size: 32px;
+    }
   }
 }
 
 .points {
-  padding-top: 80px;
   padding-bottom: calc(80px + 3.5vw);
   @include md {
     padding-bottom: calc(100px + 3.5vw);
@@ -25,17 +27,16 @@ ul {
 .points-contents {
   max-width: 160px;
   margin: 32px auto 0;
-  @include md {
+  @include sm {
     max-width: 100%;
-    display: flex;
-    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 16px;
+    gap: 24px;
   }
   &__item {
-    margin-bottom: 40px;
     @include md {
-      display: block;
-      padding: 2em 1.5em;
-      width: calc(100% / 3 - 40px / 3);
+      padding: 40px 20px;
     }
   }
   &__icon {
