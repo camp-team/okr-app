@@ -1,78 +1,17 @@
+<app-manage-header></app-manage-header>
+
 <mat-sidenav-container class="example-container">
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-
-    <mat-toolbar class="mat-toolbar header">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <h1>OKR APP</h1>
-      <span class="spacer"></span>
-
-      <div class="search">
-        <input type="text" autocomplete="off" placeholder="検索" />
-        <mat-icon>search</mat-icon>
-      </div>
-
-      <div class="mypage">
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          *ngIf="user$ | async as user"
-        >
-          <img [src]="avatarURL" alt="avater" class="avatar-image" />
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
-            <mat-icon>login</mat-icon>
-            <span>ログイン</span>
-          </button>
-          <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span>ログアウト</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>support_argent</mat-icon>
-            <span>開発者を応援する</span>
-          </button>
-        </mat-menu>
-      </div>
-    </mat-toolbar>
-  </mat-sidenav-content>
-
   <mat-sidenav
     #sidenav
     fixedInViewport
     fixedTopGap="64"
     mode="side"
-    [opened]="opened"
+    [opened]="opened$ | async"
   >
-    <mat-nav-list>
-      <a mat-list-item routerLink="/manage/home">
-        <mat-icon>home</mat-icon>
-        ホーム
-      </a>
-      <a mat-list-item routerLink="/manage/edit">
-        <mat-icon>edit</mat-icon>
-        入力
-      </a>
-      <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/about">
-        <mat-icon>info</mat-icon>
-        OKRについて
-      </a>
-      <a mat-list-item routerLink="/intl/terms">
-        <mat-icon>supervised_user_circle</mat-icon>
-        利用規約
-      </a>
-      <a mat-list-item routerLink="/intl/legal">
-        <mat-icon>note</mat-icon>
-        特定商取引法に基づく表記
-      </a>
-      <mat-divider></mat-divider>
-      <footer>
-        <p class="copyright">© Ryohei Mukaida</p>
-      </footer>
-    </mat-nav-list>
+    <app-manage-sidenavigation></app-manage-sidenavigation>
   </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
