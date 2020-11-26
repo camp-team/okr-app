@@ -12,7 +12,7 @@ export class ManageService {
   constructor() {}
 
   toggle() {
-    this.isOpened = !this.isOpened; // 反転させる
+    this.isOpened = !this.isOpened;
     this.isOpenSource.next(this.isOpened);
   }
 }
