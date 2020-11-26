@@ -1,0 +1,55 @@
+.header {
+  z-index: 1000;
+  position: fixed;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 16px;
+  height: 64px;
+  &__hamburger-menu {
+    margin-right: 16px;
+  }
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+  &__spacer {
+    flex: 1;
+  }
+  &__right {
+    display: flex;
+  }
+  &__search {
+    color: rgba(0, 0, 0, 0.24);
+    position: relative;
+    margin: 0 24px;
+    input {
+      color: rgba(0, 0, 0, 0.24);
+      border-color: rgba(0, 0, 0, 0.24);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding-right: 32px;
+      padding-left: 16px;
+      line-height: 32px;
+      border-radius: 16px;
+      border: 1px solid;
+    }
+    mat-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 8px;
+    }
+  }
+  &__mypage {
+    grid-area: icon;
+    justify-self: end;
+  }
+  &__header__avatar-image {
+    border-radius: 50%;
+    width: 40px;
+    background: center/cover;
+  }
+}

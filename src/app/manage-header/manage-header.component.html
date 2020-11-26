@@ -1,0 +1,46 @@
+<mat-toolbar class="header">
+  <button class="header__hamburger-menu" mat-icon-button (click)="toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="header__left">
+    <p class="header__title">
+      <a routerLink="/about" class="header__link">
+        OKR
+      </a>
+    </p>
+  </div>
+
+  <span class="header__spacer"></span>
+
+  <div class="header__right">
+    <div class="header__search">
+      <input type="text" autocomplete="off" placeholder="検索" />
+      <mat-icon>search</mat-icon>
+    </div>
+
+    <div class="header__mypage">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        *ngIf="user$ | async as user"
+      >
+        <img [src]="avatarURL" alt="avater" class="header__avatar-image" />
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
+          <mat-icon>login</mat-icon>
+          <span>ログイン</span>
+        </button>
+        <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>ログアウト</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>support_argent</mat-icon>
+          <span>開発者を応援する</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
