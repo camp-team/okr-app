@@ -1,42 +1,17 @@
+<app-intl-header></app-intl-header>
+
 <mat-sidenav-container class="container">
-  <mat-sidenav-content class="header">
-    <router-outlet></router-outlet>
-
-    <mat-toolbar class="header__bar">
-      <button class="header__nav" mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <a routerLink="/about" class="header__link">
-        OKR
-      </a>
-    </mat-toolbar>
-  </mat-sidenav-content>
-
   <mat-sidenav
     class="sidenav"
     #sidenav
     fixedInViewport
-    fixedTopGap="64"
-    mode="side"
-    [opened]="opened"
+    [fixedTopGap]="64"
+    [opened]="opened$ | async"
   >
-    <mat-nav-list class="sidenav__list">
-      <a mat-list-item routerLink="/about">
-        <mat-icon>info</mat-icon>
-        OKRについて
-      </a>
-      <a mat-list-item routerLink="./terms">
-        <mat-icon>supervised_user_circle</mat-icon>
-        利用規約
-      </a>
-      <a mat-list-item routerLink="./legal">
-        <mat-icon>note</mat-icon>
-        特定商取引法に基づく表記
-      </a>
-      <mat-divider></mat-divider>
-      <footer>
-        <p>© Ryohei Mukaida</p>
-      </footer>
-    </mat-nav-list>
+    <app-sidenavigation></app-sidenavigation>
   </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ManageService } from 'src/app/manage/manage/manage.service';
 @Component({
   selector: 'app-intl',
@@ -6,12 +7,9 @@ import { ManageService } from 'src/app/manage/manage/manage.service';
   styleUrls: ['./intl.component.scss'],
 })
 export class IntlComponent implements OnInit {
-  opened: boolean;
+  opened$: Observable<boolean> = this.manageService.isOpen$;
 
-  constructor(private manageService: ManageService) {
-    this.manageService.toggle(),
-      this.manageService.isOpen$.subscribe((opened) => (this.opened = opened));
-  }
+  constructor(private manageService: ManageService) {}
 
   ngOnInit(): void {}
 }
