@@ -1,0 +1,22 @@
+.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 16px;
+  height: 64px;
+  position: fixed;
+  z-index: 1000;
+  &__nav {
+    background-color: #fff;
+    border: none;
+    margin: 3px 16px 0 0;
+    cursor: pointer;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+}

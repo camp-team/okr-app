@@ -1,12 +1,5 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #000;
-}
-
-.nav {
-  &__item {
-    padding: 8px;
-  }
+.sidenav {
+  top: 64px;
+  width: 230px;
+  left: 0;
 }

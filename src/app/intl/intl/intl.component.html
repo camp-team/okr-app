@@ -1,10 +1,17 @@
-<div class="header">
-  <div class="header__logo">LOGO OKR</div>
-  <nav class="nav">
-    <a href="" class="nav__item">Menu</a>
-    <a href="" class="nav__item">Menu</a>
-    <a href="" class="nav__item">Menu</a>
-    <a href="" class="nav__item">Menu</a>
-  </nav>
-</div>
-<router-outlet></router-outlet>
+<app-intl-header></app-intl-header>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav
+    class="sidenav"
+    #sidenav
+    fixedInViewport
+    [fixedTopGap]="64"
+    [opened]="opened$ | async"
+  >
+    <app-sidenavigation></app-sidenavigation>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
