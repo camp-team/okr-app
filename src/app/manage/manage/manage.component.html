@@ -1,11 +1,10 @@
 <app-manage-header></app-manage-header>
 
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container class="manage">
   <mat-sidenav
     #sidenav
     fixedInViewport
-    fixedTopGap="64"
-    mode="side"
+    [fixedTopGap]="64"
     [opened]="opened$ | async"
   >
     <app-manage-sidenavigation></app-manage-sidenavigation>
