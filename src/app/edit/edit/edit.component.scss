@@ -1,35 +1,103 @@
-mat-form-field {
-  display: block;
+@import 'variables';
+@import 'mixins';
+
+.okr-project {
+  padding: 32px 24px;
 }
 
-.main {
-  display: block;
-  padding: 24px 0;
+.stepper {
+  background-color: transparent;
 }
 
-.container {
-  padding: 0 24px;
+:host ::ng-deep .mat-horizontal-content-container {
+  padding: 0 80px !important;
+  margin-top: 32px;
+  width: 500px;
 }
 
-form {
-  background-color: #fff;
-  padding: 8px;
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
-}
-
-.remcontents {
-  color: rgba(55, 53, 47, 0.4);
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.12);
+::ng-deep .mat-form-field-infix {
+  padding: 16px 0 4px 0 !important;
+  .mat-input-element {
+    font-size: 32px !important;
   }
 }
 
-.addcontents {
-  padding: 0px 8px;
-  color: rgba(55, 53, 47, 0.4);
-  font-size: 14px;
-  box-shadow: none;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.12);
+.first-step {
+  &__lavel {
+    font-size: 32px;
+  }
+  &__field {
+    display: block;
+    max-width: 540px;
+    padding-bottom: 48px;
+  }
+  &__button {
+    width: 120px;
+    height: 40px;
+  }
+}
+
+.second-step {
+  &__field {
+    width: 400px;
+  }
+  &__title {
+    margin: 16px 0 0;
+  }
+  &__sub-title {
+    margin: 0 0 32px;
+    opacity: 0.7;
+  }
+  &__lavel {
+    font-size: 32px;
+  }
+  &__addcontents {
+    padding: 0;
+    color: rgba(55, 53, 47, 0.4);
+    font-size: 16px;
+    box-shadow: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__remcontents {
+    color: rgba(55, 53, 47, 0.4);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 48px;
+  }
+  &__button {
+    width: 120px;
+    height: 40px;
+  }
+}
+
+.third-step {
+  &__field {
+    width: 400px;
+  }
+  &__title {
+    margin: 16px 0 0;
+  }
+  &__sub-title {
+    margin: 0 0 32px;
+    opacity: 0.7;
+  }
+  &__lavel {
+    font-size: 32px;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 48px;
+  }
+  &__button {
+    width: 120px;
+    height: 40px;
   }
 }

@@ -1,15 +1,15 @@
-<div class="main">
-  <div class="container">
-    <mat-horizontal-stepper #stepper>
+<div class="okr-project">
+  <mat-horizontal-stepper #stepper class="stepper">
+    <div class="first-step">
       <mat-step
         [stepControl]="firstFormGroup"
         errorMessage="Address is required."
       >
-        <form [formGroup]="form">
-          <ng-template matStepLabel>目標を入力しましょう(手順 1/3)</ng-template>
-          <h2>まず<br />(個人or組織)の目標を入力しましょう</h2>
-          <mat-form-field>
-            <mat-label>Objectives</mat-label>
+        <ng-template matStepLabel>目標を入力しましょう(手順 1/3)</ng-template>
+        <h1 class="first-step__title">まず<br />目標を入力しましょう</h1>
+        <form [formGroup]="form" class="first-step__form">
+          <mat-form-field class="first-step__field">
+            <mat-label class="first-step__lavel">目標を入力</mat-label>
             <input
               formControlName="title"
               type="text"
@@ -24,32 +24,110 @@
               >文字数は最大で40文字までです</mat-error
             >
           </mat-form-field>
-          <div>
-            <button
-              mat-button
-              matStepperNext
-              [disabled]="titleControl.invalid"
-              mat-raised-button
-              color="primary"
-            >
-              次へ
-            </button>
-          </div>
         </form>
+        <button
+          mat-button
+          matStepperNext
+          [disabled]="titleControl.invalid"
+          mat-raised-button
+          color="primary"
+          class="first-step__button"
+        >
+          次へ
+        </button>
       </mat-step>
+    </div>
 
+    <div class="second-step">
       <mat-step
         [stepControl]="secondFormGroup"
         errorMessage="Address is required."
       >
-        <form [formGroup]="form">
+        <form
+          [formGroup]="form"
+          (ngSubmit)="submit()"
+          class="second-step__form"
+        >
+          <ng-template matStepLabel
+            >主要な結果を入力しましょう(手順 3/3)</ng-template
+          >
+          <h1 class="second-step__title">
+            次に<br />主要な結果を入力しましょう
+          </h1>
+          <h3 class="second-step__sub-title">*推奨2〜5つ</h3>
+          <div formArrayName="primaries">
+            <div *ngFor="let option of primaries.controls; let i = index">
+              <mat-form-field class="second-step__field">
+                <mat-label class="second-step__lavel">
+                  primary{{ i + 1 }}
+                </mat-label>
+                <input
+                  [formControlName]="i"
+                  type="text"
+                  matInput
+                  autocomplete="off"
+                />
+                <mat-error *ngIf="option.hasError('maxlength')"
+                  >文字数は最大で40文字までです</mat-error
+                >
+              </mat-form-field>
+
+              <button
+                class="second-step__remcontents"
+                type="button"
+                (click)="removeOption(i)"
+                mat-icon-button
+              >
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="second-step__addcontents"
+            type="button"
+            mat-raised-button
+            (click)="addOptionForm()"
+          >
+            <mat-icon>add</mat-icon>
+            Add contents
+          </button>
+
+          <div class="second-step__buttons">
+            <button mat-button matStepperPrevious class="second-step__button">
+              戻る
+            </button>
+            <button
+              [disabled]="form.invalid"
+              mat-raised-button
+              color="primary"
+              class="second-step__button"
+            >
+              OKRを作成
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </div>
+
+    <div class="third-step">
+      <mat-step
+        [stepControl]="thirdFormGroup"
+        errorMessage="Address is required."
+      >
+        <form [formGroup]="form" class="third-step__form">
           <ng-template matStepLabel
             >開始日と終了日を入力しましょう(手順 2/3)</ng-template
           >
-          <h2>次に<br />開始日終了日を入力しましょう</h2>
-          <h3>*推奨1ヶ月〜四半期(設定、追跡、再評価)</h3>
-          <mat-form-field>
-            <mat-label>開始日</mat-label>
+          <h1 class="third-step__title">
+            最後に<br />開始日終了日を入力しましょう
+          </h1>
+          <h3 class="third-step__sub-title">
+            *推奨1ヶ月〜四半期(設定、追跡、再評価)
+          </h3>
+
+          <mat-form-field class="third-step__field">
+            <mat-label class="third-step__lavel">開始日</mat-label>
             <input
               formControlName="start"
               type="text"
@@ -68,8 +146,11 @@
               >必須入力です</mat-error
             >
           </mat-form-field>
-          <mat-form-field>
-            <mat-label>終了日</mat-label>
+
+          <br />
+
+          <mat-form-field class="third-step__field">
+            <mat-label class="third-step__lavel">終了日</mat-label>
             <input
               formControlName="end"
               type="text"
@@ -88,75 +169,25 @@
               >必須入力です</mat-error
             >
           </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>戻る</button>
+
+          <div class="third-step__buttons">
+            <button mat-button matStepperPrevious class="third-step__button">
+              戻る
+            </button>
+
             <button
               mat-button
               matStepperNext
               [disabled]="startControl.invalid || endControl.invalid"
               mat-raised-button
               color="primary"
+              class="third-step__button"
             >
               次へ
             </button>
           </div>
         </form>
       </mat-step>
-
-      <mat-step
-        [stepControl]="thirdFormGroup"
-        errorMessage="Address is required."
-      >
-        <form [formGroup]="form" (ngSubmit)="submit()">
-          <ng-template matStepLabel
-            >主要な結果を入力しましょう(手順 3/3)</ng-template
-          >
-          <h2>最後に<br />主要な結果を入力しましょう(推奨2〜5つ)</h2>
-          <h3>(入力が終わったら、作成ボタンをクリックしましょう)</h3>
-
-          <div formArrayName="primaries">
-            <div *ngFor="let option of primaries.controls; let i = index">
-              <mat-form-field>
-                <mat-label> primary{{ i + 1 }} </mat-label>
-                <input
-                  [formControlName]="i"
-                  type="text"
-                  matInput
-                  autocomplete="off"
-                />
-                <mat-error *ngIf="option.hasError('maxlength')"
-                  >文字数は最大で40文字までです</mat-error
-                >
-              </mat-form-field>
-              <button
-                class="remcontents"
-                type="button"
-                (click)="removeOption(i)"
-                mat-icon-button
-              >
-                <mat-icon>remove</mat-icon>
-              </button>
-            </div>
-          </div>
-
-          <button
-            class="addcontents"
-            type="button"
-            mat-raised-button
-            (click)="addOptionForm()"
-          >
-            <mat-icon>add</mat-icon>
-            Add contents
-          </button>
-
-          <div>
-            <button mat-button matStepperPrevious>戻る</button>
-            <button [disabled]="form.invalid" mat-raised-button color="primary">
-              作成
-            </button>
-          </div>
-        </form>
-      </mat-step>
-    </mat-horizontal-stepper>
-  </div>
+    </div>
+  </mat-horizontal-stepper>
 </div>
