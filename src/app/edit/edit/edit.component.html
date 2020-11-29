@@ -43,11 +43,7 @@
         [stepControl]="secondFormGroup"
         errorMessage="Address is required."
       >
-        <form
-          [formGroup]="form"
-          (ngSubmit)="submit()"
-          class="second-step__form"
-        >
+        <form [formGroup]="form" class="second-step__form">
           <ng-template matStepLabel
             >主要な結果を入力しましょう(手順 3/3)</ng-template
           >
@@ -98,12 +94,14 @@
               戻る
             </button>
             <button
-              [disabled]="form.invalid"
+              mat-button
+              matStepperNext
+              [disabled]="primariesControl.invalid"
               mat-raised-button
               color="primary"
               class="second-step__button"
             >
-              OKRを作成
+              次へ
             </button>
           </div>
         </form>
@@ -115,7 +113,7 @@
         [stepControl]="thirdFormGroup"
         errorMessage="Address is required."
       >
-        <form [formGroup]="form" class="third-step__form">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="third-step__form">
           <ng-template matStepLabel
             >開始日と終了日を入力しましょう(手順 2/3)</ng-template
           >
@@ -174,16 +172,15 @@
             <button mat-button matStepperPrevious class="third-step__button">
               戻る
             </button>
-
             <button
-              mat-button
-              matStepperNext
-              [disabled]="startControl.invalid || endControl.invalid"
+              [disabled]="
+                startControl.invalid || endControl.invalid || form.invalid
+              "
               mat-raised-button
               color="primary"
               class="third-step__button"
             >
-              次へ
+              OKRを作成
             </button>
           </div>
         </form>
