@@ -10,9 +10,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { ManageHeaderComponent } from '../manage-header/manage-header.component';
+import { ManageSidenavigationComponent } from '../manage-sidenavigation/manage-sidenavigation.component';
 
 @NgModule({
-  declarations: [ManageComponent],
+  declarations: [
+    ManageComponent,
+    ManageHeaderComponent,
+    ManageSidenavigationComponent,
+  ],
   imports: [
     CommonModule,
     ManageRoutingModule,

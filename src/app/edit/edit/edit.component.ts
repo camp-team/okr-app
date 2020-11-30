@@ -9,10 +9,8 @@ import {
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Okr } from 'src/app/interfaces/okr';
-import { Primary } from 'src/app/interfaces/primary';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -23,6 +21,10 @@ export class EditComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+
+  get primaries(): FormArray {
+    return this.form.get('primaries') as FormArray;
+  }
 
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
@@ -52,22 +54,6 @@ export class EditComponent implements OnInit {
     private router: Router
   ) {}
 
-  submit() {
-    const formData = this.form.value;
-    const okrValue: Omit<Okr, 'id'> = {
-      title: formData.title,
-      start: formData.start,
-      primaries: formData.primaries,
-      end: formData.end,
-      CreatorId: this.authService.uid,
-    };
-    const primaryArray = formData.primaries;
-    this.okrService.createOkr(okrValue, primaryArray).then(() => {
-      this.snackBar.open('作成しました', null);
-      this.router.navigateByUrl('manage/home');
-    });
-  }
-
   ngOnInit() {
     this.addOptionForm();
   }
@@ -82,7 +68,19 @@ export class EditComponent implements OnInit {
     );
   }
 
-  get primaries(): FormArray {
-    return this.form.get('primaries') as FormArray;
+  submit() {
+    const formData = this.form.value;
+    const okrValue: Omit<Okr, 'id'> = {
+      title: formData.title,
+      start: formData.start,
+      primaries: formData.primaries,
+      end: formData.end,
+      CreatorId: this.authService.uid,
+    };
+    const primaryArray = formData.primaries;
+    this.okrService.createOkr(okrValue, primaryArray).then(() => {
+      this.snackBar.open('作成しました', null);
+      this.router.navigateByUrl('manage/home');
+    });
   }
 }
