@@ -4,6 +4,7 @@ mat-card {
 
 .card {
   display: flex;
+  flex-wrap: wrap;
   flex-flow: column;
   &__body {
     padding: 24px;
@@ -12,6 +13,10 @@ mat-card {
   &__title {
     font-size: 20px;
     margin-bottom: 16px;
+    height: 60px;
+  }
+  &__sub-titles {
+    height: 150px;
   }
   &__duration {
     font-size: 12px;

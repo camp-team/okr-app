@@ -1,11 +1,11 @@
-@import 'variables';
 @import 'mixins';
 
 .home {
   margin: 0 auto;
-  width: 600px;
-  @include md {
-    width: 960px;
+  width: 300px;
+
+  @include sm {
+    width: 80%;
   }
   &__grid {
     display: grid;
@@ -13,6 +13,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   &__card {
+    height: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,6 +23,19 @@
     border-radius: 16px;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
+    }
+    @include sm {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      cursor: pointer;
+      border-radius: 16px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+      }
     }
   }
   &__button {
