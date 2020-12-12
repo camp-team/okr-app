@@ -3,10 +3,21 @@ mat-card {
 }
 
 .card {
+  display: flex;
+  flex-flow: column;
+  &__body {
+    padding: 24px;
+    flex: 1;
+  }
   &__title {
     font-size: 20px;
+    margin-bottom: 16px;
   }
   &__duration {
     font-size: 12px;
+  }
+  &__action {
+    padding: 16px;
+    text-align: center;
   }
 }

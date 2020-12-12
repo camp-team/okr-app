@@ -1,21 +1,26 @@
 <mat-card>
   <div class="card">
-    <h1 class="card__title">{{ okr.title }}</h1>
-    <div *ngFor="let primary of primaries$ | async">
-      <p>{{ primary.titles }}</p>
+    <div class="card__body">
+      <h1 class="card__title">{{ okr.title }}</h1>
+      <div *ngFor="let primary of primaries$ | async">
+        <p>{{ primary.titles }}</p>
+      </div>
+      <p class="card__duration">
+        期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
+          okr.end.toDate() | date: 'yyyy年MM月dd日'
+        }}
+      </p>
     </div>
-    <p class="card__duration">
-      期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-        okr.end.toDate() | date: 'yyyy年MM月dd日'
-      }}
-    </p>
-    <button
-      [routerLink]="['/manage/home/homedetail']"
-      [queryParams]="{ v: okr.id }"
-      mat-raised-button
-      color="primary"
-    >
-      詳細をみる
-    </button>
+
+    <div class="card__action">
+      <button
+        [routerLink]="['/manage/home/homedetail']"
+        [queryParams]="{ v: okr.id }"
+        mat-raised-button
+        color="primary"
+      >
+        詳細をみる
+      </button>
+    </div>
   </div>
 </mat-card>
