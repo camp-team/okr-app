@@ -1,43 +1,58 @@
-:host {
-  display: block;
-  padding: 24px;
-}
+@import 'mixins';
 
-.grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
+.home {
+  margin: 0 auto;
+  width: 300px;
 
-.mat-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  cursor: pointer;
-  border-radius: 16px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.12);
+  @include sm {
+    width: 80%;
   }
-}
-
-button {
-  display: flex;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.mat-icon {
-  margin-bottom: 12px;
-  font-size: 36px;
-  width: 36px;
-  color: #1a73e8;
-}
-
-p {
-  font-size: 14px;
-  text-align: center;
-  color: #1a73e8;
+  &__grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  &__card {
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 16px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+    @include sm {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      cursor: pointer;
+      border-radius: 16px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+  &__button {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  &__icon {
+    margin-bottom: 12px;
+    font-size: 36px;
+    width: 36px;
+    color: #1a73e8;
+  }
+  &__text {
+    font-size: 14px;
+    text-align: center;
+    color: #1a73e8;
+  }
 }
