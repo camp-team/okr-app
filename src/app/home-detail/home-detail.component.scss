@@ -1,19 +1,33 @@
-.table {
-  min-width: 1000px;
-  border-collapse: collapse;
+.home-detail {
+  height: 100%;
+}
+
+.home-detail-table {
+  margin: 40px 96px 0;
+  overflow-x: auto;
+  width: 91%;
+  height: 100%;
   th,
   td {
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.36);
-    width: 900px;
     color: rgba(0, 0, 0, 0.36);
     font-weight: 300;
+    min-width: 250px;
   }
-  td:hover .open {
-    display: inline;
-    display: flex;
+  .header-right,
+  .body-right {
+    border-right-style: none;
   }
-  .open {
+  .header-left,
+  .body-left {
+    border-left-style: none;
+  }
+  &__area {
+    min-width: 1000px;
+    border-collapse: collapse;
+  }
+  &__open {
     position: absolute;
     right: 9%;
     top: 0%;
@@ -25,28 +39,23 @@
       font-size: 14px;
     }
   }
-  .header-left,
-  .body-left {
-    border-left-style: none;
-  }
-  .header-right,
-  .body-right {
-    border-right-style: none;
+  td:hover &__open {
+    display: inline;
+    display: flex;
   }
   input {
     width: 98%;
     height: 100%;
     border-style: none;
   }
-}
-
-.add-row,
-.remove {
-  font-size: 14px;
-  border-style: none;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.36);
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.12);
+  &__add-row,
+  &__remove {
+    font-size: 14px;
+    border-style: none;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.36);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
   }
 }

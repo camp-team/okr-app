@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 import { combineLatest, Observable } from 'rxjs';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -25,7 +24,6 @@ export class HomeDetailComponent implements OnInit {
   primaryIdArray = [];
   primaries: Primary[] = [];
 
-  okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   primaries$: Observable<Primary[]> = this.authService.user$.pipe(
     switchMap((user) => {
       return this.okrService.getPrimaries(this.okrId);

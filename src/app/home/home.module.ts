@@ -13,6 +13,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OkrDialogComponent } from '../home-detail/okr-dialog/okr-dialog.component';
+import { HomeDetailTitleComponent } from '../home-detail-title/home-detail-title.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { OkrDialogComponent } from '../home-detail/okr-dialog/okr-dialog.compone
     OkrComponent,
     HomeDetailComponent,
     OkrDialogComponent,
+    HomeDetailTitleComponent,
   ],
   imports: [
     CommonModule,
