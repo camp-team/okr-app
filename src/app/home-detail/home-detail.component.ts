@@ -104,13 +104,31 @@ export class HomeDetailComponent implements OnInit {
     );
   }
 
-  openOkrDialog(id: string, index: number) {
-    this.dialog.open(OkrDialogComponent, {
-      width: '640px',
-      data: {
-        primaries: this.primaries[index],
-        rowArrays: this.rows[id],
-      },
+  openOkrDialog(subtaskId: string) {
+    this.subTasks$.subscribe((subTasks) => {
+      const resultSubTask: SubTask[] = subTasks.filter((subTask) => {
+        return subTask.id === subtaskId;
+      });
+      this.dialog.open(OkrDialogComponent, {
+        width: '640px',
+        data: {
+          key: resultSubTask.map((subTask) => {
+            return subTask.key;
+          }),
+          target: resultSubTask.map((subTask) => {
+            return subTask.target;
+          }),
+          current: resultSubTask.map((subTask) => {
+            return subTask.current;
+          }),
+          percentage: resultSubTask.map((subTask) => {
+            return subTask.percentage;
+          }),
+          lastUpdated: resultSubTask.map((subTask) => {
+            return subTask.lastUpdated;
+          }),
+        },
+      });
     });
   }
 }

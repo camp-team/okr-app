@@ -24,7 +24,7 @@
                 <td class="body-left">
                   <div
                     class="home-detail-table__open"
-                    (click)="openOkrDialog(primary.id, primaryArrayIndex)"
+                    (click)="openOkrDialog(row.value.subTaskId)"
                   >
                     <mat-icon>open_in_full</mat-icon>
                     open
@@ -46,7 +46,7 @@
                 <td>
                   <input
                     type="text"
-                    formControlName="Terget"
+                    formControlName="target"
                     autocomplete="off"
                     required
                   />
