@@ -1,83 +1,91 @@
 <app-home-detail-title></app-home-detail-title>
 
-<ng-container *ngFor="let primary of primaries; index as primaryArrayIndex">
-  <p>{{ primary.titles }}</p>
-  <form [formGroup]="rows[primary.id]">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="header-left">key</th>
-          <th>target</th>
-          <th>current</th>
-          <th>percentage</th>
-          <th class="header-right">lastUpdate</th>
-        </tr>
-      </thead>
+<div class="home-detail-table">
+  <ng-container *ngFor="let primary of primaries; index as primaryArrayIndex">
+    <p class="home-detail-table__titles">{{ primary.titles }}</p>
+    <form [formGroup]="rows[primary.id]">
+      <table class="home-detail-table__area">
+        <thead>
+          <tr>
+            <th class="header-left">key</th>
+            <th>target</th>
+            <th>current</th>
+            <th>percentage</th>
+            <th class="header-right">lastUpdate</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let row of rows[primary.id].controls; index as rowIndex">
-          <ng-container [formGroupName]="rowIndex">
-            <td class="body-left">
+        <tbody>
+          <tr *ngFor="let row of rows[primary.id].controls; index as rowIndex">
+            <ng-container [formGroupName]="rowIndex">
+              <td class="body-left">
+                <div
+                  class="home-detail-table__open"
+                  (click)="openOkrDialog(primary.id, primaryArrayIndex)"
+                >
+                  <mat-icon>open_in_full</mat-icon>
+                  open
+                </div>
+                <input
+                  (keyup)="
+                    updateSubTaskData(
+                      primary.id,
+                      row.value.subTaskId,
+                      row.value
+                    )
+                  "
+                  type="text"
+                  formControlName="key"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="Terget"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="current"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="percentage"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td class="body-right">
+                <input
+                  type="text"
+                  formControlName="lastUpdated"
+                  autocomplete="off"
+                  required
+                />
+              </td>
               <div
-                class="open"
-                (click)="openOkrDialog(primary.id, primaryArrayIndex)"
+                class="home-detail-table__remove"
+                type="button"
+                (click)="remove(primary.id, rowIndex)"
               >
-                <mat-icon>open_in_full</mat-icon>
-                open
+                remove
               </div>
-              <input
-                (keyup)="
-                  updateSubTaskData(primary.id, row.value.subTaskId, row.value)
-                "
-                type="text"
-                formControlName="key"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="Terget"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="current"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                formControlName="percentage"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <td class="body-right">
-              <input
-                type="text"
-                formControlName="lastUpdated"
-                autocomplete="off"
-                required
-              />
-            </td>
-            <div
-              class="remove"
-              type="button"
-              (click)="remove(primary.id, rowIndex)"
-            >
-              remove
-            </div>
-          </ng-container>
-        </tr>
-      </tbody>
-    </table>
-  </form>
-  <div class="add-row" (click)="addRow(primary.id)">＋Add row</div>
-</ng-container>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div class="home-detail-table__add-row" (click)="addRow(primary.id)">
+      ＋Add row
+    </div>
+  </ng-container>
+</div>
