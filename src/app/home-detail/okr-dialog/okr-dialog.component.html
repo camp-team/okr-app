@@ -1,4 +1,4 @@
-<div class="okr-dialog">
+<div *ngFor="let subTask of subTasks" class="okr-dialog">
   <a routerLink="/manage/home/okrdetail" class="okr-dialog__open">
     <mat-icon>open_in_full</mat-icon>
     <div class="okr-dialog__open-name">show page</div>
@@ -6,7 +6,7 @@
 
   <div class="okr-dialog__data">
     <div class="okr-dialog__title"></div>
-    <h1>{{ data.key }}</h1>
+    <h1>{{ subTask.key }}</h1>
     <div *ngFor="let list of lists" class="okr-dialog__list">
       <div class="okr-dialog__menu">{{ list.menu }}</div>
       <div class="okr-dialog__text">{{ list.text }}</div>
