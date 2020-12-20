@@ -1,11 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SubTask } from 'src/app/interfaces/sub-task';
 @Component({
   selector: 'app-okr-dialog',
   templateUrl: './okr-dialog.component.html',
   styleUrls: ['./okr-dialog.component.scss'],
 })
 export class OkrDialogComponent implements OnInit {
+  subTasks = this.data;
+
   readonly lists = [
     {
       menu: 'target',
@@ -27,13 +30,7 @@ export class OkrDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: {
-      key: string;
-      target: number;
-      current: number;
-      percentage: number;
-      lastUpdated: Date;
-    }
+    public data: SubTask[]
   ) {}
 
   ngOnInit(): void {}
