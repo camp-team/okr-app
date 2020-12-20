@@ -106,25 +106,25 @@ export class HomeDetailComponent implements OnInit {
 
   openOkrDialog(subtaskId: string) {
     this.subTasks$.subscribe((subTasks) => {
-      const resultSubTask: SubTask[] = subTasks.filter((subTask) => {
+      const resultSubTasks: SubTask[] = subTasks.filter((subTask) => {
         return subTask.id === subtaskId;
       });
       this.dialog.open(OkrDialogComponent, {
         width: '640px',
         data: {
-          key: resultSubTask.map((subTask) => {
+          key: resultSubTasks.map((subTask) => {
             return subTask.key;
           }),
-          target: resultSubTask.map((subTask) => {
+          target: resultSubTasks.map((subTask) => {
             return subTask.target;
           }),
-          current: resultSubTask.map((subTask) => {
+          current: resultSubTasks.map((subTask) => {
             return subTask.current;
           }),
-          percentage: resultSubTask.map((subTask) => {
+          percentage: resultSubTasks.map((subTask) => {
             return subTask.percentage;
           }),
-          lastUpdated: resultSubTask.map((subTask) => {
+          lastUpdated: resultSubTasks.map((subTask) => {
             return subTask.lastUpdated;
           }),
         },
