@@ -1,5 +1,5 @@
 <div class="okr-detail">
-  <ng-container *ngIf="subTasks$ | async as subTask">
+  <ng-container *ngIf="subTask$ | async as subTask">
     <h1 class="okr-detail__title">{{ subTask.key }}</h1>
 
     <div *ngFor="let list of lists" class="okr-detail__list">
