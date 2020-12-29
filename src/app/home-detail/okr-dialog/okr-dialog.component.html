@@ -1,5 +1,13 @@
 <div *ngFor="let subTask of subTasks" class="okr-dialog">
-  <a routerLink="/manage/home/okrdetail" class="okr-dialog__open">
+  <a
+    routerLink="/manage/home/okrdetail"
+    [queryParams]="{
+      subTaskId: subTask.id,
+      primaryId: subTask.primaryId,
+      okrId: subTask.okrId
+    }"
+    class="okr-dialog__open"
+  >
     <mat-icon>open_in_full</mat-icon>
     <div class="okr-dialog__open-name">show page</div>
   </a>

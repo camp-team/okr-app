@@ -1,1 +1,7 @@
-<p>okr-detail works!</p>
+<div *ngIf="subTasks$ | async as subTask">
+  <p>{{ subTask.key }}</p>
+  <p>target</p>
+  <p>current</p>
+  <p>percentage</p>
+  <p>lastUpdate</p>
+</div>

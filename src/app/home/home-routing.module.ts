@@ -14,7 +14,7 @@ const routes: Routes = [
     component: HomeDetailComponent,
   },
   {
-    path: 'okrdetail',
+    path: ':id',
     component: OkrDetailComponent,
   },
 ];
