@@ -1,7 +1,10 @@
-<div *ngIf="subTasks$ | async as subTask">
-  <p>{{ subTask.key }}</p>
-  <p>target</p>
-  <p>current</p>
-  <p>percentage</p>
-  <p>lastUpdate</p>
+<div class="okr-detail">
+  <ng-container *ngIf="subTasks$ | async as subTask">
+    <h1 class="okr-detail__title">{{ subTask.key }}</h1>
+
+    <div *ngFor="let list of lists" class="okr-detail__list">
+      <div class="okr-detail__menu">{{ list.menu }}</div>
+      <div class="okr-detail__text">{{ list.text }}</div>
+    </div>
+  </ng-container>
 </div>

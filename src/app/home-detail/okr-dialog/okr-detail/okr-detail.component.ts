@@ -11,6 +11,25 @@ import { OkrService } from 'src/app/services/okr.service';
 export class OkrDetailComponent implements OnInit {
   subTasks$: Observable<SubTask>;
 
+  readonly lists = [
+    {
+      menu: 'target',
+      text: 'テスト',
+    },
+    {
+      menu: 'current',
+      text: 'テスト',
+    },
+    {
+      menu: 'percentage',
+      text: 'テスト',
+    },
+    {
+      menu: 'lastUpdated',
+      text: 'テスト',
+    },
+  ];
+
   constructor(public okrService: OkrService, private route: ActivatedRoute) {}
 
   ngOnInit() {
