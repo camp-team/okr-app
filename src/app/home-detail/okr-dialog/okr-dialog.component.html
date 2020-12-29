@@ -1,6 +1,6 @@
 <div *ngFor="let subTask of subTasks" class="okr-dialog">
   <a
-    (click)="action()"
+    (click)="closeOkrDialog()"
     routerLink="/manage/home/okrdetail"
     [queryParams]="{
       subTaskId: subTask.id,

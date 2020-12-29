@@ -36,7 +36,7 @@ export class OkrDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  action() {
+  closeOkrDialog() {
     this.dialogRef.close();
   }
 }
