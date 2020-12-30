@@ -1,0 +1,17 @@
+.settings {
+  margin: 0 auto;
+  max-width: 610px;
+  &__title {
+    font-size: 24px;
+  }
+  &__profile-title {
+    font-size: 20px;
+  }
+  &__delete-title {
+    font-size: 20px;
+  }
+  &__delete-button {
+    display: block;
+    margin: 0 0 0 auto;
+  }
+}
