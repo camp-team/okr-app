@@ -19,15 +19,9 @@ import {
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MatButtonModule } from '@angular/material/button';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
-import { ImageCropDialogComponent } from './image-crop-dialog/image-crop-dialog.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-    DeleteAccountDialogComponent,
-    ImageCropDialogComponent,
-  ],
+  declarations: [AppComponent, NotFoundComponent, DeleteAccountDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

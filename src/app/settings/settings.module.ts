@@ -6,9 +6,10 @@ import { SettingsComponent } from './settings/settings.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
 
 @NgModule({
-  declarations: [SettingsComponent],
+  declarations: [SettingsComponent, ImageCropDialogComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,
