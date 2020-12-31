@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { User } from 'firebase';
-import { Observable } from 'rxjs';
 import { DeleteAccountDialogComponent } from 'src/app/delete-account-dialog/delete-account-dialog.component';
 import { ImageCropDialogComponent } from 'src/app/image-crop-dialog/image-crop-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
-// import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
-
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
