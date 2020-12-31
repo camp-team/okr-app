@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DeleteAccountDialogComponent } from 'src/app/delete-account-dialog/delete-account-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,27 +12,15 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  constructor(
-    private fns: AngularFireFunctions,
-    private authService: AuthService,
-    private router: Router,
-    private snackBar: MatSnackBar
-  ) {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
-  deleteAccount() {
-    const callable = this.fns.httpsCallable('deleteAfUser');
-
-    return callable(this.authService.uid)
-      .toPromise()
-      .then(() => {
-        this.router.navigateByUrl('/');
-        this.authService.afAuth.signOut().then(() => {
-          this.snackBar.open(
-            'アカウントを削除しました。反映には時間がかかります。'
-          );
-        });
-      });
+  openDeleteAccountDialog() {
+    this.dialog.open(DeleteAccountDialogComponent, {
+      width: '400px',
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 }
