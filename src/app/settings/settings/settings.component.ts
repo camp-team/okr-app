@@ -3,6 +3,8 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { User } from 'firebase';
+import { Observable } from 'rxjs';
 import { DeleteAccountDialogComponent } from 'src/app/delete-account-dialog/delete-account-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,7 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public authService: AuthService) {}
 
   ngOnInit(): void {}
 
