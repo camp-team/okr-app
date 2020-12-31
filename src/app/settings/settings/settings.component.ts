@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
 
   openDeleteAccountDialog() {
     this.dialog.open(DeleteAccountDialogComponent, {
-      width: '400px',
+      width: '450px',
       autoFocus: false,
       restoreFocus: false,
     });
