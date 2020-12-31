@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -11,6 +12,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class DeleteAccountDialogComponent implements OnInit {
   constructor(
+    private dialogRef: MatDialogRef<DeleteAccountDialogComponent>,
     private fns: AngularFireFunctions,
     private authService: AuthService,
     private router: Router,
@@ -20,6 +22,7 @@ export class DeleteAccountDialogComponent implements OnInit {
   ngOnInit(): void {}
   deleteAccount() {
     const callable = this.fns.httpsCallable('deleteAfUser');
+    this.dialogRef.close();
     return callable(this.authService.uid)
       .toPromise()
       .then(() => {
@@ -30,5 +33,9 @@ export class DeleteAccountDialogComponent implements OnInit {
           );
         });
       });
+  }
+
+  closeDeleteAccountDialog() {
+    this.dialogRef.close();
   }
 }
