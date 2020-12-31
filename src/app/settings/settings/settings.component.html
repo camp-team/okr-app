@@ -12,6 +12,11 @@
         <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
       </div>
     </label>
+    <input
+      type="file"
+      (change)="openImageCropDialog($event, imageSelecter)"
+      #imageSelecter
+    />
     <div class="settings__delete-account">
       <h2 class="settings__delete-title">退会</h2>
       <p>退会すると全てのデータが削除され、復元できません。</p>
