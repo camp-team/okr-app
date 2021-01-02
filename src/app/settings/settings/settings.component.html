@@ -13,7 +13,11 @@
       </div>
     </label>
     <input
+      id="avatar-file"
       type="file"
+      multiple
+      accept=".png, .jpg, .jpeg"
+      class="settings__avatar-input"
       (change)="openImageCropDialog($event, imageSelecter)"
       #imageSelecter
     />

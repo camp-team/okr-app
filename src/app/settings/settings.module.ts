@@ -6,6 +6,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
+    ImageCropperModule,
   ],
 })
 export class SettingsModule {}

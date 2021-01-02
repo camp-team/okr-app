@@ -1,1 +1,27 @@
-<p>image-crop-dialog works!</p>
+<image-cropper
+  [imageChangedEvent]="imageChangedEvent"
+  [maintainAspectRatio]="true"
+  [aspectRatio]="1 / 1"
+  format="png"
+  resizeToWidth="300"
+  (imageLoaded)="imageLoaded()"
+  (imageCropped)="imageCropped($event)"
+  (loadImageFailed)="loadImageFailed()"
+>
+</image-cropper>
+<button
+  class="actions__cancel-button"
+  *ngIf="imageChangedEvent"
+  mat-button
+  (click)="resetInput()"
+>
+  キャンセル
+</button>
+<button
+  class="actions__change-button"
+  [disabled]="!croppedImage"
+  mat-flat-button
+  color="primary"
+>
+  変更する
+</button>
