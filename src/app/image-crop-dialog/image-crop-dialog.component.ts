@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-image-crop-dialog',
   templateUrl: './image-crop-dialog.component.html',
@@ -21,7 +23,9 @@ export class ImageCropDialogComponent implements OnInit {
       imageSelecter: any;
     },
     private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<ImageCropDialogComponent>
+    private dialogRef: MatDialogRef<ImageCropDialogComponent>,
+    private authService: AuthService,
+    private userService: UserService
   ) {
     this.isLoading = true;
     this.imageChangedEvent = this.data.event;
@@ -47,5 +51,18 @@ export class ImageCropDialogComponent implements OnInit {
     this.imageChangedEvent = '';
     this.imageSelecter.value = '';
     this.dialogRef.close();
+  }
+
+  changeAvatar() {
+    if (this.croppedImage) {
+      this.dialogRef.close();
+      this.userService
+        .uploadAvatar(this.authService.uid, this.croppedImage)
+        .then(() => {
+          this.imageChangedEvent = '';
+          this.imageSelecter.value = '';
+          this.snackBar.open('画像を変更しました。', '閉じる');
+        });
+    }
   }
 }
