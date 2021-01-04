@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OkrDialogComponent } from '../home-detail/okr-dialog/okr-dialog.component';
 import { HomeDetailTitleComponent } from '../home-detail-title/home-detail-title.component';
+import { OkrDetailComponent } from '../home-detail/okr-dialog/okr-detail/okr-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HomeDetailTitleComponent } from '../home-detail-title/home-detail-title
     HomeDetailComponent,
     OkrDialogComponent,
     HomeDetailTitleComponent,
+    OkrDetailComponent,
   ],
   imports: [
     CommonModule,

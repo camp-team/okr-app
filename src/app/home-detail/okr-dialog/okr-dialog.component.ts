@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubTask } from 'src/app/interfaces/sub-task';
 @Component({
   selector: 'app-okr-dialog',
@@ -29,9 +29,14 @@ export class OkrDialogComponent implements OnInit {
   ];
 
   constructor(
+    private dialogRef: MatDialogRef<OkrDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: SubTask[]
   ) {}
 
   ngOnInit(): void {}
+
+  closeOkrDialog() {
+    this.dialogRef.close();
+  }
 }
