@@ -5,8 +5,16 @@
       <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.id }"
         >/{{ okr.title }}</a
       >
+      <a
+        routerLink="/manage/home/okrdetail"
+        [queryParams]="{
+          subTaskId: subTask.id,
+          primaryId: subTask.primaryId,
+          okrId: subTask.okrId
+        }"
+        >/{{ subTask.key }}</a
+      >
     </ng-container>
-    <a href="">/{{ subTask.key }}</a>
 
     <h1 class="okr-detail__title">{{ subTask.key }}</h1>
 
