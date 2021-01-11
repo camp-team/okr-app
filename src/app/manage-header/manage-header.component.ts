@@ -13,7 +13,7 @@ export class ManageHeaderComponent implements OnInit {
 
   constructor(
     private manageService: ManageService,
-    private authService: AuthService
+    public authService: AuthService
   ) {
     this.authService.getUser(this.authService.uid).subscribe((result) => {
       this.avatarURL = result?.avatarURL;
