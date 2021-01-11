@@ -7,6 +7,13 @@
   @include sm {
     width: 80%;
   }
+  &__path {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
   &__grid {
     display: grid;
     gap: 24px;
