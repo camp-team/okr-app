@@ -1,0 +1,35 @@
+.settings {
+  margin: 56px auto 24px;
+  max-width: 610px;
+  &__title {
+    font-size: 24px;
+  }
+  &__profile-title {
+    font-size: 20px;
+  }
+  &__delete-title {
+    font-size: 20px;
+  }
+  &__delete-button {
+    display: block;
+    margin: 0 0 0 auto;
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  &__navs {
+    margin-bottom: 16px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  &__copyright {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 16px;
+  }
+  a {
+    text-decoration: none;
+    margin-right: 16px;
+    color: inherit;
+  }
+}

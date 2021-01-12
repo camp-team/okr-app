@@ -1,0 +1,25 @@
+<div class="settings">
+  <h1 class="settings__title">アカウント設定</h1>
+  <h2 class="settings__profile-title">プロフィール</h2>
+  <div class="settings__delete-account">
+    <h2 class="settings__delete-title">退会</h2>
+    <p>退会すると全てのデータが削除され、復元できません。</p>
+    <button
+      color="primary"
+      mat-raised-button
+      (click)="openDeleteAccountDialog()"
+      class="settings__delete-button"
+    >
+      退会する
+    </button>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__navs">
+    <a routerLink="/intl/terms">利用規約</a>
+    <a routerLink="/intl/legal">特定商取引法に基づく規約</a>
+    <a href="">サービスについて</a>
+  </div>
+  <p class="footer__copyright">©︎ okr-app</p>
+</footer>

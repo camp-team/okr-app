@@ -1,0 +1,19 @@
+.delete-account-dialog {
+  &__content,
+  p {
+    margin: 0;
+  }
+  &__content {
+    margin-bottom: 24px;
+  }
+  &__title {
+    text-align: center;
+  }
+  &__action {
+    text-align: right;
+  }
+  &__cancel {
+    border: none;
+    background: transparent;
+  }
+}
