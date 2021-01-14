@@ -1,6 +1,16 @@
 <mat-card>
   <div class="card">
     <div class="card__body">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="card__menu">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>check</mat-icon>
+          <span>OKRを完了済みにする。</span>
+        </button>
+      </mat-menu>
+
       <h1 class="card__title">{{ okr.title }}</h1>
       <div class="card__sub-titles">
         <div *ngFor="let primary of primaries$ | async" class="card__sub-title">
