@@ -14,6 +14,38 @@
     display: block;
     margin: 0 0 0 auto;
   }
+  &__avatar-image {
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  &__avatar-icon-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    background: rgba(45, 45, 45, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      background: rgba(45, 45, 45, 0.8);
+      transition: 0.3s;
+    }
+  }
+  &__avatar-icon {
+    color: #fff;
+  }
+  &__avatar-input {
+    display: none;
+  }
 }
 
 .footer {
