@@ -59,3 +59,16 @@
     }
   }
 }
+
+.okr-delete {
+  position: relative;
+  text-align: center;
+  &__text {
+    color: rgba(0, 0, 0, 0.54);
+  }
+  mat-icon {
+    position: absolute;
+    left: 44%;
+    top: 2px;
+  }
+}
