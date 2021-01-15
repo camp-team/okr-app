@@ -111,6 +111,24 @@ export class OkrService {
       .valueChanges();
   }
 
+  updateOkr(
+    uid: string,
+    okrId: string,
+    okr: Omit<
+      Okr,
+      | 'id'
+      | 'primaries'
+      | 'start'
+      | 'end'
+      | 'CreatorId'
+      | 'title'
+      | 'isComplete'
+    >
+  ): Promise<void> {
+    console.log(okr);
+    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
+  }
+
   updateSubTask(
     uid: string,
     okrId: string,
