@@ -12,12 +12,13 @@
     </ng-container>
   </div>
 
-  <h2>四半期のOKR</h2>
+  <h2>達成済みのOKR</h2>
   <ng-container #blank *ngFor="let okr of okrs$ | async">
     <ng-container *ngIf="okr.isComplete == false">
       <a
         [routerLink]="['/manage/home/homedetail']"
         [queryParams]="{ v: okr.id }"
+        class="home__complete"
       >
         📅{{ okr.title }}
       </a>
