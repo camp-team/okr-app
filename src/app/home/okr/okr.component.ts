@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Okr } from 'src/app/interfaces/okr';
 import { Primary } from 'src/app/interfaces/primary';
@@ -16,7 +17,8 @@ export class OkrComponent implements OnInit {
 
   constructor(
     private okrService: OkrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -37,5 +39,6 @@ export class OkrComponent implements OnInit {
       isComplete: false,
     };
     this.okrService.updateOkr(this.authService.uid, okrId, okrValue);
+    this.snackBar.open('お疲れ様でした✨', null);
   }
 }
