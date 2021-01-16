@@ -1,0 +1,46 @@
+<div class="settings">
+  <h1 class="settings__title">アカウント設定</h1>
+  <ng-container *ngIf="authService.user$ | async as user">
+    <h2 class="settings__profile-title">プロフィール</h2>
+    <label
+      for="avatar-file"
+      [style.background-image]="'url(' + user?.avatarURL + ')'"
+      alt="プロフィール画像"
+      class="settings__avatar-image"
+    >
+      <div class="settings__avatar-icon-wrap">
+        <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
+      </div>
+    </label>
+    <input
+      id="avatar-file"
+      type="file"
+      multiple
+      accept=".png, .jpg, .jpeg"
+      class="settings__avatar-input"
+      (change)="openImageCropDialog($event, imageSelecter)"
+      #imageSelecter
+    />
+    <div class="settings__delete-account">
+      <h2 class="settings__delete-title">退会</h2>
+      <p>退会すると全てのデータが削除され、復元できません。</p>
+      <button
+        color="primary"
+        mat-raised-button
+        (click)="openDeleteAccountDialog()"
+        class="settings__delete-button"
+      >
+        退会する
+      </button>
+    </div>
+  </ng-container>
+</div>
+
+<footer class="footer">
+  <div class="footer__navs">
+    <a routerLink="/intl/terms">利用規約</a>
+    <a routerLink="/intl/legal">特定商取引法に基づく規約</a>
+    <a href="">サービスについて</a>
+  </div>
+  <p class="footer__copyright">©︎ okr-app</p>
+</footer>

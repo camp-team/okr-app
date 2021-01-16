@@ -19,15 +19,17 @@
       <mat-icon>search</mat-icon>
     </div>
 
-    <div class="header__mypage">
+    <ng-container
+      *ngIf="authService.user$ | async as user"
+      class="header__mypage"
+    >
       <button
-        mat-icon-button
-        [matMenuTriggerFor]="menu"
-        *ngIf="user$ | async as user"
-      >
-        <img [src]="avatarURL" alt="avater" class="header__avatar-image" />
-      </button>
-      <mat-menu #menu="matMenu">
+        mat-mini-fab
+        [matMenuTriggerFor]="userMenu"
+        [style.background-image]="'url(' + user?.avatarURL + ')'"
+        class="header__icon"
+      ></button>
+      <mat-menu #userMenu="matMenu">
         <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
           <mat-icon>login</mat-icon>
           <span>ログイン</span>
@@ -40,7 +42,11 @@
           <mat-icon>support_argent</mat-icon>
           <span>開発者を応援する</span>
         </button>
+        <button mat-menu-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>設定</span>
+        </button>
       </mat-menu>
-    </div>
+    </ng-container>
   </div>
 </mat-toolbar>

@@ -18,9 +18,10 @@ import {
 } from '@angular/material/snack-bar';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MatButtonModule } from '@angular/material/button';
+import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent],
+  declarations: [AppComponent, NotFoundComponent, DeleteAccountDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

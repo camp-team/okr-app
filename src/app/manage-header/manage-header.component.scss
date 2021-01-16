@@ -47,9 +47,9 @@
     grid-area: icon;
     justify-self: end;
   }
-  &__header__avatar-image {
-    border-radius: 50%;
-    width: 40px;
-    background: center/cover;
+  &__icon {
+    background-position: center;
+    background-size: cover;
+    box-shadow: none;
   }
 }
