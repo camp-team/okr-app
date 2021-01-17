@@ -58,6 +58,10 @@ export class OkrService {
       });
   }
 
+  deleteOkr(okrId: string): Promise<void> {
+    return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
+  }
+
   getOkrs(): Observable<Okr[]> {
     return this.db
       .collection<Okr>(`users/${this.authsearvice.uid}/okrs`)

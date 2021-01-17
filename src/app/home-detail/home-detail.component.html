@@ -97,7 +97,11 @@
 <div class="okr-delete">
   <mat-divider></mat-divider>
   <div class="okr-delete__text">
-    <mat-icon>delete</mat-icon>
-    OKRを削除
+    <ng-container *ngIf="okr$ | async as okr">
+      <mat-icon>delete</mat-icon>
+      <a (click)="okrDeleteDialog(okr.id)">
+        OKRを削除
+      </a>
+    </ng-container>
   </div>
 </div>
