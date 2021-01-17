@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Okr } from '../interfaces/okr';
+import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class HomeDetailTitleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public okrService: OkrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -31,5 +33,9 @@ export class HomeDetailTitleComponent implements OnInit {
     this.formGroup = this.fb.group({
       title: [title, [Validators.required]],
     });
+  }
+
+  updateTitle(okrId: string, title: Okr) {
+    this.okrService.updateTitle(this.authService.uid, okrId, title);
   }
 }

@@ -1,7 +1,11 @@
 <div class="home-detail-title">
   <ng-container *ngIf="okr$ | async as okr">
     <form [formGroup]="formGroup" class="home-detail-title__content">
-      <input type="text" formControlName="title" />
+      <input
+        type="text"
+        formControlName="title"
+        (keyup)="updateTitle(okr.id, formGroup.value)"
+      />
     </form>
     <h3 class="home-detail-title__date">
       📅期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{

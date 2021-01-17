@@ -119,4 +119,8 @@ export class OkrService {
       )
       .update(subTask);
   }
+
+  updateTitle(uid: string, okrId: string, okr: Okr): Promise<void> {
+    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
+  }
 }
