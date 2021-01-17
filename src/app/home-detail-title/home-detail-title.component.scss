@@ -1,5 +1,11 @@
 .home-detail-title {
   margin: 80px 96px 0;
+  &__content input {
+    border: none;
+    background-color: inherit;
+    font-size: 32px;
+    font-weight: 600;
+  }
   &__date {
     margin-bottom: 0;
   }
