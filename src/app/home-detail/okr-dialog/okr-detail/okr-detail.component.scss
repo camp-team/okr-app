@@ -1,6 +1,13 @@
 .okr-detail {
   text-align: center;
   margin-top: 64px;
+  &__path a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
   &__list {
     display: flex;
     justify-content: center;

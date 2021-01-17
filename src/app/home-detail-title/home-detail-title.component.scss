@@ -1,5 +1,12 @@
 .home-detail-title {
   margin: 80px 96px 0;
+  &__path a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
   &__date {
     margin-bottom: 0;
   }

@@ -1,5 +1,11 @@
 <div class="home-detail-title">
   <ng-container *ngIf="okr$ | async as okr">
+    <div class="home-detail-title__path">
+      <a routerLink="/manage/home">OKR管理</a>
+      <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.id }"
+        >/{{ okr.title }}</a
+      >
+    </div>
     <h1 class="okr__title">{{ okr.title }}</h1>
     <h3 class="home-detail-title__date">
       📅期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
