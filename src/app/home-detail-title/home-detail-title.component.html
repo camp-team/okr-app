@@ -1,6 +1,8 @@
 <div class="home-detail-title">
   <ng-container *ngIf="okr$ | async as okr">
-    <h1 class="okr__title">{{ okr.title }}</h1>
+    <form [formGroup]="formGroup" class="home-detail-title__content">
+      <input type="text" formControlName="title" />
+    </form>
     <h3 class="home-detail-title__date">
       📅期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
         okr.end.toDate() | date: 'yyyy年MM月dd日'
