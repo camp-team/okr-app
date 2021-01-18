@@ -51,17 +51,31 @@ export class HomeDetailComponent implements OnInit {
           this.rows[primary.id] = this.fb.array([]);
         });
         subTasks.forEach((subTask) => {
-          this.initRows(subTask.primaryId, subTask.id, subTask.key);
+          this.initRows(
+            subTask.primaryId,
+            subTask.id,
+            subTask.key,
+            subTask.target,
+            subTask.current,
+            subTask.percentage
+          );
         });
       });
   }
 
-  initRows(primaryId: string, subTaskId: string, value: string) {
+  initRows(
+    primaryId: string,
+    subTaskId: string,
+    key: string,
+    target: number,
+    current: number,
+    percentage: number
+  ) {
     this.row = this.fb.group({
-      key: [value, [Validators.required]],
-      target: ['', [Validators.required]],
-      current: ['', [Validators.required]],
-      percentage: ['', [Validators.required]],
+      key: [key, [Validators.required]],
+      target: [target, [Validators.required]],
+      current: [current, [Validators.required]],
+      percentage: [percentage, [Validators.required]],
       lastUpdated: ['', [Validators.required]],
       subTaskId,
     });
