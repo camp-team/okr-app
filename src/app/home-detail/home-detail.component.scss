@@ -65,6 +65,10 @@
   text-align: center;
   &__text {
     color: rgba(0, 0, 0, 0.54);
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
   }
   mat-icon {
     position: absolute;

@@ -30,4 +30,8 @@ export class OkrDeleteDialogComponent implements OnInit {
     });
     this.dialogRef.close();
   }
+
+  closeDeleteOKRDialog() {
+    this.dialogRef.close();
+  }
 }

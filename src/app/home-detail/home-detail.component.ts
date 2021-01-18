@@ -162,7 +162,6 @@ export class HomeDetailComponent implements OnInit {
 
   okrDeleteDialog(okrId: Okr) {
     this.dialog.open(OkrDeleteDialogComponent, {
-      width: '640px',
       autoFocus: false,
       restoreFocus: false,
       data: {

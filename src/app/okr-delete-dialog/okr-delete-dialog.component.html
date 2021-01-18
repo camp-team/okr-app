@@ -1,5 +1,18 @@
-<p>削除すると、全てのデータが削除され、復元できません。</p>
-<p>それでもよろしいですか？</p>
-<button color="primary" mat-raised-button (click)="okrDelete()">
-  削除する
-</button>
+<div class="okr-delete-dialog">
+  <h2 class="okr-delete-dialog__title">記事の削除</h2>
+  <p>OKRを削除します。よろしいですか？</p>
+  <p>※削除するとデータはもとに戻すことはできません。</p>
+  <div class="okr-delete-dialog__action">
+    <button mat-raised-button (click)="closeDeleteOKRDialog()">
+      キャンセル
+    </button>
+    <button
+      color="primary"
+      mat-raised-button
+      (click)="okrDelete()"
+      class="okr-delete-dialog__delete"
+    >
+      削除する
+    </button>
+  </div>
+</div>
