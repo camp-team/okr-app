@@ -30,6 +30,11 @@
       <div class="okr-detail__text">{{ subTask.current }}</div>
     </div>
 
+    <div class="okr-detail__list">
+      <div class="okr-detail__menu">percentage</div>
+      <div class="okr-detail__text">{{ subTask.percentage }}</div>
+    </div>
+
     <div *ngFor="let list of lists" class="okr-detail__list">
       <div class="okr-detail__menu">{{ list.menu }}</div>
       <div class="okr-detail__text">{{ list.text }}</div>
