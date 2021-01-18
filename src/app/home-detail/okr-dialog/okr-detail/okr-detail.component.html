@@ -1,6 +1,34 @@
 <div class="okr-detail">
   <ng-container *ngIf="subTask$ | async as subTask">
+    <div class="okr-detail__path">
+      <a routerLink="/manage/home">OKR管理</a>
+      <ng-container *ngIf="okr$ | async as okr">
+        <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.id }"
+          >/{{ okr.title }}</a
+        >
+        <a
+          routerLink="/manage/home/okrdetail"
+          [queryParams]="{
+            subTaskId: subTask.id,
+            primaryId: subTask.primaryId,
+            okrId: subTask.okrId
+          }"
+          >/{{ subTask.key }}</a
+        >
+      </ng-container>
+    </div>
+
     <h1 class="okr-detail__title">{{ subTask.key }}</h1>
+
+    <div class="okr-detail__list">
+      <div class="okr-detail__menu">target</div>
+      <div class="okr-detail__text">{{ subTask.target }}</div>
+    </div>
+
+    <div class="okr-detail__list">
+      <div class="okr-detail__menu">current</div>
+      <div class="okr-detail__text">{{ subTask.current }}</div>
+    </div>
 
     <div *ngFor="let list of lists" class="okr-detail__list">
       <div class="okr-detail__menu">{{ list.menu }}</div>

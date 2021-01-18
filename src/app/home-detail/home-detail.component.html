@@ -45,6 +45,13 @@
                 </td>
                 <td>
                   <input
+                    (keyup)="
+                      updateSubTaskData(
+                        primary.id,
+                        row.value.subTaskId,
+                        row.value
+                      )
+                    "
                     type="text"
                     formControlName="target"
                     autocomplete="off"
@@ -53,6 +60,13 @@
                 </td>
                 <td>
                   <input
+                    (keyup)="
+                      updateSubTaskData(
+                        primary.id,
+                        row.value.subTaskId,
+                        row.value
+                      )
+                    "
                     type="text"
                     formControlName="current"
                     autocomplete="off"
@@ -61,6 +75,13 @@
                 </td>
                 <td>
                   <input
+                    (keyup)="
+                      updateSubTaskData(
+                        primary.id,
+                        row.value.subTaskId,
+                        row.value
+                      )
+                    "
                     type="text"
                     formControlName="percentage"
                     autocomplete="off"
@@ -69,6 +90,13 @@
                 </td>
                 <td class="body-right">
                   <input
+                    (keyup)="
+                      updateSubTaskData(
+                        primary.id,
+                        row.value.subTaskId,
+                        row.value
+                      )
+                    "
                     type="text"
                     formControlName="lastUpdated"
                     autocomplete="off"
