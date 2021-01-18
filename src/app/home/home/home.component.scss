@@ -1,11 +1,23 @@
 @import 'mixins';
 
 .home {
-  margin: 0 auto;
+  margin: 40px auto 0 auto;
   width: 300px;
 
   @include sm {
     width: 80%;
+  }
+  &__path {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__title {
+    span {
+      font-size: 32px;
+    }
   }
   &__grid {
     display: grid;
