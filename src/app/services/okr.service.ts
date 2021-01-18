@@ -125,7 +125,6 @@ export class OkrService {
       | 'isComplete'
     >
   ): Promise<void> {
-    console.log(okr);
     return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
   }
 
