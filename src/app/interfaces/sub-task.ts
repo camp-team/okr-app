@@ -5,6 +5,6 @@ export interface SubTask {
   key: string;
   target: number;
   current: number;
-  percentage: number;
+  percentage: string;
   lastUpdated: Date;
 }
