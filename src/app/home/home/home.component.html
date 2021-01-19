@@ -9,7 +9,7 @@
       <p class="home__text">目標を追加する</p>
     </mat-card>
     <ng-container *ngFor="let okr of okrs$ | async">
-      <app-okr *ngIf="okr.isComplete == true" [okr]="okr"></app-okr>
+      <app-okr *ngIf="okr.isComplete" [okr]="okr"></app-okr>
     </ng-container>
   </div>
 
