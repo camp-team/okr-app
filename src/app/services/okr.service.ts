@@ -14,12 +14,17 @@ export class OkrService {
     private authsearvice: AuthService
   ) {}
 
-  createOkr(okr: Omit<Okr, 'id'>, primaries: string[]): Promise<void> {
+  createOkr(
+    okr: Omit<Okr, 'id' | 'isComplete'>,
+    primaries: string[]
+  ): Promise<void> {
     const id = this.db.createId();
+    const isComplete = true;
     return this.db
       .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
       .set({
         id,
+        isComplete,
         ...okr,
       })
       .then(() => {
@@ -104,6 +109,23 @@ export class OkrService {
         ref.where('okrId', '==', okrId)
       )
       .valueChanges();
+  }
+
+  updateOkr(
+    uid: string,
+    okrId: string,
+    okr: Omit<
+      Okr,
+      | 'id'
+      | 'primaries'
+      | 'start'
+      | 'end'
+      | 'CreatorId'
+      | 'title'
+      | 'isComplete'
+    >
+  ): Promise<void> {
+    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
   }
 
   updateSubTask(
