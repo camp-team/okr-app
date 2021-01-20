@@ -1,4 +1,5 @@
 <div class="home">
+  <a routerLink="/manage/home" class="home__path">OKR管理</a>
   <h2 class="home__title"><span>🎯</span>OKR管理</h2>
   <div class="home__grid">
     <mat-card routerLink="/manage/edit" class="home__card">
@@ -7,6 +8,21 @@
       </button>
       <p class="home__text">目標を追加する</p>
     </mat-card>
-    <app-okr *ngFor="let okr of okrs$ | async" [okr]="okr"></app-okr>
+    <ng-container *ngFor="let okr of okrs$ | async">
+      <app-okr *ngIf="okr.isComplete" [okr]="okr"></app-okr>
+    </ng-container>
   </div>
+
+  <h2>達成済みのOKR</h2>
+  <ng-container #blank *ngFor="let okr of okrs$ | async">
+    <ng-container *ngIf="okr.isComplete == false">
+      <a
+        [routerLink]="['/manage/home/homedetail']"
+        [queryParams]="{ v: okr.id }"
+        class="home__complete"
+      >
+        📅{{ okr.title }}
+      </a>
+    </ng-container>
+  </ng-container>
 </div>

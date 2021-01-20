@@ -12,11 +12,11 @@ export class OkrDialogComponent implements OnInit {
   readonly lists = [
     {
       menu: 'target',
-      text: 'テスト',
+      text: this.data[0].target,
     },
     {
       menu: 'current',
-      text: 'テスト',
+      text: this.data[0].current,
     },
     {
       menu: 'percentage',

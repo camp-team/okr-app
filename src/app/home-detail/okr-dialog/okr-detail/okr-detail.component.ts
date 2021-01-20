@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Okr } from 'src/app/interfaces/okr';
 import { SubTask } from 'src/app/interfaces/sub-task';
 import { OkrService } from 'src/app/services/okr.service';
 @Component({
@@ -10,16 +11,9 @@ import { OkrService } from 'src/app/services/okr.service';
 })
 export class OkrDetailComponent implements OnInit {
   subTask$: Observable<SubTask>;
+  okr$: Observable<Okr>;
 
   readonly lists = [
-    {
-      menu: 'target',
-      text: 'テスト',
-    },
-    {
-      menu: 'current',
-      text: 'テスト',
-    },
     {
       menu: 'percentage',
       text: 'テスト',
@@ -37,6 +31,7 @@ export class OkrDetailComponent implements OnInit {
       const okrId = params.get('okrId');
       const primaryId = params.get('primaryId');
       const subTaskId = params.get('subTaskId');
+      this.okr$ = this.okrService.getOkr(okrId);
       this.subTask$ = this.okrService.getSubTask(okrId, primaryId, subTaskId);
     });
   }

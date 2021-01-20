@@ -1,5 +1,11 @@
 <div class="home-detail-title">
   <ng-container *ngIf="okr$ | async as okr">
+    <div class="home-detail-title__path">
+      <a routerLink="/manage/home">OKR管理</a>
+      <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.id }"
+        >/{{ okr.title }}</a
+      >
+    </div>
     <form [formGroup]="formGroup" class="home-detail-title__content">
       <input
         type="text"
