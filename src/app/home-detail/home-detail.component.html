@@ -118,9 +118,12 @@
       <div class="home-detail-table__add-row" (click)="addRow(primary.id)">
         ＋Add row
       </div>
-      Average{{
-        (primary.average / (rows[primary.id].controls.length * 100)) * 100
-      }}%
+      <div class="home-detail-table__average">
+        <span class="home-detail-table__average-text">average</span
+        >{{
+          (primary.average / (rows[primary.id].controls.length * 100)) * 100
+        }}%
+      </div>
     </ng-container>
   </div>
 </div>
