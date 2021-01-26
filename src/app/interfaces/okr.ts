@@ -6,4 +6,5 @@ export interface Okr {
   CreatorId: string;
   id: string;
   title: string;
+  isComplete: boolean;
 }

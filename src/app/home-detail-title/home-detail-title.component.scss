@@ -1,5 +1,12 @@
 .home-detail-title {
   margin: 80px 96px 0;
+  &__content input {
+    margin-top: 24px;
+    border: none;
+    background-color: inherit;
+    font-size: 32px;
+    font-weight: 600;
+  }
   &__path a {
     text-decoration: none;
     color: inherit;

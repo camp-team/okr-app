@@ -6,13 +6,17 @@ mat-card {
   display: flex;
   flex-wrap: wrap;
   flex-flow: column;
+  &__menu {
+    display: block;
+    margin: 0 0 0 auto;
+  }
   &__body {
     padding: 24px;
     flex: 1;
   }
   &__title {
     font-size: 20px;
-    margin-bottom: 16px;
+    margin: 0 0 16px;
     height: 60px;
   }
   &__sub-titles {
