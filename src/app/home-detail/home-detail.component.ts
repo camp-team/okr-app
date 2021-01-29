@@ -72,7 +72,7 @@ export class HomeDetailComponent implements OnInit {
     key: string,
     target: number,
     current: number,
-    percentage: number
+    percentage: string
   ) {
     this.row = this.fb.group({
       key: [key, [Validators.required]],
@@ -112,12 +112,25 @@ export class HomeDetailComponent implements OnInit {
   }
 
   updateSubTaskData(primaryId: string, subTaskId: string, row: SubTask) {
+    const target = row.target;
+    const current = row.current;
+    const percentage = (current / target) * 100;
+    const result = Math.round(percentage * 10) / 10;
+    const subTaskValue: Omit<SubTask, 'id'> = {
+      okrId: this.okrId,
+      primaryId,
+      key: row.key,
+      target: row.target,
+      current: row.current,
+      percentage: result + '%',
+      lastUpdated: row.lastUpdated,
+    };
     this.okrService.updateSubTask(
       this.authService.uid,
       this.okrId,
       primaryId,
       subTaskId,
-      row
+      subTaskValue
     );
   }
 

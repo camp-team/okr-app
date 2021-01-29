@@ -137,7 +137,7 @@ export class OkrService {
     okrId: string,
     primaryId: string,
     subTaskId: string,
-    subTask: SubTask
+    subTask: Omit<SubTask, 'id'>
   ): Promise<void> {
     return this.db
       .doc(

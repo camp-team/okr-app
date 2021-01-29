@@ -15,10 +15,6 @@ export class OkrDetailComponent implements OnInit {
 
   readonly lists = [
     {
-      menu: 'percentage',
-      text: 'テスト',
-    },
-    {
       menu: 'lastUpdated',
       text: 'テスト',
     },
