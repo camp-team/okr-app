@@ -19,9 +19,15 @@ import {
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MatButtonModule } from '@angular/material/button';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
+import { OkrDeleteDialogComponent } from './okr-delete-dialog/okr-delete-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, DeleteAccountDialogComponent],
+  declarations: [
+    AppComponent,
+    NotFoundComponent,
+    DeleteAccountDialogComponent,
+    OkrDeleteDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

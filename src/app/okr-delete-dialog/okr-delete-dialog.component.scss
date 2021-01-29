@@ -1,0 +1,9 @@
+.okr-delete-dialog {
+  &__title {
+    text-align: center;
+  }
+  &__action {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

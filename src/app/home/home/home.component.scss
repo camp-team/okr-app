@@ -67,4 +67,12 @@
     text-align: center;
     color: #1a73e8;
   }
+  &__complete {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
 }
