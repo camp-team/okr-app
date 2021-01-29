@@ -9,6 +9,9 @@ import { SubTask } from '../interfaces/sub-task';
 import { Primary } from '../interfaces/primary';
 import { AuthService } from '../services/auth.service';
 import { switchMap, take } from 'rxjs/operators';
+import { OkrDeleteDialogComponent } from '../okr-delete-dialog/okr-delete-dialog.component';
+import { Okr } from '../interfaces/okr';
+
 @Component({
   selector: 'app-home-detail',
   templateUrl: './home-detail.component.html',
@@ -31,6 +34,7 @@ export class HomeDetailComponent implements OnInit {
   subTasks$: Observable<SubTask[]> = this.okrService.getSubTasksCollection(
     this.okrId
   );
+  okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
   row: FormGroup;
 
   constructor(
@@ -193,6 +197,16 @@ export class HomeDetailComponent implements OnInit {
           },
         ],
       });
+    });
+  }
+
+  okrDeleteDialog(okrId: Okr) {
+    this.dialog.open(OkrDeleteDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        id: okrId,
+      },
     });
   }
 }

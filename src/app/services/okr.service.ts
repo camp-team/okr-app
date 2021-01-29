@@ -64,6 +64,10 @@ export class OkrService {
       });
   }
 
+  deleteOkr(okrId: string): Promise<void> {
+    return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
+  }
+
   getOkrs(): Observable<Okr[]> {
     return this.db
       .collection<Okr>(`users/${this.authsearvice.uid}/okrs`)
@@ -152,5 +156,9 @@ export class OkrService {
         `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
       )
       .update(subTask);
+  }
+
+  updateTitle(uid: string, okrId: string, okr: Okr): Promise<void> {
+    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
   }
 }
