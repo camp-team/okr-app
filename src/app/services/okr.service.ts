@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
 import { SubTask } from '../interfaces/sub-task';
+import { firestore } from 'firebase';
 @Injectable({
   providedIn: 'root',
 })
@@ -48,7 +49,7 @@ export class OkrService {
   }
 
   createSubTask(
-    subTask: Omit<SubTask, 'id'>,
+    subTask: Omit<SubTask, 'id' | 'lastUpdated'>,
     primaryId: string,
     okrId: string
   ) {
@@ -59,6 +60,7 @@ export class OkrService {
       )
       .set({
         id,
+        lastUpdated: firestore.Timestamp.now(),
         ...subTask,
       });
   }
