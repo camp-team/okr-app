@@ -11,11 +11,14 @@ import { AuthService } from '../services/auth.service';
 import { switchMap, take } from 'rxjs/operators';
 import { OkrDeleteDialogComponent } from '../okr-delete-dialog/okr-delete-dialog.component';
 import { Okr } from '../interfaces/okr';
+import { firestore } from 'firebase';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-detail',
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.scss'],
+  providers: [DatePipe],
 })
 export class HomeDetailComponent implements OnInit {
   private okrId = this.route.snapshot.queryParamMap.get('v');
@@ -42,7 +45,8 @@ export class HomeDetailComponent implements OnInit {
     public okrService: OkrService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private datepipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -60,7 +64,8 @@ export class HomeDetailComponent implements OnInit {
             subTask.key,
             subTask.target,
             subTask.current,
-            subTask.percentage
+            subTask.percentage,
+            subTask.lastUpdated
           );
         });
       });
@@ -72,14 +77,17 @@ export class HomeDetailComponent implements OnInit {
     key: string,
     target: number,
     current: number,
-    percentage: number
+    percentage: number,
+    lastUpdated: firestore.Timestamp
   ) {
+    const timeStamp = lastUpdated.toDate();
+    const date = this.datepipe.transform(timeStamp, 'yyyy/MM/dd');
     this.row = this.fb.group({
       key: [key, [Validators.required]],
       target: [target, [Validators.required]],
       current: [current, [Validators.required]],
       percentage: [percentage, [Validators.required]],
-      lastUpdated: ['', [Validators.required]],
+      lastUpdated: [date, [Validators.required]],
       subTaskId,
     });
     this.rows[primaryId].push(this.row);
