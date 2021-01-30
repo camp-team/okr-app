@@ -139,13 +139,16 @@ export class OkrService {
     okrId: string,
     primaryId: string,
     subTaskId: string,
-    subTask: SubTask
+    subTask: Omit<SubTask, 'lastUpdated'>
   ): Promise<void> {
     return this.db
       .doc(
         `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
       )
-      .update(subTask);
+      .update({
+        lastUpdated: firestore.Timestamp.now(),
+        ...subTask,
+      });
   }
 
   updateTitle(uid: string, okrId: string, okr: Okr): Promise<void> {
