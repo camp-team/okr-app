@@ -1,4 +1,5 @@
 export interface Primary {
   id: string;
-  primaryTitle: any;
+  primaryTitle: string;
+  average: number;
 }
