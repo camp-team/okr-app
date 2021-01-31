@@ -12,7 +12,13 @@
           class="home-detail-table__title"
         >
           <ng-container [formGroupName]="primaryArrayIndex">
-            <input type="text" formControlName="primaryTitle" />
+            <input
+              type="text"
+              formControlName="primaryTitle"
+              (keyup)="
+                updatePrimaryTitle(primary.id, primaryTitles[primary.id].value)
+              "
+            />
           </ng-container>
         </div>
       </form>

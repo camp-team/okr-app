@@ -123,6 +123,15 @@ export class HomeDetailComponent implements OnInit {
     this.rows[primaryId].removeAt(rowIndex);
   }
 
+  updatePrimaryTitle(primaryId: string, primaryTitle: Primary) {
+    this.okrService.updatePrimaryTitle(
+      this.authService.uid,
+      this.okrId,
+      primaryId,
+      primaryTitle
+    );
+  }
+
   updateSubTaskData(primaryId: string, subTaskId: string, row: SubTask) {
     const target = row.target;
     const current = row.current;
