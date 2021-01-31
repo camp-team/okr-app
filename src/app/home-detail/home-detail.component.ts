@@ -154,7 +154,7 @@ export class HomeDetailComponent implements OnInit {
         );
         average = average + +subTaskPercentageNumber;
       }
-      const primaryValue: Omit<Primary, 'titles'> = {
+      const primaryValue: Omit<Primary, 'primaryTitle'> = {
         id: primaryId,
         average: average,
       };

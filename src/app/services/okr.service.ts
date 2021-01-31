@@ -139,7 +139,7 @@ export class OkrService {
     uid: string,
     okrId: string,
     primaryId: string,
-    primary: Omit<Primary, 'titles'>
+    primary: Omit<Primary, 'primaryTitle'>
   ): Promise<void> {
     return this.db
       .doc(`users/${uid}/okrs/${okrId}/primaries/${primaryId}`)
