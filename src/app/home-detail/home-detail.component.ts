@@ -56,7 +56,7 @@ export class HomeDetailComponent implements OnInit {
           this.primaries.push(primary);
           this.rows[primary.id] = this.fb.array([]);
           this.primaryTitles[primary.id] = this.fb.array([]);
-          this.initPrimary(primary.id, primary.titles);
+          this.initPrimary(primary.id, primary.primaryTitle);
         });
         subTasks.forEach((subTask) => {
           this.initRows(

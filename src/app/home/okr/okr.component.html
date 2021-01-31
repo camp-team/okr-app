@@ -14,7 +14,7 @@
       <h1 class="card__title">{{ okr.title }}</h1>
       <div class="card__sub-titles">
         <div *ngFor="let primary of primaries$ | async" class="card__sub-title">
-          <p>{{ primary.titles }}</p>
+          <p>{{ primary.primaryTitle }}</p>
         </div>
       </div>
       <p class="card__duration">
