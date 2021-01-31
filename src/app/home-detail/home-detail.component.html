@@ -2,7 +2,7 @@
   <app-home-detail-title></app-home-detail-title>
 
   <div class="home-detail-table">
-    <ng-container *ngFor="let primary of primaries; index as primaryArrayIndex">
+    <ng-container *ngFor="let primary of primaries">
       <form [formGroup]="primaryTitles[primary.id]">
         <div
           *ngFor="
