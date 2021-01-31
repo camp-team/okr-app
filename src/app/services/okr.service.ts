@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
 import { SubTask } from '../interfaces/sub-task';
+import { firestore } from 'firebase';
 @Injectable({
   providedIn: 'root',
 })
@@ -49,7 +50,7 @@ export class OkrService {
   }
 
   createSubTask(
-    subTask: Omit<SubTask, 'id'>,
+    subTask: Omit<SubTask, 'id' | 'lastUpdated'>,
     primaryId: string,
     okrId: string
   ) {
@@ -60,6 +61,7 @@ export class OkrService {
       )
       .set({
         id,
+        lastUpdated: firestore.Timestamp.now(),
         ...subTask,
       });
   }
@@ -149,13 +151,16 @@ export class OkrService {
     okrId: string,
     primaryId: string,
     subTaskId: string,
-    subTask: Omit<SubTask, 'id'>
+    subTask: Omit<SubTask, 'lastUpdated'>
   ): Promise<void> {
     return this.db
       .doc(
         `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
       )
-      .update(subTask);
+      .update({
+        lastUpdated: firestore.Timestamp.now(),
+        ...subTask,
+      });
   }
 
   updateTitle(uid: string, okrId: string, okr: Okr): Promise<void> {

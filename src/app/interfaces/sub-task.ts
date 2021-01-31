@@ -1,3 +1,5 @@
+import { firestore } from 'firebase';
+
 export interface SubTask {
   okrId: string;
   primaryId: string;
@@ -5,6 +7,6 @@ export interface SubTask {
   key: string;
   target: number;
   current: number;
+  lastUpdated: firestore.Timestamp;
   percentage: string;
-  lastUpdated: Date;
 }

@@ -11,11 +11,14 @@ import { AuthService } from '../services/auth.service';
 import { switchMap, take } from 'rxjs/operators';
 import { OkrDeleteDialogComponent } from '../okr-delete-dialog/okr-delete-dialog.component';
 import { Okr } from '../interfaces/okr';
+import { firestore } from 'firebase';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-detail',
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.scss'],
+  providers: [DatePipe],
 })
 export class HomeDetailComponent implements OnInit {
   private okrId = this.route.snapshot.queryParamMap.get('v');
@@ -42,7 +45,8 @@ export class HomeDetailComponent implements OnInit {
     public okrService: OkrService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private datepipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -60,6 +64,7 @@ export class HomeDetailComponent implements OnInit {
             subTask.key,
             subTask.target,
             subTask.current,
+            subTask.lastUpdated,
             subTask.percentage
           );
         });
@@ -72,14 +77,17 @@ export class HomeDetailComponent implements OnInit {
     key: string,
     target: number,
     current: number,
+    lastUpdated: firestore.Timestamp,
     percentage: string
   ) {
+    const timeStamp = lastUpdated.toDate();
+    const date = this.datepipe.transform(timeStamp, 'yyyy/MM/dd');
     this.row = this.fb.group({
       key: [key, [Validators.required]],
       target: [target, [Validators.required]],
       current: [current, [Validators.required]],
       percentage: [percentage, [Validators.required]],
-      lastUpdated: ['', [Validators.required]],
+      lastUpdated: [date, [Validators.required]],
       subTaskId,
     });
     this.rows[primaryId].push(this.row);
@@ -95,14 +103,13 @@ export class HomeDetailComponent implements OnInit {
     });
     this.rows[primaryId].push(this.row);
     const formData = this.row.value;
-    const subTaskValue: Omit<SubTask, 'id'> = {
+    const subTaskValue: Omit<SubTask, 'id' | 'lastUpdated'> = {
       okrId: this.okrId,
       primaryId,
       key: formData.key,
       target: formData.target,
       current: formData.current,
       percentage: formData.percentage,
-      lastUpdated: formData.lastUpdated,
     };
     this.okrService.createSubTask(subTaskValue, primaryId, this.okrId);
   }
@@ -143,14 +150,15 @@ export class HomeDetailComponent implements OnInit {
     const current = row.current;
     const percentage = (current / target) * 100;
     const result = Math.round(percentage * 10) / 10;
-    const subTaskValue: Omit<SubTask, 'id'> = {
+    const formData = row;
+    const subTaskValue: Omit<SubTask, 'lastUpdated'> = {
       okrId: this.okrId,
       primaryId,
-      key: row.key,
-      target: row.target,
-      current: row.current,
+      id: subTaskId,
+      key: formData.key,
+      target: formData.target,
+      current: formData.current,
       percentage: result + '%',
-      lastUpdated: row.lastUpdated,
     };
     this.okrService.updateSubTask(
       this.authService.uid,
