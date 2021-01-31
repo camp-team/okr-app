@@ -13,13 +13,6 @@ export class OkrDetailComponent implements OnInit {
   subTask$: Observable<SubTask>;
   okr$: Observable<Okr>;
 
-  readonly lists = [
-    {
-      menu: 'lastUpdated',
-      text: 'テスト',
-    },
-  ];
-
   constructor(public okrService: OkrService, private route: ActivatedRoute) {}
 
   ngOnInit() {

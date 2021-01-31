@@ -35,9 +35,11 @@
       <div class="okr-detail__text">{{ subTask.percentage }}</div>
     </div>
 
-    <div *ngFor="let list of lists" class="okr-detail__list">
-      <div class="okr-detail__menu">{{ list.menu }}</div>
-      <div class="okr-detail__text">{{ list.text }}</div>
+    <div class="okr-detail__list">
+      <div class="okr-detail__menu">lastUpdated</div>
+      <div class="okr-detail__text">
+        {{ subTask.lastUpdated.toDate() | date: 'yyyy/MM/dd' }}
+      </div>
     </div>
   </ng-container>
 </div>
