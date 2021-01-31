@@ -93,9 +93,9 @@ export class HomeDetailComponent implements OnInit {
     this.rows[primaryId].push(this.row);
   }
 
-  addRow(primaryId: string, value: string = '') {
+  addRow(primaryId: string) {
     this.row = this.fb.group({
-      key: [value, [Validators.required]],
+      key: ['', [Validators.required]],
       target: ['', [Validators.required]],
       current: ['', [Validators.required]],
       percentage: ['', [Validators.required]],
@@ -119,6 +119,33 @@ export class HomeDetailComponent implements OnInit {
   }
 
   updateSubTaskData(primaryId: string, subTaskId: string, row: SubTask) {
+    this.subTasks$.subscribe((subTasks) => {
+      let average = 0;
+      const subTaskPercentage = subTasks.filter((subTask) => {
+        if (subTask.primaryId === primaryId) {
+          return subTask.percentage;
+        }
+      });
+      for (let i = 0; i < subTaskPercentage.length; i++) {
+        const subTaskPercentageNumber = subTaskPercentage[i].percentage.slice(
+          0,
+          -1
+        );
+        average = average + +subTaskPercentageNumber;
+      }
+      const primaryValue: Omit<Primary, 'titles'> = {
+        id: primaryId,
+        average: average,
+      };
+
+      this.okrService.updatePrimary(
+        this.authService.uid,
+        this.okrId,
+        primaryId,
+        primaryValue
+      );
+    });
+
     const target = row.target;
     const current = row.current;
     const percentage = (current / target) * 100;
