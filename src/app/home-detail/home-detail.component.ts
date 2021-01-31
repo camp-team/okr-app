@@ -64,8 +64,8 @@ export class HomeDetailComponent implements OnInit {
             subTask.key,
             subTask.target,
             subTask.current,
-            subTask.percentage,
-            subTask.lastUpdated
+            subTask.lastUpdated,
+            subTask.percentage
           );
         });
       });
@@ -77,8 +77,8 @@ export class HomeDetailComponent implements OnInit {
     key: string,
     target: number,
     current: number,
-    percentage: number,
-    lastUpdated: firestore.Timestamp
+    lastUpdated: firestore.Timestamp,
+    percentage: string
   ) {
     const timeStamp = lastUpdated.toDate();
     const date = this.datepipe.transform(timeStamp, 'yyyy/MM/dd');
@@ -119,6 +119,10 @@ export class HomeDetailComponent implements OnInit {
   }
 
   updateSubTaskData(primaryId: string, subTaskId: string, row: SubTask) {
+    const target = row.target;
+    const current = row.current;
+    const percentage = (current / target) * 100;
+    const result = Math.round(percentage * 10) / 10;
     const formData = row;
     const subTaskValue: Omit<SubTask, 'lastUpdated'> = {
       okrId: this.okrId,
@@ -127,7 +131,7 @@ export class HomeDetailComponent implements OnInit {
       key: formData.key,
       target: formData.target,
       current: formData.current,
-      percentage: formData.percentage,
+      percentage: result + '%',
     };
     this.okrService.updateSubTask(
       this.authService.uid,

@@ -20,7 +20,7 @@ export class OkrDialogComponent implements OnInit {
     },
     {
       menu: 'percentage',
-      text: 'テスト',
+      text: this.data[0].percentage,
     },
     {
       menu: 'lastUpdated',

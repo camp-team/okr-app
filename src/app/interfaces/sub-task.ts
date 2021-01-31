@@ -7,6 +7,6 @@ export interface SubTask {
   key: string;
   target: number;
   current: number;
-  percentage: number;
   lastUpdated: firestore.Timestamp;
+  percentage: string;
 }
