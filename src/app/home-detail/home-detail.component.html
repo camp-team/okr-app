@@ -3,6 +3,18 @@
 
   <div class="home-detail-table">
     <ng-container *ngFor="let primary of primaries; index as primaryArrayIndex">
+      <form [formGroup]="primaryTitles[primary.id]">
+        <div
+          *ngFor="
+            let primaryTitle of primaryTitles[primary.id].controls;
+            index as primaryArrayIndex
+          "
+        >
+          <ng-container [formGroupName]="primaryArrayIndex">
+            <input type="text" formControlName="primaryTitle" />
+          </ng-container>
+        </div>
+      </form>
       <p class="home-detail-table__titles">{{ primary.titles }}</p>
       <form [formGroup]="rows[primary.id]">
         <table class="home-detail-table__area">
