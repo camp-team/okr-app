@@ -22,8 +22,12 @@ import { DatePipe } from '@angular/common';
 })
 export class HomeDetailComponent implements OnInit {
   private okrId = this.route.snapshot.queryParamMap.get('v');
-
-  rows: {
+  private primaryTitle: FormGroup;
+  private row: FormGroup;
+  public primaryTitles: {
+    [keyName: string]: FormArray;
+  } = {};
+  public rows: {
     [keyName: string]: FormArray;
   } = {};
   primaryIdArray = [];
@@ -38,7 +42,6 @@ export class HomeDetailComponent implements OnInit {
     this.okrId
   );
   okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
-  row: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +59,8 @@ export class HomeDetailComponent implements OnInit {
         primaries.forEach((primary) => {
           this.primaries.push(primary);
           this.rows[primary.id] = this.fb.array([]);
+          this.primaryTitles[primary.id] = this.fb.array([]);
+          this.initPrimary(primary.id, primary.primaryTitle);
         });
         subTasks.forEach((subTask) => {
           this.initRows(
@@ -69,6 +74,13 @@ export class HomeDetailComponent implements OnInit {
           );
         });
       });
+  }
+
+  initPrimary(primaryId: string, primary: string) {
+    this.primaryTitle = this.fb.group({
+      primaryTitle: [primary, [Validators.required]],
+    });
+    this.primaryTitles[primaryId].push(this.primaryTitle);
   }
 
   initRows(
@@ -118,6 +130,15 @@ export class HomeDetailComponent implements OnInit {
     this.rows[primaryId].removeAt(rowIndex);
   }
 
+  updatePrimaryTitle(primaryId: string, primaryTitle: Primary) {
+    this.okrService.updatePrimaryTitle(
+      this.authService.uid,
+      this.okrId,
+      primaryId,
+      primaryTitle
+    );
+  }
+
   updateSubTaskData(primaryId: string, subTaskId: string, row: SubTask) {
     this.subTasks$.subscribe((subTasks) => {
       let average = 0;
@@ -133,7 +154,7 @@ export class HomeDetailComponent implements OnInit {
         );
         average = average + +subTaskPercentageNumber;
       }
-      const primaryValue: Omit<Primary, 'titles'> = {
+      const primaryValue: Omit<Primary, 'primaryTitle'> = {
         id: primaryId,
         average: average,
       };

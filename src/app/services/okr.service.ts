@@ -38,7 +38,7 @@ export class OkrService {
   createPrimary(primary: string, okrId: string) {
     const id = this.db.createId();
     const value: Primary = {
-      titles: primary,
+      primaryTitle: primary,
       average: 0,
       id,
     };
@@ -139,7 +139,7 @@ export class OkrService {
     uid: string,
     okrId: string,
     primaryId: string,
-    primary: Omit<Primary, 'titles'>
+    primary: Omit<Primary, 'primaryTitle'>
   ): Promise<void> {
     return this.db
       .doc(`users/${uid}/okrs/${okrId}/primaries/${primaryId}`)
@@ -165,5 +165,16 @@ export class OkrService {
 
   updateTitle(uid: string, okrId: string, okr: Okr): Promise<void> {
     return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
+  }
+
+  updatePrimaryTitle(
+    uid: string,
+    okrId: string,
+    primaryId: string,
+    primary: Primary
+  ): Promise<void> {
+    return this.db
+      .doc(`users/${uid}/okrs/${okrId}/primaries/${primaryId}`)
+      .update(primary[0]);
   }
 }
