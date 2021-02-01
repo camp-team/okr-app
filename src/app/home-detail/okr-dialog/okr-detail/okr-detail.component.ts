@@ -10,18 +10,18 @@ import { OkrService } from 'src/app/services/okr.service';
   styleUrls: ['./okr-detail.component.scss'],
 })
 export class OkrDetailComponent implements OnInit {
-  subTask$: Observable<SubTask>;
-  okr$: Observable<Okr>;
+  private okrId = this.route.snapshot.queryParamMap.get('okrId');
+  private primaryId = this.route.snapshot.queryParamMap.get('primaryId');
+  private subTaskId = this.route.snapshot.queryParamMap.get('subTaskId');
+
+  okr$: Observable<Okr> = this.okrService.getOkr(this.okrId);
+  subTask$: Observable<SubTask> = this.okrService.getSubTask(
+    this.okrId,
+    this.primaryId,
+    this.subTaskId
+  );
 
   constructor(public okrService: OkrService, private route: ActivatedRoute) {}
 
-  ngOnInit() {
-    this.route.queryParamMap.subscribe((params) => {
-      const okrId = params.get('okrId');
-      const primaryId = params.get('primaryId');
-      const subTaskId = params.get('subTaskId');
-      this.okr$ = this.okrService.getOkr(okrId);
-      this.subTask$ = this.okrService.getSubTask(okrId, primaryId, subTaskId);
-    });
-  }
+  ngOnInit() {}
 }
