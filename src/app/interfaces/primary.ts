@@ -1,5 +1,5 @@
 export interface Primary {
   id: string;
-  titles: any;
+  primaryTitle: string;
   average: number;
 }

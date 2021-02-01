@@ -2,8 +2,26 @@
   <app-home-detail-title></app-home-detail-title>
 
   <div class="home-detail-table">
-    <ng-container *ngFor="let primary of primaries; index as primaryArrayIndex">
-      <p class="home-detail-table__titles">{{ primary.titles }}</p>
+    <ng-container *ngFor="let primary of primaries">
+      <form [formGroup]="primaryTitles[primary.id]">
+        <div
+          *ngFor="
+            let primaryTitle of primaryTitles[primary.id].controls;
+            index as primaryArrayIndex
+          "
+          class="home-detail-table__title"
+        >
+          <ng-container [formGroupName]="primaryArrayIndex">
+            <input
+              type="text"
+              formControlName="primaryTitle"
+              (keyup)="
+                updatePrimaryTitle(primary.id, primaryTitles[primary.id].value)
+              "
+            />
+          </ng-container>
+        </div>
+      </form>
       <form [formGroup]="rows[primary.id]">
         <table class="home-detail-table__area">
           <thead>
