@@ -1,41 +1,40 @@
 @import 'variables';
 @import 'mixins';
 
+.container {
+  margin: 0 auto;
+  max-width: 1024px;
+  padding: 0 24px;
+}
 .hero {
-  &__image {
-    text-align: center;
-    margin: 32px auto 0;
-    padding-top: 70px;
-    margin-bottom: 20px;
-    img {
-      max-width: 200px;
-      @include sm {
-        max-width: 250px;
-      }
-    }
+  position: relative;
+  padding: 160px 0 160px 0;
+  text-align: left;
+  &__main {
+    position: relative;
+    padding-right: 50%;
   }
   &__main-text {
-    font-size: 35px;
-    text-align: center;
-    letter-spacing: -0.025em;
-    margin: 0 0 8px;
-    font-weight: 700;
-    @include sm {
-      font-size: 47px;
-    }
+    position: relative;
+    margin: 0;
+    font-size: 32px;
+    font-weight: 600;
   }
   &__sub-text {
-    text-align: center;
-    font-size: 18px;
-    font-weight: normal;
-    margin: 0;
-    color: rgba(0, 0, 0, 0.6);
-    @include sm {
-      font-size: 16px;
-    }
+    position: relative;
+    font-size: 16px;
+    margin: 16px auto 0;
+  }
+  &__image {
+    position: absolute;
+    right: 12%;
+    bottom: 20px;
+  }
+  &__image1 {
+    width: 100%;
+    filter: drop-shadow(0px 8px 14px rgba(51, 26, 0, 0.2));
   }
   &__action {
-    text-align: center;
-    margin: 24px 0 72px;
+    margin-top: 30px;
   }
 }
