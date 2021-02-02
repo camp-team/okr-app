@@ -40,7 +40,7 @@ export class AuthService {
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth.signInWithPopup(provider).then(() => {
       this.snackBar.open('ログインしました', null);
-      this.router.navigateByUrl('/manage/home');
+      this.router.navigateByUrl('/manage/edit');
     });
   }
 
