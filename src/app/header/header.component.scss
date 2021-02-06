@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'mixins';
+@import 'material-custom';
 
 :host {
   position: fixed;
@@ -11,12 +12,13 @@
 
 .header {
   background-color: #fff;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.23);
-
   &__inner {
+    align-items: center;
     justify-content: space-between;
   }
-
+  &__logo {
+    margin: 0;
+  }
   &__link {
     text-decoration: none;
     color: inherit;
@@ -33,8 +35,11 @@
     }
   }
   &__login {
-    margin-top: 15px;
-    width: 90px;
+    border-radius: 36px;
+    width: 120px;
     height: 40px;
+    &:hover {
+      background-color: #9e9e9e;
+    }
   }
 }
