@@ -10,6 +10,8 @@ import { HeroComponent } from '../hero/hero.component';
 import { HeaderComponent } from '../header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UseComponent } from '../use/use.component';
+import { CvComponent } from '../cv/cv.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PointsComponent,
     HeroComponent,
     HeaderComponent,
+    UseComponent,
+    CvComponent,
   ],
   imports: [
     CommonModule,
