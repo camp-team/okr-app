@@ -12,6 +12,10 @@
   display: none !important;
 }
 
+.stepper {
+  background-color: transparent;
+}
+
 .first-step {
   &__header {
     padding: 56px 0 0 84px;
