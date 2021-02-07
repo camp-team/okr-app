@@ -16,6 +16,69 @@
   background-color: transparent;
 }
 
+.tooltip {
+  margin-bottom: 8px;
+  mat-icon {
+    vertical-align: super;
+    vertical-align: text-top;
+  }
+}
+.tooltip {
+  display: inline-block;
+  position: relative;
+}
+.tooltip::before,
+.tooltip::after {
+  -webkit-transition: all 0.2s;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.2s;
+  visibility: hidden;
+  z-index: 11;
+}
+.tooltip::before {
+  -webkit-transform: translateY(-50%);
+  border-color: transparent #5f6368 transparent transparent;
+  border-style: solid;
+  border-width: 3px 7px 3px 0;
+  content: '';
+  height: 0;
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+}
+.tooltip::after {
+  -webkit-transform: translateY(-50%);
+  background: #424242;
+  border-radius: 3px;
+  color: #fff;
+  border-radius: 12px;
+  content: attr(data-tooltip);
+  line-height: 1.7;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  left: calc(100% + 13px);
+  padding: 8px 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: pre;
+}
+
+.tooltip:hover {
+  cursor: pointer;
+}
+
+.tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
 .first-step {
   &__header {
     padding: 56px 0 0 84px;
@@ -29,10 +92,11 @@
   &__title {
     letter-spacing: 2px;
     font-size: 36px;
-    span {
-      display: block;
-    }
   }
+  &__text {
+    display: block;
+  }
+
   &__lavel {
     font-size: 32px;
   }
@@ -82,11 +146,10 @@
   }
   &__title {
     letter-spacing: 2px;
-    margin: 16px 0 0;
     font-size: 36px;
-    span {
-      display: block;
-    }
+  }
+  &__text {
+    display: block;
   }
   &__sub-title {
     margin: 0 0 32px;
@@ -154,7 +217,7 @@
   }
   &__main {
     padding: 80px 0 0 108px;
-    max-width: 510px;
+    max-width: 650px;
   }
   &__field {
     width: 400px;

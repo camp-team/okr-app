@@ -9,11 +9,17 @@
           <div class="first-step__header">OKRの作成(手順 1/3)</div>
           <div class="first-step__main">
             <p class="first-step__title">
-              <span>
-                OKRを作成していきます
+              <span class="first-step__text">
+                OKRを作成していきます。
               </span>
-              <span>
-                まず、目標を入力しましょう！
+              <span>まず、目標を入力しましょう！</span>
+              <span
+                class="tooltip"
+                data-tooltip="自分のなりたい姿から目標を設定しましょう。&#13;&#10;&#13;&#10;例)&#13;&#10;・幸せになる。&#13;&#10;・有名になる。&#13;&#10;・可愛くなる。"
+              >
+                <mat-icon>
+                  help_outline
+                </mat-icon>
               </span>
             </p>
             <form [formGroup]="form" class="first-step__form">
@@ -64,14 +70,21 @@
         <div class="second-step__header">OKRの作成(手順 2/3)</div>
         <div class="second-step__main">
           <p class="second-step__title">
-            <span>
-              次に、目標を達成するために必要な
+            <span class="second-step__text">
+              次に、目標を達成するために必要となる
             </span>
             <span>
-              具体的な目標を入力しましょう！
+              項目を設定しましょう！
+            </span>
+            <span
+              class="tooltip"
+              data-tooltip="目標に紐づいた項目を設定しましょう。&#13;&#10;3個に絞って設定するのがおすすめです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
+            >
+              <mat-icon>
+                help_outline
+              </mat-icon>
             </span>
           </p>
-          <h3 class="second-step__sub-title">*推奨2〜5つ</h3>
           <form [formGroup]="form" class="second-step__form">
             <div formArrayName="primaries">
               <div *ngFor="let option of primaries.controls; let i = index">
@@ -150,10 +163,6 @@
               開始日と終了日を入力しましょう！
             </span>
           </p>
-          <h3 class="third-step__sub-title">
-            *推奨1ヶ月〜3ヶ月
-          </h3>
-
           <form
             [formGroup]="form"
             (ngSubmit)="submit()"
@@ -200,22 +209,22 @@
                 >必須入力です</mat-error
               >
             </mat-form-field>
+            <div class="third-step__buttons">
+              <button mat-button matStepperPrevious class="third-step__button">
+                戻る
+              </button>
+              <button
+                [disabled]="
+                  startControl.invalid || endControl.invalid || form.invalid
+                "
+                mat-raised-button
+                color="primary"
+                class="third-step__next"
+              >
+                OKRを作成
+              </button>
+            </div>
           </form>
-          <div class="third-step__buttons">
-            <button mat-button matStepperPrevious class="third-step__button">
-              戻る
-            </button>
-            <button
-              [disabled]="
-                startControl.invalid || endControl.invalid || form.invalid
-              "
-              mat-raised-button
-              color="primary"
-              class="third-step__next"
-            >
-              OKRを作成
-            </button>
-          </div>
           <div class="third-step__sidebar">
             <img
               class="third-step__img"
