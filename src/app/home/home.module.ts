@@ -18,6 +18,7 @@ import { OkrDetailComponent } from '../home-detail/okr-dialog/okr-detail/okr-det
 import { MatDividerModule } from '@angular/material/divider';
 import { OkrEditComponent } from '../okr-edit/okr-edit.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SecondOkrComponent } from '../second-okr/second-okr.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     HomeDetailTitleComponent,
     OkrDetailComponent,
     OkrEditComponent,
+    SecondOkrComponent,
   ],
   imports: [
     CommonModule,
