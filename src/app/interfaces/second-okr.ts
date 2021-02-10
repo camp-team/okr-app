@@ -3,7 +3,7 @@ import { firestore } from 'firebase';
 export interface SecondOkr {
   start: firestore.Timestamp;
   end: firestore.Timestamp;
-  primaries: any;
+  secondOkrObjects: string;
   CreatorId: string;
   id: string;
   isComplete: boolean;
