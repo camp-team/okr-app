@@ -56,15 +56,20 @@ export class OkrEditComponent implements OnInit {
     const formData = this.form.value;
     const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
       start: formData.start,
-      primaries: formData.primaries,
       end: formData.end,
       CreatorId: this.authService.uid,
+      secondOkrObjects: formData.primaries,
     };
-    console.log(formData.primaries);
     const primaryArray = formData.primaries;
     this.okrService.createSecondOkr(okrValue, primaryArray).then(() => {
-      this.snackBar.open('作成しました', null);
-      this.router.navigateByUrl('manage/home/secondokr');
+      this.okrService.getSecondOkrs().subscribe((secondOkrs) => {
+        secondOkrs.forEach((secondOkr) => {
+          this.snackBar.open('作成しました', null);
+          this.router.navigate(['manage/home/secondOkr'], {
+            queryParams: { v: secondOkr.id },
+          });
+        });
+      });
     });
   }
 }
