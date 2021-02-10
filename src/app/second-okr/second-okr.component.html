@@ -1,1 +1,68 @@
-<p>second-okr works!</p>
+<div class="second-okr">
+  <div class="second-okr__table">
+    <ng-container *ngFor="let secondOkr of secondOkr$ | async">
+      {{ secondOkr.primaries }}
+      <form [formGroup]="">
+        <table class="second-okr__area">
+          <thead>
+            <tr>
+              <th class="header-left">key</th>
+              <th>target</th>
+              <th>current</th>
+              <th>percentage</th>
+              <th class="header-right">lastUpdate</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="body-left">
+                <input
+                  type="text"
+                  formControlName="key"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="target"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="current"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="percentage"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+              <td class="body-right">
+                <input
+                  type="text"
+                  formControlName="lastUpdated"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <div (click)="addRow(secondOkr.id)">
+        ＋Add row
+      </div>
+    </ng-container>
+  </div>
+</div>
