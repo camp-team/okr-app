@@ -1,8 +1,21 @@
 <div class="second-okr">
   <div class="second-okr__table">
-    <ng-container *ngFor="let secondOkr of secondOkr$ | async">
-      {{ secondOkr.primaries }}
-      <form [formGroup]="rows[secondOkr.id]">
+    <ng-container *ngFor="let secondOkrObject of secondOkrObjects">
+      <form [formGroup]="secondOkrObjectTitles[secondOkrObject.id]">
+        <div
+          *ngFor="
+            let primaryTitle of secondOkrObjectTitles[secondOkrObject.id]
+              .controls;
+            index as primaryArrayIndex
+          "
+          class="home-detail-table__title"
+        >
+          <ng-container [formGroupName]="primaryArrayIndex">
+            <input type="text" formControlName="primaryTitle" />
+          </ng-container>
+        </div>
+      </form>
+      <form [formGroup]="rows[secondOkrObject.id]">
         <table class="second-okr__area">
           <thead>
             <tr>
@@ -16,7 +29,10 @@
 
           <tbody>
             <tr
-              *ngFor="let row of rows[secondOkr.id].controls; index as rowIndex"
+              *ngFor="
+                let row of rows[secondOkrObject.id].controls;
+                index as rowIndex
+              "
             >
               <td class="body-left">
                 <input
@@ -62,7 +78,7 @@
           </tbody>
         </table>
       </form>
-      <div (click)="addRow(secondOkr.id)">
+      <div (click)="addRow(secondOkrObject.id)">
         ＋Add row
       </div>
     </ng-container>
