@@ -2,7 +2,7 @@
   <div class="second-okr__table">
     <ng-container *ngFor="let secondOkr of secondOkr$ | async">
       {{ secondOkr.primaries }}
-      <form [formGroup]="">
+      <form [formGroup]="rows[secondOkr.id]">
         <table class="second-okr__area">
           <thead>
             <tr>
@@ -15,7 +15,9 @@
           </thead>
 
           <tbody>
-            <tr>
+            <tr
+              *ngFor="let row of rows[secondOkr.id].controls; index as rowIndex"
+            >
               <td class="body-left">
                 <input
                   type="text"

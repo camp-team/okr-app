@@ -28,7 +28,7 @@ export class SecondOkrComponent implements OnInit {
   ngOnInit() {
     this.secondOkr$.subscribe((secondOkr) => {
       secondOkr.forEach((secondOkr) => {
-        secondOkr.id;
+        this.rows[secondOkr.id] = this.fb.array([]);
       });
     });
   }
@@ -49,7 +49,7 @@ export class SecondOkrComponent implements OnInit {
       percentage: ['', [Validators.required]],
       lastUpdated: ['', [Validators.required]],
     });
-    // this.rows[secondOkrId].push(this.row);
+    this.rows[secondOkrId].push(this.row);
     const formData = this.row.value;
     const subTaskValue: Omit<SecondOkrKeyResult, 'id' | 'lastUpdated'> = {
       secondOkrId,
