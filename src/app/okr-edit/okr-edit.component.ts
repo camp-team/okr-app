@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { NextOkr } from '../interfaces/next-okr';
+import { SecondOkr } from '../interfaces/second-okr';
 import { Okr } from '../interfaces/okr';
 import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
@@ -54,7 +54,7 @@ export class OkrEditComponent implements OnInit {
 
   cleateOKR() {
     const formData = this.form.value;
-    const okrValue: Omit<NextOkr, 'id' | 'isComplete'> = {
+    const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
       start: formData.start,
       primaries: formData.primaries,
       end: formData.end,
@@ -62,9 +62,9 @@ export class OkrEditComponent implements OnInit {
     };
     console.log(formData.primaries);
     const primaryArray = formData.primaries;
-    this.okrService.createNextOkr(okrValue, primaryArray).then(() => {
+    this.okrService.createSecondOkr(okrValue, primaryArray).then(() => {
       this.snackBar.open('作成しました', null);
-      this.router.navigateByUrl('manage/home/homedetail');
+      this.router.navigateByUrl('manage/home/secondokr');
     });
   }
 }
