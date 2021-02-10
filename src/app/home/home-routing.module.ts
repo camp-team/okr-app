@@ -15,7 +15,7 @@ const routes: Routes = [
     component: HomeDetailComponent,
   },
   {
-    path: 'secondokr',
+    path: ':id',
     component: SecondOkrComponent,
   },
   {
