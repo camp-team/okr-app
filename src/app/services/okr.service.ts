@@ -143,7 +143,6 @@ export class OkrService {
   }
 
   getSecondOkrObjects(id: string): Observable<SecondOkrObject[]> {
-    console.log(id);
     return this.db
       .collection<SecondOkrObject>(
         `users/${this.authsearvice.uid}/secondOkrs/${id}/secondOkrObjects`
@@ -154,14 +153,6 @@ export class OkrService {
   getSecondOkr(id: string): Observable<SecondOkr> {
     return this.db
       .doc<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs/${id}`)
-      .valueChanges();
-  }
-
-  getSecondOkrKeyResults(id: string): Observable<SecondOkrKeyResult[]> {
-    return this.db
-      .collection<SecondOkrKeyResult>(
-        `users/${this.authsearvice.uid}/secondOkrs/${id}/secondOkrKeyResults`
-      )
       .valueChanges();
   }
 
@@ -197,6 +188,16 @@ export class OkrService {
     return this.db
       .collectionGroup<SubTask>('subTasks', (ref) =>
         ref.where('okrId', '==', okrId)
+      )
+      .valueChanges();
+  }
+
+  getSecondOkrKeyResultsCollection(
+    secondOkrId: string
+  ): Observable<SecondOkrKeyResult[]> {
+    return this.db
+      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
+        ref.where('secondOkrId', '==', secondOkrId)
       )
       .valueChanges();
   }

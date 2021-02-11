@@ -3,12 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { firestore } from 'firebase';
-import { Observable } from 'rxjs';
-import { Primary } from '../interfaces/primary';
+import { combineLatest, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
-import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
@@ -18,24 +17,23 @@ import { OkrService } from '../services/okr.service';
   providers: [DatePipe],
 })
 export class SecondOkrComponent implements OnInit {
-  private row: FormGroup;
-  public rows: {
-    [keyName: string]: FormArray;
-  } = {};
-  public secondOkrObjectTitles: {
-    [keyName: string]: FormArray;
-  } = {};
-  private secondOkrObjectTitle: FormGroup;
   private secondOkrId = this.route.snapshot.queryParamMap.get('v');
+  row: FormGroup;
+  rows: {
+    [keyName: string]: FormArray;
+  } = {};
+  secondOkrObjectTitles: {
+    [keyName: string]: FormArray;
+  } = {};
+  secondOkrObjectTitle: FormGroup;
   secondOkrObjects: SecondOkrObject[] = [];
-
   secondOkr$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   secondOkrObjects$: Observable<
     SecondOkrObject[]
   > = this.okrService.getSecondOkrObjects(this.secondOkrId);
   secondOkrKeyResult$: Observable<
     SecondOkrKeyResult[]
-  > = this.okrService.getSecondOkrKeyResults(this.secondOkrId);
+  > = this.okrService.getSecondOkrKeyResultsCollection(this.secondOkrId);
 
   constructor(
     private route: ActivatedRoute,
@@ -45,30 +43,30 @@ export class SecondOkrComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.secondOkrObjects$.subscribe((secondOkrObjects) => {
-      secondOkrObjects.forEach((secondOkrObject) => {
-        this.secondOkrObjects.push(secondOkrObject);
-        this.rows[secondOkrObject.id] = this.fb.array([]);
-        this.secondOkrObjectTitles[secondOkrObject.id] = this.fb.array([]);
-        this.initSecondOkrObject(
-          secondOkrObject.id,
-          secondOkrObject.secondOkrObject
-        );
+    combineLatest([this.secondOkrObjects$, this.secondOkrKeyResult$])
+      .pipe(take(1))
+      .subscribe(([secondOkrObjects, secondOkrKeyResult]) => {
+        secondOkrObjects.forEach((secondOkrObject) => {
+          this.secondOkrObjects.push(secondOkrObject);
+          this.rows[secondOkrObject.id] = this.fb.array([]);
+          this.secondOkrObjectTitles[secondOkrObject.id] = this.fb.array([]);
+          this.initSecondOkrObject(
+            secondOkrObject.id,
+            secondOkrObject.secondOkrObject
+          );
+        });
+        secondOkrKeyResult.forEach((secondOkrKeyResult) => {
+          this.initRows(
+            secondOkrKeyResult.key,
+            secondOkrKeyResult.target,
+            secondOkrKeyResult.current,
+            secondOkrKeyResult.percentage,
+            secondOkrKeyResult.lastUpdated,
+            secondOkrKeyResult.secondOkrObjectId,
+            secondOkrKeyResult.id
+          );
+        });
       });
-    });
-    this.secondOkrKeyResult$.subscribe((secondOkrKeyResult) => {
-      secondOkrKeyResult.forEach((secondOkrKeyResult) => {
-        this.initRows(
-          secondOkrKeyResult.key,
-          secondOkrKeyResult.target,
-          secondOkrKeyResult.current,
-          secondOkrKeyResult.percentage,
-          secondOkrKeyResult.lastUpdated,
-          secondOkrKeyResult.secondOkrId,
-          secondOkrKeyResult.id
-        );
-      });
-    });
   }
 
   initSecondOkrObject(secondOkrObjectId: string, secondOkrObject: string) {
@@ -86,7 +84,7 @@ export class SecondOkrComponent implements OnInit {
     current: number,
     percentage: string,
     lastUpdated: firestore.Timestamp,
-    secondOkrId: string,
+    secondOkrObjectId: string,
     secondOkrKeyResultId: string
   ) {
     const timeStamp = lastUpdated.toDate();
@@ -99,7 +97,7 @@ export class SecondOkrComponent implements OnInit {
       lastUpdated: [date, [Validators.required]],
       secondOkrKeyResultId,
     });
-    this.rows[secondOkrId].push(this.row);
+    this.rows[secondOkrObjectId].push(this.row);
   }
 
   okrId() {
