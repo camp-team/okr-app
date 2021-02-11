@@ -98,6 +98,13 @@
                       required
                     />
                   </td>
+                  <div
+                    class="home-detail-table__remove"
+                    type="button"
+                    (click)="remove(secondOkrObject.id, rowIndex)"
+                  >
+                    remove
+                  </div>
                 </ng-container>
               </tr>
             </tbody>

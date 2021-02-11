@@ -135,6 +135,10 @@ export class SecondOkrComponent implements OnInit {
     );
   }
 
+  remove(secondOkrObjectId: string, rowIndex: number) {
+    this.rows[secondOkrObjectId].removeAt(rowIndex);
+  }
+
   updateSecondOkrKeyResult(
     secondOkrObjectId: string,
     secondOkrKeyResultId: string,
