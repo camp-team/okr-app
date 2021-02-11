@@ -8,6 +8,7 @@ import { take } from 'rxjs/operators';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
+import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class SecondOkrComponent implements OnInit {
   secondOkrObjects$: Observable<
     SecondOkrObject[]
   > = this.okrService.getSecondOkrObjects(this.secondOkrId);
-  secondOkrKeyResult$: Observable<
+  secondOkrKeyResults$: Observable<
     SecondOkrKeyResult[]
   > = this.okrService.getSecondOkrKeyResultsCollection(this.secondOkrId);
 
@@ -39,11 +40,12 @@ export class SecondOkrComponent implements OnInit {
     private route: ActivatedRoute,
     public okrService: OkrService,
     private fb: FormBuilder,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    combineLatest([this.secondOkrObjects$, this.secondOkrKeyResult$])
+    combineLatest([this.secondOkrObjects$, this.secondOkrKeyResults$])
       .pipe(take(1))
       .subscribe(([secondOkrObjects, secondOkrKeyResult]) => {
         secondOkrObjects.forEach((secondOkrObject) => {
@@ -130,6 +132,62 @@ export class SecondOkrComponent implements OnInit {
       subTaskValue,
       secondOkrObjectId,
       this.secondOkrId
+    );
+  }
+
+  updateSecondOkrKeyResult(
+    secondOkrObjectId: string,
+    secondOkrKeyResultId: string,
+    row: SecondOkrKeyResult
+  ) {
+    this.secondOkrKeyResults$.subscribe((secondOkrKeyResults) => {
+      let average = 0;
+      const secondOkrKeyResultPercentage = secondOkrKeyResults.filter(
+        (secondOkrKeyResult) => {
+          if (secondOkrKeyResult.secondOkrObjectId === secondOkrObjectId) {
+            return secondOkrKeyResult.percentage;
+          }
+        }
+      );
+      for (let i = 0; i < secondOkrKeyResultPercentage.length; i++) {
+        const subTaskPercentageNumber = secondOkrKeyResultPercentage[
+          i
+        ].percentage.slice(0, -1);
+        average = average + +subTaskPercentageNumber;
+      }
+      const secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'> = {
+        id: secondOkrObjectId,
+        average: average,
+      };
+
+      this.okrService.updateSecondOkrObject(
+        this.authService.uid,
+        this.secondOkrId,
+        secondOkrObjectId,
+        secondOkrObject
+      );
+    });
+
+    const target = row.target;
+    const current = row.current;
+    const percentage = (current / target) * 100;
+    const result = Math.round(percentage * 10) / 10;
+    const formData = row;
+    const secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'> = {
+      secondOkrId: this.secondOkrId,
+      secondOkrObjectId,
+      id: secondOkrKeyResultId,
+      key: formData.key,
+      target: formData.target,
+      current: formData.current,
+      percentage: result + '%',
+    };
+    this.okrService.updateSecondOkrKeyResult(
+      this.authService.uid,
+      this.secondOkrId,
+      secondOkrObjectId,
+      secondOkrKeyResultId,
+      secondOkrKeyResult
     );
   }
 }

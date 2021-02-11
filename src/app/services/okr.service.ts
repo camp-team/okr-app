@@ -238,6 +238,19 @@ export class OkrService {
       .update(primary);
   }
 
+  updateSecondOkrObject(
+    uid: string,
+    secondOkrId: string,
+    secondOkrObjectId: string,
+    secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'>
+  ): Promise<void> {
+    return this.db
+      .doc(
+        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
+      )
+      .update(secondOkrObject);
+  }
+
   updateSubTask(
     uid: string,
     okrId: string,
@@ -252,6 +265,23 @@ export class OkrService {
       .update({
         lastUpdated: firestore.Timestamp.now(),
         ...subTask,
+      });
+  }
+
+  updateSecondOkrKeyResult(
+    uid: string,
+    secondOkrId: string,
+    secondOkrObjectId: string,
+    secondOkrKeyResultId: string,
+    secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'>
+  ): Promise<void> {
+    return this.db
+      .doc(
+        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      )
+      .update({
+        lastUpdated: firestore.Timestamp.now(),
+        ...secondOkrKeyResult,
       });
   }
 
