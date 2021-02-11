@@ -2,22 +2,20 @@
   <app-second-okr-title></app-second-okr-title>
   <div class="container">
     <ng-container *ngFor="let secondOkrObject of secondOkrObjects">
-      <div class="second-okr__object">
-        <form [formGroup]="secondOkrObjectTitles[secondOkrObject.id]">
-          <div
-            *ngFor="
-              let primaryTitle of secondOkrObjectTitles[secondOkrObject.id]
-                .controls;
-              index as primaryArrayIndex
-            "
-            class="home-detail-table__title"
-          >
-            <ng-container [formGroupName]="primaryArrayIndex">
-              <input type="text" formControlName="primaryTitle" />
-            </ng-container>
-          </div>
-        </form>
-      </div>
+      <form [formGroup]="secondOkrObjectTitles[secondOkrObject.id]">
+        <div
+          *ngFor="
+            let primaryTitle of secondOkrObjectTitles[secondOkrObject.id]
+              .controls;
+            index as primaryArrayIndex
+          "
+          class="second-okr__object"
+        >
+          <ng-container [formGroupName]="primaryArrayIndex">
+            <input type="text" formControlName="primaryTitle" />
+          </ng-container>
+        </div>
+      </form>
       <div class="second-okr__table">
         <form [formGroup]="rows[secondOkrObject.id]">
           <table>
@@ -109,8 +107,8 @@
       <div (click)="addRow(secondOkrObject.id)" class="second-okr__add-row">
         ＋Add row
       </div>
-      <div class="home-detail-table__average">
-        <span class="home-detail-table__average-text">average</span
+      <div class="second-okr__average">
+        <span class="second-okr__average-text">average</span
         >{{
           (secondOkrObject.average /
             (rows[secondOkrObject.id].controls.length * 100)) *
