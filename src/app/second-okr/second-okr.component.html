@@ -1,0 +1,127 @@
+<div class="second-okr">
+  <app-second-okr-title></app-second-okr-title>
+  <div class="container">
+    <ng-container *ngFor="let secondOkrObject of secondOkrObjects">
+      <form [formGroup]="secondOkrObjectTitles[secondOkrObject.id]">
+        <div
+          *ngFor="
+            let primaryTitle of secondOkrObjectTitles[secondOkrObject.id]
+              .controls;
+            index as primaryArrayIndex
+          "
+          class="second-okr__object"
+        >
+          <ng-container [formGroupName]="primaryArrayIndex">
+            <input type="text" formControlName="primaryTitle" />
+          </ng-container>
+        </div>
+      </form>
+      <div class="second-okr__table">
+        <form [formGroup]="rows[secondOkrObject.id]">
+          <table>
+            <thead>
+              <tr>
+                <th class="header-left">key</th>
+                <th>target</th>
+                <th>current</th>
+                <th>percentage</th>
+                <th class="header-right">lastUpdate</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="
+                  let row of rows[secondOkrObject.id].controls;
+                  index as rowIndex
+                "
+              >
+                <ng-container [formGroupName]="rowIndex">
+                  <td class="body-left">
+                    <input
+                      (keyup)="
+                        updateSecondOkrKeyResult(
+                          secondOkrObject.id,
+                          row.value.secondOkrKeyResultId,
+                          row.value
+                        )
+                      "
+                      type="text"
+                      formControlName="key"
+                      autocomplete="off"
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      (keyup)="
+                        updateSecondOkrKeyResult(
+                          secondOkrObject.id,
+                          row.value.secondOkrKeyResultId,
+                          row.value
+                        )
+                      "
+                      type="text"
+                      formControlName="target"
+                      autocomplete="off"
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      (keyup)="
+                        updateSecondOkrKeyResult(
+                          secondOkrObject.id,
+                          row.value.secondOkrKeyResultId,
+                          row.value
+                        )
+                      "
+                      type="text"
+                      formControlName="current"
+                      autocomplete="off"
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      formControlName="percentage"
+                      autocomplete="off"
+                      required
+                    />
+                  </td>
+                  <td class="body-right">
+                    <input
+                      type="text"
+                      formControlName="lastUpdated"
+                      autocomplete="off"
+                      required
+                    />
+                  </td>
+                  <div
+                    class="second-okr__remove"
+                    type="button"
+                    (click)="remove(secondOkrObject.id, rowIndex)"
+                  >
+                    remove
+                  </div>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div (click)="addRow(secondOkrObject.id)" class="second-okr__add-row">
+        ＋Add row
+      </div>
+      <div class="second-okr__average">
+        <span class="second-okr__average-text">average</span
+        >{{
+          (secondOkrObject.average /
+            (rows[secondOkrObject.id].controls.length * 100)) *
+            100
+        }}%
+      </div>
+    </ng-container>
+  </div>
+</div>
