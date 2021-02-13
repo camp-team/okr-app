@@ -57,7 +57,7 @@ export class OkrEditComponent implements OnInit {
     const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
       start: formData.start,
       end: formData.end,
-      CreatorId: this.authService.uid,
+      creatorId: this.authService.uid,
       secondOkrObjects: formData.primaries,
     };
     const primaryArray = formData.primaries;
