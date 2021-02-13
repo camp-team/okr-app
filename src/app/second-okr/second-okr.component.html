@@ -100,9 +100,9 @@
                 <div
                   class="second-okr__remove"
                   type="button"
-                  (click)="remove(secondOkrObject.id, rowIndex)"
+                  (click)="removeRow(secondOkrObject.id, rowIndex)"
                 >
-                  remove
+                  removeRow
                 </div>
               </ng-container>
             </tr>
@@ -111,7 +111,7 @@
       </form>
     </div>
     <div (click)="addRow(secondOkrObject.id)" class="second-okr__add-row">
-      ＋Add row
+      ＋addRow
     </div>
     <div class="second-okr__average">
       <span class="second-okr__average-text">average</span
