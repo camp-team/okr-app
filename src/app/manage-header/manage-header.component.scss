@@ -5,7 +5,6 @@
   top: 0;
   left: 0;
   width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0 16px;
   height: 64px;
   &__hamburger-menu {
@@ -51,5 +50,46 @@
     background-position: center;
     background-size: cover;
     box-shadow: none;
+  }
+}
+
+.nav {
+  z-index: 1000;
+  position: fixed;
+  background-color: #fff;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 16px;
+  height: 56px;
+  display: flex;
+  margin: 0 10px 0 0;
+  list-style: none;
+  align-items: center;
+  font-size: 14px;
+  a {
+    text-decoration: none;
+    position: relative;
+    padding: 0 14px;
+    min-height: 48px;
+    align-items: center;
+    transition: opacity 0.4s;
+    color: #000;
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      background-color: #bdbdbd;
+      height: 2px;
+      border-radius: 2px;
+      transition: width 0.4s;
+    }
+    &:hover {
+      &::before {
+        width: 100%;
+      }
+    }
   }
 }
