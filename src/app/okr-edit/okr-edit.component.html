@@ -1,0 +1,84 @@
+<section class="okr-edit">
+  <div class="container">
+    <h1>OKRの作成</h1>
+    <form [formGroup]="form" class="second-step__form" (ngSubmit)="cleateOKR()">
+      <div formArrayName="primaries">
+        <div
+          *ngFor="let primary of primaries.controls; let i = index"
+          class="okr-edit__objective"
+        >
+          <mat-form-field>
+            <mat-label>目標を入力 {{ i + 1 }}つ目</mat-label>
+            <input
+              [formControlName]="i"
+              type="text"
+              autocomplete="off"
+              matInput
+            />
+            <mat-error *ngIf="primary.hasError('maxlength')"
+              >文字数は最大で40文字までです</mat-error
+            >
+          </mat-form-field>
+          <br />
+        </div>
+      </div>
+      <button
+        type="button"
+        mat-raised-button
+        (click)="addObjective()"
+        class="okr-edit__add-objective"
+      >
+        <mat-icon>add</mat-icon>
+        Add contents
+      </button>
+      <div class="okr-edit__date">
+        <p>開始日、終了日の入力</p>
+        <mat-form-field>
+          <mat-label>開始日</mat-label>
+          <input
+            formControlName="start"
+            type="text"
+            matInput
+            autocomplete="off"
+            required
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="start.hasError('required')">必須入力です</mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>終了日</mat-label>
+          <input
+            formControlName="end"
+            type="text"
+            matInput
+            autocomplete="off"
+            required
+            matInput
+            [matDatepicker]="picker1"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error *ngIf="end.hasError('required')">必須入力です</mat-error>
+        </mat-form-field>
+      </div>
+      <br />
+      <button
+        [disabled]="start.invalid || end.invalid || form.invalid"
+        mat-raised-button
+        color="primary"
+      >
+        OKRを作成する
+      </button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,7 @@
+<div class="second-okr-title">
+  <h3 *ngIf="secondOkr$ | async as secondOkr" class="home-detail-title__date">
+    📅期間: {{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
+      secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
+    }}
+  </h3>
+</div>

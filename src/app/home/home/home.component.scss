@@ -1,8 +1,13 @@
 @import 'mixins';
 
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .home {
   margin: 40px auto 0 auto;
-  width: 300px;
+  width: 600px;
 
   @include sm {
     width: 80%;
@@ -75,4 +80,7 @@
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
+}
+
+.edit {
 }

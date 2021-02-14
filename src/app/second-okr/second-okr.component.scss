@@ -1,0 +1,59 @@
+.second-okr {
+  margin: 40px 96px 0;
+  width: 91%;
+  height: 100%;
+}
+
+.container {
+  overflow-x: auto;
+}
+
+.second-okr {
+  th,
+  td {
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.36);
+    color: rgba(0, 0, 0, 0.36);
+    font-weight: 300;
+    min-width: 250px;
+  }
+  table {
+    min-width: 1000px;
+    border-collapse: collapse;
+  }
+  input {
+    width: 98%;
+    height: 100%;
+    border-style: none;
+  }
+  .header-right,
+  .body-right {
+    border-right-style: none;
+  }
+  .header-left,
+  .body-left {
+    border-left-style: none;
+  }
+  &__object input {
+    background-color: inherit;
+    font-size: 20px;
+    margin-top: 24px;
+  }
+  &__add-row,
+  &__remove {
+    font-size: 14px;
+    border-style: none;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.36);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__average {
+    text-align: center;
+  }
+  &__average-text {
+    color: rgba(0, 0, 0, 0.36);
+    margin-right: 8px;
+  }
+}

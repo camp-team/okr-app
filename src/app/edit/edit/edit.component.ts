@@ -22,17 +22,16 @@ export class EditComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
+  form = this.fb.group({
+    title: ['', [Validators.required, Validators.maxLength(40)]],
+    primaries: this.fb.array([]),
+    start: ['', [Validators.required, Validators.maxLength(40)]],
+    end: ['', [Validators.required, Validators.maxLength(40)]],
+  });
+
   get primaries(): FormArray {
     return this.form.get('primaries') as FormArray;
   }
-
-  form = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(40)]],
-    start: ['', [Validators.required, Validators.maxLength(40)]],
-    end: ['', [Validators.required, Validators.maxLength(40)]],
-    primaries: this.fb.array([]),
-  });
-
   get titleControl() {
     return this.form.get('title') as FormControl;
   }

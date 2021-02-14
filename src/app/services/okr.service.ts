@@ -6,6 +6,9 @@ import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
 import { SubTask } from '../interfaces/sub-task';
 import { firestore } from 'firebase';
+import { SecondOkr } from '../interfaces/second-okr';
+import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
+import { SecondOkrObject } from '../interfaces/second-okr-object';
 @Injectable({
   providedIn: 'root',
 })
@@ -49,6 +52,40 @@ export class OkrService {
       .set(value);
   }
 
+  createSecondOkr(
+    secondOkr: Omit<SecondOkr, 'id' | 'isComplete'>,
+    secondOkrObjects: string[]
+  ): Promise<void> {
+    const id = this.db.createId();
+    const isComplete = true;
+    return this.db
+      .doc<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs/${id}`)
+      .set({
+        id,
+        isComplete,
+        ...secondOkr,
+      })
+      .then(() => {
+        secondOkrObjects.forEach((secondOkrObject) => {
+          this.createSecondOkrObject(secondOkrObject, id);
+        });
+      });
+  }
+
+  createSecondOkrObject(secondOkrObject: string, okrId: string) {
+    const id = this.db.createId();
+    const value: SecondOkrObject = {
+      secondOkrObject: secondOkrObject,
+      average: 0,
+      id,
+    };
+    return this.db
+      .doc<SecondOkrObject>(
+        `users/${this.authsearvice.uid}/secondOkrs/${okrId}/secondOkrObjects/${id}`
+      )
+      .set(value);
+  }
+
   createSubTask(
     subTask: Omit<SubTask, 'id' | 'lastUpdated'>,
     primaryId: string,
@@ -66,6 +103,23 @@ export class OkrService {
       });
   }
 
+  createSecondOkrKeyResult(
+    secondOkrKeyResult: Omit<SecondOkrKeyResult, 'id' | 'lastUpdated'>,
+    secondOkrObjectId: string,
+    secondOkrId: string
+  ) {
+    const id = this.db.createId();
+    return this.db
+      .doc<SecondOkrKeyResult>(
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${id}`
+      )
+      .set({
+        id,
+        lastUpdated: firestore.Timestamp.now(),
+        ...secondOkrKeyResult,
+      });
+  }
+
   deleteOkr(okrId: string): Promise<void> {
     return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
   }
@@ -79,6 +133,26 @@ export class OkrService {
   getOkr(id: string): Observable<Okr> {
     return this.db
       .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
+      .valueChanges();
+  }
+
+  getSecondOkrs(): Observable<SecondOkr[]> {
+    return this.db
+      .collection<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs`)
+      .valueChanges();
+  }
+
+  getSecondOkrObjects(id: string): Observable<SecondOkrObject[]> {
+    return this.db
+      .collection<SecondOkrObject>(
+        `users/${this.authsearvice.uid}/secondOkrs/${id}/secondOkrObjects`
+      )
+      .valueChanges();
+  }
+
+  getSecondOkr(id: string): Observable<SecondOkr> {
+    return this.db
+      .doc<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs/${id}`)
       .valueChanges();
   }
 
@@ -118,6 +192,24 @@ export class OkrService {
       .valueChanges();
   }
 
+  getSecondOkrKeyResultsCollection(
+    secondOkrId: string
+  ): Observable<SecondOkrKeyResult[]> {
+    return this.db
+      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
+        ref.where('secondOkrId', '==', secondOkrId)
+      )
+      .valueChanges();
+  }
+
+  getSecondOkrKeyResult(uid: string): Observable<SecondOkrKeyResult[]> {
+    return this.db
+      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
+        ref.where('uid', '==', uid)
+      )
+      .valueChanges();
+  }
+
   updateOkr(
     uid: string,
     okrId: string,
@@ -146,6 +238,19 @@ export class OkrService {
       .update(primary);
   }
 
+  updateSecondOkrObject(
+    uid: string,
+    secondOkrId: string,
+    secondOkrObjectId: string,
+    secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'>
+  ): Promise<void> {
+    return this.db
+      .doc(
+        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
+      )
+      .update(secondOkrObject);
+  }
+
   updateSubTask(
     uid: string,
     okrId: string,
@@ -160,6 +265,23 @@ export class OkrService {
       .update({
         lastUpdated: firestore.Timestamp.now(),
         ...subTask,
+      });
+  }
+
+  updateSecondOkrKeyResult(
+    uid: string,
+    secondOkrId: string,
+    secondOkrObjectId: string,
+    secondOkrKeyResultId: string,
+    secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'>
+  ): Promise<void> {
+    return this.db
+      .doc(
+        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      )
+      .update({
+        lastUpdated: firestore.Timestamp.now(),
+        ...secondOkrKeyResult,
       });
   }
 
