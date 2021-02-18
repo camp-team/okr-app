@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { ManageHeaderComponent } from '../manage-header/manage-header.component';
 import { ManageSidenavigationComponent } from '../manage-sidenavigation/manage-sidenavigation.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ManageSidenavigationComponent } from '../manage-sidenavigation/manage-s
     MatButtonModule,
     MatDividerModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class ManageModule {}
