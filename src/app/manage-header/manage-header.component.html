@@ -58,18 +58,13 @@
   </li>
   <li>
     <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
-      <div *ngIf="secondOkrs$ | async; else blank">
-        <a
-          [routerLink]="['/manage/home/secondOkr']"
-          [queryParams]="{ v: secondOkr.id }"
-        >
-          進行中
-        </a>
-      </div>
+      <a
+        [routerLink]="['/manage/home/secondOkr']"
+        [queryParams]="{ v: secondOkr.id }"
+      >
+        進行中
+      </a>
     </ng-container>
-    <ng-template #blank>
-      <p *ngIf="!loadingService.loading">記事はありません</p>
-    </ng-template>
     <mat-spinner *ngIf="loadingService.loading"></mat-spinner>
   </li>
   <li>
