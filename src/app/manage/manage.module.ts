@@ -13,12 +13,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ManageHeaderComponent } from '../manage-header/manage-header.component';
 import { ManageSidenavigationComponent } from '../manage-sidenavigation/manage-sidenavigation.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ManageFooterComponent } from '../manage-footer/manage-footer.component';
 
 @NgModule({
   declarations: [
     ManageComponent,
     ManageHeaderComponent,
     ManageSidenavigationComponent,
+    ManageFooterComponent,
   ],
   imports: [
     CommonModule,
