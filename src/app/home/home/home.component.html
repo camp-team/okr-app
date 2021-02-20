@@ -1,5 +1,4 @@
 <div class="home">
-  <a routerLink="/manage/home" class="home__path">OKR管理</a>
   <h2 class="home__title"><span>🎯</span>OKR管理</h2>
   <div class="container">
     <div class="home__okr">
@@ -8,9 +7,6 @@
           <app-okr *ngIf="okr.isComplete" [okr]="okr"></app-okr>
         </ng-container>
       </div>
-    </div>
-    <div class="edit">
-      <app-okr-edit></app-okr-edit>
     </div>
   </div>
 
