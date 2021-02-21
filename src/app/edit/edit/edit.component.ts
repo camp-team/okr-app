@@ -20,13 +20,10 @@ import { Router } from '@angular/router';
 export class EditComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
 
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
     primaries: this.fb.array([]),
-    start: ['', [Validators.required, Validators.maxLength(40)]],
-    end: ['', [Validators.required, Validators.maxLength(40)]],
   });
 
   get primaries(): FormArray {
@@ -34,12 +31,6 @@ export class EditComponent implements OnInit {
   }
   get titleControl() {
     return this.form.get('title') as FormControl;
-  }
-  get startControl() {
-    return this.form.get('start') as FormControl;
-  }
-  get endControl() {
-    return this.form.get('end') as FormControl;
   }
   get primariesControl() {
     return this.form.get('primaries') as FormControl;
@@ -71,9 +62,7 @@ export class EditComponent implements OnInit {
     const formData = this.form.value;
     const okrValue: Omit<Okr, 'id' | 'isComplete'> = {
       title: formData.title,
-      start: formData.start,
       primaries: formData.primaries,
-      end: formData.end,
       CreatorId: this.authService.uid,
     };
     const primaryArray = formData.primaries;
