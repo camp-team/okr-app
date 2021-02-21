@@ -8,7 +8,6 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SecondOkr } from '../interfaces/second-okr';
-import { Okr } from '../interfaces/okr';
 import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
