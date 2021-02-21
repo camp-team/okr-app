@@ -3,6 +3,7 @@ import {
   FormArray,
   FormBuilder,
   FormControl,
+  FormGroup,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,20 +18,26 @@ import { OkrService } from 'src/app/services/okr.service';
   styleUrls: ['./okr-edit.component.scss'],
 })
 export class OkrEditComponent implements OnInit {
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
   form = this.fb.group({
+    primaries: this.fb.array([]),
     start: ['', [Validators.required, Validators.maxLength(40)]],
     end: ['', [Validators.required, Validators.maxLength(40)]],
-    primaries: this.fb.array([]),
   });
 
   get primaries(): FormArray {
     return this.form.get('primaries') as FormArray;
   }
-  get start() {
+  get startControl() {
     return this.form.get('start') as FormControl;
   }
-  get end() {
-    return this.form.get('start') as FormControl;
+  get endControl() {
+    return this.form.get('end') as FormControl;
+  }
+  get primariesControl() {
+    return this.form.get('primaries') as FormControl;
   }
 
   constructor(
@@ -51,12 +58,22 @@ export class OkrEditComponent implements OnInit {
     );
   }
 
+  removeOption(i: number) {
+    this.primaries.removeAt(i);
+  }
+
+  addOptionForm() {
+    this.primaries.push(
+      new FormControl('', [Validators.required, Validators.maxLength(40)])
+    );
+  }
+
   cleateOKR() {
     const formData = this.form.value;
     const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
       start: formData.start,
       end: formData.end,
-      CreatorId: this.authService.uid,
+      creatorId: this.authService.uid,
       secondOkrObjects: formData.primaries,
     };
     const primaryArray = formData.primaries;
