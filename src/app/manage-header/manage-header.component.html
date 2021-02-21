@@ -1,52 +1,83 @@
-<mat-toolbar class="header">
-  <button class="header__hamburger-menu" mat-icon-button (click)="toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <div class="header__left">
-    <p class="header__title">
-      <a routerLink="/about" class="header__link">
-        OKR
-      </a>
-    </p>
-  </div>
-
-  <span class="header__spacer"></span>
-
-  <div class="header__right">
-    <div class="header__search">
-      <input type="text" autocomplete="off" placeholder="検索" />
-      <mat-icon>search</mat-icon>
+<div class="manage-header">
+  <mat-toolbar class="header">
+    <div class="header__left">
+      <p class="header__title">
+        <a routerLink="/about" class="header__link">
+          OKR
+        </a>
+      </p>
     </div>
 
-    <ng-container
-      *ngIf="authService.user$ | async as user"
-      class="header__mypage"
-    >
-      <button
-        mat-mini-fab
-        [matMenuTriggerFor]="userMenu"
-        [style.background-image]="'url(' + user?.avatarURL + ')'"
-        class="header__icon"
-      ></button>
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
-          <mat-icon>login</mat-icon>
-          <span>ログイン</span>
-        </button>
-        <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
-          <mat-icon>logout</mat-icon>
-          <span>ログアウト</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>support_argent</mat-icon>
-          <span>開発者を応援する</span>
-        </button>
-        <button mat-menu-item routerLink="/settings">
-          <mat-icon>settings</mat-icon>
-          <span>設定</span>
-        </button>
-      </mat-menu>
-    </ng-container>
-  </div>
-</mat-toolbar>
+    <span class="header__spacer"></span>
+
+    <div class="header__right">
+      <div class="header__search">
+        <input type="text" autocomplete="off" placeholder="検索" />
+        <mat-icon>search</mat-icon>
+      </div>
+
+      <ng-container
+        *ngIf="authService.user$ | async as user"
+        class="header__mypage"
+      >
+        <button
+          mat-mini-fab
+          [matMenuTriggerFor]="userMenu"
+          [style.background-image]="'url(' + user?.avatarURL + ')'"
+          class="header__icon"
+        ></button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
+            <mat-icon>login</mat-icon>
+            <span>ログイン</span>
+          </button>
+          <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>ログアウト</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>support_argent</mat-icon>
+            <span>開発者を応援する</span>
+          </button>
+          <button mat-menu-item routerLink="/settings">
+            <mat-icon>settings</mat-icon>
+            <span>設定</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+    </div>
+  </mat-toolbar>
+  <ul class="nav">
+    <li>
+      <a routerLink="/manage/home">
+        ホーム
+      </a>
+    </li>
+    <li>
+      <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
+        <a
+          [routerLink]="['/manage/home/secondOkr']"
+          [queryParams]="{ v: secondOkr.id }"
+        >
+          進行中
+        </a>
+      </ng-container>
+      <mat-spinner *ngIf="loadingService.loading"></mat-spinner>
+    </li>
+    <li>
+      <a routerLink="/manage/edit">
+        1番目OKR入力
+      </a>
+    </li>
+    <li>
+      <a routerLink="/manage/okr-edit">
+        2番目OKR入力
+      </a>
+    </li>
+    <li>
+      <a routerLink="/manage/home/id">
+        達成済み
+      </a>
+    </li>
+  </ul>
+</div>

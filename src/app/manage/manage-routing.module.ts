@@ -17,6 +17,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../home/home.module').then((m) => m.HomeModule),
       },
+      {
+        path: 'okr-edit',
+        loadChildren: () =>
+          import('../okr-edit/okr-edit.module').then((m) => m.OkrEditModule),
+      },
     ],
   },
 ];

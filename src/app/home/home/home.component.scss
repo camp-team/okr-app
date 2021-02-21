@@ -6,7 +6,9 @@
 }
 
 .home {
-  margin: 40px auto 0 auto;
+  padding-top: 56px;
+  margin: 0 auto;
+  height: 100%;
   width: 600px;
 
   @include sm {
@@ -20,8 +22,9 @@
     }
   }
   &__title {
+    font-size: 32px;
     span {
-      font-size: 32px;
+      font-size: 46px;
     }
   }
   &__grid {
@@ -80,7 +83,4 @@
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
-}
-
-.edit {
 }

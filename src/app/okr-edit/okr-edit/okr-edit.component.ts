@@ -7,9 +7,9 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { SecondOkr } from '../interfaces/second-okr';
-import { AuthService } from '../services/auth.service';
-import { OkrService } from '../services/okr.service';
+import { SecondOkr } from 'src/app/interfaces/second-okr';
+import { AuthService } from 'src/app/services/auth.service';
+import { OkrService } from 'src/app/services/okr.service';
 
 @Component({
   selector: 'app-okr-edit',
@@ -56,7 +56,7 @@ export class OkrEditComponent implements OnInit {
     const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
       start: formData.start,
       end: formData.end,
-      creatorId: this.authService.uid,
+      CreatorId: this.authService.uid,
       secondOkrObjects: formData.primaries,
     };
     const primaryArray = formData.primaries;

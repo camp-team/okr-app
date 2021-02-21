@@ -15,9 +15,12 @@ mat-card {
     flex: 1;
   }
   &__title {
-    font-size: 20px;
+    font-size: 28px;
     margin: 0 0 16px;
     height: 60px;
+  }
+  &__key {
+    font-size: 26px;
   }
   &__sub-titles {
     height: 150px;
