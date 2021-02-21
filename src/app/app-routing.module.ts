@@ -20,6 +20,8 @@ const routes: Routes = [
     path: 'manage',
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'about',
