@@ -27,11 +27,6 @@
       font-size: 46px;
     }
   }
-  &__grid {
-    display: grid;
-    gap: 24px;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
   &__card {
     height: 240px;
     display: flex;
