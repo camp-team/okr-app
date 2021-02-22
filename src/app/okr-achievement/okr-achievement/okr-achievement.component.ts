@@ -10,8 +10,21 @@ import { OkrService } from 'src/app/services/okr.service';
 })
 export class OkrAchievementComponent implements OnInit {
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
+  secondOkr: boolean;
 
   constructor(public okrService: OkrService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.secondOkrs$.subscribe((secondOkrs) => {
+      secondOkrs.map((secondOkr) => {
+        if (secondOkrs.length === 0) {
+          this.secondOkr = false;
+        } else if (secondOkr.isComplete === true) {
+          this.secondOkr = false;
+        } else if (secondOkr.isComplete === false) {
+          this.secondOkr = true;
+        }
+      });
+    });
+  }
 }

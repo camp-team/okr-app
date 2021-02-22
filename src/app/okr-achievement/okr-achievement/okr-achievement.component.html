@@ -1,10 +1,22 @@
-<ng-container *ngFor="let secondOkr of secondOkrs$ | async">
-  <ng-container *ngIf="!secondOkr.isComplete">
-    <a
-      [routerLink]="['/manage/home/secondOkr']"
-      [queryParams]="{ v: secondOkr.id }"
-    >
-      📅{{ secondOkr.start }}〜{{ secondOkr.end }}
-    </a>
+<div class="achieve">
+  <ng-container *ngIf="secondOkr; else blank">
+    <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
+      <ng-container *ngIf="!secondOkr.isComplete">
+        <a
+          [routerLink]="['/manage/complete']"
+          [queryParams]="{ v: secondOkr.id }"
+          class="achieve__okr"
+        >
+          📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
+            secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
+          }}
+        </a>
+      </ng-container>
+    </ng-container>
   </ng-container>
-</ng-container>
+  <ng-template #blank>
+    <img src="assets/images/creation.png" alt="" />
+    <h1>現在、達成済みのokrはありません。</h1>
+    <p>進行中のokrが達成されたら、画面に達成済みのOKRが表示されます。</p>
+  </ng-template>
+</div>
