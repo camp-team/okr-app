@@ -53,6 +53,11 @@
     background-size: cover;
     box-shadow: none;
   }
+  &__progress {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .nav {
