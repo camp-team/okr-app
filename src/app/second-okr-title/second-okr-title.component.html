@@ -4,4 +4,12 @@
       secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
     }}
   </h3>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="secondOkrComplete()" mat-menu-item>
+      <span>OKRを完了済みにする。</span>
+    </button>
+  </mat-menu>
 </div>
