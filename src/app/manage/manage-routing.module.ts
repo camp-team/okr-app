@@ -22,6 +22,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('../okr-edit/okr-edit.module').then((m) => m.OkrEditModule),
       },
+      {
+        path: 'achieve',
+        loadChildren: () =>
+          import('../okr-achievement/okr-achievement.module').then(
+            (m) => m.OkrAchievementModule
+          ),
+      },
     ],
   },
 ];

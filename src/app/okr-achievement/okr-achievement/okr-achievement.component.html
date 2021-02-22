@@ -1,0 +1,10 @@
+<ng-container *ngFor="let secondOkr of secondOkrs$ | async">
+  <ng-container *ngIf="!secondOkr.isComplete">
+    <a
+      [routerLink]="['/manage/home/secondOkr']"
+      [queryParams]="{ v: secondOkr.id }"
+    >
+      📅{{ secondOkr.start }}〜{{ secondOkr.end }}
+    </a>
+  </ng-container>
+</ng-container>
