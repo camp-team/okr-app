@@ -1,38 +1,29 @@
-<mat-card>
-  <div class="card">
-    <div class="card__body">
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="card__menu">
-        <mat-icon>more_horiz</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button (click)="okrComplete(this.okr.id)" mat-menu-item>
-          <mat-icon>check</mat-icon>
-          <span>OKRを完了済みにする。</span>
-        </button>
-      </mat-menu>
+<div class="okr">
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="card__menu">
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="okrComplete(this.okr.id)" mat-menu-item>
+      <mat-icon>check</mat-icon>
+      <span>OKRを完了済みにする。</span>
+    </button>
+  </mat-menu>
 
-      <h1 class="card__title">{{ okr.title }}</h1>
-      <div class="card__sub-titles">
-        <div *ngFor="let primary of primaries$ | async" class="card__sub-title">
-          <p>{{ primary.primaryTitle }}</p>
-        </div>
-      </div>
-      <p class="card__duration">
-        📅期間: {{ okr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-          okr.end.toDate() | date: 'yyyy年MM月dd日'
-        }}
-      </p>
-
-      <div class="card__action">
-        <button
-          [routerLink]="['/manage/home/homedetail']"
-          [queryParams]="{ v: okr.id }"
-          mat-raised-button
-          color="primary"
-        >
-          詳細をみる
-        </button>
-      </div>
+  <h1 class="card__title">Objective:{{ okr.title }}</h1>
+  <div class="card__sub-titles">
+    <div *ngFor="let primary of primaries$ | async" class="card__sub-title">
+      <p class="card__key">Key Result:{{ primary.primaryTitle }}</p>
     </div>
   </div>
-</mat-card>
+
+  <div class="card__action">
+    <button
+      [routerLink]="['/manage/home/homedetail']"
+      [queryParams]="{ v: okr.id }"
+      mat-raised-button
+      color="primary"
+    >
+      詳細をみる
+    </button>
+  </div>
+</div>

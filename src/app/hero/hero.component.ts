@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -7,9 +8,15 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.afUser$.subscribe((user) => {
+      if (user) {
+        this.router.navigateByUrl('/manage/home');
+      }
+    });
+  }
 
   login() {
     this.authService.login();

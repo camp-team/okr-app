@@ -3,13 +3,14 @@ import {
   FormArray,
   FormBuilder,
   FormControl,
+  FormGroup,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { SecondOkr } from '../interfaces/second-okr';
-import { AuthService } from '../services/auth.service';
-import { OkrService } from '../services/okr.service';
+import { SecondOkr } from 'src/app/interfaces/second-okr';
+import { AuthService } from 'src/app/services/auth.service';
+import { OkrService } from 'src/app/services/okr.service';
 
 @Component({
   selector: 'app-okr-edit',
@@ -17,20 +18,26 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./okr-edit.component.scss'],
 })
 export class OkrEditComponent implements OnInit {
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
   form = this.fb.group({
+    primaries: this.fb.array([]),
     start: ['', [Validators.required, Validators.maxLength(40)]],
     end: ['', [Validators.required, Validators.maxLength(40)]],
-    primaries: this.fb.array([]),
   });
 
   get primaries(): FormArray {
     return this.form.get('primaries') as FormArray;
   }
-  get start() {
+  get startControl() {
     return this.form.get('start') as FormControl;
   }
-  get end() {
-    return this.form.get('start') as FormControl;
+  get endControl() {
+    return this.form.get('end') as FormControl;
+  }
+  get primariesControl() {
+    return this.form.get('primaries') as FormControl;
   }
 
   constructor(
@@ -46,6 +53,16 @@ export class OkrEditComponent implements OnInit {
   }
 
   addObjective() {
+    this.primaries.push(
+      new FormControl('', [Validators.required, Validators.maxLength(40)])
+    );
+  }
+
+  removeOption(i: number) {
+    this.primaries.removeAt(i);
+  }
+
+  addOptionForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(40)])
     );

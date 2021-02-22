@@ -1,0 +1,185 @@
+<div class="edit">
+  <mat-horizontal-stepper #stepper class="stepper">
+    <div class="second-step">
+      <mat-step
+        [stepControl]="secondFormGroup"
+        errorMessage="Address is required."
+      >
+        <div class="second-step__header">2番目のOKRの作成(手順 1/2)</div>
+        <div class="second-step__main">
+          <p class="second-step__title">
+            <span class="second-step__text">
+              Key Resultを達成するための
+            </span>
+            <span>
+              目標を設定しましょう！
+            </span>
+            <span
+              class="tooltip"
+              data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
+            >
+              <mat-icon>
+                help_outline
+              </mat-icon>
+            </span>
+          </p>
+          <form [formGroup]="form" class="second-step__form">
+            <div formArrayName="primaries">
+              <div *ngFor="let option of primaries.controls; let i = index">
+                <mat-form-field class="second-step__field">
+                  <mat-label class="second-step__lavel">
+                    目標を入力 {{ i + 1 }}つ目
+                  </mat-label>
+                  <input
+                    [formControlName]="i"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                  />
+                  <mat-error *ngIf="option.hasError('maxlength')"
+                    >文字数は最大で40文字までです</mat-error
+                  >
+                </mat-form-field>
+                <button
+                  class="second-step__remcontents"
+                  type="button"
+                  (click)="removeOption(i)"
+                  mat-icon-button
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+          <button
+            class="second-step__addcontents"
+            type="button"
+            mat-raised-button
+            (click)="addOptionForm()"
+          >
+            <mat-icon>add</mat-icon>
+            Add contents
+          </button>
+          <div class="second-step__action">
+            <button mat-button matStepperPrevious class="second-step__button">
+              戻る
+            </button>
+            <button
+              mat-button
+              matStepperNext
+              [disabled]="primariesControl.invalid"
+              mat-raised-button
+              color="primary"
+              class="second-step__next"
+            >
+              次へ
+            </button>
+          </div>
+          <div class="second-step__sidebar">
+            <img
+              class="second-step__img"
+              src="assets/images/second-okr-first-step.svg"
+              alt=""
+            />
+          </div>
+        </div>
+      </mat-step>
+    </div>
+
+    <div class="third-step">
+      <mat-step
+        [stepControl]="thirdFormGroup"
+        errorMessage="Address is required."
+      >
+        <div class="third-step__header">2番目のOKRの作成(手順 2/2)</div>
+        <div class="third-step__main">
+          <p class="third-step__title">
+            <span class="second-step__text">
+              最後になります。
+            </span>
+            <span>
+              開始日と終了日を入力しましょう！
+            </span>
+            <span
+              class="tooltip"
+              data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
+            >
+              <mat-icon>
+                help_outline
+              </mat-icon>
+            </span>
+          </p>
+          <form
+            [formGroup]="form"
+            (ngSubmit)="cleateOKR()"
+            class="third-step__form"
+          >
+            <mat-form-field class="third-step__field">
+              <mat-label class="third-step__lavel">開始日</mat-label>
+              <input
+                formControlName="start"
+                type="text"
+                matInput
+                autocomplete="off"
+                required
+                matInput
+                [matDatepicker]="picker"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="startControl.hasError('required')"
+                >必須入力です</mat-error
+              >
+            </mat-form-field>
+            <br />
+            <mat-form-field class="third-step__field">
+              <mat-label class="third-step__lavel">終了日</mat-label>
+              <input
+                formControlName="end"
+                type="text"
+                matInput
+                autocomplete="off"
+                required
+                matInput
+                [matDatepicker]="picker1"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              <mat-error *ngIf="endControl.hasError('required')"
+                >必須入力です</mat-error
+              >
+            </mat-form-field>
+            <div class="third-step__buttons">
+              <button mat-button matStepperPrevious class="third-step__button">
+                戻る
+              </button>
+              <button
+                [disabled]="
+                  startControl.invalid || endControl.invalid || form.invalid
+                "
+                mat-raised-button
+                color="primary"
+                class="third-step__next"
+              >
+                OKRを作成
+              </button>
+            </div>
+          </form>
+          <div class="third-step__sidebar">
+            <img
+              class="third-step__img"
+              src="assets/images/third-step-item.svg"
+              alt=""
+            />
+          </div>
+        </div>
+      </mat-step>
+    </div>
+  </mat-horizontal-stepper>
+</div>

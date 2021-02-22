@@ -6,7 +6,7 @@
           [stepControl]="firstFormGroup"
           errorMessage="Address is required."
         >
-          <div class="first-step__header">OKRの作成(手順 1/3)</div>
+          <div class="first-step__header">1番目のOKRの作成(手順 1/2)</div>
           <div class="first-step__main">
             <p class="first-step__title">
               <span class="first-step__text">
@@ -67,25 +67,29 @@
         [stepControl]="secondFormGroup"
         errorMessage="Address is required."
       >
-        <div class="second-step__header">OKRの作成(手順 2/3)</div>
+        <div class="second-step__header">OKRの作成(手順 2/2)</div>
         <div class="second-step__main">
           <p class="second-step__title">
             <span class="second-step__text">
-              次に、目標を達成するために必要となる
+              目標を達成するために必要となる
             </span>
             <span>
               項目を設定しましょう！
             </span>
             <span
               class="tooltip"
-              data-tooltip="目標に紐づいた項目を設定しましょう。&#13;&#10;3個に絞って設定するのがおすすめです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
+              data-tooltip="目標に紐づいた項目を設定しましょう。&#13;&#10;3個に絞って設定するのがおすすめです。&#13;&#10;&#13;&#10;例)&#13;&#10;・自分の好きなことが出来ている。&#13;&#10;・自己受容ができている。&#13;&#10;・家族や友人と時間を共有出来ている。"
             >
               <mat-icon>
                 help_outline
               </mat-icon>
             </span>
           </p>
-          <form [formGroup]="form" class="second-step__form">
+          <form
+            [formGroup]="form"
+            class="second-step__form"
+            (ngSubmit)="submit()"
+          >
             <div formArrayName="primaries">
               <div *ngFor="let option of primaries.controls; let i = index">
                 <mat-form-field class="second-step__field">
@@ -112,123 +116,33 @@
                 </button>
               </div>
             </div>
-          </form>
-          <button
-            class="second-step__addcontents"
-            type="button"
-            mat-raised-button
-            (click)="addOptionForm()"
-          >
-            <mat-icon>add</mat-icon>
-            Add contents
-          </button>
-          <div class="second-step__action">
-            <button mat-button matStepperPrevious class="second-step__button">
-              戻る
-            </button>
             <button
-              mat-button
-              matStepperNext
-              [disabled]="primariesControl.invalid"
+              class="second-step__addcontents"
+              type="button"
               mat-raised-button
-              color="primary"
-              class="second-step__next"
+              (click)="addOptionForm()"
             >
-              次へ
+              <mat-icon>add</mat-icon>
+              Add contents
             </button>
-          </div>
-          <div class="second-step__sidebar">
-            <img
-              class="second-step__img"
-              src="assets/images/second-step-item.svg"
-              alt=""
-            />
-          </div>
-        </div>
-      </mat-step>
-    </div>
-
-    <div class="third-step">
-      <mat-step
-        [stepControl]="thirdFormGroup"
-        errorMessage="Address is required."
-      >
-        <div class="third-step__header">OKRの作成(手順 3/3)</div>
-        <div class="third-step__main">
-          <p class="third-step__title">
-            <span>
-              最後になります。
-            </span>
-            <span>
-              開始日と終了日を入力しましょう！
-            </span>
-          </p>
-          <form
-            [formGroup]="form"
-            (ngSubmit)="submit()"
-            class="third-step__form"
-          >
-            <mat-form-field class="third-step__field">
-              <mat-label class="third-step__lavel">開始日</mat-label>
-              <input
-                formControlName="start"
-                type="text"
-                matInput
-                autocomplete="off"
-                required
-                matInput
-                [matDatepicker]="picker"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="startControl.hasError('required')"
-                >必須入力です</mat-error
-              >
-            </mat-form-field>
-            <br />
-            <mat-form-field class="third-step__field">
-              <mat-label class="third-step__lavel">終了日</mat-label>
-              <input
-                formControlName="end"
-                type="text"
-                matInput
-                autocomplete="off"
-                required
-                matInput
-                [matDatepicker]="picker1"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker1"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-              <mat-error *ngIf="endControl.hasError('required')"
-                >必須入力です</mat-error
-              >
-            </mat-form-field>
-            <div class="third-step__buttons">
-              <button mat-button matStepperPrevious class="third-step__button">
+            <div class="second-step__action">
+              <button mat-button matStepperPrevious class="second-step__button">
                 戻る
               </button>
               <button
-                [disabled]="
-                  startControl.invalid || endControl.invalid || form.invalid
-                "
+                [disabled]="form.invalid"
                 mat-raised-button
                 color="primary"
-                class="third-step__next"
+                class="second-step__next"
               >
                 OKRを作成
               </button>
             </div>
           </form>
-          <div class="third-step__sidebar">
+          <div class="second-step__sidebar">
             <img
-              class="third-step__img"
-              src="assets/images/third-step-item.svg"
+              class="second-step__img"
+              src="assets/images/second-step-item.svg"
               alt=""
             />
           </div>
