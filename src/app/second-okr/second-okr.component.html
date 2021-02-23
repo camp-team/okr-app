@@ -1,4 +1,5 @@
 <div class="second-okr">
+  <h1 class="second-okr__title">進行中のOKR</h1>
   <ng-container *ngIf="isComplete === true; else blank">
     <app-second-okr-title></app-second-okr-title>
     <div *ngFor="let secondOkrObject of secondOkrObjects" class="container">
@@ -130,7 +131,7 @@
   <div class="not-exist">
     <img src="assets/images/no-data.svg" alt="" class="not-exist__img" />
     <h1 class="not-exist__title">進行中のokrがありません。</h1>
-    <p class="not-exist__text">okrを作成しましょう。</p>
+    <p class="not-exist__text">2番目のokrを作成しましょう！</p>
     <a
       mat-raised-button
       color="primary"
