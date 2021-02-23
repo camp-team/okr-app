@@ -21,9 +21,10 @@ export class ManageHeaderComponent implements OnInit {
     .getSecondOkrs()
     .pipe(tap(() => (this.loadingService.loading = false)));
   secondOkr: SecondOkr;
+  isComplete: boolean;
+  isCompletes = [];
 
   constructor(
-    private route: ActivatedRoute,
     private manageService: ManageService,
     public authService: AuthService,
     public okrService: OkrService,
@@ -38,16 +39,20 @@ export class ManageHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.secondOkrs$.subscribe((secondOkrs) => {
-      console.log(secondOkrs.length);
       if (secondOkrs.length === 0) {
         this.isSecondOkr = false;
       } else {
         this.isSecondOkr = true;
       }
       secondOkrs.map((secondOkr) => {
-        if (secondOkr.isComplete === true) {
-          this.secondOkr = secondOkr;
-        }
+        this.isComplete = secondOkr.isComplete;
+        this.isCompletes.push(this.isComplete);
+        this.isCompletes.forEach((isComplete) => {
+          if (isComplete === true) {
+            this.isComplete = true;
+          }
+        });
+        if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
       });
     });
   }
