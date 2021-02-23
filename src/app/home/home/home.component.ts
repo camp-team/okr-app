@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.okrs$.subscribe((okrs) => {
-      console.log(okrs);
       if (okrs.length === 0) {
         this.okr = false;
       } else {
