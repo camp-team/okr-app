@@ -57,3 +57,24 @@
     margin-right: 8px;
   }
 }
+
+.not-exist {
+  padding-bottom: 0;
+  &__img {
+    height: 250px;
+    margin: 0 auto;
+    display: block;
+  }
+  &__text {
+    text-align: center;
+    font-size: 20px;
+  }
+  &__title {
+    text-align: center;
+  }
+  &__action {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+  }
+}

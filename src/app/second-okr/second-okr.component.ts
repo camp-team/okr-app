@@ -35,6 +35,10 @@ export class SecondOkrComponent implements OnInit {
   secondOkrKeyResults$: Observable<
     SecondOkrKeyResult[]
   > = this.okrService.getSecondOkrKeyResultsCollection(this.secondOkrId);
+  isComplete: boolean;
+  isCompletes = [];
+  isSecondOkr: boolean;
+  secondOkr: SecondOkr;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,6 +73,23 @@ export class SecondOkrComponent implements OnInit {
           );
         });
       });
+    this.secondOkr$.subscribe((secondOkrs) => {
+      if (secondOkrs.length === 0) {
+        this.isSecondOkr = false;
+      } else {
+        this.isSecondOkr = true;
+      }
+      secondOkrs.map((secondOkr) => {
+        this.isComplete = secondOkr.isComplete;
+        this.isCompletes.push(this.isComplete);
+        this.isCompletes.forEach((isComplete) => {
+          if (isComplete === true) {
+            this.isComplete = true;
+          }
+        });
+        if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
+      });
+    });
   }
 
   initSecondOkrObject(secondOkrObjectId: string, secondOkrObject: string) {
