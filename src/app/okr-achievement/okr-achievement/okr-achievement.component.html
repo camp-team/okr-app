@@ -2,6 +2,7 @@
   <ng-container *ngIf="secondOkr; else blank">
     <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
       <ng-container *ngIf="!secondOkr.isComplete">
+        <h1>達成済みのOKR</h1>
         <a
           [routerLink]="['/manage/complete']"
           [queryParams]="{ v: secondOkr.id }"
@@ -14,9 +15,14 @@
       </ng-container>
     </ng-container>
   </ng-container>
-  <ng-template #blank>
-    <img src="assets/images/creation.png" alt="" />
-    <h1>現在、達成済みのokrはありません。</h1>
-    <p>進行中のokrが達成されたら、画面に達成済みのOKRが表示されます。</p>
-  </ng-template>
 </div>
+
+<ng-template #blank>
+  <div class="no-data">
+    <img src="assets/images/no-data.svg" alt="" class="no-data__img" />
+    <h1 class="no-data__title">達成済みのokrはありません。</h1>
+    <p class="no-data__text">
+      進行中のokrが達成されたら、達成済みのOKRが表示されます。
+    </p>
+  </div>
+</ng-template>

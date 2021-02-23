@@ -1,5 +1,32 @@
 .achieve {
+  padding-top: 24px;
+  text-align: center;
   &__okr {
     display: block;
+  }
+}
+
+a {
+  margin: 0 auto;
+  width: 300px;
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+.no-data {
+  padding-top: 56px;
+  &__img {
+    height: 250px;
+    display: block;
+    margin: 0 auto;
+  }
+  &__title {
+    text-align: center;
+  }
+  &__text {
+    text-align: center;
   }
 }
