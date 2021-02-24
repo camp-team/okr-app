@@ -12,12 +12,12 @@ import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
-  selector: 'app-second-okr',
-  templateUrl: './second-okr.component.html',
-  styleUrls: ['./second-okr.component.scss'],
+  selector: 'app-complete-okr',
+  templateUrl: './complete-okr.component.html',
+  styleUrls: ['./complete-okr.component.scss'],
   providers: [DatePipe],
 })
-export class SecondOkrComponent implements OnInit {
+export class CompleteOkrComponent implements OnInit {
   private secondOkrId = this.route.snapshot.queryParamMap.get('v');
   row: FormGroup;
   rows: {

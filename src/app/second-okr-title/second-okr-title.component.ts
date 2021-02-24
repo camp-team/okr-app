@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SecondOkr } from '../interfaces/second-okr';
 import { AuthService } from '../services/auth.service';
@@ -17,7 +18,26 @@ export class SecondOkrTitleComponent implements OnInit {
     this.secondOkrId
   );
 
-  constructor(private route: ActivatedRoute, public okrService: OkrService) {}
+  constructor(
+    private route: ActivatedRoute,
+    public okrService: OkrService,
+    public authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
+
+  secondOkrComplete() {
+    const secondOkrValue: SecondOkr = {
+      isComplete: false,
+    };
+    this.okrService.updateSecondOkr(
+      this.authService.uid,
+      this.secondOkrId,
+      secondOkrValue
+    );
+    this.snackBar.open('お疲れ様でした✨', null);
+    this.router.navigateByUrl('manage/achieve');
+  }
 }

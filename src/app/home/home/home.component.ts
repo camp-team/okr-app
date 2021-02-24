@@ -11,11 +11,20 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  okr: boolean;
 
   constructor(
     public okrService: OkrService,
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.okrs$.subscribe((okrs) => {
+      if (okrs.length === 0) {
+        this.okr = false;
+      } else {
+        this.okr = true;
+      }
+    });
+  }
 }

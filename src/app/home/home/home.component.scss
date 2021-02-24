@@ -1,19 +1,8 @@
 @import 'mixins';
 
-.container {
-  display: flex;
-  justify-content: space-between;
-}
-
 .home {
   padding-top: 56px;
-  margin: 0 auto;
-  height: 100%;
-  width: 600px;
 
-  @include sm {
-    width: 80%;
-  }
   &__path {
     text-decoration: none;
     color: inherit;
@@ -22,6 +11,7 @@
     }
   }
   &__title {
+    text-align: center;
     font-size: 32px;
     span {
       font-size: 46px;
@@ -77,5 +67,25 @@
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
+  }
+}
+
+.not-data {
+  &__img {
+    height: 250px;
+    margin: 0 auto;
+    display: block;
+  }
+  &__title {
+    text-align: center;
+  }
+  &__text {
+    text-align: center;
+    font-size: 20px;
+  }
+  &__action {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
   }
 }

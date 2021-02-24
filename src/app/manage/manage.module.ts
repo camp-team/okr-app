@@ -14,6 +14,12 @@ import { ManageHeaderComponent } from '../manage-header/manage-header.component'
 import { ManageSidenavigationComponent } from '../manage-sidenavigation/manage-sidenavigation.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManageFooterComponent } from '../manage-footer/manage-footer.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { CompleteOkrComponent } from '../complete-okr/complete-okr.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CompleteOkrTitleComponent } from '../complete-okr-title/complete-okr-title.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +27,8 @@ import { ManageFooterComponent } from '../manage-footer/manage-footer.component'
     ManageHeaderComponent,
     ManageSidenavigationComponent,
     ManageFooterComponent,
+    CompleteOkrComponent,
+    CompleteOkrTitleComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +41,11 @@ import { ManageFooterComponent } from '../manage-footer/manage-footer.component'
     MatDividerModule,
     MatMenuModule,
     MatProgressSpinnerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+    MatDatepickerModule,
   ],
 })
 export class ManageModule {}

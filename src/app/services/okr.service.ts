@@ -227,6 +227,16 @@ export class OkrService {
     return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
   }
 
+  updateSecondOkr(
+    uid: string,
+    secondOkrId: string,
+    secondOkr: SecondOkr
+  ): Promise<void> {
+    return this.db
+      .doc(`users/${uid}/secondOkrs/${secondOkrId}`)
+      .update(secondOkr);
+  }
+
   updatePrimary(
     uid: string,
     okrId: string,

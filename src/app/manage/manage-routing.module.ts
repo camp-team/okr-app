@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CompleteOkrComponent } from '../complete-okr/complete-okr.component';
 import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
@@ -21,6 +22,17 @@ const routes: Routes = [
         path: 'okr-edit',
         loadChildren: () =>
           import('../okr-edit/okr-edit.module').then((m) => m.OkrEditModule),
+      },
+      {
+        path: 'achieve',
+        loadChildren: () =>
+          import('../okr-achievement/okr-achievement.module').then(
+            (m) => m.OkrAchievementModule
+          ),
+      },
+      {
+        path: ':id',
+        component: CompleteOkrComponent,
       },
     ],
   },

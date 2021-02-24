@@ -54,14 +54,19 @@
       </a>
     </li>
     <li>
-      <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
-        <a
-          [routerLink]="['/manage/home/secondOkr']"
-          [queryParams]="{ v: secondOkr.id }"
-        >
+      <ng-container *ngIf="isSecondOkr; else blank">
+        <ng-container *ngIf="isComplete === true; else blank">
+          <a (click)="progress()" class="header__progress">
+            進行中
+          </a>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #blank>
+        <a href="" [routerLink]="['/manage/home/secondOkr']">
           進行中
         </a>
-      </ng-container>
+      </ng-template>
       <mat-spinner *ngIf="loadingService.loading"></mat-spinner>
     </li>
     <li>
@@ -75,7 +80,7 @@
       </a>
     </li>
     <li>
-      <a routerLink="/manage/home/id">
+      <a routerLink="/manage/achieve">
         達成済み
       </a>
     </li>
