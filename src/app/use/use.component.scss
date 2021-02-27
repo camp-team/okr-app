@@ -1,3 +1,6 @@
+@import 'variables';
+@import 'mixins';
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -26,6 +29,9 @@
   &__item {
     display: flex;
     align-items: center;
+    @include md {
+      display: block;
+    }
   }
   &__img {
     display: block;
@@ -42,11 +48,9 @@
   &__data {
     width: 50%;
     margin: 0;
-    // .use__item:nth-of-type(odd) & {
-    //   padding-left: 24px;
-    // }
-    // .use__item:nth-of-type(even) & {
-    //   padding-right: 24px;
-    // }
+    @include md {
+      text-align: center;
+      margin: 0 auto;
+    }
   }
 }
