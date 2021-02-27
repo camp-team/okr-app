@@ -3,6 +3,9 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  @include md {
+    margin: 0 auto;
+  }
 }
 
 ul {
@@ -15,15 +18,16 @@ ul {
   padding-top: 80px;
   text-align: center;
   margin-bottom: 40px;
-  font-size: 24px;
-  @include sm {
-    font-size: 28px;
+  font-size: 28px;
+  @include md {
+    padding: 0;
   }
 }
 
 .points {
   padding-bottom: calc(80px + 3.5vw);
   @include md {
+    padding: 0;
   }
 }
 
@@ -35,16 +39,15 @@ ul {
 .points-contents {
   max-width: 160px;
   margin: 32px auto 0;
-  @include sm {
-    max-width: 100%;
-    display: grid;
-    column-gap: 32px;
-    grid-template-columns: repeat(3, 1fr);
+  max-width: 100%;
+  display: grid;
+  column-gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  @include md {
+    margin: 32px;
   }
   &__item {
-    @include md {
-      padding: 40px 20px;
-    }
+    padding: 40px 20px;
   }
   &__icon {
     display: flex;
@@ -59,9 +62,7 @@ ul {
   &__data {
     margin: 0;
     padding-left: 16px;
-    @include md {
-      width: 100%;
-    }
+    width: 100%;
   }
   &__dt {
     text-align: center;
