@@ -5,15 +5,24 @@
   margin: 0 auto;
   max-width: 1200px;
   padding: 24px;
+  @include md {
+    text-align: center;
+  }
 }
 .hero {
   background-color: #f5f5f5;
   position: relative;
   padding: 160px 0 300px 0;
   text-align: left;
+  @include md {
+    padding: 60px 0 100px 0;
+  }
   &__main {
     position: relative;
     padding-right: 50%;
+    @include md {
+      padding: 0;
+    }
   }
   &__main-text {
     font-weight: 400;
@@ -25,17 +34,27 @@
     span {
       display: block;
     }
+    @include md {
+      font-size: 20px;
+    }
   }
   &__sub-text {
     position: relative;
     font-size: 16px;
     margin: 16px auto 0;
+    @include md {
+      font-size: 12px;
+    }
   }
   &__image {
     position: absolute;
     right: 0;
     max-width: 50%;
     top: -10px;
+    @include md {
+      position: relative;
+      margin: 32px auto 0;
+    }
   }
   &__image1 {
     width: 100%;
