@@ -1,6 +1,6 @@
 <div class="home">
-  <h1 class="home__title">OKR管理</h1>
   <div class="container">
+    <h1 class="home__title">OKR管理</h1>
     <div class="home__okr">
       <div class="home__grid">
         <ng-container *ngIf="okr; else blank">
@@ -11,27 +11,15 @@
       </div>
     </div>
   </div>
-
-  <div class="completed-okr">
-    <h2>達成済みのOKR</h2>
-    <ng-container *ngFor="let okr of okrs$ | async">
-      <a
-        *ngIf="okr.isComplete == false"
-        [routerLink]="['/manage/home/homedetail']"
-        [queryParams]="{ v: okr.id }"
-        class="home__complete"
-      >
-        📅{{ okr.title }}
-      </a>
-    </ng-container>
-  </div>
 </div>
 
 <ng-template #blank>
   <div class="not-data">
     <img src="assets/images/no-data.svg" alt="" class="not-data__img" />
-    <h1 class="not-data__title">okrが作成されていません。</h1>
-    <p class="not-data__text">1番目のokrを作成しましょう!</p>
+    <div class="not-data__content">
+      <h1 class="not-data__title">okrが作成されていません。</h1>
+      <p class="not-data__text">1番目のokrを作成しましょう!</p>
+    </div>
     <a
       mat-raised-button
       color="primary"

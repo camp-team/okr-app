@@ -1,8 +1,26 @@
+@import 'variables';
+@import 'mixins';
+
+.container {
+  @include sm {
+    padding: 0 16px;
+  }
+}
+
 .achieve {
   padding-top: 24px;
   text-align: center;
+  &__title {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    padding-bottom: 24px;
+  }
   &__okr {
     display: block;
+  }
+  @include sm {
+    padding: 30px 0;
   }
 }
 
@@ -18,15 +36,34 @@ a {
 
 .no-data {
   padding-top: 56px;
+  @include sm {
+    padding: 0;
+  }
   &__img {
     height: 250px;
     display: block;
     margin: 0 auto;
+    @include sm {
+      height: 200px;
+    }
   }
   &__title {
     text-align: center;
+    @include sm {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+  &__content {
+    padding: 24px 0;
   }
   &__text {
     text-align: center;
+    @include sm {
+      font-size: 16px;
+    }
+    span {
+      display: block;
+    }
   }
 }

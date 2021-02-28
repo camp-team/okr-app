@@ -1,8 +1,20 @@
+@import 'variables';
+@import 'mixins';
+
+.container {
+  @include sm {
+    padding: 0 16px;
+  }
+}
+
 .footer {
   background-color: #757575;
   text-align: center;
   padding: 60px 60px;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
+  @include sm {
+    padding: 60px 0;
+  }
 }
 
 .footer-navs {
@@ -14,6 +26,10 @@ a {
   text-decoration: none;
   margin-right: 16px;
   color: inherit;
+  @include sm {
+    display: block;
+    padding-bottom: 12px;
+  }
 }
 .copyright {
   color: #ffffff;

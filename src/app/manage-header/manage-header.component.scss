@@ -1,13 +1,16 @@
+@import 'variables';
+@import 'mixins';
+
 .manage-header {
   max-width: 1480px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 .header {
   z-index: 1000;
   background-color: #fff;
   top: 0;
   left: 0;
-  padding: 0 16px;
   height: 64px;
   &__hamburger-menu {
     margin-right: 16px;
@@ -71,6 +74,15 @@
   list-style: none;
   align-items: center;
   font-size: 14px;
+  .okr {
+    align-items: center;
+  }
+  li {
+    @include sm {
+      width: 100%;
+      display: flex;
+    }
+  }
   a {
     text-decoration: none;
     position: relative;
@@ -95,6 +107,12 @@
       &::before {
         width: 100%;
       }
+    }
+    @include sm {
+      font-size: 12px;
+      display: flex;
+      text-align: center;
+      padding: 0 10px;
     }
   }
 }

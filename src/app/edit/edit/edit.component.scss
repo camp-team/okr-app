@@ -5,6 +5,9 @@
   padding: 16px 0 4px 0 !important;
   .mat-input-element {
     font-size: 32px !important;
+    @include sm {
+      font-size: 24px !important;
+    }
   }
 }
 
@@ -14,6 +17,18 @@
 
 .stepper {
   background-color: transparent;
+}
+
+.container {
+  @include sm {
+    padding: 0 16px;
+  }
+}
+
+.edit {
+  @include sm {
+    padding: 30px 0;
+  }
 }
 
 .tooltip {
@@ -85,13 +100,24 @@
     color: rgba(0, 0, 0, 0.54);
     font-size: 20px;
     letter-spacing: 2px;
+    @include sm {
+      padding: 0 0 16px;
+      font-size: 16px;
+    }
   }
   &__main {
     padding: 80px 0 0 108px;
+    @include sm {
+      padding: 0;
+    }
   }
   &__title {
     letter-spacing: 2px;
     font-size: 36px;
+    @include sm {
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
   }
   &__text {
     display: block;
@@ -99,6 +125,9 @@
 
   &__lavel {
     font-size: 32px;
+    @include sm {
+      font-size: 24px;
+    }
   }
   &__field {
     display: block;
@@ -120,6 +149,12 @@
     width: 320px;
     z-index: 2;
     background-color: #bdbdbd;
+    @include md {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
   }
   &__img {
     position: fixed;
@@ -127,6 +162,12 @@
     width: 500px;
     top: 250px;
     z-index: 3;
+    @include md {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
   }
 }
 
@@ -136,10 +177,17 @@
     color: rgba(0, 0, 0, 0.54);
     font-size: 20px;
     letter-spacing: 2px;
+    @include sm {
+      padding: 0 0 16px;
+      font-size: 16px;
+    }
   }
   &__main {
     padding: 80px 0 0 108px;
     max-width: 782px;
+    @include sm {
+      padding: 0;
+    }
   }
   &__field {
     width: 400px;
@@ -147,6 +195,10 @@
   &__title {
     letter-spacing: 2px;
     font-size: 36px;
+    @include sm {
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
   }
   &__text {
     display: block;
@@ -157,6 +209,9 @@
   }
   &__lavel {
     font-size: 32px;
+    @include sm {
+      font-size: 24px;
+    }
   }
   &__addcontents {
     padding: 0;
@@ -198,6 +253,12 @@
     width: 320px;
     z-index: 2;
     background-color: #bdbdbd;
+    @include md {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
   }
   &__img {
     position: fixed;
@@ -205,6 +266,12 @@
     width: 450px;
     bottom: 150px;
     z-index: 3;
+    @include md {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
   }
 }
 
