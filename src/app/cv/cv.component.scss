@@ -5,13 +5,19 @@
   margin: 0 auto;
   max-width: 1200px;
   padding: 24px;
+  @include sm {
+    padding: 0 16px;
+  }
 }
 
 .cv {
   padding: 160px 0 160px 0;
   margin: 0 auto;
   @include md {
-    padding: 80px 0 80px 0;
+    padding: 80px 0;
+  }
+  @include sm {
+    padding: 60px 0;
   }
   &__main {
     display: flex;
@@ -32,6 +38,9 @@
       @include md {
         text-align: center;
         font-size: 20px;
+      }
+      @include sm {
+        font-size: 16px;
       }
     }
     @include md {
@@ -55,6 +64,5 @@
   @include md {
     margin: 0 auto;
     display: block;
-    width: fit-content;
   }
 }
