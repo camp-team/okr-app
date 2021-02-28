@@ -1,3 +1,6 @@
+@import 'variables';
+@import 'mixins';
+
 mat-sidenav {
   top: 64px;
   width: 230px;
@@ -5,4 +8,7 @@ mat-sidenav {
 
 mat-sidenav-content {
   padding-bottom: 172px;
+  @include sm {
+    padding: 0;
+  }
 }
