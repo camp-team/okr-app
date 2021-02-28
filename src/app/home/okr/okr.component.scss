@@ -1,35 +1,39 @@
-.card {
-  display: flex;
-  flex-wrap: wrap;
-  flex-flow: column;
-  &__menu {
-    display: block;
-    margin: 0 0 0 auto;
-  }
-  &__body {
-    padding: 24px;
-    flex: 1;
-  }
+@import 'variables';
+@import 'mixins';
+
+.okr {
   &__title {
     margin: 0 auto;
     width: 600px;
     font-size: 28px;
     font-weight: 600;
-    margin-bottom: 56px;
+    margin-bottom: 36px;
+    @include sm {
+      font-size: 24px;
+      font-weight: 500;
+      margin: 0 auto 0;
+      width: 300px;
+    }
   }
   &__key {
     font-size: 26px;
+    @include sm {
+      font-size: 18px;
+    }
   }
   &__sub-titles {
     width: 600px;
     margin: 0 auto;
-  }
-  &__duration {
-    font-size: 12px;
+    @include sm {
+      width: 300px;
+    }
   }
   &__action {
     padding: 16px;
     text-align: center;
+  }
+  &__key-result {
+    width: 200px;
   }
   &__span {
     width: 300px;
