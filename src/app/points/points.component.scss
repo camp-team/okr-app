@@ -1,10 +1,23 @@
 @import 'mixins';
 
+.points {
+  padding-bottom: calc(80px + 3.5vw);
+  @include md {
+    padding: 0;
+  }
+  @include sm {
+    padding: 60px 0;
+  }
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   @include md {
     margin: 0 auto;
+  }
+  @include sm {
+    padding: 0 16px;
   }
 }
 
@@ -22,18 +35,17 @@ ul {
   @include md {
     padding: 0;
   }
-}
-
-.points {
-  padding-bottom: calc(80px + 3.5vw);
-  @include md {
-    padding: 0;
+  @include sm {
+    margin: 0;
+    padding-bottom: 16px;
   }
 }
 
 .points-text {
-  padding: 80px 0 36px 0;
   margin: 0;
+  @include sm {
+    font-size: 20px;
+  }
 }
 
 .points-contents {
@@ -46,8 +58,16 @@ ul {
   @include md {
     margin: 32px;
   }
+  @include sm {
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0;
+    padding: 0 16px;
+  }
   &__item {
     padding: 40px 20px;
+    @include sm {
+      padding: 24px 16px;
+    }
   }
   &__icon {
     display: flex;
