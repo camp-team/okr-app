@@ -1,15 +1,17 @@
 <div class="second-okr-title">
-  <h3 *ngIf="secondOkr$ | async as secondOkr" class="home-detail-title__date">
-    📅期間: {{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-      secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
-    }}
-  </h3>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_horiz</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button (click)="secondOkrComplete()" mat-menu-item>
-      <span>OKRを完了済みにする。</span>
-    </button>
-  </mat-menu>
+  <div class="container">
+    <h3 *ngIf="secondOkr$ | async as secondOkr" class="second-okr-title__date">
+      📅期間: {{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
+        secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
+      }}
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+    </h3>
+    <mat-menu #menu="matMenu">
+      <button (click)="secondOkrComplete()" mat-menu-item>
+        <span>OKRを完了済みにする。</span>
+      </button>
+    </mat-menu>
+  </div>
 </div>
