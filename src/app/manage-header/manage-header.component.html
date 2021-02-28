@@ -11,11 +11,6 @@
     <span class="header__spacer"></span>
 
     <div class="header__right">
-      <div class="header__search">
-        <input type="text" autocomplete="off" placeholder="検索" />
-        <mat-icon>search</mat-icon>
-      </div>
-
       <ng-container
         *ngIf="authService.user$ | async as user"
         class="header__mypage"
