@@ -1,28 +1,37 @@
 <div class="achieve">
-  <h1>達成済みのOKR</h1>
-  <ng-container *ngIf="secondOkr; else blank">
-    <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
-      <ng-container *ngIf="!secondOkr.isComplete">
-        <a
-          [routerLink]="['/manage/complete']"
-          [queryParams]="{ v: secondOkr.id }"
-          class="achieve__okr"
-        >
-          📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-            secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
-          }}
-        </a>
+  <div class="container">
+    <h1 class="achieve__title">達成済みのOKR</h1>
+    <ng-container *ngIf="secondOkr; else blank">
+      <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
+        <ng-container *ngIf="!secondOkr.isComplete">
+          <a
+            [routerLink]="['/manage/complete']"
+            [queryParams]="{ v: secondOkr.id }"
+            class="achieve__okr"
+          >
+            📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
+              secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
+            }}
+          </a>
+        </ng-container>
       </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
 </div>
 
 <ng-template #blank>
   <div class="no-data">
     <img src="assets/images/no-data.svg" alt="" class="no-data__img" />
-    <h1 class="no-data__title">達成済みのokrはありません。</h1>
-    <p class="no-data__text">
-      進行中のokrが達成されたら、達成済みのOKRが表示されます。
-    </p>
+    <div class="no-data__content">
+      <h1 class="no-data__title">達成済みのokrはありません。</h1>
+      <p class="no-data__text">
+        <span>
+          進行中のokrが達成されたら、
+        </span>
+        <span>
+          達成済みのOKRが表示されます。
+        </span>
+      </p>
+    </div>
   </div>
 </ng-template>
