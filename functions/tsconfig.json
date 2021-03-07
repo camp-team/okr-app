@@ -6,11 +6,11 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
-    "paths": {
-      "@interfaces/*": ["functions/src/interfaces/*"]
-    }
+    "target": "es2017"
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "include": ["src"],
+  "paths": {
+    "@interfaces/*": ["functions/src/interfaces/*"]
+  }
 }
