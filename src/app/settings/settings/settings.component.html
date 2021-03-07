@@ -73,7 +73,13 @@
     </div>
   </mat-tab>
   <mat-tab label="お支払情報">
-    お支払情報
+    <a
+      *ngIf="customerService.customerPortalURL"
+      [href]="customerService.customerPortalURL"
+    >
+      お支払情報
+    </a>
+    <mat-icon>open_in_new</mat-icon>
   </mat-tab>
 </mat-tab-group>
 
