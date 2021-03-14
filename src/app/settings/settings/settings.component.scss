@@ -167,6 +167,27 @@
   }
 }
 
+.container {
+  padding: 36px 0;
+}
+
+.support {
+  margin: 0 auto;
+  max-width: 610px;
+  &__title {
+    font-size: 24px;
+  }
+  &__text {
+    padding: 36px 0;
+    span {
+      display: block;
+    }
+  }
+  &__action {
+    margin-bottom: 36px;
+  }
+}
+
 .footer {
   background-color: #757575;
   text-align: center;
