@@ -72,14 +72,24 @@
       </ng-container>
     </div>
   </mat-tab>
-  <mat-tab label="お支払情報">
-    <a
-      *ngIf="customerService.customerPortalURL"
-      [href]="customerService.customerPortalURL"
-    >
-      お支払情報
-    </a>
-    <mat-icon>open_in_new</mat-icon>
+  <mat-tab label="開発資金をサポートする">
+    <div class="support">
+      <div class="container">
+        <h1 class="support__title">開発資金をサポートする</h1>
+        <div class="support__text">
+          <span>プロダクトを使いたい、より良くしたいと思ってくれるコアな</span>
+          <span>ユーザーに幾らかのご支援いただきたく思います。</span>
+        </div>
+        <button
+          class="support__action"
+          (click)="redirectToCheckout()"
+          mat-raised-button
+          color="primary"
+        >
+          開発資金をサポートする
+        </button>
+      </div>
+    </div>
   </mat-tab>
 </mat-tab-group>
 
