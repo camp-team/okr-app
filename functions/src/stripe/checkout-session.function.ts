@@ -1,14 +1,14 @@
 import { stripe } from './client';
 import * as functions from 'firebase-functions';
-import { db } from '../index';
-import { auth } from 'firebase-admin';
 
 const YOUR_DOMAIN = 'https://okr-app-de4fa.web.app';
 
 export const createCheckoutSession = functions
   .region('asia-northeast1')
-  .auth.user()
-  .onCreate(async (user: auth.UserRecord) => {
+  .https.onCall(async (data, context) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError('permission-denied', 'not user');
+    }
     try {
       const checkoutSession = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -29,13 +29,7 @@ export const createCheckoutSession = functions
         cancel_url: `${YOUR_DOMAIN}/settings`,
       });
 
-      return db
-        .doc(`customers/${user.uid}/checkoutSessions/${checkoutSession.id}`)
-        .set({
-          checkoutSessionId: checkoutSession.id,
-          success_url: `${YOUR_DOMAIN}/manage/home`,
-          cancel_url: `${YOUR_DOMAIN}/settings`,
-        });
+      return checkoutSession.id;
     } catch (error) {
       console.error(error);
       throw new functions.https.HttpsError('unknown', error);

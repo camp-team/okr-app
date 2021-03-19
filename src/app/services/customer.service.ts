@@ -6,7 +6,6 @@ import { shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import Stripe from 'stripe';
 import { AngularFireFunctions } from '@angular/fire/functions';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +22,6 @@ export class CustomerService {
     shareReplay(1)
   );
   stripeCustomer: Stripe.Customer;
-  // 顧客詳細の取得
   private stripeCustomerSource$: Observable<
     Stripe.Customer
   > = this.customer$.pipe(
@@ -35,7 +33,6 @@ export class CustomerService {
         return (this.customerPortalURL = null);
       }
     }),
-    // customerPortalURLを取得
     tap((customer: Stripe.Customer) => {
       if (customer) {
         this.getStripeCustomerPortalURL();
@@ -65,5 +62,14 @@ export class CustomerService {
           console.error(error);
         });
     });
+  }
+
+  async checkoutSession() {
+    const callable = this.fns.httpsCallable('createCheckoutSession');
+    return callable({})
+      .toPromise()
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }
