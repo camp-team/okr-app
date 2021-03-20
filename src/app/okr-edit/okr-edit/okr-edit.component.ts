@@ -21,6 +21,12 @@ export class OkrEditComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
+  myFilter = (date: Date) => {
+    const calenderYear = (date || new Date()).getFullYear();
+    const nowYear = new Date().getFullYear();
+    return calenderYear >= nowYear && calenderYear <= nowYear + 1;
+  };
+
   form = this.fb.group({
     primaries: this.fb.array([]),
     start: ['', [Validators.required, Validators.maxLength(40)]],

@@ -114,15 +114,17 @@
             >
               <mat-form-field class="third-step__field">
                 <mat-label class="third-step__lavel">開始日</mat-label>
+
                 <input
+                  matInput
+                  [matDatepickerFilter]="myFilter"
                   formControlName="start"
                   type="text"
-                  matInput
                   autocomplete="off"
-                  required
-                  matInput
+                  requireds
                   [matDatepicker]="picker"
                 />
+
                 <mat-datepicker-toggle
                   matSuffix
                   [for]="picker"
@@ -132,10 +134,12 @@
                   >必須入力です</mat-error
                 >
               </mat-form-field>
+
               <br />
               <mat-form-field class="third-step__field">
                 <mat-label class="third-step__lavel">終了日</mat-label>
                 <input
+                  [matDatepickerFilter]="myFilter"
                   formControlName="end"
                   type="text"
                   matInput
