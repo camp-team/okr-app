@@ -9,16 +9,16 @@
           <div class="second-step__header">2番目のOKRの作成(手順 1/2)</div>
           <div class="second-step__main">
             <p class="second-step__title">
-              <span class="second-step__text">
-                Key Resultを達成するための
-              </span>
-              <span>
-                目標を設定しましょう！
-              </span>
               <span
                 class="tooltip"
                 data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
               >
+                <span class="second-step__text">
+                  Key Resultを達成するための
+                </span>
+                <span>
+                  目標を設定しましょう！
+                </span>
                 <mat-icon>
                   help_outline
                 </mat-icon>
@@ -42,6 +42,7 @@
                     >
                   </mat-form-field>
                   <button
+                    *ngIf="i"
                     class="second-step__remcontents"
                     type="button"
                     (click)="removeOption(i)"
@@ -49,33 +50,29 @@
                   >
                     <mat-icon>remove</mat-icon>
                   </button>
+                  <button
+                    *ngIf="i < 2"
+                    class="second-step__addcontents"
+                    type="button"
+                    mat-raised-button
+                    (click)="addOptionForm()"
+                  >
+                    <mat-icon>add</mat-icon>
+                    Add contents
+                  </button>
                 </div>
               </div>
             </form>
             <button
-              class="second-step__addcontents"
-              type="button"
+              mat-button
+              matStepperNext
+              [disabled]="primariesControl.invalid"
               mat-raised-button
-              (click)="addOptionForm()"
+              color="primary"
+              class="second-step__next"
             >
-              <mat-icon>add</mat-icon>
-              Add contents
+              次へ
             </button>
-            <div class="second-step__action">
-              <button mat-button matStepperPrevious class="second-step__button">
-                戻る
-              </button>
-              <button
-                mat-button
-                matStepperNext
-                [disabled]="primariesControl.invalid"
-                mat-raised-button
-                color="primary"
-                class="second-step__next"
-              >
-                次へ
-              </button>
-            </div>
             <div class="second-step__sidebar">
               <img
                 class="second-step__img"
@@ -95,16 +92,16 @@
           <div class="third-step__header">2番目のOKRの作成(手順 2/2)</div>
           <div class="third-step__main">
             <p class="third-step__title">
-              <span class="second-step__text">
-                最後になります。
-              </span>
-              <span>
-                開始日と終了日を入力しましょう！
-              </span>
               <span
                 class="tooltip"
                 data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
               >
+                <span class="second-step__text">
+                  最後になります。
+                </span>
+                <span>
+                  開始日と終了日を入力しましょう！
+                </span>
                 <mat-icon>
                   help_outline
                 </mat-icon>
