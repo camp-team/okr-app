@@ -115,17 +115,18 @@
                 >
                   <mat-icon>remove</mat-icon>
                 </button>
+                <button
+                  *ngIf="i < 2"
+                  class="second-step__addcontents"
+                  type="button"
+                  mat-raised-button
+                  (click)="addOptionForm()"
+                >
+                  <mat-icon>add</mat-icon>
+                  Add contents
+                </button>
               </div>
             </div>
-            <button
-              class="second-step__addcontents"
-              type="button"
-              mat-raised-button
-              (click)="addOptionForm()"
-            >
-              <mat-icon>add</mat-icon>
-              Add contents
-            </button>
             <div class="second-step__action">
               <button mat-button matStepperPrevious class="second-step__button">
                 戻る
