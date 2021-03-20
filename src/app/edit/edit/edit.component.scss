@@ -51,6 +51,7 @@
   visibility: hidden;
   z-index: 11;
 }
+
 .tooltip::before {
   -webkit-transform: translateY(-50%);
   border-color: transparent #5f6368 transparent transparent;
@@ -62,7 +63,18 @@
   top: 50%;
   transform: translateY(-50%);
   width: 0;
+  @include md {
+    border-right: 6.25px solid transparent;
+    border-bottom: 10px solid #424242;
+    border-left: 6.25px solid transparent;
+    top: 117px;
+    left: calc(3% + 6px);
+  }
+  @include sm {
+    top: 73px;
+  }
 }
+
 .tooltip::after {
   -webkit-transform: translateY(-50%);
   background: #424242;
@@ -79,6 +91,13 @@
   top: 50%;
   transform: translateY(-50%);
   white-space: pre;
+  @include md {
+    left: calc(0% + 0px);
+    top: 195%;
+  }
+  @include sm {
+    top: 155px;
+  }
 }
 
 .tooltip:hover {
@@ -247,10 +266,7 @@
     width: 320px;
     z-index: 2;
     background-color: #bdbdbd;
-    @include md {
-      display: none;
-    }
-    @include sm {
+    @include photo {
       display: none;
     }
   }
@@ -260,10 +276,7 @@
     width: 450px;
     bottom: 150px;
     z-index: 3;
-    @include md {
-      display: none;
-    }
-    @include sm {
+    @include photo {
       display: none;
     }
   }
