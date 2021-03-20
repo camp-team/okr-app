@@ -54,7 +54,7 @@ export class EditComponent implements OnInit {
 
   addOptionForm() {
     this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(40)])
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
   }
 
