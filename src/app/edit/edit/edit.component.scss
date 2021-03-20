@@ -231,6 +231,8 @@
     color: rgba(55, 53, 47, 0.4);
     font-size: 16px;
     box-shadow: none;
+    display: block;
+    background-color: inherit;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
