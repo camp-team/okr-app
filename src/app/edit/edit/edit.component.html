@@ -91,7 +91,7 @@
             (ngSubmit)="submit()"
           >
             <div formArrayName="primaries">
-              <div *ngFor="let option of primaries.controls; let i = index">
+              <div *ngFor="let primary of primaries.controls; let i = index">
                 <mat-form-field class="second-step__field">
                   <mat-label class="second-step__lavel">
                     目標を入力 {{ i + 1 }}つ目
@@ -102,11 +102,12 @@
                     matInput
                     autocomplete="off"
                   />
-                  <mat-error *ngIf="option.hasError('maxlength')"
-                    >文字数は最大で40文字までです</mat-error
+                  <mat-error *ngIf="primary.hasError('maxlength')"
+                    >文字数は最大で20文字までです</mat-error
                   >
                 </mat-form-field>
                 <button
+                  *ngIf="i"
                   class="second-step__remcontents"
                   type="button"
                   (click)="removeOption(i)"
