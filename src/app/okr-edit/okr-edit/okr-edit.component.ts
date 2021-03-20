@@ -54,7 +54,7 @@ export class OkrEditComponent implements OnInit {
 
   addObjective() {
     this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(40)])
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
   }
 
@@ -64,7 +64,7 @@ export class OkrEditComponent implements OnInit {
 
   addOptionForm() {
     this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(40)])
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
   }
 
