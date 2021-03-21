@@ -1,46 +1,105 @@
-<div class="settings">
-  <h1 class="settings__title">アカウント設定</h1>
-  <ng-container *ngIf="authService.user$ | async as user">
-    <h2 class="settings__profile-title">プロフィール</h2>
-    <label
-      for="avatar-file"
-      [style.background-image]="'url(' + user?.avatarURL + ')'"
-      alt="プロフィール画像"
-      class="settings__avatar-image"
-    >
-      <div class="settings__avatar-icon-wrap">
-        <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
-      </div>
-    </label>
-    <input
-      id="avatar-file"
-      type="file"
-      multiple
-      accept=".png, .jpg, .jpeg"
-      class="settings__avatar-input"
-      (change)="openImageCropDialog($event, imageSelecter)"
-      #imageSelecter
-    />
-    <div class="settings__delete-account">
-      <h2 class="settings__delete-title">退会</h2>
-      <p>退会すると全てのデータが削除され、復元できません。</p>
-      <button
-        color="primary"
-        mat-raised-button
-        (click)="openDeleteAccountDialog()"
-        class="settings__delete-button"
-      >
-        退会する
-      </button>
+<div class="manage-header">
+  <mat-toolbar class="header">
+    <div class="header__left">
+      <p class="header__title">
+        <a routerLink="/about" class="header__link">
+          OKR
+        </a>
+      </p>
     </div>
-  </ng-container>
+
+    <span class="header__spacer"></span>
+
+    <div class="header__right">
+      <ng-container
+        *ngIf="authService.user$ | async as user"
+        class="header__mypage"
+      >
+        <button
+          mat-mini-fab
+          [matMenuTriggerFor]="userMenu"
+          [style.background-image]="'url(' + user?.avatarURL + ')'"
+          class="header__icon"
+        ></button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/manage/home">
+            <mat-icon>home</mat-icon>
+            <span>ホーム</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+    </div>
+  </mat-toolbar>
 </div>
 
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="プロフィール">
+    <div class="settings">
+      <h1 class="settings__title">アカウント設定</h1>
+      <ng-container *ngIf="authService.user$ | async as user">
+        <h2 class="settings__profile-title">プロフィール</h2>
+        <label
+          for="avatar-file"
+          [style.background-image]="'url(' + user?.avatarURL + ')'"
+          alt="プロフィール画像"
+          class="settings__avatar-image"
+        >
+          <div class="settings__avatar-icon-wrap">
+            <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
+          </div>
+        </label>
+        <input
+          id="avatar-file"
+          type="file"
+          multiple
+          accept=".png, .jpg, .jpeg"
+          class="settings__avatar-input"
+          (change)="openImageCropDialog($event, imageSelecter)"
+          #imageSelecter
+        />
+        <div class="settings__delete-account">
+          <h2 class="settings__delete-title">退会</h2>
+          <p>退会すると全てのデータが削除され、復元できません。</p>
+          <button
+            color="primary"
+            mat-raised-button
+            (click)="openDeleteAccountDialog()"
+            class="settings__delete-button"
+          >
+            退会する
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </mat-tab>
+  <mat-tab label="開発資金をサポートする">
+    <div class="support">
+      <div class="container">
+        <h1 class="support__title">開発資金をサポートする</h1>
+        <div class="support__text">
+          <span>プロダクトを使いたい、より良くしたいと思ってくれるコアな</span>
+          <span>ユーザーに幾らかのご支援いただきたく思います。</span>
+        </div>
+        <button
+          class="support__action"
+          (click)="redirectToCheckout()"
+          mat-raised-button
+          color="primary"
+        >
+          開発資金をサポートする
+        </button>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
 <footer class="footer">
-  <div class="footer__navs">
-    <a routerLink="/intl/terms">利用規約</a>
-    <a routerLink="/intl/legal">特定商取引法に基づく規約</a>
-    <a href="">サービスについて</a>
+  <div class="container">
+    <div class="footer-navs">
+      <a routerLink="/intl/terms">利用規約</a>
+      <a routerLink="/intl/legal">特定商取引法に基づく規約</a>
+      <a href="">サービスについて</a>
+    </div>
+    <p class="copyright">©︎ okr-app</p>
   </div>
-  <p class="footer__copyright">©︎ okr-app</p>
 </footer>
