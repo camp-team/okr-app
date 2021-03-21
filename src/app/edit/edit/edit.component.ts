@@ -42,7 +42,6 @@ export class EditComponent implements OnInit {
     private fb: FormBuilder,
     private okrService: OkrService,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
     private router: Router,
     private dialog: MatDialog
   ) {}
