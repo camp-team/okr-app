@@ -8,6 +8,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [SettingsComponent, ImageCropDialogComponent],
@@ -18,6 +21,9 @@ import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog
     MatDialogModule,
     MatIconModule,
     ImageCropperModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatTabsModule,
   ],
 })
 export class SettingsModule {}

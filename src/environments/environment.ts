@@ -14,6 +14,10 @@ export const environment = {
     appId: '1:104962990037:web:a6c1523b55ee08e88ea75c',
     measurementId: 'G-YHBESMER0K',
   },
+  stripe: {
+    publicKey:
+      'pk_test_51IQhd5CAsdWUt7GbLUEwKC0uMlpZAsblK1aGUFepqTSqfpkbt1dXnARZrDIvz1hHC4EKRIcFWVB68ObCwTCsR9yx00T0ZSu7lH',
+  },
 };
 
 /*

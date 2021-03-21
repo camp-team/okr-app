@@ -10,4 +10,8 @@ export const environment = {
     appId: '1:104962990037:web:a6c1523b55ee08e88ea75c',
     measurementId: 'G-YHBESMER0K',
   },
+  stripe: {
+    publicKey:
+      'pk_live_51IQhd5CAsdWUt7GbxFTomBBfZxQtj0stq6YziNR67tef5f85oWvPbC2duTkOHa2HFSB7Nyrkq7vuhgcFLx3b8WkF00k3WgcI4d',
+  },
 };
