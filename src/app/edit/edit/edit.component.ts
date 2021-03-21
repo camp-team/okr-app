@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Okr } from 'src/app/interfaces/okr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateFirstOkrDialogComponent } from 'src/app/create-first-okr-dialog/create-first-okr-dialog.component';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -41,7 +43,8 @@ export class EditComponent implements OnInit {
     private okrService: OkrService,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -67,8 +70,11 @@ export class EditComponent implements OnInit {
     };
     const primaryArray = formData.primaries;
     this.okrService.createOkr(okrValue, primaryArray).then(() => {
-      this.snackBar.open('作成しました', null);
       this.router.navigateByUrl('manage/home');
+      this.dialog.open(CreateFirstOkrDialogComponent, {
+        autoFocus: false,
+        restoreFocus: false,
+      });
     });
   }
 }

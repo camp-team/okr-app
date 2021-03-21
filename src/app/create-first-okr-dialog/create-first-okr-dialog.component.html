@@ -1,1 +1,21 @@
-<p>create-first-okr-dialog works!</p>
+<div class="create-firstOkr-dialog">
+  <div class="container">
+    <div class="main">
+      <h1 class="main__title">OKRが作成されました！</h1>
+      <img src="/assets/images/success.svg" alt="" class="main__img" />
+      <p class="main__content">次は2番目のOKRを作成しましょう！</p>
+    </div>
+
+    <div class="action">
+      <a mat-button matDialogClose class="action__close">閉じる</a>
+      <a
+        mat-button
+        matDialogClose
+        class="action__transition-secondOkr"
+        routerLink="/manage/okr-edit"
+      >
+        2番目のOKRを作成する
+      </a>
+    </div>
+  </div>
+</div>
