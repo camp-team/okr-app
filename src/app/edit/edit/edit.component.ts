@@ -9,10 +9,10 @@ import {
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Okr } from 'src/app/interfaces/okr';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateFirstOkrDialogComponent } from 'src/app/create-first-okr-dialog/create-first-okr-dialog.component';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -22,6 +22,9 @@ import { CreateFirstOkrDialogComponent } from 'src/app/create-first-okr-dialog/c
 export class EditComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+
+  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  okrIscomplete: boolean;
 
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
@@ -48,6 +51,13 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.addOptionForm();
+    this.okrs$.subscribe((okr) => {
+      if (okr.length === 0) {
+        this.okrIscomplete = false;
+      } else {
+        this.okrIscomplete = true;
+      }
+    });
   }
 
   removeOption(i: number) {
