@@ -1,6 +1,23 @@
 @import 'variables';
 @import 'mixins';
 
+.not-okr-edit {
+  &__wrapper {
+    padding-top: 48px;
+    text-align: center;
+  }
+  &__title {
+    font-size: 24px;
+    margin: 0 0 32px 0;
+  }
+  &__no-data {
+    width: 100%;
+    height: 200px;
+    display: block;
+    margin-bottom: 32px;
+  }
+}
+
 .okr-edit {
   &__add-objective {
     padding: 0;

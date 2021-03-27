@@ -1,192 +1,208 @@
-<div class="okr-edit">
-  <mat-horizontal-stepper #stepper class="stepper">
-    <div class="container">
-      <div class="second-step">
-        <mat-step
-          [stepControl]="secondFormGroup"
-          errorMessage="Address is required."
-        >
-          <div class="second-step__header">2番目のOKRの作成(手順 1/2)</div>
-          <div class="second-step__main">
-            <p class="second-step__title">
-              <span
-                class="tooltip"
-                data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
-              >
-                <span class="second-step__text">
-                  Key Resultを達成するための
+<ng-container class="not-okr-edit" *ngIf="isCompletes === true; else blank">
+  <div class="not-okr-edit__wrapper">
+    <h1 class="not-okr-edit__title">既にOKRは作成されています</h1>
+    <img
+      src="/assets/images/no-data.svg"
+      alt=""
+      class="not-okr-edit__no-data"
+    />
+    <a mat-raised-button color="primary" (click)="secondOkr()">
+      進行中へすすむ
+    </a>
+  </div>
+</ng-container>
+
+<ng-template #blank>
+  <div class="okr-edit">
+    <mat-horizontal-stepper #stepper class="stepper">
+      <div class="container">
+        <div class="second-step">
+          <mat-step
+            [stepControl]="secondFormGroup"
+            errorMessage="Address is required."
+          >
+            <div class="second-step__header">2番目のOKRの作成(手順 1/2)</div>
+            <div class="second-step__main">
+              <p class="second-step__title">
+                <span
+                  class="tooltip"
+                  data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
+                >
+                  <span class="second-step__text">
+                    Key Resultを達成するための
+                  </span>
+                  <span>
+                    目標を設定しましょう！
+                  </span>
+                  <mat-icon>
+                    help_outline
+                  </mat-icon>
                 </span>
-                <span>
-                  目標を設定しましょう！
-                </span>
-                <mat-icon>
-                  help_outline
-                </mat-icon>
-              </span>
-            </p>
-            <form [formGroup]="form" class="second-step__form">
-              <div formArrayName="primaries">
-                <div *ngFor="let option of primaries.controls; let i = index">
-                  <mat-form-field class="second-step__field">
-                    <mat-label class="second-step__lavel">
-                      目標を入力 {{ i + 1 }}つ目
-                    </mat-label>
-                    <input
-                      [formControlName]="i"
-                      type="text"
-                      matInput
-                      autocomplete="off"
-                    />
-                    <mat-error *ngIf="option.hasError('maxlength')"
-                      >文字数は最大で40文字までです</mat-error
+              </p>
+              <form [formGroup]="form" class="second-step__form">
+                <div formArrayName="primaries">
+                  <div *ngFor="let option of primaries.controls; let i = index">
+                    <mat-form-field class="second-step__field">
+                      <mat-label class="second-step__lavel">
+                        目標を入力 {{ i + 1 }}つ目
+                      </mat-label>
+                      <input
+                        [formControlName]="i"
+                        type="text"
+                        matInput
+                        autocomplete="off"
+                      />
+                      <mat-error *ngIf="option.hasError('maxlength')"
+                        >文字数は最大で40文字までです</mat-error
+                      >
+                    </mat-form-field>
+                    <button
+                      *ngIf="i"
+                      class="second-step__remcontents"
+                      type="button"
+                      (click)="removeOption(i)"
+                      mat-icon-button
                     >
-                  </mat-form-field>
-                  <button
-                    *ngIf="i"
-                    class="second-step__remcontents"
-                    type="button"
-                    (click)="removeOption(i)"
-                    mat-icon-button
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <button
+                      *ngIf="i < 2"
+                      class="second-step__addcontents"
+                      type="button"
+                      mat-raised-button
+                      (click)="addOptionForm()"
+                    >
+                      <mat-icon>add</mat-icon>
+                      Add contents
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <button
+                mat-button
+                matStepperNext
+                [disabled]="primariesControl.invalid"
+                mat-raised-button
+                color="primary"
+                class="second-step__next"
+              >
+                次へ
+              </button>
+              <div class="second-step__sidebar">
+                <img
+                  class="second-step__img"
+                  src="assets/images/second-okr-first-step.svg"
+                  alt=""
+                />
+              </div>
+            </div>
+          </mat-step>
+        </div>
+
+        <div class="third-step">
+          <mat-step
+            [stepControl]="thirdFormGroup"
+            errorMessage="Address is required."
+          >
+            <div class="third-step__header">2番目のOKRの作成(手順 2/2)</div>
+            <div class="third-step__main">
+              <p class="third-step__title">
+                <span
+                  class="tooltip"
+                  data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
+                >
+                  <span class="second-step__text">
+                    最後になります。
+                  </span>
+                  <span>
+                    開始日と終了日を入力しましょう！
+                  </span>
+                  <mat-icon>
+                    help_outline
+                  </mat-icon>
+                </span>
+              </p>
+              <form
+                [formGroup]="form"
+                (ngSubmit)="cleateOKR()"
+                class="third-step__form"
+              >
+                <mat-form-field class="third-step__field">
+                  <mat-label class="third-step__lavel">開始日</mat-label>
+
+                  <input
+                    matInput
+                    [matDatepickerFilter]="myFilter"
+                    formControlName="start"
+                    type="text"
+                    autocomplete="off"
+                    requireds
+                    [matDatepicker]="picker"
+                  />
+
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="startControl.hasError('required')"
+                    >必須入力です</mat-error
                   >
-                    <mat-icon>remove</mat-icon>
+                </mat-form-field>
+
+                <br />
+                <mat-form-field class="third-step__field">
+                  <mat-label class="third-step__lavel">終了日</mat-label>
+                  <input
+                    [matDatepickerFilter]="myFilter"
+                    formControlName="end"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    required
+                    matInput
+                    [matDatepicker]="picker1"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                  <mat-error *ngIf="endControl.hasError('required')"
+                    >必須入力です</mat-error
+                  >
+                </mat-form-field>
+                <div class="third-step__buttons">
+                  <button
+                    mat-button
+                    matStepperPrevious
+                    class="third-step__button"
+                  >
+                    戻る
                   </button>
                   <button
-                    *ngIf="i < 2"
-                    class="second-step__addcontents"
-                    type="button"
+                    [disabled]="
+                      startControl.invalid || endControl.invalid || form.invalid
+                    "
                     mat-raised-button
-                    (click)="addOptionForm()"
+                    color="primary"
+                    class="third-step__next"
                   >
-                    <mat-icon>add</mat-icon>
-                    Add contents
+                    OKRを作成
                   </button>
                 </div>
-              </div>
-            </form>
-            <button
-              mat-button
-              matStepperNext
-              [disabled]="primariesControl.invalid"
-              mat-raised-button
-              color="primary"
-              class="second-step__next"
-            >
-              次へ
-            </button>
-            <div class="second-step__sidebar">
-              <img
-                class="second-step__img"
-                src="assets/images/second-okr-first-step.svg"
-                alt=""
-              />
-            </div>
-          </div>
-        </mat-step>
-      </div>
-
-      <div class="third-step">
-        <mat-step
-          [stepControl]="thirdFormGroup"
-          errorMessage="Address is required."
-        >
-          <div class="third-step__header">2番目のOKRの作成(手順 2/2)</div>
-          <div class="third-step__main">
-            <p class="third-step__title">
-              <span
-                class="tooltip"
-                data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
-              >
-                <span class="second-step__text">
-                  最後になります。
-                </span>
-                <span>
-                  開始日と終了日を入力しましょう！
-                </span>
-                <mat-icon>
-                  help_outline
-                </mat-icon>
-              </span>
-            </p>
-            <form
-              [formGroup]="form"
-              (ngSubmit)="cleateOKR()"
-              class="third-step__form"
-            >
-              <mat-form-field class="third-step__field">
-                <mat-label class="third-step__lavel">開始日</mat-label>
-
-                <input
-                  matInput
-                  [matDatepickerFilter]="myFilter"
-                  formControlName="start"
-                  type="text"
-                  autocomplete="off"
-                  requireds
-                  [matDatepicker]="picker"
+              </form>
+              <div class="third-step__sidebar">
+                <img
+                  class="third-step__img"
+                  src="assets/images/third-step-item.svg"
+                  alt=""
                 />
-
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="startControl.hasError('required')"
-                  >必須入力です</mat-error
-                >
-              </mat-form-field>
-
-              <br />
-              <mat-form-field class="third-step__field">
-                <mat-label class="third-step__lavel">終了日</mat-label>
-                <input
-                  [matDatepickerFilter]="myFilter"
-                  formControlName="end"
-                  type="text"
-                  matInput
-                  autocomplete="off"
-                  required
-                  matInput
-                  [matDatepicker]="picker1"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker1"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-                <mat-error *ngIf="endControl.hasError('required')"
-                  >必須入力です</mat-error
-                >
-              </mat-form-field>
-              <div class="third-step__buttons">
-                <button
-                  mat-button
-                  matStepperPrevious
-                  class="third-step__button"
-                >
-                  戻る
-                </button>
-                <button
-                  [disabled]="
-                    startControl.invalid || endControl.invalid || form.invalid
-                  "
-                  mat-raised-button
-                  color="primary"
-                  class="third-step__next"
-                >
-                  OKRを作成
-                </button>
               </div>
-            </form>
-            <div class="third-step__sidebar">
-              <img
-                class="third-step__img"
-                src="assets/images/third-step-item.svg"
-                alt=""
-              />
             </div>
-          </div>
-        </mat-step>
+          </mat-step>
+        </div>
       </div>
-    </div>
-  </mat-horizontal-stepper>
-</div>
+    </mat-horizontal-stepper>
+  </div>
+</ng-template>
