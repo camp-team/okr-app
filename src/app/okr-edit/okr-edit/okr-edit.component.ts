@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
@@ -20,6 +21,9 @@ import { OkrService } from 'src/app/services/okr.service';
 export class OkrEditComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+
+  secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
+  isCompletes: boolean;
 
   myFilter = (date: Date) => {
     const calenderYear = (date || new Date()).getFullYear();
@@ -55,6 +59,13 @@ export class OkrEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.secondOkrs$.subscribe((secondOkrs) => {
+      secondOkrs.forEach((secondOkr) => {
+        if (secondOkr.isComplete === true) {
+          this.isCompletes = secondOkr.isComplete;
+        }
+      });
+    });
     this.addObjective();
   }
 
@@ -92,6 +103,15 @@ export class OkrEditComponent implements OnInit {
           });
         });
       });
+    });
+  }
+
+  secondOkr() {
+    this.secondOkrs$.subscribe((secondOkrs) => {
+      const secondOkr = secondOkrs.filter(
+        (secondOkr) => secondOkr.isComplete === true
+      );
+      this.router.navigateByUrl('/manage/home/secondOkr?v=' + secondOkr[0].id);
     });
   }
 }
