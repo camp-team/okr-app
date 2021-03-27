@@ -1,23 +1,21 @@
 <div class="okr">
-  <div class="container">
-    <h1 class="okr__title">Objective : {{ okr.title }}</h1>
-    <div class="okr__sub-titles">
-      <div *ngFor="let primary of primaries$ | async" class="okr__sub-title">
-        <p class="okr__key">
-          Key Result :<span class="okr__span">{{ primary.primaryTitle }}</span>
-        </p>
-      </div>
+  <h1 class="okr__title">Objective : {{ okr.title }}</h1>
+  <div class="okr__sub-titles">
+    <div *ngFor="let primary of primaries$ | async" class="okr__sub-title">
+      <p class="okr__key">
+        Key Result :<span class="okr__span">{{ primary.primaryTitle }}</span>
+      </p>
     </div>
   </div>
+</div>
 
-  <div class="okr__action">
-    <button
-      [routerLink]="['/manage/home/homedetail']"
-      [queryParams]="{ v: okr.id }"
-      mat-raised-button
-      color="primary"
-    >
-      詳細をみる
-    </button>
-  </div>
+<div class="okr__action">
+  <button
+    [routerLink]="['/manage/home/homedetail']"
+    [queryParams]="{ v: okr.id }"
+    mat-raised-button
+    color="primary"
+  >
+    詳細をみる
+  </button>
 </div>
