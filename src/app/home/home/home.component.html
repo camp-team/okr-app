@@ -1,14 +1,12 @@
 <div class="home">
   <div class="container">
     <h1 class="home__title">OKR管理</h1>
-    <div class="home__okr">
-      <div class="home__grid">
-        <ng-container *ngIf="okr; else blank">
-          <ng-container *ngFor="let okr of okrs$ | async">
-            <app-okr *ngIf="okr.isComplete" [okr]="okr"></app-okr>
-          </ng-container>
+    <div class="home__grid">
+      <ng-container *ngIf="okr; else blank">
+        <ng-container *ngFor="let okr of okrs$ | async">
+          <app-okr *ngIf="okr.isComplete" [okr]="okr"></app-okr>
         </ng-container>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>
