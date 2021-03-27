@@ -347,3 +347,20 @@
     z-index: 3;
   }
 }
+.no-data-first-okr {
+  padding-top: 36px;
+  text-align: center;
+  &__wrapper {
+  }
+  &__title {
+    margin-bottom: 36px;
+    font-size: 24px;
+  }
+  &__image {
+    margin-bottom: 36px;
+    width: 100%;
+    text-align: center;
+    display: block;
+    height: 200px;
+  }
+}

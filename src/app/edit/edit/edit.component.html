@@ -161,8 +161,17 @@
 </div>
 
 <ng-template #blank>
-  <div class="noFirstOkr">
-    <h1>OKRは現在作成済みです</h1>
-    <img src="" alt="" />
+  <div class="no-data-first-okr">
+    <div class="no-data-first-okr__wrapper">
+      <h1 class="no-data-first-okr__title">既にOKRは作成されています</h1>
+      <img
+        src="/assets/images/no-data.svg"
+        alt=""
+        class="no-data-first-okr__image"
+      />
+      <a routerLink="/manage/home" mat-raised-button color="primary">
+        ホームへ戻る
+      </a>
+    </div>
   </div>
 </ng-template>
