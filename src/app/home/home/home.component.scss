@@ -89,7 +89,7 @@
 
 .not-data {
   &__img {
-    height: 250px;
+    height: 200px;
     margin: 0 auto;
     display: block;
     @include sm {
@@ -100,7 +100,9 @@
     padding: 24px 0;
   }
   &__title {
+    font-size: 24px;
     text-align: center;
+    margin: 0 0 12px 0;
     @include sm {
       font-size: 20px;
       font-weight: 400;
@@ -108,7 +110,8 @@
   }
   &__text {
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
+    margin: 0;
     @include sm {
       font-size: 16px;
     }
