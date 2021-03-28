@@ -1,9 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { couldStartTrivia } from 'typescript';
-import { Okr } from '../interfaces/okr';
 import { OkrService } from '../services/okr.service';
 
 @Component({
@@ -14,7 +12,7 @@ import { OkrService } from '../services/okr.service';
 export class OkrDeleteDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: Okr,
+    public data: { okrId: string },
     private okrService: OkrService,
     private dialogRef: MatDialogRef<OkrDeleteDialogComponent>,
     private snackBar: MatSnackBar,
@@ -24,9 +22,10 @@ export class OkrDeleteDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   okrDelete() {
-    this.okrService.deleteOkr(this.data.id).then(() => {
+    console.log(this.data.okrId);
+    this.okrService.deleteOkr(this.data.okrId).then(() => {
       this.router.navigateByUrl('/manage/home');
-      this.snackBar.open('削除しました。', '閉じる');
+      this.snackBar.open('削除しました。', '');
     });
     this.dialogRef.close();
   }

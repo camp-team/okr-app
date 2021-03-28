@@ -1,5 +1,18 @@
 <div class="okr">
-  <h1 class="okr__title">Objective : {{ okr.title }}</h1>
+  <h1 class="okr__title">
+    Objective : {{ okr.title }}
+    <button class="okr__icon" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="deleteOkr()">
+        <mat-icon>
+          delete
+        </mat-icon>
+        <span>削除する</span>
+      </button>
+    </mat-menu>
+  </h1>
   <div class="okr__sub-titles">
     <div *ngFor="let primary of primaries$ | async" class="okr__sub-title">
       <p class="okr__key">
