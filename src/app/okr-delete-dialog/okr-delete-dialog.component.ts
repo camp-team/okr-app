@@ -22,7 +22,6 @@ export class OkrDeleteDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   okrDelete() {
-    console.log(this.data.okrId);
     this.okrService.deleteOkr(this.data.okrId).then(() => {
       this.router.navigateByUrl('/manage/home');
       this.snackBar.open('削除しました。', '');
