@@ -1,19 +1,6 @@
 @import 'variables';
 @import 'mixins';
 
-input:checked + label {
-  // display: none;
-  color: red;
-}
-option:checked {
-  box-shadow: 0 0 0 3px lime;
-  color: red;
-}
-input:checked + span {
-  color: red;
-  background-color: red;
-}
-
 .manage-header {
   max-width: 1480px;
   margin: 0 auto;

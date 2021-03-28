@@ -55,21 +55,21 @@
     <li>
       <ng-container *ngIf="isSecondOkr; else blank">
         <ng-container *ngIf="isComplete === true; else blank">
-          <a type="fa" (click)="progress()" class="header__progress">
+          <a (click)="progress()" class="header__progress">
             <span>進行中</span>
           </a>
         </ng-container>
       </ng-container>
 
       <ng-template #blank>
-        <a type="fa" href="" [routerLink]="['/manage/home/secondOkr']">
+        <a href="" [routerLink]="['/manage/home/secondOkr']">
           <span>進行中</span>
         </a>
       </ng-template>
       <mat-spinner *ngIf="loadingService.loading"></mat-spinner>
     </li>
     <li>
-      <a type="fa" routerLink="/manage/achieve">
+      <a routerLink="/manage/achieve">
         <span>達成済み</span>
       </a>
     </li>
