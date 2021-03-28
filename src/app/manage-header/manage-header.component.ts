@@ -42,7 +42,6 @@ export class ManageHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.home);
     this.secondOkrs$.subscribe((secondOkrs) => {
       if (secondOkrs.length === 0) {
         this.isSecondOkr = false;
