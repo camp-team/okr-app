@@ -8,7 +8,7 @@
 }
 
 .second-okr {
-  padding-top: 56px;
+  padding-top: 24px;
   margin: 0 96px 0;
   height: 100%;
   @include sm {
@@ -48,7 +48,9 @@
     border-left-style: none;
   }
   &__title {
+    margin: 0 0 0 0;
     text-align: center;
+    font-size: 30px;
     @include sm {
       font-size: 24px;
       letter-spacing: 2px;
