@@ -22,17 +22,25 @@
           class="header__icon"
         ></button>
         <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/manage/edit">
+            <mat-icon>edit</mat-icon>
+            <span>1つ目のOKRの入力</span>
+          </button>
+          <button mat-menu-item routerLink="/manage/okr-edit">
+            <mat-icon>edit</mat-icon>
+            <span>2つ目のOKRの入力</span>
+          </button>
           <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
             <mat-icon>login</mat-icon>
             <span>ログイン</span>
           </button>
-          <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span>ログアウト</span>
-          </button>
           <button mat-menu-item routerLink="/settings">
             <mat-icon>settings</mat-icon>
             <span>設定</span>
+          </button>
+          <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>ログアウト</span>
           </button>
         </mat-menu>
       </ng-container>
@@ -41,38 +49,28 @@
   <ul class="nav">
     <li>
       <a routerLink="/manage/home">
-        ホーム
+        <span>ホーム</span>
       </a>
     </li>
     <li>
       <ng-container *ngIf="isSecondOkr; else blank">
         <ng-container *ngIf="isComplete === true; else blank">
-          <a (click)="progress()" class="header__progress">
-            進行中
+          <a type="fa" (click)="progress()" class="header__progress">
+            <span>進行中</span>
           </a>
         </ng-container>
       </ng-container>
 
       <ng-template #blank>
-        <a href="" [routerLink]="['/manage/home/secondOkr']">
-          進行中
+        <a type="fa" href="" [routerLink]="['/manage/home/secondOkr']">
+          <span>進行中</span>
         </a>
       </ng-template>
       <mat-spinner *ngIf="loadingService.loading"></mat-spinner>
     </li>
-    <li class="nav__okr">
-      <a routerLink="/manage/edit">
-        1番目OKR入力
-      </a>
-    </li>
-    <li class="nav__okr">
-      <a routerLink="/manage/okr-edit">
-        2番目OKR入力
-      </a>
-    </li>
     <li>
-      <a routerLink="/manage/achieve">
-        達成済み
+      <a type="fa" routerLink="/manage/achieve">
+        <span>達成済み</span>
       </a>
     </li>
   </ul>

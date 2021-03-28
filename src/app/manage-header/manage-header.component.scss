@@ -1,10 +1,23 @@
 @import 'variables';
 @import 'mixins';
 
+input:checked + label {
+  // display: none;
+  color: red;
+}
+option:checked {
+  box-shadow: 0 0 0 3px lime;
+  color: red;
+}
+input:checked + span {
+  color: red;
+  background-color: red;
+}
+
 .manage-header {
   max-width: 1480px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 10%;
 }
 .header {
   z-index: 1000;
@@ -74,6 +87,7 @@
   list-style: none;
   align-items: center;
   font-size: 14px;
+  font-weight: 600;
   .okr {
     align-items: center;
   }

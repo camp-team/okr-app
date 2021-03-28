@@ -14,6 +14,9 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./manage-header.component.scss'],
 })
 export class ManageHeaderComponent implements OnInit {
+  home = this.route.snapshot.params;
+  secondOkrPath = this.route.snapshot.params;
+  achieve = this.route.snapshot.params;
   user$ = this.authService.user$;
   isSecondOkr: boolean;
   avatarURL: string;
@@ -29,7 +32,8 @@ export class ManageHeaderComponent implements OnInit {
     public authService: AuthService,
     public okrService: OkrService,
     public loadingService: LoadingService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.loadingService.loading = true;
     this.authService.getUser(this.authService.uid).subscribe((result) => {
@@ -38,6 +42,7 @@ export class ManageHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.home);
     this.secondOkrs$.subscribe((secondOkrs) => {
       if (secondOkrs.length === 0) {
         this.isSecondOkr = false;
