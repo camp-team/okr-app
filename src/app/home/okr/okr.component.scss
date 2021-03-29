@@ -2,7 +2,9 @@
 @import 'mixins';
 
 .okr {
+  text-align: center;
   &__title {
+    position: relative;
     margin: 0 auto;
     width: 600px;
     font-size: 28px;
@@ -13,6 +15,16 @@
       font-weight: 500;
       margin: 0 auto 0;
       width: 300px;
+    }
+  }
+  &__icon {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    @include sm {
+      position: absolute;
+      top: -18%;
+      right: 16%;
     }
   }
   &__key {

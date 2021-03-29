@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UseComponent } from '../use/use.component';
 import { CvComponent } from '../cv/cv.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CvComponent } from '../cv/cv.component';
     MatIconModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
 })
 export class AboutModule {}

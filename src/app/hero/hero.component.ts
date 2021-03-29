@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -8,7 +10,11 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.authService.afUser$.subscribe((user) => {
@@ -19,6 +25,11 @@ export class HeroComponent implements OnInit {
   }
 
   login() {
-    this.authService.login();
+    this.authService.login().then(() => {
+      this.dialog.open(LoginDialogComponent, {
+        autoFocus: false,
+        restoreFocus: false,
+      });
+    });
   }
 }

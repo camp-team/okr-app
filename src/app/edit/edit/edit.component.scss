@@ -51,6 +51,7 @@
   visibility: hidden;
   z-index: 11;
 }
+
 .tooltip::before {
   -webkit-transform: translateY(-50%);
   border-color: transparent #5f6368 transparent transparent;
@@ -62,7 +63,18 @@
   top: 50%;
   transform: translateY(-50%);
   width: 0;
+  @include md {
+    border-right: 6.25px solid transparent;
+    border-bottom: 10px solid #424242;
+    border-left: 6.25px solid transparent;
+    top: 117px;
+    left: calc(3% + 6px);
+  }
+  @include sm {
+    top: 73px;
+  }
 }
+
 .tooltip::after {
   -webkit-transform: translateY(-50%);
   background: #424242;
@@ -79,10 +91,17 @@
   top: 50%;
   transform: translateY(-50%);
   white-space: pre;
+  @include md {
+    left: calc(0% + 0px);
+    top: 195%;
+  }
+  @include sm {
+    top: 155px;
+  }
 }
 
 .tooltip:hover {
-  cursor: pointer;
+  color: #757575;
 }
 
 .tooltip:hover::before {
@@ -149,10 +168,7 @@
     width: 320px;
     z-index: 2;
     background-color: #bdbdbd;
-    @include md {
-      display: none;
-    }
-    @include sm {
+    @include photo {
       display: none;
     }
   }
@@ -162,10 +178,7 @@
     width: 500px;
     top: 250px;
     z-index: 3;
-    @include md {
-      display: none;
-    }
-    @include sm {
+    @include photo {
       display: none;
     }
   }
@@ -218,6 +231,8 @@
     color: rgba(55, 53, 47, 0.4);
     font-size: 16px;
     box-shadow: none;
+    display: block;
+    background-color: inherit;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
@@ -253,10 +268,7 @@
     width: 320px;
     z-index: 2;
     background-color: #bdbdbd;
-    @include md {
-      display: none;
-    }
-    @include sm {
+    @include photo {
       display: none;
     }
   }
@@ -266,10 +278,7 @@
     width: 450px;
     bottom: 150px;
     z-index: 3;
-    @include md {
-      display: none;
-    }
-    @include sm {
+    @include photo {
       display: none;
     }
   }
@@ -336,5 +345,22 @@
     width: 450px;
     bottom: 150px;
     z-index: 3;
+  }
+}
+.no-data-first-okr {
+  padding-top: 36px;
+  text-align: center;
+  &__wrapper {
+  }
+  &__title {
+    margin-bottom: 36px;
+    font-size: 24px;
+  }
+  &__image {
+    margin-bottom: 36px;
+    width: 100%;
+    text-align: center;
+    display: block;
+    height: 200px;
   }
 }

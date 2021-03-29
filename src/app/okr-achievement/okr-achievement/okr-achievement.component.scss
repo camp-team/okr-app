@@ -11,8 +11,8 @@
   padding-top: 24px;
   text-align: center;
   &__title {
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 30px;
+    font-weight: 600;
     margin: 0;
     padding-bottom: 24px;
   }
@@ -35,12 +35,11 @@ a {
 }
 
 .no-data {
-  padding-top: 56px;
   @include sm {
     padding: 0;
   }
   &__img {
-    height: 250px;
+    height: 200px;
     display: block;
     margin: 0 auto;
     @include sm {
@@ -48,6 +47,7 @@ a {
     }
   }
   &__title {
+    font-size: 24px;
     text-align: center;
     @include sm {
       font-size: 20px;

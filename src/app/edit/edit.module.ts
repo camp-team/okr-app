@@ -10,9 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CreateFirstOkrDialogComponent } from '../create-first-okr-dialog/create-first-okr-dialog.component';
 
 @NgModule({
-  declarations: [EditComponent],
+  declarations: [EditComponent, CreateFirstOkrDialogComponent],
   imports: [
     CommonModule,
     EditRoutingModule,
@@ -24,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatStepperModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [],
 })

@@ -20,6 +20,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MatButtonModule } from '@angular/material/button';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
 import { OkrDeleteDialogComponent } from './okr-delete-dialog/okr-delete-dialog.component';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { OkrDeleteDialogComponent } from './okr-delete-dialog/okr-delete-dialog.
     NotFoundComponent,
     DeleteAccountDialogComponent,
     OkrDeleteDialogComponent,
+    LoginDialogComponent,
   ],
   imports: [
     BrowserModule,

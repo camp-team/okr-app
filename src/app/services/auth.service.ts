@@ -46,10 +46,10 @@ export class AuthService {
     const provider = new auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     return this.afAuth.signInWithPopup(provider).then(() => {
+      this.router.navigateByUrl('/manage/home');
       this.snackBar.open('ログインしました', null, {
         duration: 2000,
       });
-      this.router.navigateByUrl('/manage/home');
     });
   }
 

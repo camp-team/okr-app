@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
@@ -20,6 +21,15 @@ import { OkrService } from 'src/app/services/okr.service';
 export class OkrEditComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+
+  secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
+  isCompletes: boolean;
+
+  myFilter = (date: Date) => {
+    const calenderYear = (date || new Date()).getFullYear();
+    const nowYear = new Date().getFullYear();
+    return calenderYear >= nowYear && calenderYear <= nowYear + 1;
+  };
 
   form = this.fb.group({
     primaries: this.fb.array([]),
@@ -49,12 +59,19 @@ export class OkrEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.secondOkrs$.subscribe((secondOkrs) => {
+      secondOkrs.forEach((secondOkr) => {
+        if (secondOkr.isComplete === true) {
+          this.isCompletes = secondOkr.isComplete;
+        }
+      });
+    });
     this.addObjective();
   }
 
   addObjective() {
     this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(40)])
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
   }
 
@@ -64,7 +81,7 @@ export class OkrEditComponent implements OnInit {
 
   addOptionForm() {
     this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(40)])
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
   }
 
@@ -86,6 +103,15 @@ export class OkrEditComponent implements OnInit {
           });
         });
       });
+    });
+  }
+
+  secondOkr() {
+    this.secondOkrs$.subscribe((secondOkrs) => {
+      const secondOkr = secondOkrs.filter(
+        (secondOkr) => secondOkr.isComplete === true
+      );
+      this.router.navigateByUrl('/manage/home/secondOkr?v=' + secondOkr[0].id);
     });
   }
 }

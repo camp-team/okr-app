@@ -9,8 +9,10 @@ import {
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Okr } from 'src/app/interfaces/okr';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateFirstOkrDialogComponent } from 'src/app/create-first-okr-dialog/create-first-okr-dialog.component';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -20,6 +22,9 @@ import { Router } from '@angular/router';
 export class EditComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+
+  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  okrIscomplete: boolean;
 
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
@@ -40,12 +45,19 @@ export class EditComponent implements OnInit {
     private fb: FormBuilder,
     private okrService: OkrService,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.addOptionForm();
+    this.okrs$.subscribe((okr) => {
+      if (okr.length === 0) {
+        this.okrIscomplete = false;
+      } else {
+        this.okrIscomplete = true;
+      }
+    });
   }
 
   removeOption(i: number) {
@@ -54,7 +66,7 @@ export class EditComponent implements OnInit {
 
   addOptionForm() {
     this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(40)])
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
   }
 
@@ -67,8 +79,11 @@ export class EditComponent implements OnInit {
     };
     const primaryArray = formData.primaries;
     this.okrService.createOkr(okrValue, primaryArray).then(() => {
-      this.snackBar.open('作成しました', null);
       this.router.navigateByUrl('manage/home');
+      this.dialog.open(CreateFirstOkrDialogComponent, {
+        autoFocus: false,
+        restoreFocus: false,
+      });
     });
   }
 }
