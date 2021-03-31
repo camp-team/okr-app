@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
 import { OkrDeleteDialogComponent } from './okr-delete-dialog/okr-delete-dialog.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
     MatNativeDateModule,
     MatSnackBarModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
