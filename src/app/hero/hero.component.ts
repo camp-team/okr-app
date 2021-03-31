@@ -25,11 +25,6 @@ export class HeroComponent implements OnInit {
   }
 
   login() {
-    this.authService.login().then(() => {
-      this.dialog.open(LoginDialogComponent, {
-        autoFocus: false,
-        restoreFocus: false,
-      });
-    });
+    this.authService.login();
   }
 }
