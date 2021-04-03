@@ -274,6 +274,20 @@ export class OkrService {
       .update(secondOkrObject);
   }
 
+  updateSecondOkrPrimaryTitle(
+    uid: string,
+    secondOkrId: string,
+    secondOkrObjectId: string,
+    secondOkrObjects: SecondOkrObject
+  ): Promise<void> {
+    console.log(secondOkrObjects);
+    return this.db
+      .doc(
+        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
+      )
+      .update({ secondOkrObject: secondOkrObjects });
+  }
+
   updateSubTask(
     uid: string,
     okrId: string,

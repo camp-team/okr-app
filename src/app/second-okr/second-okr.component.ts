@@ -232,4 +232,16 @@ export class SecondOkrComponent implements OnInit {
       secondOkrKeyResult
     );
   }
+
+  updateSecondOkrPrimaryTitle(
+    secondOkrObject,
+    secondOkrObjects: SecondOkrObject
+  ) {
+    this.okrService.updateSecondOkrPrimaryTitle(
+      this.authService.uid,
+      this.secondOkrId,
+      secondOkrObject.id,
+      secondOkrObjects
+    );
+  }
 }
