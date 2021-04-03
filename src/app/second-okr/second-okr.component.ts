@@ -177,7 +177,11 @@ export class SecondOkrComponent implements OnInit {
       const secondOkrKeyResultPercentage = secondOkrKeyResults.filter(
         (secondOkrKeyResult) => {
           if (secondOkrKeyResult.secondOkrObjectId === secondOkrObjectId) {
-            return secondOkrKeyResult.percentage;
+            if (secondOkrKeyResult.percentage != 'NaN%') {
+              return secondOkrKeyResult.percentage;
+            } else {
+              return (secondOkrKeyResult.percentage = '0%');
+            }
           }
         }
       );
@@ -207,8 +211,13 @@ export class SecondOkrComponent implements OnInit {
     const target = row.target;
     const current = row.current;
     const percentage = (current / target) * 100;
-    const result = Math.round(percentage * 10) / 10;
+    let result = 0;
     const formData = row;
+    if (Math.round(percentage * 10) / 10) {
+      result = Math.round(percentage * 10) / 10;
+    } else {
+      result = 0;
+    }
     const secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'> = {
       secondOkrId: this.secondOkrId,
       secondOkrObjectId,
