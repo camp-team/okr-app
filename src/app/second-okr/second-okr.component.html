@@ -4,7 +4,7 @@
     <ng-container *ngIf="isComplete === true; else blank">
       <app-second-okr-title></app-second-okr-title>
       <div class="data">
-        <div *ngFor="let secondOkrObject of secondOkrObjects">
+        <div *ngFor="let secondOkrObject of secondOkrObjects; let i = index">
           <form [formGroup]="secondOkrObjectTitles[secondOkrObject.id]">
             <div
               *ngFor="
@@ -132,12 +132,16 @@
                       </div>
                     </ng-container>
                   </tr>
+                  <div
+                    *ngIf="rows[secondOkrObject.id].length < 3"
+                    (click)="addRow(secondOkrObject.id)"
+                    class="second-okr__add-row"
+                  >
+                    ＋addRow
+                  </div>
                 </tbody>
               </table>
             </form>
-          </div>
-          <div (click)="addRow(secondOkrObject.id)" class="second-okr__add-row">
-            ＋addRow
           </div>
           <div class="second-okr__average">
             <span class="second-okr__average-text">達成度</span
