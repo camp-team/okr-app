@@ -170,18 +170,15 @@ export class SecondOkrComponent implements OnInit {
   updateSecondOkrKeyResult(
     secondOkrObjectId: string,
     secondOkrKeyResultId: string,
-    row: SecondOkrKeyResult
+    row: SecondOkrKeyResult,
+    rowLength
   ) {
     this.secondOkrKeyResults$.subscribe((secondOkrKeyResults) => {
       let average = 0;
       const secondOkrKeyResultPercentage = secondOkrKeyResults.filter(
         (secondOkrKeyResult) => {
           if (secondOkrKeyResult.secondOkrObjectId === secondOkrObjectId) {
-            if (secondOkrKeyResult.percentage != 'NaN%') {
-              return secondOkrKeyResult.percentage;
-            } else {
-              return (secondOkrKeyResult.percentage = '0%');
-            }
+            return secondOkrKeyResult.percentage;
           }
         }
       );
@@ -197,7 +194,7 @@ export class SecondOkrComponent implements OnInit {
       }
       const secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'> = {
         id: secondOkrObjectId,
-        average: average,
+        average: Math.round((average / (rowLength * 100)) * 100),
       };
 
       this.okrService.updateSecondOkrObject(
