@@ -280,7 +280,6 @@ export class OkrService {
     secondOkrObjectId: string,
     secondOkrObjects: SecondOkrObject
   ): Promise<void> {
-    console.log(secondOkrObjects);
     return this.db
       .doc(
         `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
