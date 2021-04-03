@@ -185,7 +185,11 @@ export class SecondOkrComponent implements OnInit {
         const subTaskPercentageNumber = secondOkrKeyResultPercentage[
           i
         ].percentage.slice(0, -1);
-        average = average + +subTaskPercentageNumber;
+        if (average + +subTaskPercentageNumber) {
+          average = average + +subTaskPercentageNumber;
+        } else {
+          average = 0;
+        }
       }
       const secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'> = {
         id: secondOkrObjectId,

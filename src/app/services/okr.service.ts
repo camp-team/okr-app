@@ -67,6 +67,7 @@ export class OkrService {
       })
       .then(() => {
         secondOkrObjects.forEach((secondOkrObject) => {
+          const average = 0;
           this.createSecondOkrObject(secondOkrObject, id);
         });
       });
