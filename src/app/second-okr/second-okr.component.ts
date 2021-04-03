@@ -136,7 +136,7 @@ export class SecondOkrComponent implements OnInit {
       key: ['', [Validators.required]],
       target: ['', [Validators.required]],
       current: ['', [Validators.required]],
-      percentage: ['', [Validators.required]],
+      percentage: [0 + '%', [Validators.required]],
       lastUpdated: ['', [Validators.required]],
     });
     this.rows[secondOkrObjectId].push(this.row);
