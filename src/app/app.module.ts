@@ -22,6 +22,7 @@ import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-acc
 import { OkrDeleteDialogComponent } from './okr-delete-dialog/okr-delete-dialog.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CompleteOkrDialogComponent } from './complete-okr-dialog/complete-okr-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DeleteAccountDialogComponent,
     OkrDeleteDialogComponent,
     LoginDialogComponent,
+    CompleteOkrDialogComponent,
   ],
   imports: [
     BrowserModule,
