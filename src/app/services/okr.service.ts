@@ -202,6 +202,18 @@ export class OkrService {
       .valueChanges();
   }
 
+  deleteSecondOkrKeyResultDocument(
+    secondOkrId,
+    secondOkrObjectId,
+    secondOkrKeyResultId
+  ): Promise<void> {
+    return this.db
+      .doc<SecondOkrKeyResult>(
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      )
+      .delete();
+  }
+
   getSecondOkrKeyResult(uid: string): Observable<SecondOkrKeyResult[]> {
     return this.db
       .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>

@@ -21,10 +21,10 @@ export class SecondOkrComponent implements OnInit {
   private secondOkrId = this.route.snapshot.queryParamMap.get('v');
   row: FormGroup;
   rows: {
-    [keyName: string]: FormArray;
+    [secondOkrObjectId: string]: FormArray;
   } = {};
   secondOkrObjectTitles: {
-    [keyName: string]: FormArray;
+    [secondOkrObjectId: string]: FormArray;
   } = {};
   secondOkrObjectTitle: FormGroup;
   secondOkrObjects: SecondOkrObject[] = [];
@@ -157,6 +157,13 @@ export class SecondOkrComponent implements OnInit {
   }
 
   removeRow(secondOkrObjectId: string, rowIndex: number) {
+    const secondOkrKeyResultId = this.rows[secondOkrObjectId].value[rowIndex]
+      .secondOkrKeyResultId;
+    this.okrService.deleteSecondOkrKeyResultDocument(
+      this.secondOkrId,
+      secondOkrObjectId,
+      secondOkrKeyResultId
+    );
     this.rows[secondOkrObjectId].removeAt(rowIndex);
   }
 
