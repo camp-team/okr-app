@@ -36,6 +36,7 @@
                     <th class="header-left">
                       項目
                       <mat-icon
+                        class="table-icon"
                         matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
                       >
                         help_outline
@@ -43,19 +44,25 @@
                     </th>
                     <th>
                       標的
-                      <mat-icon matTooltip="個数の入力">
+                      <mat-icon class="table-icon" matTooltip="数値を入力">
                         help_outline
                       </mat-icon>
                     </th>
                     <th>
                       現在
-                      <mat-icon matTooltip="達成数を入力">
+                      <mat-icon
+                        class="table-icon"
+                        matTooltip="達成した数値を入力"
+                      >
                         help_outline
                       </mat-icon>
                     </th>
                     <th>
                       パーセント
-                      <mat-icon matTooltip="自動で更新されます">
+                      <mat-icon
+                        class="table-icon"
+                        matTooltip="自動で更新されます"
+                      >
                         help_outline
                       </mat-icon>
                     </th>
@@ -97,10 +104,12 @@
                               rows[secondOkrObject.id].controls.length
                             )
                           "
+                          name="target"
                           type="text"
                           formControlName="target"
                           autocomplete="off"
                           required
+                          maxlength="20"
                         />
                       </td>
                       <td>
