@@ -63,6 +63,10 @@
   }
 }
 
+::ng-deep .mat-tab-labels {
+  justify-content: center !important;
+}
+
 .nav {
   z-index: 1000;
   padding: 0;
@@ -120,6 +124,9 @@
 .settings {
   margin: 56px auto 24px;
   max-width: 610px;
+  &__container {
+    padding: 0 120px;
+  }
   &__title {
     font-size: 24px;
   }
@@ -131,7 +138,6 @@
   }
   &__delete-button {
     display: block;
-    margin: 0 0 0 auto;
   }
   &__avatar-image {
     position: relative;
@@ -159,6 +165,9 @@
       transition: 0.3s;
     }
   }
+  &__profile-container {
+    padding-bottom: 72px;
+  }
   &__avatar-icon {
     color: #fff;
   }
@@ -168,7 +177,7 @@
 }
 
 .container {
-  padding: 36px 0;
+  padding: 36px 120px;
 }
 
 .support {
