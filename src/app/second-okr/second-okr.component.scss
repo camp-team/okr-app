@@ -28,11 +28,15 @@
     border: 1px solid rgba(0, 0, 0, 0.36);
     color: rgba(0, 0, 0, 0.36);
     font-weight: 300;
-    min-width: 250px;
+    min-width: 160px;
   }
   table {
-    min-width: 1000px;
+    width: 100%;
     border-collapse: collapse;
+    white-space: nowrap;
+    @include md {
+      max-width: 1000px;
+    }
   }
   input {
     width: 98%;
