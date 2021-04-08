@@ -53,6 +53,7 @@
   }
   &__title {
     margin: 0 0 0 0;
+    padding-bottom: 36px;
     text-align: center;
     font-size: 30px;
     @include sm {
@@ -102,7 +103,7 @@
 .not-exist {
   padding-bottom: 0;
   &__img {
-    height: 250px;
+    height: 200px;
     margin: 0 auto;
     display: block;
     @include sm {
@@ -121,6 +122,7 @@
   }
   &__title {
     text-align: center;
+    font-size: 24px;
     @include sm {
       font-size: 20px;
       font-weight: 400;
