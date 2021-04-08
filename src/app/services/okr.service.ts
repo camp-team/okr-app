@@ -139,7 +139,10 @@ export class OkrService {
 
   getSecondOkrs(): Observable<SecondOkr[]> {
     return this.db
-      .collection<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs`)
+      .collection<SecondOkr>(
+        `users/${this.authsearvice.uid}/secondOkrs`,
+        (ref) => ref.orderBy('start', 'desc')
+      )
       .valueChanges();
   }
 
