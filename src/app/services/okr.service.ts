@@ -9,6 +9,7 @@ import { firestore } from 'firebase';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
+import { object } from 'firebase-functions/lib/providers/storage';
 @Injectable({
   providedIn: 'root',
 })
@@ -211,6 +212,19 @@ export class OkrService {
     return this.db
       .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
         ref.where('secondOkrId', '==', secondOkrId)
+      )
+      .valueChanges();
+  }
+
+  getSecondOkrKeyResultId(
+    secondOkrId: string
+  ): Observable<SecondOkrKeyResult[]> {
+    return this.db
+      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
+        ref
+          .where('secondOkrId', '==', secondOkrId)
+          .orderBy('lastUpdated', 'desc')
+          .limit(1)
       )
       .valueChanges();
   }

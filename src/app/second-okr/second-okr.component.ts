@@ -39,6 +39,7 @@ export class SecondOkrComponent implements OnInit {
   isCompletes = [];
   isSecondOkr: boolean;
   secondOkr: SecondOkr;
+  secondOkrKeyResultId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +52,7 @@ export class SecondOkrComponent implements OnInit {
   ngOnInit() {
     combineLatest([this.secondOkrObjects$, this.secondOkrKeyResults$])
       .pipe(take(1))
-      .subscribe(([secondOkrObjects, secondOkrKeyResult]) => {
+      .subscribe(([secondOkrObjects, secondOkrKeyResults]) => {
         secondOkrObjects.forEach((secondOkrObject) => {
           this.secondOkrObjects.push(secondOkrObject);
           this.rows[secondOkrObject.id] = this.fb.array([]);
@@ -61,7 +62,7 @@ export class SecondOkrComponent implements OnInit {
             secondOkrObject.secondOkrObject
           );
         });
-        secondOkrKeyResult.forEach((secondOkrKeyResult) => {
+        secondOkrKeyResults.forEach((secondOkrKeyResult) => {
           this.initRows(
             secondOkrKeyResult.key,
             secondOkrKeyResult.target,
@@ -102,7 +103,7 @@ export class SecondOkrComponent implements OnInit {
   }
 
   initRows(
-    key: String,
+    key: string,
     target: number,
     current: number,
     percentage: string,
@@ -218,19 +219,35 @@ export class SecondOkrComponent implements OnInit {
     const secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'> = {
       secondOkrId: this.secondOkrId,
       secondOkrObjectId,
-      id: secondOkrKeyResultId,
       key: formData.key,
       target: formData.target,
       current: formData.current,
       percentage: result + '%',
     };
-    this.okrService.updateSecondOkrKeyResult(
-      this.authService.uid,
-      this.secondOkrId,
-      secondOkrObjectId,
-      secondOkrKeyResultId,
-      secondOkrKeyResult
-    );
+    this.okrService
+      .getSecondOkrKeyResultId(this.secondOkrId)
+      .subscribe((secondOkrKeyResults) => {
+        secondOkrKeyResults.forEach((secondOkrKeyResult) => {
+          this.secondOkrKeyResultId = secondOkrKeyResult.id;
+        });
+      });
+    if (secondOkrKeyResultId) {
+      this.okrService.updateSecondOkrKeyResult(
+        this.authService.uid,
+        this.secondOkrId,
+        secondOkrObjectId,
+        secondOkrKeyResultId,
+        secondOkrKeyResult
+      );
+    } else {
+      this.okrService.updateSecondOkrKeyResult(
+        this.authService.uid,
+        this.secondOkrId,
+        secondOkrObjectId,
+        this.secondOkrKeyResultId,
+        secondOkrKeyResult
+      );
+    }
   }
 
   updateSecondOkrPrimaryTitle(
