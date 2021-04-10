@@ -2,16 +2,12 @@
 @import 'mixins';
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
   @include sm {
     padding: 0 16px;
   }
 }
 
 .use {
-  background-color: #f5f5f5;
-  padding-bottom: 80px;
   @include sm {
     padding: 60px 0;
   }
@@ -25,9 +21,11 @@
     }
   }
   &__title {
-    padding: 100px 0 80px 0;
+    padding: 54px 0;
+    font-weight: 700;
+    letter-spacing: 5px;
     text-align: center;
-    font-size: 32px;
+    font-size: 2.5vw;
     @include sm {
       margin: 0;
       padding: 0;
@@ -35,9 +33,10 @@
     }
   }
   &__data-title {
-    padding: 100px 0 80px 0;
-    text-align: left;
-    font-size: 32px;
+    padding: 0 0 30px 0;
+    margin: 0;
+    font-weight: 700;
+    font-size: 36px;
     @include sm {
       padding: 0 0 16px;
       margin: 0;
@@ -46,24 +45,37 @@
     }
   }
   &__container {
+    position: relative;
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
+    justify-content: space-around;
+    padding-bottom: 11em;
     @include md {
       display: block;
     }
   }
+  &__img-block {
+    position: absolute;
+    top: 50;
+    left: 0;
+    width: 36%;
+    height: 100%;
+    background-color: #e9e3df;
+  }
   &__item {
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    padding-bottom: 11em;
     @include md {
       display: block;
     }
   }
   &__img {
+    z-index: 1000;
     display: block;
-    margin: 0 auto;
-    max-width: 300px;
+    max-width: 500px;
     height: auto;
     @include sm {
       width: 250px;
@@ -72,8 +84,11 @@
   }
   &__text {
     text-align: left;
+    margin: 0;
+    color: #545454;
     span {
       display: block;
+      padding-bottom: 10px;
     }
     @include sm {
       margin: 0;
@@ -82,8 +97,8 @@
     }
   }
   &__data {
-    width: 50%;
     margin: 0;
+    z-index: 1000;
     @include md {
       text-align: center;
       margin: 0 auto;
