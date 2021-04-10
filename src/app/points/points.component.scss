@@ -1,6 +1,7 @@
 @import 'mixins';
 
 .points {
+  background-color: #e9e3df;
   padding-bottom: calc(80px + 3.5vw);
   @include md {
     padding: 0;
@@ -43,6 +44,9 @@ ul {
 
 .points-text {
   margin: 0;
+  font-weight: 700;
+  font-size: 1.8vw;
+  letter-spacing: 2.5px;
   @include sm {
     font-size: 20px;
   }
@@ -64,33 +68,37 @@ ul {
     padding: 0 16px;
   }
   &__item {
-    padding: 40px 20px;
+    background-color: #fff;
+    padding: 3em 2em;
+    margin: 0 auto;
+    width: 80%;
+    height: 80%;
     @include sm {
       padding: 24px 16px;
     }
   }
   &__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 6px;
-    margin: 0 auto;
-    img {
-      width: 160px;
-    }
+    position: relative;
+    padding-bottom: 6px;
+    height: 40%;
   }
-  &__data {
+  mat-icon {
+    position: absolute;
+    top: 0;
+    left: 40%;
+    font-size: 54px;
+  }
+  &__date {
     margin: 0;
-    padding-left: 16px;
-    width: 100%;
   }
   &__dt {
     text-align: center;
-    margin-bottom: 14px;
+    padding-bottom: 24px;
     font-weight: 600;
   }
   &__dd {
     margin: 4px 0 0;
     font-size: 14px;
+    color: #545454;
   }
 }

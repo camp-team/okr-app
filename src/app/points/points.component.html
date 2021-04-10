@@ -6,7 +6,9 @@
     <ul class="points-contents">
       <li class="points-contents__item" *ngFor="let point of points">
         <div class="points-contents__icon">
-          <img src="{{ point.icon }}" />
+          <mat-icon>
+            {{ point.icon }}
+          </mat-icon>
         </div>
         <dl class="points-contents__date">
           <dt class="points-contents__dt">{{ point.title }}</dt>
