@@ -4,13 +4,14 @@
 .container {
   margin: 0 auto;
   max-width: 1200px;
-  padding: 24px;
+
   @include sm {
     padding: 0 16px;
   }
 }
 
 .cv {
+  background-color: #e9e3df;
   padding: 160px 0 160px 0;
   margin: 0 auto;
   @include md {
@@ -28,12 +29,11 @@
     }
   }
   &__text {
-    position: relative;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: 2px;
+    line-height: 1.4;
     span {
-      font-size: 32px;
-      font-weight: 500;
-      letter-spacing: 2px;
-      line-height: 1.4;
       display: block;
       @include md {
         text-align: center;
