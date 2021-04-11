@@ -28,7 +28,7 @@ export class CompleteOkrDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  isCompleteDialog() {
+  completeOKR() {
     const secondOkrValue: SecondOkr = {
       isComplete: false,
     };
