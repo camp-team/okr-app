@@ -40,6 +40,8 @@
     }
     @include sm {
       width: 296px;
+      margin: 0 auto;
+      padding-bottom: 42px;
       font-size: 20px;
     }
     span {
