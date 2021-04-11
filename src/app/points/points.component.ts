@@ -8,19 +8,20 @@ import { Component, OnInit } from '@angular/core';
 export class PointsComponent implements OnInit {
   readonly points = [
     {
-      icon: '/assets/images/points-item1.png',
-      title: '成果',
-      text: '個人の目標に紐づいた複数の中規模・小規模な成果を設定します。',
-    },
-    {
-      icon: '/assets/images/points-item2.png',
-      title: '可視化',
+      icon: 'format_list_numbered',
+      title: '簡単フォーム入力',
       text:
-        '目標が明確になり、自分の果たす役割が明らかになり、無駄な思想や混乱を削減します。',
+        '簡単なフォーム入力を通して、目標の見える化。汎用性が高く、スピーディに導入できるシステムです。',
     },
     {
-      icon: '/assets/images/points-item3.png',
-      title: '分析',
+      icon: 'table_view',
+      title: 'テーブル管理',
+      text:
+        '進捗の基盤となるデジタル資産として、一元管理。汎用性が高く、スピーディに導入できるシステムです。',
+    },
+    {
+      icon: 'signal_cellular_alt',
+      title: '比較と分析',
       text:
         '数値や文字のデータを人が直観的にわかりやすい形で表すことで、データの比較を一目で分かるようにします。',
     },

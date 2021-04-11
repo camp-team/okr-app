@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CompleteOkrDialogComponent } from '../complete-okr-dialog/complete-okr-dialog.component';
 import { SecondOkr } from '../interfaces/second-okr';
 import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
@@ -23,21 +25,17 @@ export class SecondOkrTitleComponent implements OnInit {
     public okrService: OkrService,
     public authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
 
   secondOkrComplete() {
-    const secondOkrValue: SecondOkr = {
-      isComplete: false,
-    };
-    this.okrService.updateSecondOkr(
-      this.authService.uid,
-      this.secondOkrId,
-      secondOkrValue
-    );
-    this.snackBar.open('お疲れ様でした✨', null);
-    this.router.navigateByUrl('manage/achieve');
+    this.dialog.open(CompleteOkrDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: { secondOkrId: this.secondOkrId },
+    });
   }
 }

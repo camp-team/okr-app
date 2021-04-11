@@ -4,65 +4,117 @@
 .container {
   margin: 0 auto;
   max-width: 1200px;
-  padding: 24px;
+  padding: 48px 0;
   @include md {
-    text-align: center;
+    padding: 12px 0;
   }
   @include sm {
     padding: 16px;
   }
 }
 .hero {
-  background-color: #f5f5f5;
+  background-color: #e9e3df;
   position: relative;
-  padding: 160px 0 300px 0;
-  text-align: left;
+  padding: 80px 0 135px 0;
   @include md {
-    padding: 60px 0 60px 0;
+    padding: 0;
+  }
+  @include sm {
+    padding: 0 0 42px 0;
   }
   &__main {
     position: relative;
     padding-right: 50%;
     @include md {
-      padding: 0;
+      padding: 36px 0;
     }
   }
   &__main-text {
-    font-weight: 400;
-    font-size: 40px;
-    position: relative;
+    font-weight: 700;
+    font-size: 4vw;
     margin-bottom: 24px;
     letter-spacing: 2px;
     line-height: 1.4;
-    span {
-      display: block;
-    }
     @include md {
-      font-size: 20px;
+      width: 400px;
+      margin: 0 auto;
+      padding-bottom: 30px;
+      font-size: 42px;
     }
     @include sm {
-      font-size: 16px;
+      width: 270px;
+      margin: 0 auto;
+      font-size: 32px;
+    }
+    span {
+      display: block;
+      @include sm {
+        max-width: 336px;
+        margin: 0 auto;
+        text-align: start;
+      }
+    }
+  }
+  &__description {
+    color: #545454;
+    @include md {
+      width: 400px;
+      margin: 0 auto;
+      padding-bottom: 30px;
+    }
+    @include sm {
+      width: 100%;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
     }
   }
   &__sub-text {
     position: relative;
+    display: block;
     font-size: 16px;
-    margin: 16px auto 0;
+    margin-bottom: 8px;
     @include md {
       font-size: 12px;
     }
   }
   &__image {
+    z-index: 1000;
     position: absolute;
     right: 0;
     max-width: 50%;
     top: -10px;
     @include md {
       position: relative;
-      margin: 32px auto 0;
+      margin: 0 auto;
     }
     @include sm {
       max-width: 100%;
+    }
+  }
+  &__image::before {
+    content: '';
+    position: absolute;
+    top: 60%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: calc(85%);
+    height: calc(45% - -70px);
+    border-image-source: repeating-linear-gradient(
+      45deg,
+      #fff,
+      #fff 3px,
+      #c3a400 0,
+      #c3a400 6px
+    );
+    border-image-slice: 30;
+    border-image-repeat: round;
+    border-style: solid;
+    border-width: 30px;
+    @include sm {
+      top: 57%;
+      left: 46%;
+      width: calc(80%);
+      height: calc(26% - -70px);
     }
   }
   &__image1 {
@@ -71,6 +123,11 @@
   }
   &__action {
     margin-top: 30px;
+    @include md {
+      margin: 0 auto;
+      padding-top: 42px;
+      width: 200px;
+    }
   }
 }
 

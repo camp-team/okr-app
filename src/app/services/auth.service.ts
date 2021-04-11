@@ -7,13 +7,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../interfaces/user';
-import { FunctionOrConstructorTypeNodeBase } from 'typescript';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   uid: string;
+  isInitialLogin: boolean;
   afUser$: Observable<firebase.User> = this.afAuth.user.pipe(
     map((user) => {
       this.uid = user.uid;
@@ -35,7 +36,8 @@ export class AuthService {
     public afAuth: AngularFireAuth,
     private router: Router,
     private snackBar: MatSnackBar,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private loadingService: LoadingService
   ) {}
 
   getUser(userId: string) {
@@ -45,7 +47,11 @@ export class AuthService {
   login() {
     const provider = new auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    return this.afAuth.signInWithPopup(provider).then(() => {
+    this.afAuth.signInWithPopup(provider).then((result) => {
+      if (result.additionalUserInfo.isNewUser) {
+        this.isInitialLogin = true;
+      }
+      this.loadingService.loading = true;
       this.router.navigateByUrl('/manage/home');
       this.snackBar.open('ログインしました', null, {
         duration: 2000,

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { AuthService } from '../services/auth.service';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-header',
@@ -12,18 +10,14 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent implements OnInit {
   constructor(
     private authsearvice: AuthService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog
-  ) {}
+    public loadingService: LoadingService
+  ) {
+    this.loadingService.loading = false;
+  }
 
   ngOnInit(): void {}
 
   login() {
-    this.authsearvice.login().then(() => {
-      this.dialog.open(LoginDialogComponent, {
-        autoFocus: false,
-        restoreFocus: false,
-      });
-    });
+    this.authsearvice.login();
   }
 }

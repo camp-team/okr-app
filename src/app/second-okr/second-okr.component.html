@@ -4,7 +4,7 @@
     <ng-container *ngIf="isComplete === true; else blank">
       <app-second-okr-title></app-second-okr-title>
       <div class="data">
-        <div *ngFor="let secondOkrObject of secondOkrObjects">
+        <div *ngFor="let secondOkrObject of secondOkrObjects; let i = index">
           <form [formGroup]="secondOkrObjectTitles[secondOkrObject.id]">
             <div
               *ngFor="
@@ -15,7 +15,16 @@
               class="second-okr__object"
             >
               <ng-container [formGroupName]="primaryArrayIndex">
-                <input type="text" formControlName="primaryTitle" />
+                <input
+                  (keyup)="
+                    updateSecondOkrPrimaryTitle(
+                      secondOkrObject,
+                      primaryTitle.value.primaryTitle
+                    )
+                  "
+                  type="text"
+                  formControlName="primaryTitle"
+                />
               </ng-container>
             </div>
           </form>
@@ -24,11 +33,40 @@
               <table>
                 <thead>
                   <tr>
-                    <th class="header-left">key</th>
-                    <th>target</th>
-                    <th>current</th>
-                    <th>percentage</th>
-                    <th class="header-right">lastUpdate</th>
+                    <th class="header-left">
+                      項目
+                      <mat-icon
+                        class="table-icon"
+                        matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
+                      >
+                        help_outline
+                      </mat-icon>
+                    </th>
+                    <th>
+                      標的
+                      <mat-icon class="table-icon" matTooltip="数値を入力">
+                        help_outline
+                      </mat-icon>
+                    </th>
+                    <th>
+                      現在
+                      <mat-icon
+                        class="table-icon"
+                        matTooltip="達成した数値を入力"
+                      >
+                        help_outline
+                      </mat-icon>
+                    </th>
+                    <th>
+                      パーセント
+                      <mat-icon
+                        class="table-icon"
+                        matTooltip="自動で更新されます"
+                      >
+                        help_outline
+                      </mat-icon>
+                    </th>
+                    <th class="header-right">更新日</th>
                   </tr>
                 </thead>
 
@@ -46,7 +84,8 @@
                             updateSecondOkrKeyResult(
                               secondOkrObject.id,
                               row.value.secondOkrKeyResultId,
-                              row.value
+                              row.value,
+                              rows[secondOkrObject.id].controls.length
                             )
                           "
                           type="text"
@@ -61,13 +100,16 @@
                             updateSecondOkrKeyResult(
                               secondOkrObject.id,
                               row.value.secondOkrKeyResultId,
-                              row.value
+                              row.value,
+                              rows[secondOkrObject.id].controls.length
                             )
                           "
+                          name="target"
                           type="text"
                           formControlName="target"
                           autocomplete="off"
                           required
+                          maxlength="20"
                         />
                       </td>
                       <td>
@@ -76,7 +118,8 @@
                             updateSecondOkrKeyResult(
                               secondOkrObject.id,
                               row.value.secondOkrKeyResultId,
-                              row.value
+                              row.value,
+                              rows[secondOkrObject.id].controls.length
                             )
                           "
                           type="text"
@@ -90,7 +133,7 @@
                           type="text"
                           formControlName="percentage"
                           autocomplete="off"
-                          required
+                          disabled
                         />
                       </td>
                       <td class="body-right">
@@ -98,7 +141,7 @@
                           type="text"
                           formControlName="lastUpdated"
                           autocomplete="off"
-                          required
+                          disabled
                         />
                       </td>
                       <div
@@ -106,24 +149,29 @@
                         type="button"
                         (click)="removeRow(secondOkrObject.id, rowIndex)"
                       >
-                        removeRow
+                        ➖削除
                       </div>
                     </ng-container>
                   </tr>
+                  <div
+                    *ngIf="rows[secondOkrObject.id].length < 3"
+                    (click)="addRow(secondOkrObject.id)"
+                    class="second-okr__add-row"
+                  >
+                    ➕追加
+                  </div>
                 </tbody>
               </table>
             </form>
           </div>
-          <div (click)="addRow(secondOkrObject.id)" class="second-okr__add-row">
-            ＋addRow
-          </div>
           <div class="second-okr__average">
-            <span class="second-okr__average-text">average</span
-            >{{
-              (secondOkrObject.average /
-                (rows[secondOkrObject.id].controls.length * 100)) *
-                100
-            }}%
+            <span class="second-okr__average-text">達成度</span>
+            <ng-container *ngIf="secondOkrObject.average === 0; else blank">
+              <span>{{ secondOkrObject.average }}%</span>
+            </ng-container>
+            <ng-template #blank>
+              <span>{{ secondOkrObject.average }}%</span>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -139,7 +187,7 @@
       class="not-exist__img"
     />
     <div class="not-exist__content">
-      <h1 class="not-exist__title">進行中のokrがありません。</h1>
+      <h1 class="not-exist__title">進行中のOKRが作成されていません</h1>
       <p class="not-exist__text">2番目のokrを作成しましょう！</p>
     </div>
     <a

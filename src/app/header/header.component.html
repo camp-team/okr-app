@@ -1,22 +1,38 @@
 <mat-toolbar class="header">
   <mat-toolbar-row class="header__inner">
     <div class="header__left">
-      <p class="header__logo">
+      <div class="header__logo">
         <a routerLink="/about" class="header__link">
-          OKR
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="68"
+            height="42"
+            viewBox="0 0 68 42"
+          >
+            <text
+              id="OKR"
+              transform="translate(0 33)"
+              font-size="30"
+              font-family="ComicSansMS-Bold, Comic Sans MS"
+              font-weight="700"
+              letter-spacing="0.096em"
+            >
+              <tspan x="0" y="0">OKR</tspan>
+            </text>
+          </svg>
         </a>
-      </p>
+      </div>
     </div>
     <div class="header__right">
-      <button
+      <a
         class="header__login"
         mat-raised-button
         color="primary"
         (click)="login()"
         matTooltip="Googleアカウントでログインする"
       >
-        ログイン
-      </button>
+        Googleアカウントでログイン
+      </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
