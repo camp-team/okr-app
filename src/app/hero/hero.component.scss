@@ -42,7 +42,9 @@
       font-size: 42px;
     }
     @include sm {
-      font-size: 40px;
+      width: 270px;
+      margin: 0 auto;
+      font-size: 32px;
     }
     span {
       display: block;
@@ -60,11 +62,10 @@
       margin: 0 auto;
       padding-bottom: 30px;
     }
-    span {
-      @include sm {
-        white-space: pre-wrap;
-        overflow-wrap: break-word;
-      }
+    @include sm {
+      width: 100%;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
     }
   }
   &__sub-text {
