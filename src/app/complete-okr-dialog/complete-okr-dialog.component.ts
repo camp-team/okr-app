@@ -24,7 +24,7 @@ export class CompleteOkrDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  isCloseDialog() {
+  closeDialog() {
     this.dialogRef.close();
   }
 
