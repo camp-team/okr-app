@@ -63,7 +63,7 @@
     @include sm {
       margin: 0 auto;
       width: 250px;
-      padding-bottom: 2.2em;
+      padding-bottom: 24px;
     }
   }
   &__text {
@@ -89,13 +89,10 @@
     align-items: center;
     flex-direction: row-reverse;
     justify-content: space-around;
-    padding-bottom: 11em;
+    padding-bottom: 166px;
     @include md {
       display: block;
       padding-bottom: 62px;
-    }
-    @include sm {
-      padding-bottom: 2em;
     }
   }
   &__img-block {
@@ -120,13 +117,13 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding-bottom: 11em;
+    padding-bottom: 166px;
     @include md {
       display: block;
       padding-bottom: 62px;
     }
     @include sm {
-      padding-bottom: 2em;
+      padding-bottom: 32px;
     }
   }
   &__data {
