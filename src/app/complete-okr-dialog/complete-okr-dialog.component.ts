@@ -38,7 +38,7 @@ export class CompleteOkrDialogComponent implements OnInit {
       secondOkrValue
     );
     this.dialogRef.close();
-    this.snackBar.open('お疲れ様でした✨', null);
+    this.snackBar.open('お疲れ様でした✨');
     this.router.navigateByUrl('manage/achieve');
   }
 }
