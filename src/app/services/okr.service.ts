@@ -263,7 +263,7 @@ export class OkrService {
       | 'isComplete'
     >
   ): Promise<void> {
-    return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
+    return this.db.doc(`users/${uid}/okrs/${okrId}`).update({ title: okr });
   }
 
   updateSecondOkr(
@@ -276,15 +276,21 @@ export class OkrService {
       .update(secondOkr);
   }
 
+  updateObjective() {}
+
   updatePrimary(
     uid: string,
     okrId: string,
     primaryId: string,
-    primary: Omit<Primary, 'primaryTitle'>
+    primary: Primary
   ): Promise<void> {
+    console.log(uid);
+    console.log(okrId);
+    console.log(primaryId);
+    console.log(primary);
     return this.db
       .doc(`users/${uid}/okrs/${okrId}/primaries/${primaryId}`)
-      .update(primary);
+      .update({ primaryTitle: primary });
   }
 
   updateSecondOkrObject(

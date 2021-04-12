@@ -1,6 +1,14 @@
 <div class="okr">
   <h1 class="okr__title">
-    Objective : {{ okr.title }}
+    <ng-container [formGroup]="form">
+      Objective(目標) :
+      <input
+        class="okr__objective"
+        (keyup)="updateObjective(form.value.Objective)"
+        type="text"
+        formControlName="Objective"
+      />
+    </ng-container>
     <button class="okr__icon" mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
@@ -13,11 +21,23 @@
       </button>
     </mat-menu>
   </h1>
-  <div class="okr__sub-titles">
-    <div *ngFor="let primary of primaries$ | async" class="okr__sub-title">
-      <p class="okr__key">
-        Key Result :<span class="okr__span">{{ primary.primaryTitle }}</span>
-      </p>
+  <div *ngFor="let primary of primaries$ | async" class="okr__keyResults">
+    <p class="okr__content">
+      Key Result(目標達成のための成果指標) :
+    </p>
+    <div class="okr__keyResult-container" [formGroup]="keyResults[primary.id]">
+      <ng-container
+        *ngFor="let KeyResult of keyResults[primary.id].controls; index as i"
+      >
+        <div [formGroupName]="i">
+          <input
+            class="okr__keyResult"
+            (keyup)="updateKeyResult(primary.id, keyResults[primary.id].value)"
+            type="text"
+            formControlName="key"
+          />
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
