@@ -3,7 +3,19 @@
 
 .okr {
   text-align: center;
+  &__objective {
+    border: none;
+    background-color: inherit;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  &__keyResult {
+    border: none;
+    background-color: inherit;
+    font-size: 28px;
+  }
   &__title {
+    text-align: start;
     position: relative;
     margin: 0 auto;
     width: 600px;
@@ -27,18 +39,27 @@
       right: 16%;
     }
   }
-  &__key {
-    font-size: 26px;
-    @include sm {
-      font-size: 18px;
-    }
-  }
-  &__sub-titles {
+  &__keyResults {
+    position: relative;
     width: 600px;
     margin: 0 auto;
     @include sm {
       width: 300px;
     }
+  }
+  &__content {
+    font-size: 26px;
+    text-align: start;
+    @include sm {
+      font-size: 18px;
+    }
+  }
+
+  &__keyResult-container {
+    position: absolute;
+    width: 50px;
+    top: 5px;
+    right: 80px;
   }
 
   &__key-result {
