@@ -20,6 +20,8 @@
   }
   &__title {
     margin: 0;
+    display: flex;
+    justify-content: center;
     text-align: center;
     font-size: 30px;
     padding-bottom: 36px;
@@ -33,6 +35,10 @@
       margin: 0;
       padding-bottom: 24px;
     }
+  }
+  &__title-content {
+    margin: 0;
+    font-size: 30px;
   }
   &__card {
     height: 240px;
