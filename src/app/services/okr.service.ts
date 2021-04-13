@@ -10,13 +10,19 @@ import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
 import { object } from 'firebase-functions/lib/providers/storage';
+import { AngularFireFunctions } from '@angular/fire/functions';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root',
 })
 export class OkrService {
   constructor(
     private db: AngularFirestore,
-    private authsearvice: AuthService
+    private authsearvice: AuthService,
+    private fns: AngularFireFunctions,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   createOkr(
@@ -43,6 +49,7 @@ export class OkrService {
     const id = this.db.createId();
     const value: Primary = {
       primaryTitle: primary,
+      okrId: okrId,
       average: 0,
       id,
     };
@@ -123,6 +130,13 @@ export class OkrService {
   }
 
   deleteOkr(okrId: string): Promise<void> {
+    const callable = this.fns.httpsCallable('deleteOkr');
+    callable(okrId)
+      .toPromise()
+      .then(() => {
+        this.router.navigateByUrl('/manage/home');
+        this.snackBar.open('削除しました。', '');
+      });
     return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
   }
 
