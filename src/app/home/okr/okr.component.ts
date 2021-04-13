@@ -17,7 +17,6 @@ import { OkrService } from 'src/app/services/okr.service';
 export class OkrComponent implements OnInit {
   @Input() okr: Okr;
   primaries$: Observable<Primary[]>;
-  primariess$: Observable<Primary[]>;
 
   form: FormGroup;
   keyResult: FormGroup;
