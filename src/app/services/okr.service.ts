@@ -27,7 +27,8 @@ export class OkrService {
 
   createOkr(
     okr: Omit<Okr, 'id' | 'isComplete'>,
-    primaries: string[]
+    primaries: string[],
+    uid: string
   ): Promise<void> {
     const id = this.db.createId();
     const isComplete = true;
@@ -40,16 +41,17 @@ export class OkrService {
       })
       .then(() => {
         primaries.forEach((primary) => {
-          this.createPrimary(primary, id);
+          this.createPrimary(primary, id, uid);
         });
       });
   }
 
-  createPrimary(primary: string, okrId: string) {
+  createPrimary(primary: string, okrId: string, uid: string) {
     const id = this.db.createId();
     const value: Primary = {
       primaryTitle: primary,
       okrId: okrId,
+      uid,
       average: 0,
       id,
     };
@@ -86,6 +88,7 @@ export class OkrService {
     const value: SecondOkrObject = {
       secondOkrObject: secondOkrObject,
       average: 0,
+      uid: this.authsearvice.uid,
       id,
     };
     return this.db
