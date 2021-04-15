@@ -149,6 +149,7 @@ export class SecondOkrComponent implements OnInit {
       target: formData.target,
       current: formData.current,
       percentage: formData.percentage,
+      uid: this.authService.uid,
     };
     this.okrService.createSecondOkrKeyResult(
       subTaskValue,
@@ -196,6 +197,7 @@ export class SecondOkrComponent implements OnInit {
       const secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'> = {
         id: secondOkrObjectId,
         average: Math.round((average / (rowLength * 100)) * 100),
+        uid: this.authService.uid,
       };
 
       this.okrService.updateSecondOkrObject(
@@ -222,6 +224,7 @@ export class SecondOkrComponent implements OnInit {
       key: formData.key,
       target: formData.target,
       current: formData.current,
+      uid: this.authService.uid,
       percentage: result + '%',
     };
     this.okrService
