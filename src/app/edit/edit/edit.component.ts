@@ -78,12 +78,14 @@ export class EditComponent implements OnInit {
       CreatorId: this.authService.uid,
     };
     const primaryArray = formData.primaries;
-    this.okrService.createOkr(okrValue, primaryArray).then(() => {
-      this.router.navigateByUrl('manage/home');
-      this.dialog.open(CreateFirstOkrDialogComponent, {
-        autoFocus: false,
-        restoreFocus: false,
+    this.okrService
+      .createOkr(okrValue, primaryArray, this.authService.uid)
+      .then(() => {
+        this.router.navigateByUrl('manage/home');
+        this.dialog.open(CreateFirstOkrDialogComponent, {
+          autoFocus: false,
+          restoreFocus: false,
+        });
       });
-    });
   }
 }

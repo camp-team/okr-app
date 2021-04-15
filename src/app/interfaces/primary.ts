@@ -3,4 +3,5 @@ export interface Primary {
   primaryTitle?: string;
   average: number;
   okrId?: string;
+  uid?: string;
 }
