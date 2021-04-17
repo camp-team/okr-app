@@ -68,14 +68,18 @@ export class EditComponent implements OnInit {
   }
 
   ngAfterViewInit(num: number): void {
-    switch (num) {
-      case undefined:
-        this.tutorialService.startEditTutorial();
-        break;
-      case 1:
-        this.tutorialService.secondEditTutorial();
-        break;
-    }
+    this.okrs$.subscribe((okrs) => {
+      if (!okrs.length) {
+        switch (num) {
+          case undefined:
+            this.tutorialService.startEditTutorial();
+            break;
+          case 1:
+            this.tutorialService.secondStepEditTutorial();
+            break;
+        }
+      }
+    });
   }
 
   removeOption(i: number) {
@@ -100,10 +104,10 @@ export class EditComponent implements OnInit {
       .createOkr(okrValue, primaryArray, this.authService.uid)
       .then(() => {
         this.router.navigateByUrl('manage/home');
-        this.dialog.open(CreateFirstOkrDialogComponent, {
-          autoFocus: false,
-          restoreFocus: false,
-        });
+        // this.dialog.open(CreateFirstOkrDialogComponent, {
+        //   autoFocus: false,
+        //   restoreFocus: false,
+        // });
       });
   }
 }
