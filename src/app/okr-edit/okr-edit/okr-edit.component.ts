@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
@@ -76,14 +77,18 @@ export class OkrEditComponent implements OnInit {
   }
 
   ngAfterViewInit(num: number) {
-    switch (num) {
-      case undefined:
-        this.tutorialService.firstStepSecondOkrEditTutorial();
-        break;
-      case 1:
-        this.tutorialService.secondStepSecondOkrEditTutorial();
-        break;
-    }
+    this.secondOkrs$.pipe(take(1)).subscribe((secondOkrs) => {
+      if (secondOkrs.length === 0) {
+        switch (num) {
+          case undefined:
+            this.tutorialService.firstStepSecondOkrEditTutorial();
+            break;
+          case 1:
+            this.tutorialService.secondStepSecondOkrEditTutorial();
+            break;
+        }
+      }
+    });
   }
 
   addObjective() {
