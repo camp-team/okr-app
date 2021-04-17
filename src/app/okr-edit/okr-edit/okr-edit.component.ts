@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
+import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
   selector: 'app-okr-edit',
@@ -55,7 +56,8 @@ export class OkrEditComponent implements OnInit {
     private okrService: OkrService,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private tutorialService: TutorialService
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +69,21 @@ export class OkrEditComponent implements OnInit {
       });
     });
     this.addObjective();
+  }
+
+  secondStepOkr(num) {
+    this.ngAfterViewInit(num);
+  }
+
+  ngAfterViewInit(num: number) {
+    switch (num) {
+      case undefined:
+        this.tutorialService.firstStepSecondOkrEditTutorial();
+        break;
+      case 1:
+        this.tutorialService.secondStepSecondOkrEditTutorial();
+        break;
+    }
   }
 
   addObjective() {

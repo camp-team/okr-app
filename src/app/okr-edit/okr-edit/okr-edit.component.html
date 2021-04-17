@@ -42,7 +42,7 @@
               <form [formGroup]="form" class="second-step__form">
                 <div formArrayName="primaries">
                   <div *ngFor="let option of primaries.controls; let i = index">
-                    <mat-form-field class="second-step__field">
+                    <mat-form-field class="second-okr-form second-step__field">
                       <mat-label class="second-step__lavel">
                         目標を入力 {{ i + 1 }}つ目
                       </mat-label>
@@ -68,7 +68,7 @@
                     </button>
                     <button
                       *ngIf="i < 2"
-                      class="second-step__addcontents"
+                      class="add-form second-step__addcontents"
                       type="button"
                       mat-raised-button
                       (click)="addOptionForm()"
@@ -80,6 +80,7 @@
                 </div>
               </form>
               <button
+                (click)="secondStepOkr(1)"
                 mat-button
                 matStepperNext
                 [disabled]="primariesControl.invalid"
@@ -128,70 +129,71 @@
                 (ngSubmit)="cleateOKR()"
                 class="third-step__form"
               >
-                <mat-form-field class="third-step__field">
-                  <mat-label class="third-step__lavel">開始日</mat-label>
+                <div class="second-okr-callender">
+                  <mat-form-field class="third-step__field">
+                    <mat-label class="third-step__lavel">開始日</mat-label>
 
-                  <input
-                    matInput
-                    [matDatepickerFilter]="myFilter"
-                    formControlName="start"
-                    type="text"
-                    autocomplete="off"
-                    requireds
-                    [matDatepicker]="picker"
-                  />
+                    <input
+                      matInput
+                      [matDatepickerFilter]="myFilter"
+                      formControlName="start"
+                      type="text"
+                      autocomplete="off"
+                      requireds
+                      [matDatepicker]="picker"
+                    />
 
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="startControl.hasError('required')"
-                    >必須入力です</mat-error
-                  >
-                </mat-form-field>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="startControl.hasError('required')"
+                      >必須入力です</mat-error
+                    >
+                  </mat-form-field>
 
-                <br />
-                <mat-form-field class="third-step__field">
-                  <mat-label class="third-step__lavel">終了日</mat-label>
-                  <input
-                    [matDatepickerFilter]="myFilter"
-                    formControlName="end"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                    required
-                    matInput
-                    [matDatepicker]="picker1"
-                  />
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker1"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #picker1></mat-datepicker>
-                  <mat-error *ngIf="endControl.hasError('required')"
-                    >必須入力です</mat-error
-                  >
-                </mat-form-field>
-                <div class="third-step__buttons">
-                  <button
-                    mat-button
-                    matStepperPrevious
-                    class="third-step__button"
-                  >
-                    戻る
-                  </button>
-                  <button
-                    [disabled]="
-                      startControl.invalid || endControl.invalid || form.invalid
-                    "
-                    mat-raised-button
-                    color="primary"
-                    class="third-step__next"
-                  >
-                    OKRを作成
-                  </button>
+                  <br />
+                  <mat-form-field class="third-step__field">
+                    <mat-label class="third-step__lavel">終了日</mat-label>
+                    <input
+                      [matDatepickerFilter]="myFilter"
+                      formControlName="end"
+                      type="text"
+                      matInput
+                      autocomplete="off"
+                      required
+                      matInput
+                      [matDatepicker]="picker1"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error *ngIf="endControl.hasError('required')"
+                      >必須入力です</mat-error
+                    >
+                  </mat-form-field>
                 </div>
+                <div class="third-step__buttons"></div>
+                <button
+                  mat-button
+                  matStepperPrevious
+                  class="third-step__button"
+                >
+                  戻る
+                </button>
+                <button
+                  [disabled]="
+                    startControl.invalid || endControl.invalid || form.invalid
+                  "
+                  mat-raised-button
+                  color="primary"
+                  class="create-secondOkr third-step__next"
+                >
+                  OKRを作成
+                </button>
               </form>
               <div class="third-step__sidebar">
                 <img
