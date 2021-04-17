@@ -23,9 +23,11 @@
                   </mat-icon>
                 </span>
               </p>
-              <form [formGroup]="form" class="first-step__form">
+              <form [formGroup]="form" class="okr-edit first-step__form">
                 <mat-form-field class="first-step__field">
-                  <mat-label class="first-step__lavel">目標を入力</mat-label>
+                  <mat-label class="first-step__lavel"
+                    >なりたい姿を入力</mat-label
+                  >
                   <input
                     formControlName="title"
                     type="text"
@@ -42,6 +44,7 @@
                 </mat-form-field>
               </form>
               <button
+                (click)="secondEditTutorial(1)"
                 mat-button
                 matStepperNext
                 [disabled]="titleControl.invalid"
@@ -93,7 +96,7 @@
             >
               <div formArrayName="primaries">
                 <div *ngFor="let primary of primaries.controls; let i = index">
-                  <mat-form-field class="second-step__field">
+                  <mat-form-field class="second-okr-form second-step__field">
                     <mat-label class="second-step__lavel">
                       目標を入力 {{ i + 1 }}つ目
                     </mat-label>
@@ -119,7 +122,7 @@
                   </button>
                   <button
                     *ngIf="i < 2"
-                    class="second-step__addcontents"
+                    class="add-form second-step__addcontents"
                     type="button"
                     mat-raised-button
                     (click)="addOptionForm()"
@@ -141,7 +144,7 @@
                   [disabled]="form.invalid"
                   mat-raised-button
                   color="primary"
-                  class="second-step__next"
+                  class="create-okr-button second-step__next"
                 >
                   OKRを作成する
                 </button>

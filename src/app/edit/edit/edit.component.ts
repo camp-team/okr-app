@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateFirstOkrDialogComponent } from 'src/app/create-first-okr-dialog/create-first-okr-dialog.component';
 import { Observable } from 'rxjs';
+import { TutorialService } from 'src/app/services/tutorial.service';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -46,7 +48,8 @@ export class EditComponent implements OnInit {
     private okrService: OkrService,
     private authService: AuthService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private tutorialService: TutorialService
   ) {}
 
   ngOnInit() {
@@ -58,6 +61,21 @@ export class EditComponent implements OnInit {
         this.okrIscomplete = true;
       }
     });
+  }
+
+  secondEditTutorial(num: number) {
+    this.ngAfterViewInit(num);
+  }
+
+  ngAfterViewInit(num: number): void {
+    switch (num) {
+      case undefined:
+        this.tutorialService.startEditTutorial();
+        break;
+      case 1:
+        this.tutorialService.secondEditTutorial();
+        break;
+    }
   }
 
   removeOption(i: number) {
