@@ -43,6 +43,7 @@
                   "
                   type="text"
                   formControlName="primaryTitle"
+                  class="objective"
                 />
               </ng-container>
             </div>
@@ -52,7 +53,7 @@
               <table>
                 <thead>
                   <tr>
-                    <th class="header-left">
+                    <th class="item header-left">
                       項目
                       <mat-icon
                         class="table-icon"
@@ -61,13 +62,13 @@
                         help_outline
                       </mat-icon>
                     </th>
-                    <th>
+                    <th class="target">
                       標的
                       <mat-icon class="table-icon" matTooltip="数値を入力">
                         help_outline
                       </mat-icon>
                     </th>
-                    <th>
+                    <th class="current">
                       現在
                       <mat-icon
                         class="table-icon"
@@ -76,7 +77,7 @@
                         help_outline
                       </mat-icon>
                     </th>
-                    <th>
+                    <th class="percent">
                       パーセント
                       <mat-icon
                         class="table-icon"
@@ -85,7 +86,7 @@
                         help_outline
                       </mat-icon>
                     </th>
-                    <th class="header-right">更新日</th>
+                    <th class="last-update header-right">更新日</th>
                   </tr>
                 </thead>
 
@@ -175,7 +176,7 @@
                   <div
                     *ngIf="rows[secondOkrObject.id].length < 3"
                     (click)="addRow(secondOkrObject.id)"
-                    class="second-okr__add-row"
+                    class="add-row second-okr__add-row"
                   >
                     ➕追加
                   </div>

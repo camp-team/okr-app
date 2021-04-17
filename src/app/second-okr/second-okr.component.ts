@@ -10,6 +10,7 @@ import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
 import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
+import { TutorialService } from '../services/tutorial.service';
 
 @Component({
   selector: 'app-second-okr',
@@ -46,7 +47,8 @@ export class SecondOkrComponent implements OnInit {
     public okrService: OkrService,
     private fb: FormBuilder,
     private datepipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
+    private tutorialService: TutorialService
   ) {}
 
   ngOnInit() {
@@ -100,6 +102,10 @@ export class SecondOkrComponent implements OnInit {
     this.secondOkrObjectTitles[secondOkrObjectId].push(
       this.secondOkrObjectTitle
     );
+  }
+
+  ngAfterViewInit(num: number) {
+    this.tutorialService.secondOkrTutorial();
   }
 
   initRows(
