@@ -3,6 +3,8 @@ import { Okr } from 'src/app/interfaces/okr';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +17,21 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public okrService: OkrService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private dialog: MatDialog
+  ) {
+    this.isInitLogin();
+  }
+
+  private isInitLogin() {
+    if (this.authService.isInitialLogin) {
+      this.dialog.open(LoginDialogComponent, {
+        autoFocus: false,
+        restoreFocus: false,
+      });
+      this.authService.isInitialLogin = false;
+    }
+  }
 
   ngOnInit(): void {
     this.okrs$.subscribe((okrs) => {

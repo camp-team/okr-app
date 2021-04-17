@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-delete-account-dialog',
@@ -16,11 +17,13 @@ export class DeleteAccountDialogComponent implements OnInit {
     private fns: AngularFireFunctions,
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {}
   deleteAccount() {
+    this.loadingService.loading = true;
     const callable = this.fns.httpsCallable('deleteAfUser');
     this.dialogRef.close();
     return callable(this.authService.uid)

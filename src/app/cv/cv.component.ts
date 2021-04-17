@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -9,16 +7,11 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./cv.component.scss'],
 })
 export class CvComponent implements OnInit {
-  constructor(private authService: AuthService, private dialog: MatDialog) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   login() {
-    this.authService.login().then(() => {
-      this.dialog.open(LoginDialogComponent, {
-        autoFocus: false,
-        restoreFocus: false,
-      });
-    });
+    this.authService.login();
   }
 }

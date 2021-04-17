@@ -3,7 +3,7 @@ import { firestore } from 'firebase';
 export interface SecondOkrKeyResult {
   secondOkrId: string;
   secondOkrObjectId: string;
-  id: string;
+  id?: string;
   key: string;
   target: number;
   current: number;

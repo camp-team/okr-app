@@ -9,6 +9,7 @@ import { firestore } from 'firebase';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
+import { object } from 'firebase-functions/lib/providers/storage';
 @Injectable({
   providedIn: 'root',
 })
@@ -67,6 +68,7 @@ export class OkrService {
       })
       .then(() => {
         secondOkrObjects.forEach((secondOkrObject) => {
+          const average = 0;
           this.createSecondOkrObject(secondOkrObject, id);
         });
       });
@@ -138,7 +140,19 @@ export class OkrService {
 
   getSecondOkrs(): Observable<SecondOkr[]> {
     return this.db
-      .collection<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs`)
+      .collection<SecondOkr>(
+        `users/${this.authsearvice.uid}/secondOkrs`,
+        (ref) => ref.orderBy('start', 'desc')
+      )
+      .valueChanges();
+  }
+
+  getSecondOkrId(): Observable<SecondOkr[]> {
+    return this.db
+      .collection<SecondOkr>(
+        `users/${this.authsearvice.uid}/secondOkrs`,
+        (ref) => ref.where('isComplete', '==', true)
+      )
       .valueChanges();
   }
 
@@ -202,6 +216,31 @@ export class OkrService {
       .valueChanges();
   }
 
+  getSecondOkrKeyResultId(
+    secondOkrId: string
+  ): Observable<SecondOkrKeyResult[]> {
+    return this.db
+      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
+        ref
+          .where('secondOkrId', '==', secondOkrId)
+          .orderBy('lastUpdated', 'desc')
+          .limit(1)
+      )
+      .valueChanges();
+  }
+
+  deleteSecondOkrKeyResultDocument(
+    secondOkrId,
+    secondOkrObjectId,
+    secondOkrKeyResultId
+  ): Promise<void> {
+    return this.db
+      .doc<SecondOkrKeyResult>(
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      )
+      .delete();
+  }
+
   getSecondOkrKeyResult(uid: string): Observable<SecondOkrKeyResult[]> {
     return this.db
       .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
@@ -259,6 +298,19 @@ export class OkrService {
         `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
       )
       .update(secondOkrObject);
+  }
+
+  updateSecondOkrPrimaryTitle(
+    uid: string,
+    secondOkrId: string,
+    secondOkrObjectId: string,
+    secondOkrObjects: SecondOkrObject
+  ): Promise<void> {
+    return this.db
+      .doc(
+        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
+      )
+      .update({ secondOkrObject: secondOkrObjects });
   }
 
   updateSubTask(
