@@ -26,7 +26,8 @@
             "assets": ["src/favicon.svg", "src/assets", "src/favicon-dev.svg"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/shepherd.js/dist/css/shepherd.css"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {
@@ -91,7 +92,8 @@
             "assets": ["src/favicon.ico", "src/assets", "src/favicon-dev.svg"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/shepherd.js/dist/css/shepherd.css"
             ],
             "scripts": []
           }
