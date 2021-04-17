@@ -104,8 +104,11 @@ export class SecondOkrComponent implements OnInit {
     );
   }
 
-  ngAfterViewInit(num: number) {
-    this.tutorialService.secondOkrTutorial();
+  ngAfterViewInit() {
+    if (this.tutorialService.tutorial) {
+      this.tutorialService.secondOkrTutorial();
+      this.tutorialService.tutorial = false;
+    }
   }
 
   initRows(
