@@ -14,7 +14,7 @@ import { LoadingService } from './loading.service';
 })
 export class AuthService {
   uid: string;
-  isInitialLogin: boolean;
+  initialLogin: boolean;
   afUser$: Observable<firebase.User> = this.afAuth.user.pipe(
     map((user) => {
       this.uid = user.uid;
@@ -49,7 +49,7 @@ export class AuthService {
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth.signInWithPopup(provider).then((result) => {
       if (result.additionalUserInfo.isNewUser) {
-        this.isInitialLogin = true;
+        this.initialLogin = true;
       }
       this.loadingService.loading = true;
       this.router.navigateByUrl('/manage/home');

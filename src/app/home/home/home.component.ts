@@ -27,12 +27,12 @@ export class HomeComponent implements OnInit {
   }
 
   private isInitLogin() {
-    if (this.authService.isInitialLogin) {
+    if (this.authService.initialLogin) {
       this.dialog.open(LoginDialogComponent, {
         autoFocus: false,
         restoreFocus: false,
       });
-      this.authService.isInitialLogin = false;
+      this.authService.initialLogin = false;
     }
   }
 
