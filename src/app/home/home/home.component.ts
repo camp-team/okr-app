@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
+import { ShepherdService } from 'angular-shepherd';
+import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public okrService: OkrService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private tutorialServide: TutorialService
   ) {
     this.isInitLogin();
   }
@@ -41,5 +44,9 @@ export class HomeComponent implements OnInit {
         this.okr = true;
       }
     });
+  }
+
+  ngAfterViewInit(num: number) {
+    this.tutorialServide.startOkrTutorial();
   }
 }
