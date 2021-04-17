@@ -5,6 +5,10 @@ import { ShepherdService } from 'angular-shepherd';
   providedIn: 'root',
 })
 export class TutorialService {
+  tutorial: boolean;
+
+  constructor(private shepherdService: ShepherdService) {}
+
   setDefaultStepOptions() {
     this.shepherdService.defaultStepOptions = {
       scrollTo: false,
@@ -15,8 +19,6 @@ export class TutorialService {
     this.shepherdService.modal = true;
     this.shepherdService.confirmCancel = false;
   }
-
-  constructor(private shepherdService: ShepherdService) {}
 
   getTutorialStep(
     title: string,
@@ -95,7 +97,8 @@ export class TutorialService {
     this.shepherdService.start();
   }
 
-  secondEditTutorial() {
+  secondStepEditTutorial() {
+    this.tutorial = true;
     this.setDefaultStepOptions();
     this.shepherdService.addSteps([
       this.getTutorialStep(
@@ -121,7 +124,7 @@ export class TutorialService {
       ),
       this.getTutorialStep(
         '1つ目のOKR作成するよ！！',
-        '入力できたらOKRを作成しよう！',
+        '入力したらOKRを作成しよう！',
         'last',
         '.create-okr-button',
         'bottom'
@@ -159,6 +162,7 @@ export class TutorialService {
   }
 
   secondStepSecondOkrEditTutorial() {
+    this.tutorial = true;
     this.setDefaultStepOptions();
     this.shepherdService.addSteps([
       this.getTutorialStep(
@@ -211,8 +215,8 @@ export class TutorialService {
     this.setDefaultStepOptions();
     this.shepherdService.addSteps([
       this.getTutorialStep(
-        '2つ目のOKRが作成されたよ！',
-        'テーブルに作業内容を入力していこう！',
+        '作業管理画面だよ！',
+        'おめでとう！2つ目のOKRが作成されたよ！',
         'first',
         null,
         'bottom'

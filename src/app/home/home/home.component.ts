@@ -47,6 +47,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit(num: number) {
-    this.tutorialServide.startOkrTutorial();
+    if (this.tutorialServide.tutorial) {
+      this.tutorialServide.startOkrTutorial();
+    }
   }
 }
