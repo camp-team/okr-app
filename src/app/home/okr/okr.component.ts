@@ -58,7 +58,6 @@ export class OkrComponent implements OnInit {
   }
 
   updateObjective(objective) {
-    console.log(objective);
     this.okrService.updateOkr(this.authService.uid, this.okr.id, objective);
   }
 
