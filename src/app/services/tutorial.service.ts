@@ -204,7 +204,7 @@ export class TutorialService {
         'OKR管理画面です！',
         '次は2つ目のOKRを作成しよう！',
         'last',
-        '.start-SecondOkr-edit',
+        '.start-second-okr-edit',
         'bottom'
       ),
     ]);
