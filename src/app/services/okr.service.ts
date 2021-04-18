@@ -83,17 +83,18 @@ export class OkrService {
       });
   }
 
-  createSecondOkrObject(secondOkrObject: string, okrId: string) {
+  createSecondOkrObject(secondOkrObject: string, secondOkrId: string) {
     const id = this.db.createId();
     const value: SecondOkrObject = {
       secondOkrObject: secondOkrObject,
+      secondOkrId: secondOkrId,
       average: 0,
       uid: this.authsearvice.uid,
       id,
     };
     return this.db
       .doc<SecondOkrObject>(
-        `users/${this.authsearvice.uid}/secondOkrs/${okrId}/secondOkrObjects/${id}`
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${id}`
       )
       .set(value);
   }
@@ -130,17 +131,6 @@ export class OkrService {
         lastUpdated: firestore.Timestamp.now(),
         ...secondOkrKeyResult,
       });
-  }
-
-  deleteOkr(okrId: string): Promise<void> {
-    const callable = this.fns.httpsCallable('deleteOkr');
-    callable(okrId)
-      .toPromise()
-      .then(() => {
-        this.router.navigateByUrl('/manage/home');
-        this.snackBar.open('削除しました。', '');
-      });
-    return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
   }
 
   getOkrs(): Observable<Okr[]> {
@@ -246,6 +236,25 @@ export class OkrService {
       .valueChanges();
   }
 
+  deleteOkr(okrId: string): Promise<void> {
+    const callable = this.fns.httpsCallable('deleteOkr');
+    callable(okrId)
+      .toPromise()
+      .then(() => {
+        this.router.navigateByUrl('/manage/home');
+        this.snackBar.open('削除しました。', '');
+      });
+    return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
+  }
+
+  deleteSecondOkrDocument(secondOkrId): Promise<void> {
+    return this.db
+      .doc<SecondOkr>(
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}`
+      )
+      .delete();
+  }
+
   deleteSecondOkrKeyResultDocument(
     secondOkrId,
     secondOkrObjectId,
@@ -301,10 +310,6 @@ export class OkrService {
     primaryId: string,
     primary: Primary
   ): Promise<void> {
-    console.log(uid);
-    console.log(okrId);
-    console.log(primaryId);
-    console.log(primary);
     return this.db
       .doc(`users/${uid}/okrs/${okrId}/primaries/${primaryId}`)
       .update({ primaryTitle: primary });
