@@ -12,3 +12,18 @@ export const deleteOkr = functions
       .where('okrId', '==', okrId);
     return Promise.all([deleteCollectionByReference(primariesRef)]);
   });
+
+export const deleteSecondOkr = functions
+  .region('asia-northeast1')
+  .https.onCall(async (secondOkrId: string) => {
+    const secondOkrKeyResults = db
+      .collectionGroup('secondOkrKeyResults')
+      .where('secondOkrId', '==', secondOkrId);
+    const secondOkrObjectsRef = db
+      .collectionGroup('secondOkrObjects')
+      .where('secondOkrId', '==', secondOkrId);
+    return Promise.all([
+      deleteCollectionByReference(secondOkrKeyResults),
+      deleteCollectionByReference(secondOkrObjectsRef),
+    ]);
+  });
