@@ -23,15 +23,22 @@
     <ng-container *ngIf="secondOkr; else blank">
       <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
         <ng-container *ngIf="!secondOkr.isComplete">
-          <a
-            [routerLink]="['/manage/complete']"
-            [queryParams]="{ v: secondOkr.id }"
-            class="achieve__okr"
-          >
-            📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-              secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
-            }}
-          </a>
+          <div class="achieve__secondOkr">
+            <a
+              [routerLink]="['/manage/complete']"
+              [queryParams]="{ v: secondOkr.id }"
+              class="achieve__calendar"
+            >
+              📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
+                secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
+              }}
+            </a>
+            <a (click)="deleteSecondOkr(secondOkr.id)" class="achieve__delete">
+              <mat-icon>
+                delete_outline
+              </mat-icon>
+            </a>
+          </div>
         </ng-container>
       </ng-container>
     </ng-container>
