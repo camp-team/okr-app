@@ -21,6 +21,8 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./okr-edit.component.scss'],
 })
 export class OkrEditComponent implements OnInit {
+  objectForm: number = 1;
+
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
@@ -99,12 +101,14 @@ export class OkrEditComponent implements OnInit {
 
   removeOption(i: number) {
     this.primaries.removeAt(i);
+    this.objectForm = this.objectForm - 1;
   }
 
   addOptionForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
+    this.objectForm = this.objectForm + 1;
   }
 
   cleateSecondOkr() {
