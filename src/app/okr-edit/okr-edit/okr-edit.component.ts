@@ -107,7 +107,7 @@ export class OkrEditComponent implements OnInit {
     );
   }
 
-  cleateOKR() {
+  cleateSecondOkr() {
     const formData = this.form.value;
     const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
       start: formData.start,
