@@ -17,6 +17,12 @@
   }
 }
 
+mat-error {
+  display: block;
+  padding-left: 120px;
+  font-size: 12px;
+}
+
 .container {
   @include sm {
     padding: 0 16px;
