@@ -40,7 +40,7 @@ export const deleteCollection = functions
     const secondOkrKeyResultsRef = db
       .collectionGroup(`secondOkrKeyResults`)
       .where('uid', '==', user.uid);
-    const secondOkrObjectsResultsRef = db
+    const secondOkrObjectsRef = db
       .collectionGroup(`secondOkrObjects`)
       .where('uid', '==', user.uid);
     const secondOkrs = db
@@ -49,7 +49,7 @@ export const deleteCollection = functions
     return Promise.all([
       deleteCollectionByReference(primariesRef),
       deleteCollectionByReference(secondOkrKeyResultsRef),
-      deleteCollectionByReference(secondOkrObjectsResultsRef),
+      deleteCollectionByReference(secondOkrObjectsRef),
       deleteCollectionByReference(secondOkrs),
     ]);
   });
