@@ -34,17 +34,20 @@
               class="second-okr__object"
             >
               <ng-container [formGroupName]="primaryArrayIndex">
-                <input
-                  (keyup)="
-                    updateSecondOkrPrimaryTitle(
-                      secondOkrObject,
-                      primaryTitle.value.primaryTitle
-                    )
-                  "
-                  type="text"
-                  formControlName="primaryTitle"
-                  class="objective"
-                />
+                <div class="objective">
+                  <span class="objective__title">Objective(目標)：</span>
+                  <input
+                    (keyup)="
+                      updateSecondOkrPrimaryTitle(
+                        secondOkrObject,
+                        primaryTitle.value.primaryTitle
+                      )
+                    "
+                    type="text"
+                    formControlName="primaryTitle"
+                    class="objective__form"
+                  />
+                </div>
               </ng-container>
             </div>
           </form>

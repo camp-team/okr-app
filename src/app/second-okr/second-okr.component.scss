@@ -1,6 +1,22 @@
 @import 'variables';
 @import 'mixins';
 
+.objective {
+  display: flex;
+  &__title {
+    width: 150px;
+  }
+  &__form {
+    margin: 0;
+    width: 400px;
+    background-color: inherit;
+    font-size: 20px;
+    @include sm {
+      padding-bottom: 12px;
+    }
+  }
+}
+
 .container {
   @include sm {
     padding: 0 16px;
@@ -68,14 +84,6 @@
   &__title-content {
     font-size: 30px;
     margin: 0;
-  }
-  &__object input {
-    background-color: inherit;
-    font-size: 20px;
-    margin-top: 24px;
-    @include sm {
-      padding-bottom: 12px;
-    }
   }
   &__add-row,
   &__remove {
