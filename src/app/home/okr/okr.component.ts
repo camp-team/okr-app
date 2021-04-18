@@ -1,5 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -40,9 +46,16 @@ export class OkrComponent implements OnInit {
 
   objective() {
     this.form = this.fb.group({
-      Objective: [this.okr.title, [Validators.required]],
+      objective: [
+        this.okr.title,
+        [Validators.required, Validators.maxLength(20)],
+      ],
       categories: this.fb.array([]),
     });
+  }
+
+  get objectiveContoroll() {
+    return this.form.get('objective') as FormControl;
   }
 
   keyResultfa() {
@@ -50,7 +63,10 @@ export class OkrComponent implements OnInit {
       primaries.forEach((primary) => {
         this.keyResults[primary.id] = this.fb.array([]);
         this.keyResult = this.fb.group({
-          key: [primary.primaryTitle, [Validators.required]],
+          key: [
+            primary.primaryTitle,
+            [Validators.required, Validators.maxLength(20)],
+          ],
         });
         this.keyResults[primary.id].push(this.keyResult);
       });

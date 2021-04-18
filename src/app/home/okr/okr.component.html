@@ -1,13 +1,21 @@
 <div class="okr">
   <h1 class="okr__title">
     <ng-container [formGroup]="form">
-      Objective(目標) :
-      <input
-        class="okr__objective"
-        (keyup)="updateObjective(form.value.Objective)"
-        type="text"
-        formControlName="Objective"
-      />
+      <span>Objective(目標) :</span>
+      <div class="okr__objective-wrapper">
+        <input
+          class="okr__objective"
+          (keyup)="updateObjective(form.value.Objective)"
+          type="text"
+          formControlName="objective"
+        />
+        <mat-error *ngIf="objectiveContoroll.hasError('required')">
+          必須入力です。
+        </mat-error>
+        <mat-error *ngIf="objectiveContoroll.hasError('maxlength')">
+          最大文字数は20文字です。
+        </mat-error>
+      </div>
     </ng-container>
     <button class="okr__icon" mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>keyboard_arrow_down</mat-icon>
@@ -36,6 +44,12 @@
             type="text"
             formControlName="key"
           />
+          <mat-error *ngIf="KeyResult.get('key').hasError('required')">
+            必須入力です。
+          </mat-error>
+          <mat-error *ngIf="KeyResult.get('key').hasError('maxlength')">
+            最大文字数は20文字です。
+          </mat-error>
         </div>
       </ng-container>
     </div>
