@@ -46,8 +46,19 @@
                     type="text"
                     formControlName="primaryTitle"
                     class="objective__form"
+                    required
                   />
                 </div>
+                <mat-error
+                  *ngIf="primaryTitle.get('primaryTitle').hasError('required')"
+                >
+                  必須入力です。
+                </mat-error>
+                <mat-error
+                  *ngIf="primaryTitle.get('primaryTitle').hasError('maxlength')"
+                >
+                  最大文字数は20文字です。
+                </mat-error>
               </ng-container>
             </div>
           </form>
@@ -116,6 +127,12 @@
                           autocomplete="off"
                           required
                         />
+                        <mat-error *ngIf="row.get('key').hasError('required')">
+                          必須入力です。
+                        </mat-error>
+                        <mat-error *ngIf="row.get('key').hasError('maxlength')">
+                          最大文字数は20文字です。
+                        </mat-error>
                       </td>
                       <td>
                         <input
@@ -134,6 +151,21 @@
                           required
                           maxlength="20"
                         />
+                        <mat-error
+                          *ngIf="row.get('target').hasError('required')"
+                        >
+                          必須入力です。
+                        </mat-error>
+                        <mat-error
+                          *ngIf="row.get('target').hasError('pattern')"
+                        >
+                          半角数値で入力してください。
+                        </mat-error>
+                        <mat-error
+                          *ngIf="row.get('target').hasError('maxlength')"
+                        >
+                          最大数は999までです。
+                        </mat-error>
                       </td>
                       <td>
                         <input
@@ -150,6 +182,21 @@
                           autocomplete="off"
                           required
                         />
+                        <mat-error
+                          *ngIf="row.get('current').hasError('required')"
+                        >
+                          必須入力です。
+                        </mat-error>
+                        <mat-error
+                          *ngIf="row.get('current').hasError('pattern')"
+                        >
+                          半角数値で入力してください。
+                        </mat-error>
+                        <mat-error
+                          *ngIf="row.get('current').hasError('maxlength')"
+                        >
+                          最大数は999までです。
+                        </mat-error>
                       </td>
                       <td>
                         <input

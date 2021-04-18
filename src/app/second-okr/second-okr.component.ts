@@ -1,6 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { firestore } from 'firebase';
 import { combineLatest, Observable } from 'rxjs';
@@ -41,6 +47,7 @@ export class SecondOkrComponent implements OnInit {
   isSecondOkr: boolean;
   secondOkr: SecondOkr;
   secondOkrKeyResultId: string;
+  secondOkrObjectsId = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -97,7 +104,10 @@ export class SecondOkrComponent implements OnInit {
 
   initSecondOkrObject(secondOkrObjectId: string, secondOkrObject: string) {
     this.secondOkrObjectTitle = this.fb.group({
-      primaryTitle: [secondOkrObject, [Validators.required]],
+      primaryTitle: [
+        secondOkrObject,
+        [Validators.required, Validators.maxLength(20)],
+      ],
     });
     this.secondOkrObjectTitles[secondOkrObjectId].push(
       this.secondOkrObjectTitle
@@ -123,9 +133,23 @@ export class SecondOkrComponent implements OnInit {
     const timeStamp = lastUpdated.toDate();
     const date = this.datepipe.transform(timeStamp, 'yyyy/MM/dd');
     this.row = this.fb.group({
-      key: [key, [Validators.required]],
-      target: [target, [Validators.required]],
-      current: [current, [Validators.required]],
+      key: [key, [Validators.required, Validators.maxLength(20)]],
+      target: [
+        target,
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+        ],
+      ],
+      current: [
+        current,
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+        ],
+      ],
       percentage: [percentage, [Validators.required]],
       lastUpdated: [date, [Validators.required]],
       secondOkrKeyResultId,
@@ -143,9 +167,23 @@ export class SecondOkrComponent implements OnInit {
 
   addRow(secondOkrObjectId: string) {
     this.row = this.fb.group({
-      key: ['', [Validators.required]],
-      target: ['', [Validators.required]],
-      current: ['', [Validators.required]],
+      key: ['', [Validators.required, Validators.maxLength(20)]],
+      target: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+        ],
+      ],
+      current: [
+        0,
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+        ],
+      ],
       percentage: [0 + '%', [Validators.required]],
       lastUpdated: ['', [Validators.required]],
     });
