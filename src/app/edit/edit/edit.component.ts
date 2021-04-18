@@ -24,6 +24,7 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 export class EditComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  objectiveEdit: number = 0;
 
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
   okrIscomplete: boolean;
@@ -84,12 +85,14 @@ export class EditComponent implements OnInit {
 
   removeOption(i: number) {
     this.primaries.removeAt(i);
+    this.objectiveEdit = this.objectiveEdit - 1;
   }
 
   addOptionForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
+    this.objectiveEdit = this.objectiveEdit + 1;
   }
 
   submit() {

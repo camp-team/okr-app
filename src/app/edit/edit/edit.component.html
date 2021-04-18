@@ -120,17 +120,17 @@
                     <mat-icon>remove</mat-icon>
                     削除
                   </button>
-                  <button
-                    *ngIf="i < 2"
-                    class="add-form second-step__addcontents"
-                    type="button"
-                    mat-raised-button
-                    (click)="addOptionForm()"
-                  >
-                    <mat-icon>add</mat-icon>
-                    追加
-                  </button>
                 </div>
+                <button
+                  *ngIf="objectiveEdit < 3"
+                  class="add-form second-step__addcontents"
+                  type="button"
+                  mat-raised-button
+                  (click)="addOptionForm()"
+                >
+                  <mat-icon>add</mat-icon>
+                  追加
+                </button>
               </div>
               <div class="second-step__action">
                 <button
