@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { OkrService } from 'src/app/services/okr.service';
 
@@ -12,7 +14,7 @@ export class OkrAchievementComponent implements OnInit {
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   secondOkr: boolean;
 
-  constructor(public okrService: OkrService) {}
+  constructor(public okrService: OkrService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.secondOkrs$.subscribe((secondOkrs) => {
@@ -25,6 +27,16 @@ export class OkrAchievementComponent implements OnInit {
           this.secondOkr = true;
         }
       });
+    });
+  }
+
+  deleteSecondOkr(secondOkrId) {
+    this.dialog.open(DeleteSecondOkrDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        secondOkrId: secondOkrId,
+      },
     });
   }
 }
