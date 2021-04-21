@@ -21,6 +21,9 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./okr-edit.component.scss'],
 })
 export class OkrEditComponent implements OnInit {
+  minDate: Date;
+  maxDate: Date;
+
   objectForm: number = 1;
 
   secondFormGroup: FormGroup;
@@ -61,7 +64,13 @@ export class OkrEditComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private tutorialService: TutorialService
-  ) {}
+  ) {
+    const currentYear = new Date().getFullYear();
+    const currentMouth = new Date().getMonth();
+    const currentDate = new Date().getDate();
+    this.minDate = new Date(currentYear - 0, currentMouth, currentDate);
+    this.maxDate = new Date(currentYear + 0, currentMouth + 3, currentDate);
+  }
 
   ngOnInit(): void {
     this.secondOkrs$.subscribe((secondOkrs) => {

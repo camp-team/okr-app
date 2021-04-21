@@ -129,54 +129,33 @@
                 (ngSubmit)="cleateSecondOkr()"
                 class="third-step__form"
               >
-                <div class="second-okr-callender">
-                  <mat-form-field class="third-step__field">
-                    <mat-label class="third-step__lavel">開始日</mat-label>
-
-                    <input
-                      matInput
-                      [matDatepickerFilter]="myFilter"
-                      formControlName="start"
-                      type="text"
-                      autocomplete="off"
-                      requireds
-                      [matDatepicker]="picker"
-                    />
-
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="startControl.hasError('required')"
-                      >必須入力です</mat-error
-                    >
-                  </mat-form-field>
-
-                  <br />
-                  <mat-form-field class="third-step__field">
-                    <mat-label class="third-step__lavel">終了日</mat-label>
-                    <input
-                      [matDatepickerFilter]="myFilter"
-                      formControlName="end"
-                      type="text"
-                      matInput
-                      autocomplete="off"
-                      required
-                      matInput
-                      [matDatepicker]="picker1"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker1"
-                    ></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error *ngIf="endControl.hasError('required')"
-                      >必須入力です</mat-error
-                    >
-                  </mat-form-field>
-                </div>
-                <div class="third-step__buttons"></div>
+                <mat-form-field appearance="fill" class="third-step__field">
+                  <mat-label class="third-step__lavel"
+                    >開始日と終了日の入力</mat-label
+                  >
+                  <mat-date-range-input
+                    [min]="minDate"
+                    [max]="maxDate"
+                    [formGroup]="form"
+                    [rangePicker]="picker"
+                  >
+                    <input matStartDate formControlName="start" />
+                    <input matEndDate formControlName="end" />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                  <mat-error
+                    *ngIf="form.controls.start.hasError('matStartDateInvalid')"
+                    >開始日を入力して下さい</mat-error
+                  >
+                  <mat-error
+                    *ngIf="form.controls.end.hasError('matEndDateInvalid')"
+                    >終了日を入力して下さい</mat-error
+                  >
+                </mat-form-field>
                 <button
                   mat-button
                   matStepperPrevious
