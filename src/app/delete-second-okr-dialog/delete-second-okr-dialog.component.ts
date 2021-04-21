@@ -40,7 +40,7 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
           this.snackBar.open('削除しました');
         });
     } catch (e) {
-      console.log('正常に削除されませんでした');
+      this.snackBar.open('正常に削除されませんでした');
     }
   }
 }
