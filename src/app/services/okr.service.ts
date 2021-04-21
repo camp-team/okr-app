@@ -242,7 +242,7 @@ export class OkrService {
       .toPromise()
       .then(() => {
         this.router.navigateByUrl('/manage/home');
-        this.snackBar.open('削除しました。', '');
+        this.snackBar.open('削除しました', '');
       });
     return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
   }
