@@ -13,7 +13,7 @@
             class="second-okr__object"
           >
             <ng-container [formGroupName]="primaryArrayIndex">
-              <input type="text" formControlName="primaryTitle" />
+              <input disabled type="text" formControlName="primaryTitle" />
             </ng-container>
           </div>
         </form>
@@ -22,11 +22,11 @@
             <table>
               <thead>
                 <tr>
-                  <th class="header-left">key</th>
-                  <th>target</th>
-                  <th>current</th>
-                  <th>percentage</th>
-                  <th class="header-right">lastUpdate</th>
+                  <th class="header-left">項目</th>
+                  <th>標的</th>
+                  <th>現在</th>
+                  <th>パーセント</th>
+                  <th class="header-right">更新日</th>
                 </tr>
               </thead>
 
@@ -47,6 +47,7 @@
                             row.value
                           )
                         "
+                        disabled
                         type="text"
                         formControlName="key"
                         autocomplete="off"
@@ -62,6 +63,7 @@
                             row.value
                           )
                         "
+                        disabled
                         type="text"
                         formControlName="target"
                         autocomplete="off"
@@ -77,6 +79,7 @@
                             row.value
                           )
                         "
+                        disabled
                         type="text"
                         formControlName="current"
                         autocomplete="off"
@@ -85,6 +88,7 @@
                     </td>
                     <td>
                       <input
+                        disabled
                         type="text"
                         formControlName="percentage"
                         autocomplete="off"
@@ -93,35 +97,27 @@
                     </td>
                     <td class="body-right">
                       <input
+                        disabled
                         type="text"
                         formControlName="lastUpdated"
                         autocomplete="off"
                         required
                       />
                     </td>
-                    <div
-                      class="second-okr__remove"
-                      type="button"
-                      (click)="removeRow(secondOkrObject.id, rowIndex)"
-                    >
-                      removeRow
-                    </div>
                   </ng-container>
                 </tr>
               </tbody>
             </table>
           </form>
         </div>
-        <div (click)="addRow(secondOkrObject.id)" class="second-okr__add-row">
-          ＋addRow
-        </div>
         <div class="second-okr__average">
-          <span class="second-okr__average-text">average</span
-          >{{
-            (secondOkrObject.average /
-              (rows[secondOkrObject.id].controls.length * 100)) *
-              100
-          }}%
+          <span class="second-okr__average-text">達成度</span>
+          <ng-container *ngIf="secondOkrObject.average === 0; else blank">
+            <span>{{ secondOkrObject.average }}%</span>
+          </ng-container>
+          <ng-template #blank>
+            <span>{{ secondOkrObject.average }}%</span>
+          </ng-template>
         </div>
       </div>
     </div>
