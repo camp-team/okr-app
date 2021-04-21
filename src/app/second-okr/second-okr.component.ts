@@ -1,12 +1,6 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { DatePipe, formatDate } from '@angular/common';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { firestore } from 'firebase';
 import { combineLatest, Observable } from 'rxjs';
@@ -50,6 +44,7 @@ export class SecondOkrComponent implements OnInit {
   secondOkrObjectsId = [];
 
   constructor(
+    @Inject(LOCALE_ID) private locale: string,
     private route: ActivatedRoute,
     public okrService: OkrService,
     private fb: FormBuilder,
@@ -166,6 +161,8 @@ export class SecondOkrComponent implements OnInit {
   }
 
   addRow(secondOkrObjectId: string) {
+    const now = new Date();
+    const date = formatDate(now, 'yyyy/MM/dd', this.locale);
     this.row = this.fb.group({
       key: ['', [Validators.required, Validators.maxLength(20)]],
       target: [
@@ -185,7 +182,7 @@ export class SecondOkrComponent implements OnInit {
         ],
       ],
       percentage: [0 + '%', [Validators.required]],
-      lastUpdated: ['', [Validators.required]],
+      lastUpdated: [date, [Validators.required]],
     });
     this.rows[secondOkrObjectId].push(this.row);
     const formData = this.row.value;
