@@ -30,13 +30,17 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
   }
 
   deleteSecondOkr() {
-    this.okrService.deleteSecondOkrDocument(this.data.secondOkrId);
-    const callable = this.fns.httpsCallable('deleteSecondOkr');
-    this.dialogRef.close();
-    return callable(this.data.secondOkrId)
-      .toPromise()
-      .then(() => {
-        this.snackBar.open('削除しました。');
-      });
+    try {
+      const callable = this.fns.httpsCallable('deleteSecondOkr');
+      this.okrService.deleteSecondOkrDocument(this.data.secondOkrId);
+      this.dialogRef.close();
+      return callable(this.data.secondOkrId)
+        .toPromise()
+        .then(() => {
+          this.snackBar.open('削除しました。');
+        });
+    } catch (e) {
+      console.log('正常に削除されませんでした。');
+    }
   }
 }
