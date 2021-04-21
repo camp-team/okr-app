@@ -145,14 +145,14 @@ export class TutorialService {
       ),
       this.getTutorialStep(
         '2つ目のOKR作成するよ！',
-        'KeyResults(目標達成のための成果指標)を参考にして目標を作成しよう！',
+        '1つ目のOKRで作成した、KeyResults(目標達成のための成果指標)を参考にして目標を作成しよう！',
         'each',
         '.second-okr-form',
         'bottom'
       ),
       this.getTutorialStep(
         '2つ目のOKR作成するよ！',
-        'ここでフォームを追加できるよ！',
+        'ここで目標を追加できるよ！',
         'last',
         '.add-form',
         'bottom'
@@ -251,7 +251,7 @@ export class TutorialService {
       ),
       this.getTutorialStep(
         '作業管理画面だよ！',
-        '達成率が自動で更新されるよ！',
+        '達成率は自動で更新されるよ！',
         'each',
         '.percent',
         'bottom'
