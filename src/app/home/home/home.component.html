@@ -25,14 +25,27 @@
         <ng-container *ngFor="let okr of okrs$ | async">
           <app-okr *ngIf="okr.isComplete" [okr]="okr"></app-okr>
         </ng-container>
-        <a
-          mat-raised-button
-          color="primary"
-          routerLink="/manage/okr-edit"
-          class="start-second-okr-edit home__create-second-okr"
-        >
-          2つ目のOKRを作成する。
-        </a>
+        <ng-container *ngIf="secondOkrId; else notSecondOkrId">
+          <a
+            mat-raised-button
+            color="primary"
+            routerLink="/manage/home/secondOkr"
+            [queryParams]="{ v: secondOkrId }"
+            class="start-second-okr-edit home__create-second-okr"
+          >
+            進行中のOKRにすすむ
+          </a>
+        </ng-container>
+        <ng-template #notSecondOkrId>
+          <a
+            mat-raised-button
+            color="primary"
+            routerLink="/manage/okr-edit"
+            class="start-second-okr-edit home__create-second-okr"
+          >
+            2つ目のOKRを作成する
+          </a>
+        </ng-template>
       </ng-container>
     </div>
   </div>

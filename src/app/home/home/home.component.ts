@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
 import { ShepherdService } from 'angular-shepherd';
 import { TutorialService } from 'src/app/services/tutorial.service';
+import { SecondOkr } from 'src/app/interfaces/second-okr';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,9 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 })
 export class HomeComponent implements OnInit {
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   okr: boolean;
+  secondOkrId: string;
 
   constructor(
     public okrService: OkrService,
@@ -43,6 +46,19 @@ export class HomeComponent implements OnInit {
       } else {
         this.okr = true;
       }
+    });
+    this.secondOkr();
+  }
+
+  secondOkr() {
+    this.secondOkrs$.subscribe((secondOkrs) => {
+      secondOkrs.forEach((secondOkr) => {
+        if (secondOkr.isComplete) {
+          this.secondOkrId = secondOkr.id;
+        } else {
+          return null;
+        }
+      });
     });
   }
 
