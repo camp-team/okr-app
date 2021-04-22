@@ -40,11 +40,11 @@
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item routerLink="/manage/edit">
             <mat-icon>edit</mat-icon>
-            <span>1つ目のOKRの入力</span>
+            <span>1番目のOKRの入力</span>
           </button>
           <button mat-menu-item routerLink="/manage/okr-edit">
             <mat-icon>edit</mat-icon>
-            <span>2つ目のOKRの入力</span>
+            <span>2番目のOKRの入力</span>
           </button>
           <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
             <mat-icon>login</mat-icon>
