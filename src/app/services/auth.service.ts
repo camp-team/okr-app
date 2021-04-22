@@ -17,8 +17,12 @@ export class AuthService {
   initialLogin: boolean;
   afUser$: Observable<firebase.User> = this.afAuth.user.pipe(
     map((user) => {
-      this.uid = user.uid;
-      return user;
+      if (user) {
+        this.uid = user.uid;
+        return user;
+      } else {
+        return null;
+      }
     })
   );
   user$: Observable<User> = this.afAuth.authState.pipe(
@@ -52,7 +56,6 @@ export class AuthService {
         this.initialLogin = true;
       }
       this.loadingService.loading = true;
-      this.router.navigateByUrl('/manage/home');
       this.snackBar.open('ログインしました', null, {
         duration: 2000,
       });
