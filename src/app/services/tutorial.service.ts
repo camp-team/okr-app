@@ -202,7 +202,7 @@ export class TutorialService {
       ),
       this.getTutorialStep(
         'OKR管理画面です！',
-        '次は2つ目のOKRを作成しよう！',
+        '次は2番目のOKRを作成しよう！',
         'last',
         '.start-second-okr-edit',
         'bottom'
