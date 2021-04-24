@@ -5,9 +5,10 @@
       <div class="okr__objective-wrapper">
         <input
           class="okr__objective"
-          (keyup)="updateObjective(form.value.Objective)"
+          (keyup)="updateObjective(form.value.objective)"
           type="text"
           formControlName="objective"
+          autocomplete="off"
         />
         <mat-error *ngIf="objectiveContoroll.hasError('required')">
           必須入力です。
@@ -43,6 +44,7 @@
             (keyup)="updateKeyResult(primary.id, keyResults[primary.id].value)"
             type="text"
             formControlName="key"
+            autocomplete="off"
           />
           <mat-error *ngIf="KeyResult.get('key').hasError('required')">
             必須入力です。
