@@ -11,6 +11,9 @@
 .achieve {
   padding-top: 24px;
   text-align: center;
+  &__main {
+    margin-bottom: 24px;
+  }
   &__secondOkr {
     display: flex;
     justify-content: center;
@@ -38,6 +41,11 @@
     margin: 0;
     width: inherit;
     cursor: pointer;
+  }
+  &__action a {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
   }
 }
 
