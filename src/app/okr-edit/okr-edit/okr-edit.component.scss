@@ -224,6 +224,9 @@
 }
 
 .second-step {
+  &__form {
+    padding-bottom: 24px;
+  }
   &__header {
     padding: 56px 0 0 84px;
     color: rgba(0, 0, 0, 0.54);
@@ -293,7 +296,6 @@
   &__next {
     width: 120px;
     height: 40px;
-    margin-top: 40px;
     &:hover {
       background-color: #9e9e9e;
     }

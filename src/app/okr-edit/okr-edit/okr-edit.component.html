@@ -39,9 +39,12 @@
                   </mat-icon>
                 </span>
               </p>
-              <form [formGroup]="form" class="second-step__form">
+              <form [formGroup]="form">
                 <div formArrayName="primaries">
-                  <div *ngFor="let option of primaries.controls; let i = index">
+                  <div
+                    *ngFor="let option of primaries.controls; let i = index"
+                    class="second-step__form"
+                  >
                     <mat-form-field class="second-okr-form second-step__field">
                       <mat-label class="second-step__lavel">
                         目標を入力 {{ i + 1 }}つ目
