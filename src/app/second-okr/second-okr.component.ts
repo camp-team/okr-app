@@ -84,6 +84,7 @@ export class SecondOkrComponent implements OnInit {
       } else {
         this.isSecondOkr = true;
       }
+      this.ngAfterViewInit();
       secondOkrs.map((secondOkr) => {
         this.isComplete = secondOkr.isComplete;
         this.isCompletes.push(this.isComplete);
@@ -110,7 +111,7 @@ export class SecondOkrComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (this.tutorialService.tutorial) {
+    if (this.tutorialService.tutorial && this.isSecondOkr) {
       this.tutorialService.secondOkrTutorial();
       this.tutorialService.tutorial = false;
     }
