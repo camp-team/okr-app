@@ -65,7 +65,7 @@ export class AuthService {
   logout() {
     this.afAuth.signOut().then(() => {
       this.snackBar.open('ログアウトしました', null);
+      this.router.navigateByUrl('/about');
     });
-    this.router.navigateByUrl('/about');
   }
 }
