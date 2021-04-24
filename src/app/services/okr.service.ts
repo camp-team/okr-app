@@ -154,6 +154,12 @@ export class OkrService {
       .valueChanges();
   }
 
+  getSecondOkrCollection(): Observable<SecondOkr[]> {
+    return this.db
+      .collection<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs`)
+      .valueChanges();
+  }
+
   getSecondOkrId(): Observable<SecondOkr[]> {
     return this.db
       .collection<SecondOkr>(

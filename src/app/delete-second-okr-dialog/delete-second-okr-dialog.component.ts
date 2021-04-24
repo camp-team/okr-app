@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
@@ -19,7 +18,6 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
     private okrService: OkrService,
     private fns: AngularFireFunctions,
     private dialogRef: MatDialogRef<DeleteSecondOkrDialogComponent>,
-    private authService: AuthService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -38,6 +36,13 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
         .toPromise()
         .then(() => {
           this.snackBar.open('削除しました');
+          this.okrService
+            .getSecondOkrCollection()
+            .subscribe((SecondOkrCollection) => {
+              if (!SecondOkrCollection.length) {
+                location.reload();
+              }
+            });
         });
     } catch (e) {
       this.snackBar.open('正常に削除されませんでした');
