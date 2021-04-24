@@ -21,26 +21,48 @@
       </svg>
     </div>
     <ng-container *ngIf="secondOkr; else blank">
-      <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
-        <ng-container *ngIf="!secondOkr.isComplete">
-          <div class="achieve__secondOkr">
-            <a
-              [routerLink]="['/manage/complete']"
-              [queryParams]="{ v: secondOkr.id }"
-              class="achieve__calendar"
-            >
-              📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-                secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
-              }}
-            </a>
-            <a (click)="deleteSecondOkr(secondOkr.id)" class="achieve__delete">
-              <mat-icon>
-                delete_outline
-              </mat-icon>
-            </a>
-          </div>
+      <div class="achieve__main">
+        <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
+          <ng-container *ngIf="!secondOkr.isComplete">
+            <div class="achieve__secondOkr">
+              <a
+                [routerLink]="['/manage/complete']"
+                [queryParams]="{ v: secondOkr.id }"
+                class="achieve__calendar"
+              >
+                📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
+                  secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
+                }}
+              </a>
+              <a
+                (click)="deleteSecondOkr(secondOkr.id)"
+                class="achieve__delete"
+              >
+                <mat-icon>
+                  delete_outline
+                </mat-icon>
+              </a>
+            </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
+      <div class="achieve__action">
+        <ng-container *ngIf="secondOkrId; else createSecondOkr">
+          <a
+            color="primary"
+            mat-raised-button
+            routerLink="/manage/home/secondOkr"
+            [queryParams]="{ v: secondOkrId }"
+          >
+            進行中のOKRに進む
+          </a>
+        </ng-container>
+        <ng-template #createSecondOkr>
+          <a color="primary" mat-raised-button routerLink="/manage/okr-edit">
+            2番目のOKRを作成する
+          </a>
+        </ng-template>
+      </div>
     </ng-container>
   </div>
 </div>
@@ -59,6 +81,11 @@
           進行中のOKRを達成する必要があります
         </span>
       </p>
+    </div>
+    <div class="achieve__action">
+      <a mat-raised-button color="primary" routerLink="/manage/okr-edit">
+        2番目のOKRを作成する
+      </a>
     </div>
   </div>
 </ng-template>

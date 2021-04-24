@@ -13,6 +13,7 @@ import { OkrService } from 'src/app/services/okr.service';
 export class OkrAchievementComponent implements OnInit {
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   secondOkr: boolean;
+  secondOkrId: string;
 
   constructor(public okrService: OkrService, private dialog: MatDialog) {}
 
@@ -23,6 +24,7 @@ export class OkrAchievementComponent implements OnInit {
           this.secondOkr = false;
         } else if (secondOkr.isComplete === true) {
           this.secondOkr = false;
+          this.secondOkrId = secondOkr.id;
         } else if (secondOkr.isComplete === false) {
           this.secondOkr = true;
         }
