@@ -168,7 +168,7 @@ export class TutorialService {
       this.getTutorialStep(
         '2つ目のOKR作成するよ！！',
         '始める日付と終わりの日付を入力しよう！',
-        'each',
+        'first',
         '.second-okr-callender',
         'bottom'
       ),
