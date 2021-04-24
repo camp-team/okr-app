@@ -77,7 +77,7 @@ export class OkrComponent implements OnInit {
     this.okrService.updateOkr(this.authService.uid, this.okr.id, objective);
   }
 
-  updateKeyResult(keyResultId, keyResultTitle: Primary) {
+  updateKeyResult(keyResultId: string, keyResultTitle: Primary) {
     this.okrService.updatePrimary(
       this.authService.uid,
       this.okr.id,
