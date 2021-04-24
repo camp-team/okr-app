@@ -153,6 +153,9 @@
                     [for]="picker"
                   ></mat-datepicker-toggle>
                   <mat-date-range-picker #picker></mat-date-range-picker>
+                  <mat-error *ngIf="form.controls.start.hasError('required')"
+                    >必須入力です</mat-error
+                  >
                   <mat-error
                     *ngIf="form.controls.start.hasError('matStartDateInvalid')"
                     >開始日を入力して下さい</mat-error
