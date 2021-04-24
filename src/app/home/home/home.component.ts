@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     public okrService: OkrService,
     private authService: AuthService,
     private dialog: MatDialog,
-    private tutorialServide: TutorialService
+    private tutorialService: TutorialService
   ) {
     this.isInitLogin();
   }
@@ -63,8 +63,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit(num: number) {
-    if (this.tutorialServide.tutorial) {
-      this.tutorialServide.startOkrTutorial();
+    if (this.tutorialService.tutorial) {
+      this.tutorialService.startOkrTutorial();
+      this.tutorialService.tutorial = false;
     }
   }
 }
