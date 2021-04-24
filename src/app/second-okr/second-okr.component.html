@@ -43,6 +43,7 @@
                         primaryTitle.value.primaryTitle
                       )
                     "
+                    placeholder="記入例) 技術者として売れる"
                     type="text"
                     formControlName="primaryTitle"
                     class="objective__form"
@@ -122,13 +123,22 @@
                               rows[secondOkrObject.id].controls.length
                             )
                           "
+                          placeholder="記入例) 記事を10記事投稿"
                           type="text"
                           formControlName="key"
                           autocomplete="off"
-                          required
                         />
                         <mat-error *ngIf="row.get('key').hasError('required')">
-                          必須入力です。
+                          <span
+                            [hidden]="
+                              !(
+                                row.get('key').errors?.required &&
+                                row.get('key').dirty
+                              )
+                            "
+                          >
+                            必須入力です。
+                          </span>
                         </mat-error>
                         <mat-error *ngIf="row.get('key').hasError('maxlength')">
                           最大文字数は20文字です。
@@ -144,6 +154,7 @@
                               rows[secondOkrObject.id].controls.length
                             )
                           "
+                          placeholder="記入例) 10"
                           name="target"
                           type="text"
                           formControlName="target"
@@ -154,7 +165,16 @@
                         <mat-error
                           *ngIf="row.get('target').hasError('required')"
                         >
-                          必須入力です。
+                          <span
+                            [hidden]="
+                              !(
+                                row.get('target').errors?.required &&
+                                row.get('target').dirty
+                              )
+                            "
+                          >
+                            必須入力です。
+                          </span>
                         </mat-error>
                         <mat-error
                           *ngIf="row.get('target').hasError('pattern')"
