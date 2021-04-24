@@ -1,16 +1,6 @@
 <app-intl-header></app-intl-header>
 
 <mat-sidenav-container class="intl">
-  <mat-sidenav
-    class="sidenav"
-    #sidenav
-    fixedInViewport
-    [fixedTopGap]="64"
-    [opened]="opened$ | async"
-  >
-    <app-sidenavigation></app-sidenavigation>
-  </mat-sidenav>
-
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
