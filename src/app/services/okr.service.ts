@@ -86,17 +86,17 @@ export class OkrService {
   }
 
   createSecondOkrObject(secondOkrObject: string, secondOkrId: string) {
-    const id = this.db.createId();
+    const secondOkrObjectId = this.db.createId();
     const value: SecondOkrObject = {
       secondOkrObject: secondOkrObject,
       secondOkrId: secondOkrId,
       average: 0,
       uid: this.authsearvice.uid,
-      id,
+      secondOkrObjectId,
     };
     return this.db
       .doc<SecondOkrObject>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${id}`
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
       )
       .set(value);
   }

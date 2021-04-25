@@ -59,10 +59,12 @@ export class SecondOkrComponent implements OnInit {
       .subscribe(([secondOkrObjects, secondOkrKeyResults]) => {
         secondOkrObjects.forEach((secondOkrObject) => {
           this.secondOkrObjects.push(secondOkrObject);
-          this.rows[secondOkrObject.id] = this.fb.array([]);
-          this.secondOkrObjectTitles[secondOkrObject.id] = this.fb.array([]);
+          this.rows[secondOkrObject.secondOkrObjectId] = this.fb.array([]);
+          this.secondOkrObjectTitles[
+            secondOkrObject.secondOkrObjectId
+          ] = this.fb.array([]);
           this.initSecondOkrObject(
-            secondOkrObject.id,
+            secondOkrObject.secondOkrObjectId,
             secondOkrObject.secondOkrObject
           );
         });
@@ -240,7 +242,7 @@ export class SecondOkrComponent implements OnInit {
         }
       }
       const secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'> = {
-        id: secondOkrObjectId,
+        secondOkrObjectId: secondOkrObjectId,
         average: Math.round((average / (rowLength * 100)) * 100),
         uid: this.authService.uid,
       };

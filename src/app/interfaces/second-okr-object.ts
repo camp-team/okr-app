@@ -1,5 +1,5 @@
 export interface SecondOkrObject {
-  id: string;
+  secondOkrObjectId: string;
   uid: string;
   secondOkrObject: string;
   secondOkrId?: string;

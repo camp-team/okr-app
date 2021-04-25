@@ -24,11 +24,16 @@
       <app-second-okr-title></app-second-okr-title>
       <div class="data">
         <div *ngFor="let secondOkrObject of secondOkrObjects; let i = index">
-          <form [formGroup]="secondOkrObjectTitles[secondOkrObject.id]">
+          <form
+            [formGroup]="
+              secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]
+            "
+          >
             <div
               *ngFor="
-                let primaryTitle of secondOkrObjectTitles[secondOkrObject.id]
-                  .controls;
+                let primaryTitle of secondOkrObjectTitles[
+                  secondOkrObject.secondOkrObjectId
+                ].controls;
                 index as primaryArrayIndex
               "
               class="second-okr__object"
@@ -64,7 +69,7 @@
             </div>
           </form>
           <div class="second-okr__table">
-            <form [formGroup]="rows[secondOkrObject.id]">
+            <form [formGroup]="rows[secondOkrObject.secondOkrObjectId]">
               <table>
                 <thead>
                   <tr>
@@ -108,7 +113,8 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let row of rows[secondOkrObject.id].controls;
+                      let row of rows[secondOkrObject.secondOkrObjectId]
+                        .controls;
                       index as rowIndex
                     "
                   >
@@ -117,10 +123,11 @@
                         <input
                           (keyup)="
                             updateSecondOkrKeyResult(
-                              secondOkrObject.id,
+                              secondOkrObject.secondOkrObjectId,
                               row.value.secondOkrKeyResultId,
                               row.value,
-                              rows[secondOkrObject.id].controls.length
+                              rows[secondOkrObject.secondOkrObjectId].controls
+                                .length
                             )
                           "
                           placeholder="記入例) 記事を10記事投稿"
@@ -148,10 +155,11 @@
                         <input
                           (keyup)="
                             updateSecondOkrKeyResult(
-                              secondOkrObject.id,
+                              secondOkrObject.secondOkrObjectId,
                               row.value.secondOkrKeyResultId,
                               row.value,
-                              rows[secondOkrObject.id].controls.length
+                              rows[secondOkrObject.secondOkrObjectId].controls
+                                .length
                             )
                           "
                           placeholder="記入例) 10"
@@ -191,10 +199,11 @@
                         <input
                           (keyup)="
                             updateSecondOkrKeyResult(
-                              secondOkrObject.id,
+                              secondOkrObject.secondOkrObjectId,
                               row.value.secondOkrKeyResultId,
                               row.value,
-                              rows[secondOkrObject.id].controls.length
+                              rows[secondOkrObject.secondOkrObjectId].controls
+                                .length
                             )
                           "
                           placeholder="記入例) 3"
@@ -238,15 +247,17 @@
                       <div
                         class="second-okr__remove"
                         type="button"
-                        (click)="removeRow(secondOkrObject.id, rowIndex)"
+                        (click)="
+                          removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
+                        "
                       >
                         ➖削除
                       </div>
                     </ng-container>
                   </tr>
                   <div
-                    *ngIf="rows[secondOkrObject.id].length < 3"
-                    (click)="addRow(secondOkrObject.id)"
+                    *ngIf="rows[secondOkrObject.secondOkrObjectId].length < 3"
+                    (click)="addRow(secondOkrObject.secondOkrObjectId)"
                     class="add-row second-okr__add-row"
                   >
                     ➕追加
