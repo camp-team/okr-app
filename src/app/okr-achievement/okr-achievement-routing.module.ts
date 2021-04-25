@@ -10,7 +10,7 @@ const routes: Routes = [
     component: OkrAchievementComponent,
   },
   {
-    path: ':id',
+    path: ':secondOkrId',
     component: CompleteOkrComponent,
   },
 ];
