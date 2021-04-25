@@ -4,7 +4,7 @@ export interface SecondOkrKeyResult {
   secondOkrId: string;
   secondOkrObjectId: string;
   uid: string;
-  id?: string;
+  secondOkrKeyResultId?: string;
   key: string;
   target: number;
   current: number;

@@ -76,7 +76,7 @@ export class SecondOkrComponent implements OnInit {
             secondOkrKeyResult.percentage,
             secondOkrKeyResult.lastUpdated,
             secondOkrKeyResult.secondOkrObjectId,
-            secondOkrKeyResult.id
+            secondOkrKeyResult.secondOkrKeyResultId
           );
         });
       });
@@ -189,7 +189,10 @@ export class SecondOkrComponent implements OnInit {
     });
     this.rows[secondOkrObjectId].push(this.row);
     const formData = this.row.value;
-    const subTaskValue: Omit<SecondOkrKeyResult, 'id' | 'lastUpdated'> = {
+    const subTaskValue: Omit<
+      SecondOkrKeyResult,
+      'secondOkrKeyResultId' | 'lastUpdated'
+    > = {
       secondOkrObjectId,
       secondOkrId: this.secondOkrId,
       key: formData.key,
@@ -278,7 +281,7 @@ export class SecondOkrComponent implements OnInit {
       .getSecondOkrKeyResultId(this.secondOkrId)
       .subscribe((secondOkrKeyResults) => {
         secondOkrKeyResults.forEach((secondOkrKeyResult) => {
-          this.secondOkrKeyResultId = secondOkrKeyResult.id;
+          this.secondOkrKeyResultId = secondOkrKeyResult.secondOkrKeyResultId;
         });
       });
     if (secondOkrKeyResultId) {
@@ -307,7 +310,7 @@ export class SecondOkrComponent implements OnInit {
     this.okrService.updateSecondOkrPrimaryTitle(
       this.authService.uid,
       this.secondOkrId,
-      secondOkrObject.id,
+      secondOkrObject.secondOkrObjectId,
       secondOkrObjects
     );
   }

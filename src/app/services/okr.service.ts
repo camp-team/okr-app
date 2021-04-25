@@ -119,17 +119,20 @@ export class OkrService {
   }
 
   createSecondOkrKeyResult(
-    secondOkrKeyResult: Omit<SecondOkrKeyResult, 'id' | 'lastUpdated'>,
+    secondOkrKeyResult: Omit<
+      SecondOkrKeyResult,
+      'secondOkrKeyResultId' | 'lastUpdated'
+    >,
     secondOkrObjectId: string,
     secondOkrId: string
   ) {
-    const id = this.db.createId();
+    const secondOkrKeyResultId = this.db.createId();
     return this.db
       .doc<SecondOkrKeyResult>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${id}`
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
       )
       .set({
-        id,
+        secondOkrKeyResultId,
         lastUpdated: firestore.Timestamp.now(),
         ...secondOkrKeyResult,
       });
@@ -373,6 +376,8 @@ export class OkrService {
     secondOkrKeyResultId: string,
     secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'>
   ): Promise<void> {
+    console.log(secondOkrKeyResultId);
+
     return this.db
       .doc(
         `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
