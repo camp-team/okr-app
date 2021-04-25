@@ -174,17 +174,19 @@ export class OkrService {
       .valueChanges();
   }
 
-  getSecondOkrObjects(id: string): Observable<SecondOkrObject[]> {
+  getSecondOkrObjects(secondOkrId: string): Observable<SecondOkrObject[]> {
     return this.db
       .collection<SecondOkrObject>(
-        `users/${this.authsearvice.uid}/secondOkrs/${id}/secondOkrObjects`
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects`
       )
       .valueChanges();
   }
 
-  getSecondOkr(id: string): Observable<SecondOkr> {
+  getSecondOkr(secondOkrId: string): Observable<SecondOkr> {
     return this.db
-      .doc<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs/${id}`)
+      .doc<SecondOkr>(
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}`
+      )
       .valueChanges();
   }
 
@@ -295,7 +297,7 @@ export class OkrService {
       | 'primaries'
       | 'start'
       | 'end'
-      | 'CreatorId'
+      | 'creatorId'
       | 'title'
       | 'isComplete'
     >
