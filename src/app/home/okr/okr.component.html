@@ -35,14 +35,25 @@
     <p class="okr__content">
       Key Result(目標達成のための成果指標) :
     </p>
-    <div class="okr__keyResult-container" [formGroup]="keyResults[primary.id]">
+    <div
+      class="okr__keyResult-container"
+      [formGroup]="keyResults[primary.primaryId]"
+    >
       <ng-container
-        *ngFor="let KeyResult of keyResults[primary.id].controls; index as i"
+        *ngFor="
+          let KeyResult of keyResults[primary.primaryId].controls;
+          index as i
+        "
       >
         <div [formGroupName]="i">
           <input
             class="okr__keyResult"
-            (keyup)="updateKeyResult(primary.id, keyResults[primary.id].value)"
+            (keyup)="
+              updateKeyResult(
+                primary.primaryId,
+                keyResults[primary.primaryId].value
+              )
+            "
             type="text"
             formControlName="key"
             autocomplete="off"
