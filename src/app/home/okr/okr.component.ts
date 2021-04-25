@@ -39,7 +39,7 @@ export class OkrComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.primaries$ = this.okrService.getPrimaries(this.okr.id);
+    this.primaries$ = this.okrService.getPrimaries(this.okr.okrId);
     this.objective();
     this.keyResultfa();
   }
@@ -59,28 +59,28 @@ export class OkrComponent implements OnInit {
   }
 
   keyResultfa() {
-    this.okrService.getPrimaries(this.okr.id).subscribe((primaries) => {
+    this.okrService.getPrimaries(this.okr.okrId).subscribe((primaries) => {
       primaries.forEach((primary) => {
-        this.keyResults[primary.id] = this.fb.array([]);
+        this.keyResults[primary.primaryId] = this.fb.array([]);
         this.keyResult = this.fb.group({
           key: [
             primary.primaryTitle,
             [Validators.required, Validators.maxLength(20)],
           ],
         });
-        this.keyResults[primary.id].push(this.keyResult);
+        this.keyResults[primary.primaryId].push(this.keyResult);
       });
     });
   }
 
   updateObjective(objective) {
-    this.okrService.updateOkr(this.authService.uid, this.okr.id, objective);
+    this.okrService.updateOkr(this.authService.uid, this.okr.okrId, objective);
   }
 
   updateKeyResult(keyResultId: string, keyResultTitle: Primary) {
     this.okrService.updatePrimary(
       this.authService.uid,
-      this.okr.id,
+      this.okr.okrId,
       keyResultId,
       keyResultTitle[0].key
     );
@@ -89,7 +89,7 @@ export class OkrComponent implements OnInit {
   okrComplete(okrId: string) {
     const okrValue: Omit<
       Okr,
-      | 'id'
+      | 'okrId'
       | 'primaries'
       | 'start'
       | 'end'
@@ -108,7 +108,7 @@ export class OkrComponent implements OnInit {
       autoFocus: false,
       restoreFocus: false,
       data: {
-        okrId: this.okr.id,
+        okrId: this.okr.okrId,
       },
     });
   }

@@ -26,38 +26,38 @@ export class OkrService {
   ) {}
 
   createOkr(
-    okr: Omit<Okr, 'id' | 'isComplete'>,
+    okr: Omit<Okr, 'okrId' | 'isComplete'>,
     primaries: string[],
     uid: string
   ): Promise<void> {
-    const id = this.db.createId();
+    const okrId = this.db.createId();
     const isComplete = true;
     return this.db
-      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
+      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
       .set({
-        id,
+        okrId,
         isComplete,
         ...okr,
       })
       .then(() => {
         primaries.forEach((primary) => {
-          this.createPrimary(primary, id, uid);
+          this.createPrimary(primary, okrId, uid);
         });
       });
   }
 
   createPrimary(primary: string, okrId: string, uid: string) {
-    const id = this.db.createId();
+    const primaryId = this.db.createId();
     const value: Primary = {
       primaryTitle: primary,
       okrId: okrId,
       uid,
       average: 0,
-      id,
+      primaryId,
     };
     return this.db
       .doc<Primary>(
-        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${id}`
+        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}`
       )
       .set(value);
   }
@@ -286,7 +286,7 @@ export class OkrService {
     okrId: string,
     okr: Omit<
       Okr,
-      | 'id'
+      | 'okrId'
       | 'primaries'
       | 'start'
       | 'end'

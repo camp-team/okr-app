@@ -31,7 +31,7 @@ export class DeleteAccountDialogComponent implements OnInit {
   ngOnInit(): void {
     this.Okrs$.subscribe((okrs) => {
       okrs.forEach((okr) => {
-        this.okrId = okr.id;
+        this.okrId = okr.okrId;
       });
     });
   }

@@ -4,7 +4,7 @@ export interface Okr {
   start?: firestore.Timestamp;
   end?: firestore.Timestamp;
   CreatorId: string;
-  id: string;
+  okrId: string;
   title: string;
   isComplete: boolean;
 }

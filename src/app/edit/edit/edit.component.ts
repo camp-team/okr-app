@@ -97,7 +97,7 @@ export class EditComponent implements OnInit {
 
   submit() {
     const formData = this.form.value;
-    const okrValue: Omit<Okr, 'id' | 'isComplete'> = {
+    const okrValue: Omit<Okr, 'okrId' | 'isComplete'> = {
       title: formData.title,
       primaries: formData.primaries,
       CreatorId: this.authService.uid,
