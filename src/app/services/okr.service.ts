@@ -144,9 +144,9 @@ export class OkrService {
       .valueChanges();
   }
 
-  getOkr(id: string): Observable<Okr> {
+  getOkr(okrId: string): Observable<Okr> {
     return this.db
-      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${id}`)
+      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
       .valueChanges();
   }
 
