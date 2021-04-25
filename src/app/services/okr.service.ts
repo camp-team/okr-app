@@ -63,22 +63,24 @@ export class OkrService {
   }
 
   createSecondOkr(
-    secondOkr: Omit<SecondOkr, 'id' | 'isComplete'>,
+    secondOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete'>,
     secondOkrObjects: string[]
   ): Promise<void> {
-    const id = this.db.createId();
+    const secondOkrId = this.db.createId();
     const isComplete = true;
     return this.db
-      .doc<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs/${id}`)
+      .doc<SecondOkr>(
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}`
+      )
       .set({
-        id,
+        secondOkrId,
         isComplete,
         ...secondOkr,
       })
       .then(() => {
         secondOkrObjects.forEach((secondOkrObject) => {
           const average = 0;
-          this.createSecondOkrObject(secondOkrObject, id);
+          this.createSecondOkrObject(secondOkrObject, secondOkrId);
         });
       });
   }

@@ -53,7 +53,7 @@ export class OkrEditComponent implements OnInit {
 
   cleateOKR() {
     const formData = this.form.value;
-    const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
+    const okrValue: Omit<SecondOkr, 'secondOkrId' | 'isComplete'> = {
       start: formData.start,
       end: formData.end,
       creatorId: this.authService.uid,
@@ -65,7 +65,7 @@ export class OkrEditComponent implements OnInit {
         secondOkrs.forEach((secondOkr) => {
           this.snackBar.open('作成しました', null);
           this.router.navigate(['manage/home/secondOkr'], {
-            queryParams: { v: secondOkr.id },
+            queryParams: { v: secondOkr.secondOkrId },
           });
         });
       });

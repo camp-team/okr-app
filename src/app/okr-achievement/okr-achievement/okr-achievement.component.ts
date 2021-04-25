@@ -24,7 +24,7 @@ export class OkrAchievementComponent implements OnInit {
           this.secondOkr = false;
         } else if (secondOkr.isComplete === true) {
           this.secondOkr = false;
-          this.secondOkrId = secondOkr.id;
+          this.secondOkrId = secondOkr.secondOkrId;
         } else if (secondOkr.isComplete === false) {
           this.secondOkr = true;
         }

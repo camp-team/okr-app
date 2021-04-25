@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     this.secondOkrs$.subscribe((secondOkrs) => {
       secondOkrs.forEach((secondOkr) => {
         if (secondOkr.isComplete) {
-          this.secondOkrId = secondOkr.id;
+          this.secondOkrId = secondOkr.secondOkrId;
         } else {
           return null;
         }

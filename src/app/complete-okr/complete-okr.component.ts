@@ -126,7 +126,7 @@ export class CompleteOkrComponent implements OnInit {
   okrId() {
     this.secondOkr$.subscribe((secondOkr) => {
       secondOkr.forEach((secondOkr) => {
-        secondOkr.id;
+        secondOkr.secondOkrId;
       });
     });
   }
