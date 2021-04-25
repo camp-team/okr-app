@@ -107,10 +107,6 @@ export class EditComponent implements OnInit {
       .createOkr(okrValue, primaryArray, this.authService.uid)
       .then(() => {
         this.router.navigateByUrl('manage/home');
-        // this.dialog.open(CreateFirstOkrDialogComponent, {
-        //   autoFocus: false,
-        //   restoreFocus: false,
-        // });
       });
   }
 }
