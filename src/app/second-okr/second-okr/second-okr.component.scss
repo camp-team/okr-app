@@ -1,0 +1,155 @@
+@import 'variables';
+@import 'mixins';
+
+.objective {
+  display: flex;
+  &__title {
+    width: 150px;
+  }
+  &__form {
+    margin: 0;
+    width: 400px;
+    background-color: inherit;
+    font-size: 20px;
+    @include sm {
+      padding-bottom: 12px;
+    }
+  }
+}
+
+mat-error {
+  display: block;
+  padding-left: 120px;
+  font-size: 12px;
+}
+
+.container {
+  @include sm {
+    padding: 0 16px;
+  }
+}
+
+.second-okr {
+  padding-top: 24px;
+  margin: 0 96px 0;
+  height: 100%;
+  @include sm {
+    margin: 0;
+    padding: 30px 0;
+  }
+}
+
+.data {
+  overflow-x: auto;
+}
+
+.second-okr {
+  th,
+  td {
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.36);
+    color: rgba(0, 0, 0, 0.36);
+    font-weight: 300;
+    min-width: 160px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    @include md {
+      max-width: 1000px;
+    }
+  }
+  input {
+    width: 98%;
+    height: 100%;
+    border-style: none;
+  }
+  .header-right,
+  .body-right {
+    border-right-style: none;
+  }
+  .header-left,
+  .body-left {
+    border-left-style: none;
+  }
+  &__title {
+    display: flex;
+    margin: 0 0 0 0;
+    padding-bottom: 36px;
+    justify-content: center;
+    font-size: 30px;
+    @include sm {
+      font-size: 24px;
+      letter-spacing: 2px;
+      font-weight: 500;
+      padding-bottom: 24px;
+      margin: 0;
+    }
+  }
+  &__title-content {
+    font-size: 30px;
+    margin: 0;
+  }
+  &__add-row,
+  &__remove {
+    font-size: 14px;
+    border-style: none;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.36);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__average {
+    text-align: center;
+  }
+  &__average-text {
+    color: rgba(0, 0, 0, 0.36);
+    margin-right: 8px;
+  }
+}
+
+.material-icons {
+  font-size: 18px;
+}
+
+.table-icon {
+  position: absolute;
+  top: 4px;
+}
+
+.not-exist {
+  padding-bottom: 0;
+  &__img {
+    height: 200px;
+    margin: 0 auto;
+    display: block;
+    @include sm {
+      height: 200px;
+    }
+  }
+  &__content {
+    padding: 24px 0;
+  }
+  &__text {
+    text-align: center;
+    font-size: 20px;
+    @include sm {
+      font-size: 16px;
+    }
+  }
+  &__title {
+    text-align: center;
+    font-size: 24px;
+    @include sm {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+  &__action {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+  }
+}
