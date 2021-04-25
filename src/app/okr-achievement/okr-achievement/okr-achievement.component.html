@@ -27,7 +27,7 @@
             <div class="achieve__secondOkr">
               <a
                 [routerLink]="['/manage/complete']"
-                [queryParams]="{ v: secondOkr.id }"
+                [queryParams]="{ v: secondOkr.secondOkrId }"
                 class="achieve__calendar"
               >
                 📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
@@ -35,7 +35,7 @@
                 }}
               </a>
               <a
-                (click)="deleteSecondOkr(secondOkr.id)"
+                (click)="deleteSecondOkr(secondOkr.secondOkrId)"
                 class="achieve__delete"
               >
                 <mat-icon>
