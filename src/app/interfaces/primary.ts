@@ -1,5 +1,5 @@
 export interface Primary {
-  id: string;
+  primaryId: string;
   primaryTitle?: string;
   average: number;
   okrId?: string;

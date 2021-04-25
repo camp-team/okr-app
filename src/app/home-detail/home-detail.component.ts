@@ -58,9 +58,9 @@ export class HomeDetailComponent implements OnInit {
       .subscribe(([primaries, subTasks]) => {
         primaries.forEach((primary) => {
           this.primaries.push(primary);
-          this.rows[primary.id] = this.fb.array([]);
-          this.primaryTitles[primary.id] = this.fb.array([]);
-          this.initPrimary(primary.id, primary.primaryTitle);
+          this.rows[primary.primaryId] = this.fb.array([]);
+          this.primaryTitles[primary.primaryId] = this.fb.array([]);
+          this.initPrimary(primary.primaryId, primary.primaryTitle);
         });
         subTasks.forEach((subTask) => {
           this.initRows(
@@ -155,7 +155,7 @@ export class HomeDetailComponent implements OnInit {
         average = average + +subTaskPercentageNumber;
       }
       const primaryValue: Omit<Primary, 'primaryTitle'> = {
-        id: primaryId,
+        primaryId: primaryId,
         average: average,
       };
 
