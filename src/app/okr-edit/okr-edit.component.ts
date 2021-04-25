@@ -64,7 +64,7 @@ export class OkrEditComponent implements OnInit {
       this.okrService.getSecondOkrs().subscribe((secondOkrs) => {
         secondOkrs.forEach((secondOkr) => {
           this.snackBar.open('作成しました', null);
-          this.router.navigate(['manage/home/secondOkr'], {
+          this.router.navigate(['manage/secondOkr'], {
             queryParams: { v: secondOkr.secondOkrId },
           });
         });

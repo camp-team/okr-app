@@ -133,7 +133,7 @@ export class OkrEditComponent implements OnInit {
       this.okrService.getSecondOkrId().subscribe((secondOkrs) => {
         secondOkrs.forEach((secondOkr) => {
           this.snackBar.open('作成しました', null);
-          this.router.navigate(['manage/home/secondOkr'], {
+          this.router.navigate(['manage/secondOkr'], {
             queryParams: { v: secondOkr.secondOkrId },
           });
         });
@@ -147,7 +147,7 @@ export class OkrEditComponent implements OnInit {
         (secondOkr) => secondOkr.isComplete === true
       );
       this.router.navigateByUrl(
-        '/manage/home/secondOkr?v=' + secondOkr[0].secondOkrId
+        '/manage/secondOkr?v=' + secondOkr[0].secondOkrId
       );
     });
   }
