@@ -100,7 +100,7 @@ export class EditComponent implements OnInit {
     const okrValue: Omit<Okr, 'okrId' | 'isComplete'> = {
       title: formData.title,
       primaries: formData.primaries,
-      CreatorId: this.authService.uid,
+      creatorId: this.authService.uid,
     };
     const primaryArray = formData.primaries;
     this.okrService
