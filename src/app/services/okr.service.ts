@@ -376,8 +376,6 @@ export class OkrService {
     secondOkrKeyResultId: string,
     secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'>
   ): Promise<void> {
-    console.log(secondOkrKeyResultId);
-
     return this.db
       .doc(
         `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
