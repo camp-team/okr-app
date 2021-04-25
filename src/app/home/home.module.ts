@@ -18,8 +18,6 @@ import { OkrDetailComponent } from '../home-detail/okr-dialog/okr-detail/okr-det
 import { MatDividerModule } from '@angular/material/divider';
 import { OkrEditComponent } from '../okr-edit/okr-edit.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { SecondOkrComponent } from '../second-okr/second-okr.component';
-import { SecondOkrTitleComponent } from '../second-okr-title/second-okr-title.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
@@ -31,8 +29,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeDetailTitleComponent,
     OkrDetailComponent,
     OkrEditComponent,
-    SecondOkrComponent,
-    SecondOkrTitleComponent,
   ],
   imports: [
     CommonModule,
