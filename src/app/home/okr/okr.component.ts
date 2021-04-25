@@ -93,7 +93,7 @@ export class OkrComponent implements OnInit {
       | 'primaries'
       | 'start'
       | 'end'
-      | 'CreatorId'
+      | 'creatorId'
       | 'title'
       | 'isComplete'
     > = {
