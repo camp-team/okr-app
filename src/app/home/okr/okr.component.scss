@@ -3,7 +3,28 @@
 
 .okr {
   text-align: center;
+  padding-bottom: 36px;
+  &__objective {
+    display: block;
+    border: none;
+    background-color: inherit;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  &__objective-wrapper {
+    padding: 6px 0 0 12px;
+  }
+  &__title .mat-error {
+    font-size: 16px;
+  }
+  &__keyResult {
+    border: none;
+    background-color: inherit;
+    font-size: 28px;
+  }
   &__title {
+    display: flex;
+    text-align: start;
     position: relative;
     margin: 0 auto;
     width: 600px;
@@ -20,6 +41,7 @@
   &__icon {
     position: absolute;
     top: 0;
+    right: 0;
     cursor: pointer;
     @include sm {
       position: absolute;
@@ -27,23 +49,29 @@
       right: 16%;
     }
   }
-  &__key {
-    font-size: 26px;
-    @include sm {
-      font-size: 18px;
-    }
-  }
-  &__sub-titles {
+  &__keyResults {
+    position: relative;
     width: 600px;
     margin: 0 auto;
     @include sm {
       width: 300px;
     }
   }
-  &__action {
-    padding: 16px;
-    text-align: center;
+  &__content {
+    font-size: 26px;
+    text-align: start;
+    @include sm {
+      font-size: 18px;
+    }
   }
+
+  &__keyResult-container {
+    position: absolute;
+    width: 194px;
+    top: 5px;
+    right: -66px;
+  }
+
   &__key-result {
     width: 200px;
   }

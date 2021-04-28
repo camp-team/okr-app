@@ -14,11 +14,15 @@ import { LoadingService } from './loading.service';
 })
 export class AuthService {
   uid: string;
-  isInitialLogin: boolean;
+  initialLogin: boolean;
   afUser$: Observable<firebase.User> = this.afAuth.user.pipe(
     map((user) => {
-      this.uid = user.uid;
-      return user;
+      if (user) {
+        this.uid = user.uid;
+        return user;
+      } else {
+        return null;
+      }
     })
   );
   user$: Observable<User> = this.afAuth.authState.pipe(
@@ -49,10 +53,9 @@ export class AuthService {
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth.signInWithPopup(provider).then((result) => {
       if (result.additionalUserInfo.isNewUser) {
-        this.isInitialLogin = true;
+        this.initialLogin = true;
       }
       this.loadingService.loading = true;
-      this.router.navigateByUrl('/manage/home');
       this.snackBar.open('ログインしました', null, {
         duration: 2000,
       });
@@ -62,7 +65,7 @@ export class AuthService {
   logout() {
     this.afAuth.signOut().then(() => {
       this.snackBar.open('ログアウトしました', null);
+      this.router.navigateByUrl('/about');
     });
-    this.router.navigateByUrl('/about');
   }
 }

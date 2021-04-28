@@ -2,7 +2,7 @@
   <ng-container *ngIf="okr$ | async as okr">
     <div class="home-detail-title__path">
       <a routerLink="/manage/home">OKR管理</a>
-      <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.id }"
+      <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.okrId }"
         >/{{ okr.title }}</a
       >
     </div>
@@ -10,7 +10,7 @@
       <input
         type="text"
         formControlName="title"
-        (keyup)="updateTitle(okr.id, formGroup.value)"
+        (keyup)="updateTitle(okr.okrId, formGroup.value)"
       />
     </form>
     <h3 class="home-detail-title__date">

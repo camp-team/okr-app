@@ -62,8 +62,8 @@ export class ManageHeaderComponent implements OnInit {
   }
 
   progress() {
-    this.router.navigate(['manage/home/secondOkr'], {
-      queryParams: { v: this.secondOkr.id },
+    this.router.navigate(['manage/secondOkr'], {
+      queryParams: { v: this.secondOkr.secondOkrId },
     });
   }
 

@@ -27,11 +27,11 @@ export class AuthGuard implements CanActivate, CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.user$.pipe(
+    return this.authService.afUser$.pipe(
       map((user) => !!user),
       tap((isLoggedIn) => {
         if (!isLoggedIn) {
-          this.router.navigateByUrl('/manage/home');
+          this.router.navigateByUrl('/about');
         }
       })
     );
@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     route: Route,
     segments: UrlSegment[]
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.user$.pipe(
+    return this.authService.afUser$.pipe(
       map((user) => !!user),
       take(1),
       tap((isLoggedIn) => {

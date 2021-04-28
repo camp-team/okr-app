@@ -25,28 +25,6 @@
   &__right {
     display: flex;
   }
-  &__search {
-    color: rgba(0, 0, 0, 0.24);
-    position: relative;
-    margin: 0 24px;
-    input {
-      color: rgba(0, 0, 0, 0.24);
-      border-color: rgba(0, 0, 0, 0.24);
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding-right: 32px;
-      padding-left: 16px;
-      line-height: 32px;
-      border-radius: 16px;
-      border: 1px solid;
-    }
-    mat-icon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 8px;
-    }
-  }
   &__mypage {
     grid-area: icon;
     justify-self: end;
@@ -122,6 +100,7 @@
 }
 
 .settings {
+  text-align: center;
   margin: 56px auto 24px;
   max-width: 610px;
   &__container {
@@ -132,12 +111,15 @@
   }
   &__profile-title {
     font-size: 20px;
+    margin-bottom: 24px;
   }
   &__delete-title {
     font-size: 20px;
   }
   &__delete-button {
     display: block;
+    width: 100px;
+    margin: 0 0 0 auto;
   }
   &__avatar-image {
     position: relative;

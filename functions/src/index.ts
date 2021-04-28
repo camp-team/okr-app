@@ -3,5 +3,6 @@ import * as functions from 'firebase-functions';
 admin.initializeApp(functions.config().firebase);
 
 export * from './user.function';
+export * from './okr.function';
 export * from './stripe';
 export const db = admin.firestore();

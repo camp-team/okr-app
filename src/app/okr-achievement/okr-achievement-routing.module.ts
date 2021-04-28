@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CompleteOkrComponent } from '../complete-okr/complete-okr.component';
-import { SecondOkrComponent } from '../second-okr/second-okr.component';
 import { OkrAchievementComponent } from './okr-achievement/okr-achievement.component';
 
 const routes: Routes = [
   {
     path: '',
     component: OkrAchievementComponent,
-  },
-  {
-    path: ':id',
-    component: CompleteOkrComponent,
+    children: [
+      {
+        path: ':secondOkrId',
+        component: CompleteOkrComponent,
+      },
+    ],
   },
 ];
 

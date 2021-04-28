@@ -14,18 +14,13 @@ export class OkrDeleteDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: { okrId: string },
     private okrService: OkrService,
-    private dialogRef: MatDialogRef<OkrDeleteDialogComponent>,
-    private snackBar: MatSnackBar,
-    private router: Router
+    private dialogRef: MatDialogRef<OkrDeleteDialogComponent>
   ) {}
 
   ngOnInit(): void {}
 
   okrDelete() {
-    this.okrService.deleteOkr(this.data.okrId).then(() => {
-      this.router.navigateByUrl('/manage/home');
-      this.snackBar.open('削除しました。', '');
-    });
+    this.okrService.deleteOkr(this.data.okrId);
     this.dialogRef.close();
   }
 

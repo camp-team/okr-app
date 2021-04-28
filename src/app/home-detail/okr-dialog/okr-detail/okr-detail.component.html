@@ -3,7 +3,7 @@
     <div class="okr-detail__path">
       <a routerLink="/manage/home">OKR管理</a>
       <ng-container *ngIf="okr$ | async as okr">
-        <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.id }"
+        <a routerLink="/manage/home/homedetail" [queryParams]="{ v: okr.okrId }"
           >/{{ okr.title }}</a
         >
         <a

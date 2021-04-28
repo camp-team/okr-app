@@ -1,17 +1,17 @@
 <app-intl-header></app-intl-header>
 
 <mat-sidenav-container class="intl">
-  <mat-sidenav
-    class="sidenav"
-    #sidenav
-    fixedInViewport
-    [fixedTopGap]="64"
-    [opened]="opened$ | async"
-  >
-    <app-sidenavigation></app-sidenavigation>
-  </mat-sidenav>
-
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-navs">
+      <a routerLink="/intl/terms">利用規約</a>
+      <a routerLink="/intl/legal">特定商取引法に基づく規約</a>
+    </div>
+    <p class="copyright">©︎ okr-app</p>
+  </div>
+</footer>

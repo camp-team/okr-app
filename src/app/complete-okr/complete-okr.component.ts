@@ -54,10 +54,12 @@ export class CompleteOkrComponent implements OnInit {
       .subscribe(([secondOkrObjects, secondOkrKeyResult]) => {
         secondOkrObjects.forEach((secondOkrObject) => {
           this.secondOkrObjects.push(secondOkrObject);
-          this.rows[secondOkrObject.id] = this.fb.array([]);
-          this.secondOkrObjectTitles[secondOkrObject.id] = this.fb.array([]);
+          this.rows[secondOkrObject.secondOkrObjectId] = this.fb.array([]);
+          this.secondOkrObjectTitles[
+            secondOkrObject.secondOkrObjectId
+          ] = this.fb.array([]);
           this.initSecondOkrObject(
-            secondOkrObject.id,
+            secondOkrObject.secondOkrObjectId,
             secondOkrObject.secondOkrObject
           );
         });
@@ -69,7 +71,7 @@ export class CompleteOkrComponent implements OnInit {
             secondOkrKeyResult.percentage,
             secondOkrKeyResult.lastUpdated,
             secondOkrKeyResult.secondOkrObjectId,
-            secondOkrKeyResult.id
+            secondOkrKeyResult.secondOkrKeyResultId
           );
         });
       });
@@ -126,7 +128,7 @@ export class CompleteOkrComponent implements OnInit {
   okrId() {
     this.secondOkr$.subscribe((secondOkr) => {
       secondOkr.forEach((secondOkr) => {
-        secondOkr.id;
+        secondOkr.secondOkrId;
       });
     });
   }
@@ -141,13 +143,17 @@ export class CompleteOkrComponent implements OnInit {
     });
     this.rows[secondOkrObjectId].push(this.row);
     const formData = this.row.value;
-    const subTaskValue: Omit<SecondOkrKeyResult, 'id' | 'lastUpdated'> = {
+    const subTaskValue: Omit<
+      SecondOkrKeyResult,
+      'secondOkrKeyResultId' | 'lastUpdated'
+    > = {
       secondOkrObjectId,
       secondOkrId: this.secondOkrId,
       key: formData.key,
       target: formData.target,
       current: formData.current,
       percentage: formData.percentage,
+      uid: this.authService.uid,
     };
     this.okrService.createSecondOkrKeyResult(
       subTaskValue,
@@ -181,8 +187,9 @@ export class CompleteOkrComponent implements OnInit {
         average = average + +subTaskPercentageNumber;
       }
       const secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'> = {
-        id: secondOkrObjectId,
+        secondOkrObjectId: secondOkrObjectId,
         average: average,
+        uid: this.authService.uid,
       };
 
       this.okrService.updateSecondOkrObject(
@@ -201,7 +208,8 @@ export class CompleteOkrComponent implements OnInit {
     const secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'> = {
       secondOkrId: this.secondOkrId,
       secondOkrObjectId,
-      id: secondOkrKeyResultId,
+      secondOkrKeyResultId: secondOkrKeyResultId,
+      uid: this.authService.uid,
       key: formData.key,
       target: formData.target,
       current: formData.current,

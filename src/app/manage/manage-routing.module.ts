@@ -24,6 +24,13 @@ const routes: Routes = [
           import('../okr-edit/okr-edit.module').then((m) => m.OkrEditModule),
       },
       {
+        path: 'secondOkr',
+        loadChildren: () =>
+          import('../second-okr/second-okr.module').then(
+            (m) => m.SecondOkrModule
+          ),
+      },
+      {
         path: 'achieve',
         loadChildren: () =>
           import('../okr-achievement/okr-achievement.module').then(
@@ -31,7 +38,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: ':id',
+        path: ':secondOkrId',
         component: CompleteOkrComponent,
       },
     ],

@@ -1,6 +1,24 @@
 <div class="okr">
   <h1 class="okr__title">
-    Objective : {{ okr.title }}
+    <ng-container [formGroup]="form">
+      <span>Objective(目標) :</span>
+      <div class="okr__objective-wrapper">
+        <input
+          class="okr__objective"
+          (keyup)="updateObjective(form.value.objective)"
+          type="text"
+          formControlName="objective"
+          autocomplete="off"
+          placeholder="記入例) 幸せになる"
+        />
+        <mat-error *ngIf="objectiveContoroll.hasError('required')">
+          必須入力です。
+        </mat-error>
+        <mat-error *ngIf="objectiveContoroll.hasError('maxlength')">
+          最大文字数は20文字です。
+        </mat-error>
+      </div>
+    </ng-container>
     <button class="okr__icon" mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
@@ -13,22 +31,42 @@
       </button>
     </mat-menu>
   </h1>
-  <div class="okr__sub-titles">
-    <div *ngFor="let primary of primaries$ | async" class="okr__sub-title">
-      <p class="okr__key">
-        Key Result :<span class="okr__span">{{ primary.primaryTitle }}</span>
-      </p>
+  <div *ngFor="let primary of primaries$ | async" class="okr__keyResults">
+    <p class="okr__content">
+      Key Result(目標達成のための成果指標) :
+    </p>
+    <div
+      class="okr__keyResult-container"
+      [formGroup]="keyResults[primary.primaryId]"
+    >
+      <ng-container
+        *ngFor="
+          let KeyResult of keyResults[primary.primaryId].controls;
+          index as i
+        "
+      >
+        <div [formGroupName]="i">
+          <input
+            class="okr__keyResult"
+            (keyup)="
+              updateKeyResult(
+                primary.primaryId,
+                keyResults[primary.primaryId].value
+              )
+            "
+            type="text"
+            formControlName="key"
+            autocomplete="off"
+            placeholder="技術者として売れる"
+          />
+          <mat-error *ngIf="KeyResult.get('key').hasError('required')">
+            必須入力です。
+          </mat-error>
+          <mat-error *ngIf="KeyResult.get('key').hasError('maxlength')">
+            最大文字数は20文字です。
+          </mat-error>
+        </div>
+      </ng-container>
     </div>
   </div>
-</div>
-
-<div class="okr__action">
-  <button
-    [routerLink]="['/manage/home/homedetail']"
-    [queryParams]="{ v: okr.id }"
-    mat-raised-button
-    color="primary"
-  >
-    詳細をみる
-  </button>
 </div>

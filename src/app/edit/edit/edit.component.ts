@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateFirstOkrDialogComponent } from 'src/app/create-first-okr-dialog/create-first-okr-dialog.component';
 import { Observable } from 'rxjs';
+import { TutorialService } from 'src/app/services/tutorial.service';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -22,6 +24,7 @@ import { Observable } from 'rxjs';
 export class EditComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  objectiveEdit: number = 0;
 
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
   okrIscomplete: boolean;
@@ -46,7 +49,8 @@ export class EditComponent implements OnInit {
     private okrService: OkrService,
     private authService: AuthService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private tutorialService: TutorialService
   ) {}
 
   ngOnInit() {
@@ -60,30 +64,49 @@ export class EditComponent implements OnInit {
     });
   }
 
+  secondEditTutorial(num: number) {
+    this.ngAfterViewInit(num);
+  }
+
+  ngAfterViewInit(num: number): void {
+    this.okrs$.subscribe((okrs) => {
+      if (!okrs.length) {
+        switch (num) {
+          case undefined:
+            this.tutorialService.startEditTutorial();
+            break;
+          case 1:
+            this.tutorialService.secondStepEditTutorial();
+            break;
+        }
+      }
+    });
+  }
+
   removeOption(i: number) {
     this.primaries.removeAt(i);
+    this.objectiveEdit = this.objectiveEdit - 1;
   }
 
   addOptionForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
+    this.objectiveEdit = this.objectiveEdit + 1;
   }
 
   submit() {
     const formData = this.form.value;
-    const okrValue: Omit<Okr, 'id' | 'isComplete'> = {
+    const okrValue: Omit<Okr, 'okrId' | 'isComplete'> = {
       title: formData.title,
       primaries: formData.primaries,
-      CreatorId: this.authService.uid,
+      creatorId: this.authService.uid,
     };
     const primaryArray = formData.primaries;
-    this.okrService.createOkr(okrValue, primaryArray).then(() => {
-      this.router.navigateByUrl('manage/home');
-      this.dialog.open(CreateFirstOkrDialogComponent, {
-        autoFocus: false,
-        restoreFocus: false,
+    this.okrService
+      .createOkr(okrValue, primaryArray, this.authService.uid)
+      .then(() => {
+        this.router.navigateByUrl('manage/home');
       });
-    });
   }
 }

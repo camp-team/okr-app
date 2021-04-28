@@ -3,8 +3,8 @@ export interface Okr {
   primaries: any;
   start?: firestore.Timestamp;
   end?: firestore.Timestamp;
-  CreatorId: string;
-  id: string;
+  creatorId: string;
+  okrId: string;
   title: string;
   isComplete: boolean;
 }

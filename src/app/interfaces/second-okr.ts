@@ -5,6 +5,6 @@ export interface SecondOkr {
   end?: firestore.Timestamp;
   secondOkrObjects?: string;
   creatorId?: string;
-  id?: string;
+  secondOkrId?: string;
   isComplete: boolean;
 }

@@ -9,9 +9,11 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
+import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
   selector: 'app-okr-edit',
@@ -19,6 +21,11 @@ import { OkrService } from 'src/app/services/okr.service';
   styleUrls: ['./okr-edit.component.scss'],
 })
 export class OkrEditComponent implements OnInit {
+  minDate: Date;
+  maxDate: Date;
+
+  objectForm: number = 1;
+
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
@@ -55,8 +62,15 @@ export class OkrEditComponent implements OnInit {
     private okrService: OkrService,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
-  ) {}
+    private router: Router,
+    private tutorialService: TutorialService
+  ) {
+    const currentYear = new Date().getFullYear();
+    const currentMouth = new Date().getMonth();
+    const currentDate = new Date().getDate();
+    this.minDate = new Date(currentYear - 0, currentMouth, currentDate);
+    this.maxDate = new Date(currentYear + 0, currentMouth + 3, currentDate);
+  }
 
   ngOnInit(): void {
     this.secondOkrs$.subscribe((secondOkrs) => {
@@ -69,6 +83,25 @@ export class OkrEditComponent implements OnInit {
     this.addObjective();
   }
 
+  secondStepOkr(num) {
+    this.ngAfterViewInit(num);
+  }
+
+  ngAfterViewInit(num: number) {
+    this.secondOkrs$.pipe(take(1)).subscribe((secondOkrs) => {
+      if (secondOkrs.length === 0) {
+        switch (num) {
+          case undefined:
+            this.tutorialService.firstStepSecondOkrEditTutorial();
+            break;
+          case 1:
+            this.tutorialService.secondStepSecondOkrEditTutorial();
+            break;
+        }
+      }
+    });
+  }
+
   addObjective() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
@@ -77,17 +110,19 @@ export class OkrEditComponent implements OnInit {
 
   removeOption(i: number) {
     this.primaries.removeAt(i);
+    this.objectForm = this.objectForm - 1;
   }
 
   addOptionForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
+    this.objectForm = this.objectForm + 1;
   }
 
-  cleateOKR() {
+  cleateSecondOkr() {
     const formData = this.form.value;
-    const okrValue: Omit<SecondOkr, 'id' | 'isComplete'> = {
+    const okrValue: Omit<SecondOkr, 'secondOkrId' | 'isComplete'> = {
       start: formData.start,
       end: formData.end,
       creatorId: this.authService.uid,
@@ -98,8 +133,8 @@ export class OkrEditComponent implements OnInit {
       this.okrService.getSecondOkrId().subscribe((secondOkrs) => {
         secondOkrs.forEach((secondOkr) => {
           this.snackBar.open('作成しました', null);
-          this.router.navigate(['manage/home/secondOkr'], {
-            queryParams: { v: secondOkr.id },
+          this.router.navigate(['manage/secondOkr'], {
+            queryParams: { v: secondOkr.secondOkrId },
           });
         });
       });
@@ -111,7 +146,9 @@ export class OkrEditComponent implements OnInit {
       const secondOkr = secondOkrs.filter(
         (secondOkr) => secondOkr.isComplete === true
       );
-      this.router.navigateByUrl('/manage/home/secondOkr?v=' + secondOkr[0].id);
+      this.router.navigateByUrl(
+        '/manage/secondOkr?v=' + secondOkr[0].secondOkrId
+      );
     });
   }
 }

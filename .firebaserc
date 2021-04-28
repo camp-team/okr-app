@@ -1,14 +1,7 @@
 {
-  "targets": {
-    "okr-app-de4fa": {
-      "hosting": {
-        "MyApp": [
-          "okr-app-de4fa"
-        ]
-      }
-    }
-  },
   "projects": {
-    "default": "okr-app-de4fa"
+    "default": "okr-app-de4fa",
+    "prod": "okr-prod",
+    "dev": "okr-app-de4fa"
   }
 }

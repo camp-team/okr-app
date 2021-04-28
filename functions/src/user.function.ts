@@ -17,6 +17,12 @@ export const createUser = functions
     });
   });
 
+export const deleteAfUser = functions
+  .region('asia-northeast1')
+  .https.onCall((data: any, context: any) => {
+    return admin.auth().deleteUser(data);
+  });
+
 export const deleteUser = functions
   .region('asia-northeast1')
   .auth.user()
@@ -24,10 +30,28 @@ export const deleteUser = functions
     return db.doc(`users/${user.uid}`).delete();
   });
 
-export const deleteAfUser = functions
+export const deleteCollection = functions
   .region('asia-northeast1')
-  .https.onCall((data: any, context: any) => {
-    return admin.auth().deleteUser(data);
+  .auth.user()
+  .onDelete((user) => {
+    const primariesRef = db
+      .collectionGroup(`primaries`)
+      .where('uid', '==', user.uid);
+    const secondOkrKeyResultsRef = db
+      .collectionGroup(`secondOkrKeyResults`)
+      .where('uid', '==', user.uid);
+    const secondOkrObjectsRef = db
+      .collectionGroup(`secondOkrObjects`)
+      .where('uid', '==', user.uid);
+    const secondOkrs = db
+      .collectionGroup(`secondOkrs`)
+      .where('creatorId', '==', user.uid);
+    return Promise.all([
+      deleteCollectionByReference(primariesRef),
+      deleteCollectionByReference(secondOkrKeyResultsRef),
+      deleteCollectionByReference(secondOkrObjectsRef),
+      deleteCollectionByReference(secondOkrs),
+    ]);
   });
 
 export const deleteUserAccount = functions

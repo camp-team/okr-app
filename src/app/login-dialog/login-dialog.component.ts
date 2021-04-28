@@ -17,6 +17,10 @@ export class LoginDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  createOkr() {
+    this.dialogRef.close();
     this.router.navigateByUrl('/manage/edit');
   }
 }

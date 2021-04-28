@@ -5,6 +5,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
+import { ShepherdService } from 'angular-shepherd';
+import { TutorialService } from 'src/app/services/tutorial.service';
+import { SecondOkr } from 'src/app/interfaces/second-okr';
 
 @Component({
   selector: 'app-home',
@@ -13,23 +16,26 @@ import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.componen
 })
 export class HomeComponent implements OnInit {
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   okr: boolean;
+  secondOkrId: string;
 
   constructor(
     public okrService: OkrService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private tutorialService: TutorialService
   ) {
     this.isInitLogin();
   }
 
   private isInitLogin() {
-    if (this.authService.isInitialLogin) {
+    if (this.authService.initialLogin) {
       this.dialog.open(LoginDialogComponent, {
         autoFocus: false,
         restoreFocus: false,
       });
-      this.authService.isInitialLogin = false;
+      this.authService.initialLogin = false;
     }
   }
 
@@ -41,5 +47,25 @@ export class HomeComponent implements OnInit {
         this.okr = true;
       }
     });
+    this.secondOkr();
+  }
+
+  secondOkr() {
+    this.secondOkrs$.subscribe((secondOkrs) => {
+      secondOkrs.forEach((secondOkr) => {
+        if (secondOkr.isComplete) {
+          this.secondOkrId = secondOkr.secondOkrId;
+        } else {
+          return null;
+        }
+      });
+    });
+  }
+
+  ngAfterViewInit(num: number) {
+    if (this.tutorialService.tutorial) {
+      this.tutorialService.startOkrTutorial();
+      this.tutorialService.tutorial = false;
+    }
   }
 }

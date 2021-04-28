@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HomeDetailComponent } from '../home-detail/home-detail.component';
 import { OkrDetailComponent } from '../home-detail/okr-dialog/okr-detail/okr-detail.component';
-import { SecondOkrComponent } from '../second-okr/second-okr.component';
 
 const routes: Routes = [
   {
@@ -13,10 +12,6 @@ const routes: Routes = [
   {
     path: 'homedetail',
     component: HomeDetailComponent,
-  },
-  {
-    path: ':id',
-    component: SecondOkrComponent,
   },
   {
     path: ':id',

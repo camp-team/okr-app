@@ -1,0 +1,20 @@
+.delete-second-okr-dialog {
+  text-align: center;
+  &__title {
+    font-size: 30px;
+    margin: 0;
+    padding-bottom: 24px;
+    letter-spacing: 1.5px;
+  }
+  &__content {
+    padding-bottom: 24px;
+    span {
+      display: block;
+      letter-spacing: 1.5px;
+    }
+  }
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+  }
+}

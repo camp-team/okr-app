@@ -24,8 +24,6 @@ export class SecondOkrTitleComponent implements OnInit {
     private route: ActivatedRoute,
     public okrService: OkrService,
     public authService: AuthService,
-    private router: Router,
-    private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}
 

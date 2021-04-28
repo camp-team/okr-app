@@ -10,7 +10,8 @@
     text-align: center;
   }
   &__action {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
   }
   &__cancel {
     border: none;
