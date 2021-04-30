@@ -1,11 +1,6 @@
 @import 'variables';
 @import 'mixins';
 
-.manage-header {
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 10%;
-}
 .header {
   z-index: 1000;
   background-color: #fff;
