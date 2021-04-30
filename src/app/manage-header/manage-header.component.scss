@@ -75,14 +75,11 @@
   align-items: center;
   font-size: 14px;
   font-weight: 600;
+  @include sm {
+    justify-content: space-around;
+  }
   .okr {
     align-items: center;
-  }
-  li {
-    @include sm {
-      width: 100%;
-      display: flex;
-    }
   }
   a {
     text-decoration: none;
