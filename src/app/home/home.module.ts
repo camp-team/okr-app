@@ -12,7 +12,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { OkrDialogComponent } from '../home-detail/okr-dialog/okr-dialog.component';
 import { HomeDetailTitleComponent } from '../home-detail-title/home-detail-title.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { OkrEditComponent } from '../okr-edit/okr-edit.component';
@@ -24,7 +23,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeComponent,
     OkrComponent,
     HomeDetailComponent,
-    OkrDialogComponent,
     HomeDetailTitleComponent,
     OkrEditComponent,
   ],
