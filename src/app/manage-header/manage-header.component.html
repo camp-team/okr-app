@@ -7,7 +7,7 @@
   <li>
     <ng-container *ngIf="isSecondOkr; else blank">
       <ng-container *ngIf="isComplete === true; else blank">
-        <a (click)="progress()" class="header__progress">
+        <a (click)="progress()">
           <span>進行中</span>
         </a>
       </ng-container>
