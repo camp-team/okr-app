@@ -24,6 +24,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CompleteOkrDialogComponent } from './complete-okr-dialog/complete-okr-dialog.component';
 import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delet
     LoginDialogComponent,
     CompleteOkrDialogComponent,
     DeleteSecondOkrDialogComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
