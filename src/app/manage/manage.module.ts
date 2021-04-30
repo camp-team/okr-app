@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { ManageHeaderComponent } from '../manage-header/manage-header.component';
-import { ManageSidenavigationComponent } from '../manage-sidenavigation/manage-sidenavigation.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManageFooterComponent } from '../manage-footer/manage-footer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +24,6 @@ import { CompleteOkrTitleComponent } from '../complete-okr-title/complete-okr-ti
   declarations: [
     ManageComponent,
     ManageHeaderComponent,
-    ManageSidenavigationComponent,
     ManageFooterComponent,
     CompleteOkrComponent,
     CompleteOkrTitleComponent,
