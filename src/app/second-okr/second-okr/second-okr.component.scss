@@ -8,17 +8,18 @@
   &__title {
     width: 150px;
     @include sm {
-      width: 270px;
+      width: 300px;
       font-size: 20px;
     }
   }
   &__form {
     margin: 0;
-    width: 400px;
     background-color: inherit;
     font-size: 20px;
+    border-style: none;
+    width: 300px;
     @include sm {
-      // margin-bottom: 12px;
+      width: 300px;
     }
   }
 }
@@ -71,15 +72,6 @@ mat-error {
       max-width: 1000px;
     }
   }
-  input {
-    width: 98%;
-    height: 100%;
-    border-style: none;
-    background-color: transparent;
-    @include sm {
-      width: 95%;
-    }
-  }
   .header-right,
   .body-right {
     border-right-style: none;
@@ -90,6 +82,15 @@ mat-error {
   }
   &__container {
     margin-bottom: 32px;
+  }
+  &__key-result {
+    width: 98%;
+    height: 100%;
+    border-style: none;
+    background-color: transparent;
+    @include sm {
+      width: 95%;
+    }
   }
   &__title {
     display: flex;

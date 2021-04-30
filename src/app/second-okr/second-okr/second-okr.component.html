@@ -120,6 +120,7 @@
                           type="text"
                           formControlName="key"
                           autocomplete="off"
+                          class="second-okr__key-result"
                         />
                         <mat-error *ngIf="row.get('key').hasError('required')">
                           <span
@@ -155,6 +156,7 @@
                           autocomplete="off"
                           required
                           maxlength="20"
+                          class="second-okr__key-result"
                         />
                         <mat-error
                           *ngIf="row.get('target').hasError('required')"
@@ -197,6 +199,7 @@
                           formControlName="current"
                           autocomplete="off"
                           required
+                          class="second-okr__key-result"
                         />
                         <mat-error
                           *ngIf="row.get('current').hasError('required')"
@@ -220,6 +223,7 @@
                           formControlName="percentage"
                           autocomplete="off"
                           disabled
+                          class="second-okr__key-result"
                         />
                       </td>
                       <td class="body-right">
@@ -228,6 +232,7 @@
                           formControlName="lastUpdated"
                           autocomplete="off"
                           disabled
+                          class="second-okr__key-result"
                         />
                       </td>
                       <div
