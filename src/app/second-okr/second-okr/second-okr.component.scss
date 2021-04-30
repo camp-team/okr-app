@@ -3,8 +3,14 @@
 
 .objective {
   display: flex;
+  margin-bottom: 12px;
+  align-items: center;
   &__title {
     width: 150px;
+    @include sm {
+      width: 270px;
+      font-size: 20px;
+    }
   }
   &__form {
     margin: 0;
@@ -12,7 +18,7 @@
     background-color: inherit;
     font-size: 20px;
     @include sm {
-      padding-bottom: 12px;
+      // margin-bottom: 12px;
     }
   }
 }
@@ -44,6 +50,9 @@ mat-error {
 }
 
 .second-okr {
+  &__thead {
+    margin-bottom: 12px;
+  }
   th,
   td {
     position: relative;
@@ -51,11 +60,13 @@ mat-error {
     color: rgba(0, 0, 0, 0.36);
     font-weight: 300;
     min-width: 160px;
+    height: 30px;
   }
   table {
     width: 100%;
     border-collapse: collapse;
     white-space: nowrap;
+    margin-bottom: 12px;
     @include md {
       max-width: 1000px;
     }
@@ -64,6 +75,10 @@ mat-error {
     width: 98%;
     height: 100%;
     border-style: none;
+    background-color: transparent;
+    @include sm {
+      width: 95%;
+    }
   }
   .header-right,
   .body-right {
@@ -72,6 +87,9 @@ mat-error {
   .header-left,
   .body-left {
     border-left-style: none;
+  }
+  &__container {
+    margin-bottom: 32px;
   }
   &__title {
     display: flex;
@@ -91,18 +109,24 @@ mat-error {
     font-size: 30px;
     margin: 0;
   }
+  &__add-row {
+    margin-top: 8px;
+  }
   &__add-row,
   &__remove {
     font-size: 14px;
     border-style: none;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.36);
+    height: 30px;
+    align-items: center;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
   &__average {
     text-align: center;
+    margin-bottom: 12px;
   }
   &__average-text {
     color: rgba(0, 0, 0, 0.36);
@@ -116,7 +140,7 @@ mat-error {
 
 .table-icon {
   position: absolute;
-  top: 4px;
+  top: 7px;
 }
 
 .not-exist {
