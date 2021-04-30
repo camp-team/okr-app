@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { SecondOkr } from '../interfaces/second-okr';
-import { ManageService } from '../manage/manage/manage.service';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
@@ -28,7 +27,6 @@ export class ManageHeaderComponent implements OnInit {
   isCompletes = [];
 
   constructor(
-    private manageService: ManageService,
     public authService: AuthService,
     public okrService: OkrService,
     public loadingService: LoadingService,
@@ -73,9 +71,5 @@ export class ManageHeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-  }
-
-  toggle() {
-    this.manageService.toggle();
   }
 }
