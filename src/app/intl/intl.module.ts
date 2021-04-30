@@ -9,9 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { IntlHeaderComponent } from '../intl-header/intl-header.component';
 @NgModule({
-  declarations: [IntlComponent, IntlHeaderComponent],
+  declarations: [IntlComponent],
   imports: [
     CommonModule,
     IntlRoutingModule,
