@@ -8,7 +8,7 @@
   &__title {
     width: 150px;
     @include sm {
-      width: 300px;
+      min-width: 170px;
       font-size: 20px;
     }
   }
@@ -107,7 +107,7 @@ mat-error {
     }
   }
   &__title-content {
-    font-size: 30px;
+    font-size: 26px;
     margin: 0;
   }
   &__add-row {
