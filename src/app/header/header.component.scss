@@ -17,9 +17,9 @@
   }
   &__logo {
     margin: 0;
-    padding-top: 2em;
+    padding-top: 16px;
     @include sm {
-      padding-top: 1em;
+      padding-top: 10px;
     }
   }
   &__link {
