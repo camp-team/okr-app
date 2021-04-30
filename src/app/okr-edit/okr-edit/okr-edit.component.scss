@@ -132,10 +132,16 @@
   &__wrapper {
     padding-top: 48px;
     text-align: center;
+    @include sm {
+      padding: 40px 0;
+    }
   }
   &__title {
     font-size: 24px;
     margin: 0 0 32px 0;
+    @include sm {
+      font-size: 20px;
+    }
   }
   &__no-data {
     width: 100%;
