@@ -23,16 +23,59 @@
         </a>
       </div>
     </div>
-    <div class="header__right">
-      <a
-        class="header__login"
-        mat-raised-button
-        color="primary"
-        (click)="login()"
-        matTooltip="Googleアカウントでログインする"
-      >
-        Googleアカウントでログイン
-      </a>
-    </div>
+    <ng-container
+      *ngIf="this.authService.user$ | async as user; else notUser"
+      class="header__mypage"
+    >
+      <button
+        mat-mini-fab
+        [matMenuTriggerFor]="userMenu"
+        [style.background-image]="'url(' + user?.avatarURL + ')'"
+        class="header__icon"
+      ></button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/manage/edit">
+          <mat-icon>edit</mat-icon>
+          <span>1番目のOKRの入力</span>
+        </button>
+        <button mat-menu-item routerLink="/manage/okr-edit">
+          <mat-icon>edit</mat-icon>
+          <span>2番目のOKRの入力</span>
+        </button>
+        <button
+          mat-menu-item
+          *ngIf="!(this.authService.user$ | async)"
+          (click)="login()"
+        >
+          <mat-icon>login</mat-icon>
+          <span>ログイン</span>
+        </button>
+        <button mat-menu-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>設定</span>
+        </button>
+        <button
+          mat-menu-item
+          *ngIf="this.authService.user$ | async"
+          (click)="logout()"
+        >
+          <mat-icon>logout</mat-icon>
+          <span>ログアウト</span>
+        </button>
+      </mat-menu>
+    </ng-container>
+    <ng-template #notUser>
+      <div class="header__right">
+        <a
+          class="header__login"
+          mat-raised-button
+          color="primary"
+          (click)="login()"
+          matTooltip="Googleアカウントでログインする"
+        >
+          Googleアカウントでログイン
+        </a>
+      </div>
+    </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
