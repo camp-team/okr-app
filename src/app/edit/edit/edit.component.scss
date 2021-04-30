@@ -144,6 +144,7 @@
 
   &__lavel {
     font-size: 32px;
+    width: 180px;
     @include sm {
       font-size: 24px;
     }
@@ -152,6 +153,9 @@
     display: block;
     max-width: 540px;
     padding-bottom: 48px;
+    @include sm {
+      width: 300px;
+    }
   }
   &__button {
     width: 120px;
@@ -204,6 +208,9 @@
   }
   &__field {
     width: 400px;
+    @include sm {
+      width: 300px;
+    }
   }
   &__title {
     letter-spacing: 2px;
