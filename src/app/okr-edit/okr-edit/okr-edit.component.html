@@ -42,7 +42,7 @@
               <form [formGroup]="form">
                 <div formArrayName="primaries">
                   <div *ngFor="let option of primaries.controls; let i = index">
-                    <mat-form-field class="second-okr-form okr-edit__field">
+                    <mat-form-field class="second-okr-form first-step__field">
                       <mat-label class="first-step__lavel">
                         目標を入力 {{ i + 1 }}つ目
                       </mat-label>
@@ -132,7 +132,7 @@
                 (ngSubmit)="cleateSecondOkr()"
                 class="second-step__form"
               >
-                <mat-form-field appearance="fill" class="okr-edit__field">
+                <mat-form-field appearance="fill" class="second-step__field">
                   <mat-label class="second-step__lavel"
                     >開始日と終了日の入力</mat-label
                   >

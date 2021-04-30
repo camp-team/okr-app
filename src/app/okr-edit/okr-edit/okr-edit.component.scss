@@ -232,6 +232,7 @@
     max-width: 540px;
     @include sm {
       padding-bottom: 0;
+      margin-bottom: 20px;
     }
   }
   &__lavel {
