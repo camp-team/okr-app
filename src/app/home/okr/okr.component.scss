@@ -4,6 +4,8 @@
 .okr {
   text-align: center;
   padding-bottom: 36px;
+  width: 600px;
+  margin: 0 auto;
   @include sm {
     width: 330px;
     margin: 0 auto;
@@ -71,6 +73,7 @@
     position: relative;
     width: 600px;
     margin: 0 auto;
+    text-align: start;
     @include sm {
       width: 100%;
       padding-bottom: 20px;
