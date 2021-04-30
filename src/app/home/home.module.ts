@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OkrDialogComponent } from '../home-detail/okr-dialog/okr-dialog.component';
 import { HomeDetailTitleComponent } from '../home-detail-title/home-detail-title.component';
-import { OkrDetailComponent } from '../home-detail/okr-dialog/okr-detail/okr-detail.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { OkrEditComponent } from '../okr-edit/okr-edit.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -27,7 +26,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeDetailComponent,
     OkrDialogComponent,
     HomeDetailTitleComponent,
-    OkrDetailComponent,
     OkrEditComponent,
   ],
   imports: [
