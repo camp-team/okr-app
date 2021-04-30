@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
+  user$ = this.authService.user$;
+
   constructor(
     private dialog: MatDialog,
     public authService: AuthService,
@@ -19,6 +21,10 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  logout() {
+    this.authService.logout();
+  }
 
   openDeleteAccountDialog() {
     this.dialog.open(DeleteAccountDialogComponent, {

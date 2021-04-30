@@ -38,9 +38,21 @@
           class="header__icon"
         ></button>
         <mat-menu #userMenu="matMenu">
-          <button mat-menu-item routerLink="/manage/home">
-            <mat-icon>home</mat-icon>
-            <span>ホーム</span>
+          <button mat-menu-item routerLink="/manage/edit">
+            <mat-icon>edit</mat-icon>
+            <span>1番目のOKRの入力</span>
+          </button>
+          <button mat-menu-item routerLink="/manage/okr-edit">
+            <mat-icon>edit</mat-icon>
+            <span>2番目のOKRの入力</span>
+          </button>
+          <button mat-menu-item routerLink="/settings">
+            <mat-icon>settings</mat-icon>
+            <span>設定</span>
+          </button>
+          <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>ログアウト</span>
           </button>
         </mat-menu>
       </ng-container>
@@ -91,13 +103,13 @@
     </mat-tab>
     <mat-tab label="開発資金をサポートする">
       <div class="support">
-        <div class="container">
+        <div class="support__container">
           <h1 class="support__title">開発資金をサポートする</h1>
           <div class="support__text">
             <span
-              >プロダクトを使いたい、より良くしたいと思ってくれるコアな</span
+              >プロダクトを使いたい、より良くしたいと思ってくれるコアな
+              ユーザーに幾らかのご支援いただきたく思います。</span
             >
-            <span>ユーザーに幾らかのご支援いただきたく思います。</span>
           </div>
           <button
             class="support__action"
