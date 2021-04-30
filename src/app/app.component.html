@@ -3,6 +3,7 @@
   mode="indeterminate"
   *ngIf="loadingService.loading"
 ></mat-progress-spinner>
+<app-header></app-header>
 <main [class.shadow]="loadingService.loading">
   <router-outlet></router-outlet>
 </main>

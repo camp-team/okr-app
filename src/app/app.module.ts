@@ -25,6 +25,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CompleteOkrDialogComponent } from './complete-okr-dialog/complete-okr-dialog.component';
 import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delete-second-okr-dialog.component';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,7 @@ import { FooterComponent } from './footer/footer.component';
     CompleteOkrDialogComponent,
     DeleteSecondOkrDialogComponent,
     FooterComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +56,9 @@ import { FooterComponent } from './footer/footer.component';
     MatSnackBarModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
