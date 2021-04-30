@@ -4,6 +4,10 @@
 .okr {
   text-align: center;
   padding-bottom: 36px;
+  @include sm {
+    width: 330px;
+    margin: 0 auto;
+  }
   &__objective {
     display: block;
     border: none;
@@ -13,9 +17,9 @@
   }
   &__objective-wrapper {
     padding: 6px 0 0 12px;
-  }
-  &__title .mat-error {
-    font-size: 16px;
+    @include sm {
+      padding: 0;
+    }
   }
   &__keyResult {
     border: none;
@@ -32,11 +36,16 @@
     font-weight: 600;
     margin-bottom: 36px;
     @include sm {
+      display: block;
+      padding-bottom: 20px;
       font-size: 24px;
       font-weight: 500;
-      margin: 0 auto 0;
-      width: 300px;
+      width: 100%;
+      margin: 0;
     }
+  }
+  &__title .mat-error {
+    font-size: 16px;
   }
   &__icon {
     position: absolute;
@@ -45,8 +54,8 @@
     cursor: pointer;
     @include sm {
       position: absolute;
-      top: -18%;
-      right: 16%;
+      top: -3%;
+      right: 0;
     }
   }
   &__keyResults {
@@ -54,22 +63,30 @@
     width: 600px;
     margin: 0 auto;
     @include sm {
-      width: 300px;
+      width: 100%;
+      padding-bottom: 20px;
     }
   }
   &__content {
     font-size: 26px;
     text-align: start;
     @include sm {
+      display: block;
       font-size: 18px;
     }
   }
-
   &__keyResult-container {
     position: absolute;
     width: 194px;
     top: 5px;
     right: -66px;
+    @include sm {
+      position: inherit;
+      width: 100%;
+      right: 0;
+      top: 0;
+      text-align: start;
+    }
   }
 
   &__key-result {
@@ -77,5 +94,10 @@
   }
   &__span {
     width: 300px;
+  }
+}
+.colon {
+  @include sm {
+    display: none;
   }
 }
