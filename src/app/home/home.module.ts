@@ -12,12 +12,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { OkrEditComponent } from '../okr-edit/okr-edit.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [HomeComponent, OkrComponent, OkrEditComponent],
+  declarations: [HomeComponent, OkrComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
