@@ -9,7 +9,7 @@ import { LoadingService } from '../services/loading.service';
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private authsearvice: AuthService,
+    public authService: AuthService,
     public loadingService: LoadingService
   ) {
     this.loadingService.loading = false;
@@ -18,6 +18,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.authsearvice.login();
+    this.authService.login();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
