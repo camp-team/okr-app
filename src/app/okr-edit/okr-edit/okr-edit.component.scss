@@ -1,38 +1,6 @@
 @import 'variables';
 @import 'mixins';
 
-.not-okr-edit {
-  &__wrapper {
-    padding-top: 48px;
-    text-align: center;
-  }
-  &__title {
-    font-size: 24px;
-    margin: 0 0 32px 0;
-  }
-  &__no-data {
-    width: 100%;
-    height: 200px;
-    display: block;
-    margin-bottom: 32px;
-  }
-}
-
-.okr-edit {
-  &__add-objective {
-    padding: 0;
-    color: rgba(55, 53, 47, 0.4);
-    font-size: 16px;
-    box-shadow: none;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
-    }
-  }
-  @include sm {
-    padding: 30px 0;
-  }
-}
-
 ::ng-deep .mat-form-field-label-wrapper {
   top: -36px !important;
   overflow: inherit !important;
@@ -49,7 +17,7 @@
   }
 }
 
-::ng-deep .third-step .mat-form-field-infix {
+::ng-deep .second-step .mat-form-field-infix {
   padding: 0 0 0 0 !important;
   width: 100% !important;
   .mat-input-element {
@@ -75,16 +43,6 @@
 
 ::ng-deep .mat-horizontal-stepper-header-container {
   display: none !important;
-}
-
-.stepper {
-  background-color: transparent;
-}
-
-.container {
-  @include sm {
-    padding: 0 16px;
-  }
 }
 
 .tooltip {
@@ -169,63 +127,46 @@
   opacity: 1;
   visibility: visible;
 }
-.first-step {
-  &__header {
-    padding: 56px 0 0 84px;
-    color: rgba(0, 0, 0, 0.54);
-    font-size: 20px;
-    letter-spacing: 2px;
-  }
-  &__main {
-    padding: 80px 0 0 108px;
+
+.not-okr-edit {
+  &__wrapper {
+    padding-top: 48px;
+    text-align: center;
   }
   &__title {
-    letter-spacing: 2px;
-    font-size: 36px;
-  }
-  &__text {
-    display: block;
-  }
-
-  &__lavel {
     font-size: 24px;
+    margin: 0 0 32px 0;
   }
-  &__field {
+  &__no-data {
+    width: 100%;
+    height: 200px;
     display: block;
-    max-width: 540px;
-    padding-bottom: 48px;
-  }
-  &__button {
-    width: 120px;
-    height: 40px;
-    &:hover {
-      background-color: #9e9e9e;
-    }
-  }
-  &__sidebar {
-    position: absolute;
-    height: 100%;
-    right: 0;
-    top: 0;
-    width: 320px;
-    z-index: 2;
-    background-color: #bdbdbd;
-  }
-  &__img {
-    position: fixed;
-    right: 0;
-    width: 500px;
-    top: 250px;
-    z-index: 3;
-    @include photo {
-      display: none;
-    }
+    margin-bottom: 32px;
   }
 }
 
-.second-step {
-  &__form {
-    padding-bottom: 24px;
+.stepper {
+  background-color: transparent;
+}
+
+.container {
+  @include sm {
+    padding: 0 16px;
+  }
+}
+
+.okr-edit {
+  @include sm {
+    padding: 30px 0;
+  }
+  &__add-objective {
+    padding: 0;
+    color: rgba(55, 53, 47, 0.4);
+    font-size: 16px;
+    box-shadow: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
   }
   &__header {
     padding: 56px 0 0 84px;
@@ -238,17 +179,10 @@
     }
   }
   &__main {
-    padding: 80px 0 0 108px;
+    padding: 40px 0 0 108px;
     max-width: 782px;
     @include sm {
       padding: 0;
-    }
-  }
-  &__field {
-    display: inline-block;
-    max-width: 540px;
-    @include sm {
-      padding-bottom: 0;
     }
   }
   &__title {
@@ -261,9 +195,44 @@
   &__text {
     display: block;
   }
-  &__sub-title {
-    margin: 0 0 32px;
-    opacity: 0.7;
+  &__img {
+    position: fixed;
+    right: 0;
+    width: 450px;
+    bottom: 150px;
+    z-index: 3;
+    @include photo {
+      display: none;
+    }
+  }
+  &__sidebar {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0;
+    width: 320px;
+    z-index: 2;
+    background-color: #bdbdbd;
+    @include photo {
+      display: none;
+    }
+  }
+  &__next {
+    width: 120px;
+    height: 40px;
+    &:hover {
+      background-color: #9e9e9e;
+    }
+  }
+}
+
+.first-step {
+  &__field {
+    display: inline-block;
+    max-width: 540px;
+    @include sm {
+      padding-bottom: 0;
+    }
   }
   &__lavel {
     font-size: 32px;
@@ -289,75 +258,12 @@
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
-  &__button {
-    width: 120px;
-    height: 40px;
-  }
-  &__next {
-    width: 120px;
-    height: 40px;
-    &:hover {
-      background-color: #9e9e9e;
-    }
-  }
-  &__sidebar {
-    position: absolute;
-    height: 100%;
-    right: 0;
-    top: 0;
-    width: 320px;
-    z-index: 2;
-    background-color: #bdbdbd;
-    @include photo {
-      display: none;
-    }
-  }
-  &__img {
-    position: fixed;
-    right: 0;
-    width: 450px;
-    bottom: 150px;
-    z-index: 3;
-    @include photo {
-      display: none;
-    }
-  }
 }
 
-.third-step {
-  &__header {
-    padding: 56px 0 0 84px;
-    color: rgba(0, 0, 0, 0.54);
-    font-size: 20px;
-    letter-spacing: 2px;
-    @include sm {
-      padding: 0 0 40px;
-      font-size: 16px;
-    }
-  }
-  &__main {
-    padding: 80px 0 0 108px;
-    max-width: 650px;
-    @include sm {
-      padding: 0;
-    }
-  }
+.second-step {
   &__field {
     display: block;
     max-width: 360px;
-  }
-  &__title {
-    margin: 16px 0 0;
-    letter-spacing: 2px;
-    font-size: 36px;
-    @include sm {
-      font-size: 20px;
-      margin: 0;
-    }
-  }
-  &__sub-title {
-    margin: 0 0 32px;
-    opacity: 0.7;
   }
   &__lavel {
     padding: 30px 0 0 0;
@@ -366,43 +272,8 @@
       font-size: 24px;
     }
   }
-  &__buttons {
+  &__action {
     display: flex;
     justify-content: space-between;
-    margin-top: 48px;
-  }
-  &__button {
-    width: 120px;
-    height: 40px;
-    &:hover {
-      background-color: #9e9e9e;
-    }
-  }
-  &__next {
-    width: 120px;
-    height: 40px;
-    margin-left: 12px;
-  }
-  &__sidebar {
-    position: absolute;
-    height: 100%;
-    right: 0;
-    top: 0;
-    width: 320px;
-    z-index: 2;
-    background-color: #bdbdbd;
-    @include photo {
-      display: none;
-    }
-  }
-  &__img {
-    position: fixed;
-    right: 0;
-    width: 450px;
-    bottom: 150px;
-    z-index: 3;
-    @include photo {
-      display: none;
-    }
   }
 }

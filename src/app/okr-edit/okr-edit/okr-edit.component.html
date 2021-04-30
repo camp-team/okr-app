@@ -16,19 +16,19 @@
   <div class="okr-edit">
     <mat-horizontal-stepper #stepper class="stepper">
       <div class="container">
-        <div class="second-step">
+        <div class="first-step">
           <mat-step
             [stepControl]="secondFormGroup"
             errorMessage="Address is required."
           >
-            <div class="second-step__header">2番目のOKRの作成(手順 1/2)</div>
-            <div class="second-step__main">
-              <p class="second-step__title">
+            <div class="okr-edit__header">2番目のOKRの作成(手順 1/2)</div>
+            <div class="okr-edit__main">
+              <p class="okr-edit__title">
                 <span
                   class="tooltip"
                   data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
                 >
-                  <span class="second-step__text">
+                  <span class="okr-edit__text">
                     Key Resultを達成するための
                   </span>
                   <span>
@@ -41,12 +41,9 @@
               </p>
               <form [formGroup]="form">
                 <div formArrayName="primaries">
-                  <div
-                    *ngFor="let option of primaries.controls; let i = index"
-                    class="second-step__form"
-                  >
-                    <mat-form-field class="second-okr-form second-step__field">
-                      <mat-label class="second-step__lavel">
+                  <div *ngFor="let option of primaries.controls; let i = index">
+                    <mat-form-field class="second-okr-form okr-edit__field">
+                      <mat-label class="first-step__lavel">
                         目標を入力 {{ i + 1 }}つ目
                       </mat-label>
                       <input
@@ -64,7 +61,7 @@
                     </mat-form-field>
                     <button
                       *ngIf="i"
-                      class="second-step__remcontents"
+                      class="first-step__remcontents"
                       type="button"
                       (click)="removeOption(i)"
                       mat-icon-button
@@ -75,7 +72,7 @@
                   </div>
                   <button
                     *ngIf="objectForm < 3"
-                    class="add-form second-step__addcontents"
+                    class="add-form first-step__addcontents"
                     type="button"
                     mat-raised-button
                     (click)="addOptionForm()"
@@ -92,13 +89,13 @@
                 [disabled]="primariesControl.invalid"
                 mat-raised-button
                 color="primary"
-                class="second-step__next"
+                class="okr-edit__next"
               >
                 次へ
               </button>
-              <div class="second-step__sidebar">
+              <div class="okr-edit__sidebar">
                 <img
-                  class="second-step__img"
+                  class="okr-edit__img"
                   src="assets/images/second-okr-first-step.svg"
                   alt="フォーム画像"
                 />
@@ -107,19 +104,19 @@
           </mat-step>
         </div>
 
-        <div class="third-step">
+        <div class="second-step">
           <mat-step
             [stepControl]="thirdFormGroup"
             errorMessage="Address is required."
           >
-            <div class="third-step__header">2番目のOKRの作成(手順 2/2)</div>
-            <div class="third-step__main">
-              <p class="third-step__title">
+            <div class="okr-edit__header">2番目のOKRの作成(手順 2/2)</div>
+            <div class="okr-edit__main">
+              <p class="okr-edit__title">
                 <span
                   class="tooltip"
                   data-tooltip="ここで作成した目標から今後のタスクを作成していきます。&#13;&#10;Key Resultに紐づいた目標が好ましいです。&#13;&#10;&#13;&#10;例)&#13;&#10;・技術者として売れる。&#13;&#10;・教養がある。&#13;&#10;・仲間と交流出来ている。"
                 >
-                  <span class="second-step__text">
+                  <span class="okr-edit__text">
                     最後になります。
                   </span>
                   <span>
@@ -133,10 +130,10 @@
               <form
                 [formGroup]="form"
                 (ngSubmit)="cleateSecondOkr()"
-                class="third-step__form"
+                class="second-step__form"
               >
-                <mat-form-field appearance="fill" class="third-step__field">
-                  <mat-label class="third-step__lavel"
+                <mat-form-field appearance="fill" class="okr-edit__field">
+                  <mat-label class="second-step__lavel"
                     >開始日と終了日の入力</mat-label
                   >
                   <mat-date-range-input
@@ -165,28 +162,31 @@
                     >終了日を入力して下さい</mat-error
                   >
                 </mat-form-field>
-                <button
-                  mat-button
-                  matStepperPrevious
-                  class="third-step__button"
-                >
-                  戻る
-                </button>
-                <button
-                  [disabled]="
-                    startControl.invalid || endControl.invalid || form.invalid
-                  "
-                  mat-raised-button
-                  color="primary"
-                  class="create-secondOkr third-step__next"
-                >
-                  OKRを作成
-                </button>
+                <div class="second-step__action">
+                  <button
+                    mat-button
+                    matStepperPrevious
+                    class="second-step__button"
+                  >
+                    戻る
+                  </button>
+                  <button
+                    [disabled]="
+                      startControl.invalid || endControl.invalid || form.invalid
+                    "
+                    mat-button
+                    mat-raised-button
+                    color="primary"
+                    class="create-secondOkr okr-edit__next"
+                  >
+                    OKRを作成
+                  </button>
+                </div>
               </form>
-              <div class="third-step__sidebar">
+              <div class="okr-edit__sidebar">
                 <img
-                  class="third-step__img"
-                  src="assets/images/third-step-item.svg"
+                  class="okr-edit__img"
+                  src="assets/images/second-step-item.svg"
                   alt="フォーム画像"
                 />
               </div>
