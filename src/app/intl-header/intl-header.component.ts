@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ManageService } from '../manage/manage/manage.service';
 
 @Component({
   selector: 'app-intl-header',
@@ -7,11 +6,7 @@ import { ManageService } from '../manage/manage/manage.service';
   styleUrls: ['./intl-header.component.scss'],
 })
 export class IntlHeaderComponent implements OnInit {
-  constructor(private manageService: ManageService) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  toggle() {
-    this.manageService.toggle();
-  }
 }
