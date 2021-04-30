@@ -2,6 +2,11 @@
 @import 'mixins';
 
 .header {
+  z-index: 1000;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  height: 64px;
   &__inner {
     align-items: center;
     justify-content: space-between;
@@ -23,7 +28,22 @@
     color: inherit;
   }
   &__right {
+    display: flex;
     padding-top: 0.6em;
+  }
+  &__mypage {
+    grid-area: icon;
+    justify-self: end;
+  }
+  &__icon {
+    background-position: center;
+    background-size: cover;
+    box-shadow: none;
+  }
+  &__progress {
+    &:hover {
+      cursor: pointer;
+    }
   }
   &__nav {
     list-style: none;
