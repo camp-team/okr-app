@@ -10,6 +10,7 @@ import { SecondOkrTitleComponent } from '../second-okr-title/second-okr-title.co
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [SecondOkrComponent, SecondOkrTitleComponent],
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDatepickerModule,
     MatMenuModule,
     MatButtonModule,
+    MatTooltipModule,
   ],
 })
 export class SecondOkrModule {}
