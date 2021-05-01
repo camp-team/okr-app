@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+import auth from 'firebase/app';
+import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +16,7 @@ import { LoadingService } from './loading.service';
 export class AuthService {
   uid: string;
   initialLogin: boolean;
-  afUser$: Observable<firebase.User> = this.afAuth.user.pipe(
+  afUser$: Observable<firebase.default.User> = this.afAuth.user.pipe(
     map((user) => {
       if (user) {
         this.uid = user.uid;
@@ -49,7 +50,7 @@ export class AuthService {
   }
 
   login() {
-    const provider = new auth.GoogleAuthProvider();
+    const provider = new firebase.default.auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     this.afAuth.signInWithPopup(provider).then((result) => {
       if (result.additionalUserInfo.isNewUser) {
