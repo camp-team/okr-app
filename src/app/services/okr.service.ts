@@ -4,7 +4,7 @@ import { Okr } from '../interfaces/okr';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
-import { firestore } from 'firebase';
+import firestore from 'firebase';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
@@ -114,7 +114,7 @@ export class OkrService {
       )
       .set({
         secondOkrKeyResultId,
-        lastUpdated: firestore.Timestamp.now(),
+        lastUpdated: firestore.firestore.Timestamp.now(),
         ...secondOkrKeyResult,
       });
   }
@@ -327,7 +327,7 @@ export class OkrService {
         `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
       )
       .update({
-        lastUpdated: firestore.Timestamp.now(),
+        lastUpdated: firestore.firestore.Timestamp.now(),
         ...secondOkrKeyResult,
       });
   }
