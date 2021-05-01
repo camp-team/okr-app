@@ -1,4 +1,4 @@
-import { firestore } from 'firebase';
+import * as firebase from 'firebase';
 
 export interface SecondOkrKeyResult {
   secondOkrId: string;
@@ -9,5 +9,5 @@ export interface SecondOkrKeyResult {
   target: number;
   current: number;
   percentage: string;
-  lastUpdated: firestore.Timestamp;
+  lastUpdated: firebase.default.firestore.Timestamp;
 }
