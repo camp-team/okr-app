@@ -98,20 +98,32 @@ mat-error {
   &__title {
     display: flex;
     margin: 0 0 0 0;
-    padding-bottom: 36px;
+    padding-bottom: 56px;
     justify-content: center;
     font-size: 30px;
     @include sm {
       font-size: 24px;
       letter-spacing: 2px;
       font-weight: 500;
-      padding-bottom: 24px;
+      padding-bottom: 56px;
       margin: 0;
     }
   }
   &__title-content {
+    position: relative;
     font-size: 26px;
     margin: 0;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 70px;
+      height: 5px;
+      background-color: #757575;
+      border-radius: 2px;
+    }
   }
   &__add-row {
     margin-top: 8px;
@@ -179,5 +191,8 @@ mat-error {
     margin: 0 auto;
     display: block;
     width: fit-content;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
   }
 }
