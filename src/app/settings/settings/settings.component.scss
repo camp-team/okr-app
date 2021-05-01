@@ -2,8 +2,11 @@
 @import 'mixins';
 
 ::ng-deep .mat-tab-labels {
-  justify-content: space-around !important;
+  justify-content: center !important;
   background-color: #e9e3df;
+  @include sm {
+    justify-content: space-around !important;
+  }
 }
 
 .settings {
