@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { firestore } from 'firebase';
+import * as firebase from 'firebase';
 import { combineLatest, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { SecondOkr } from '../interfaces/second-okr';
@@ -108,7 +108,7 @@ export class CompleteOkrComponent implements OnInit {
     target: number,
     current: number,
     percentage: string,
-    lastUpdated: firestore.Timestamp,
+    lastUpdated: firebase.default.firestore.Timestamp,
     secondOkrObjectId: string,
     secondOkrKeyResultId: string
   ) {
