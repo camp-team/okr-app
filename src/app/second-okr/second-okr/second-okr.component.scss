@@ -48,8 +48,10 @@ mat-error {
 }
 
 .second-okr {
-  padding: 24px 0;
-  margin: 0 96px 0;
+  padding: 24px 62px;
+  // margin: 0 96px 0;
+  margin: 0 auto;
+  max-width: 1200px;
   height: 100%;
   @include sm {
     margin: 0;
@@ -98,7 +100,7 @@ mat-error {
   }
   &__key-result {
     width: 98%;
-    height: 100%;
+    height: 30px;
     border-style: none;
     background-color: transparent;
     @include sm {
@@ -123,6 +125,7 @@ mat-error {
   &__title-content {
     position: relative;
     font-size: 26px;
+    letter-spacing: 1.5px;
     margin: 0;
     &::before {
       content: '';
