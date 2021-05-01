@@ -16,10 +16,10 @@ li {
 .nav {
   z-index: 1000;
   padding: 0;
-  width: 100%;
+  max-width: 1200px;
   height: 56px;
   display: flex;
-  margin: 0 10px 0 0;
+  margin: 0 auto;
   list-style: none;
   align-items: center;
   font-size: 14px;
