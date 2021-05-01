@@ -1,27 +1,29 @@
-<ul class="nav">
-  <li>
-    <a routerLink="/manage/home">
-      <span>ホーム</span>
-    </a>
-  </li>
-  <li>
-    <ng-container *ngIf="isSecondOkr; else blank">
-      <ng-container *ngIf="isComplete === true; else blank">
-        <a (click)="progress()">
+<div class="manage-header">
+  <ul class="nav">
+    <li>
+      <a routerLink="/manage/home">
+        <span>ホーム</span>
+      </a>
+    </li>
+    <li>
+      <ng-container *ngIf="isSecondOkr; else blank">
+        <ng-container *ngIf="isComplete === true; else blank">
+          <a (click)="progress()">
+            <span>進行中</span>
+          </a>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #blank>
+        <a href="" routerLink="/manage/secondOkr">
           <span>進行中</span>
         </a>
-      </ng-container>
-    </ng-container>
-
-    <ng-template #blank>
-      <a href="" routerLink="/manage/secondOkr">
-        <span>進行中</span>
+      </ng-template>
+    </li>
+    <li>
+      <a routerLink="/manage/achieve">
+        <span>達成済み</span>
       </a>
-    </ng-template>
-  </li>
-  <li>
-    <a routerLink="/manage/achieve">
-      <span>達成済み</span>
-    </a>
-  </li>
-</ul>
+    </li>
+  </ul>
+</div>
