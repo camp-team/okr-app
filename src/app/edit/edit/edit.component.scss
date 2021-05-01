@@ -221,17 +221,29 @@
 }
 
 .no-data-first-okr {
-  padding-top: 36px;
+  padding: 36px 0;
   text-align: center;
   @include sm {
     padding: 0;
   }
   &__title {
-    margin-bottom: 36px;
+    position: relative;
+    margin-bottom: 66px;
     font-size: 24px;
     @include sm {
-      margin: 0 0 36px;
+      margin: 0 0 66px;
       font-size: 20px;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 70px;
+      height: 5px;
+      background-color: #757575;
+      border-radius: 2px;
     }
   }
   &__image {
