@@ -2,7 +2,6 @@
   <h1 class="okr__title">
     <ng-container [formGroup]="form">
       <span>Objective(目標)</span>
-      <span class="colon">:</span>
       <div class="okr__objective-wrapper">
         <input
           class="okr__objective"
@@ -36,7 +35,6 @@
     <span class="okr__content">
       Key Result(目標達成のための成果指標)
     </span>
-    <span class="colon">:</span>
     <div
       class="okr__keyResult-container"
       [formGroup]="keyResults[primary.primaryId]"
