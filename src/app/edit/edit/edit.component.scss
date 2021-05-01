@@ -89,7 +89,7 @@
     top: 195%;
   }
   @include sm {
-    top: 155px;
+    top: 168px;
   }
 }
 
@@ -108,7 +108,7 @@
 }
 
 .form-detail {
-  padding: 56px 0 0 84px;
+  padding: 56px 0 0;
   color: rgba(0, 0, 0, 0.54);
   font-size: 20px;
   letter-spacing: 2px;
@@ -119,11 +119,14 @@
 }
 
 .edit {
+  max-width: 1224px;
+  margin: 0 auto;
+  padding: 0 52px;
   @include sm {
     padding: 30px 0;
   }
   &__main {
-    padding: 40px 0 0 108px;
+    padding: 40px 0 0;
     max-width: 660px;
     @include sm {
       padding: 0;
@@ -132,6 +135,9 @@
   &__title {
     letter-spacing: 2px;
     font-size: 36px;
+    @include md {
+      min-width: 586px;
+    }
     @include sm {
       font-size: 20px;
       letter-spacing: 1px;
@@ -156,7 +162,7 @@
   }
   &__img {
     position: fixed;
-    right: 60px;
+    right: 120px;
     width: 350px;
     bottom: 180px;
     z-index: 3;
