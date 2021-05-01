@@ -130,17 +130,29 @@
 
 .not-okr-edit {
   &__wrapper {
-    padding-top: 48px;
+    padding: 48px 0;
     text-align: center;
     @include sm {
       padding: 40px 0;
     }
   }
   &__title {
+    position: relative;
     font-size: 24px;
-    margin: 0 0 32px 0;
+    margin: 0 0 66px 0;
     @include sm {
       font-size: 20px;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 70px;
+      height: 5px;
+      background-color: #757575;
+      border-radius: 2px;
     }
   }
   &__no-data {
@@ -148,6 +160,11 @@
     height: 200px;
     display: block;
     margin-bottom: 32px;
+  }
+  &__button {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
   }
 }
 
