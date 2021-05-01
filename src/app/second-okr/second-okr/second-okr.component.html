@@ -26,7 +26,7 @@
             >
               <ng-container [formGroupName]="primaryArrayIndex">
                 <div class="objective">
-                  <span class="objective__title">Objective(目標)：</span>
+                  <span class="objective__title">Objective(目標)</span>
                   <input
                     (keyup)="
                       updateSecondOkrPrimaryTitle(
@@ -242,7 +242,12 @@
                           removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
                         "
                       >
-                        ➖削除
+                        <mat-icon>
+                          minimize
+                        </mat-icon>
+                        <span>
+                          削除
+                        </span>
                       </div>
                     </ng-container>
                   </tr>
@@ -251,7 +256,8 @@
                     (click)="addRow(secondOkrObject.secondOkrObjectId)"
                     class="add-row second-okr__add-row"
                   >
-                    ➕レコード追加
+                    <mat-icon>add</mat-icon>
+                    <span>レコード追加</span>
                   </div>
                 </tbody>
               </table>

@@ -6,10 +6,21 @@
   margin-bottom: 12px;
   align-items: center;
   &__title {
+    position: relative;
+    font-size: 20px;
     width: 150px;
     @include sm {
-      min-width: 170px;
+      min-width: 160px;
       font-size: 20px;
+    }
+    &::after {
+      content: ':';
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      @include sm {
+        right: 10px;
+      }
     }
   }
   &__form {
@@ -128,24 +139,35 @@ mat-error {
   &__add-row {
     margin-top: 8px;
   }
+  &__remove {
+    height: 35px;
+    margin-top: 6px;
+  }
   &__add-row,
   &__remove {
+    position: relative;
     font-size: 14px;
     border-style: none;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.36);
-    height: 30px;
     align-items: center;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
+  }
+  &__add-row span {
+    position: absolute;
+    top: 0;
+  }
+  &__remove span {
+    position: absolute;
+    top: 5px;
   }
   &__average {
     text-align: center;
     margin-bottom: 12px;
   }
   &__average-text {
-    color: rgba(0, 0, 0, 0.36);
     margin-right: 8px;
   }
 }
