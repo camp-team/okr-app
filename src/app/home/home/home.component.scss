@@ -24,7 +24,7 @@
     justify-content: center;
     text-align: center;
     font-size: 30px;
-    padding-bottom: 36px;
+    padding-bottom: 56px;
     span {
       font-size: 46px;
     }
@@ -33,12 +33,24 @@
       font-weight: 500;
       letter-spacing: 2px;
       margin: 0;
-      padding-bottom: 24px;
+      padding-bottom: 56px;
     }
   }
   &__title-content {
+    position: relative;
     margin: 0;
     font-size: 26px;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 70px;
+      height: 5px;
+      background-color: #757575;
+      border-radius: 2px;
+    }
   }
   &__card {
     height: 240px;
@@ -95,6 +107,9 @@
     margin: 0 auto;
     display: block;
     width: 200px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
   }
 }
 
@@ -129,5 +144,8 @@
     display: block;
     margin: 0 auto;
     width: fit-content;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
   }
 }
