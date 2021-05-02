@@ -9,6 +9,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { Okr } from 'src/app/interfaces/okr';
 import { Primary } from 'src/app/interfaces/primary';
 import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
@@ -52,6 +53,9 @@ export class OkrComponent implements OnInit {
       ],
       categories: this.fb.array([]),
     });
+    this.form.valueChanges.pipe(debounceTime(500)).subscribe((title) => {
+      this.updateObjective(title.objective);
+    });
   }
 
   get objectiveContoroll() {
@@ -69,6 +73,11 @@ export class OkrComponent implements OnInit {
           ],
         });
         this.keyResults[primary.primaryId].push(this.keyResult);
+        this.keyResult.valueChanges
+          .pipe(debounceTime(500))
+          .subscribe((primaryTitle) => {
+            this.updateKeyResult(primary.primaryId, primaryTitle.key);
+          });
       });
     });
   }
@@ -77,12 +86,12 @@ export class OkrComponent implements OnInit {
     this.okrService.updateOkr(this.authService.uid, this.okr.okrId, objective);
   }
 
-  updateKeyResult(keyResultId: string, keyResultTitle: Primary) {
+  updateKeyResult(keyResultId: string, primaryTitle: Primary) {
     this.okrService.updatePrimary(
       this.authService.uid,
       this.okr.okrId,
       keyResultId,
-      keyResultTitle[0].key
+      primaryTitle
     );
   }
 

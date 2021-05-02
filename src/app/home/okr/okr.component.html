@@ -5,7 +5,6 @@
       <div class="okr__objective-wrapper">
         <input
           class="okr__objective"
-          (keyup)="updateObjective(form.value.objective)"
           type="text"
           formControlName="objective"
           autocomplete="off"
@@ -48,12 +47,6 @@
         <div [formGroupName]="i">
           <input
             class="okr__keyResult"
-            (keyup)="
-              updateKeyResult(
-                primary.primaryId,
-                keyResults[primary.primaryId].value
-              )
-            "
             type="text"
             formControlName="key"
             autocomplete="off"
