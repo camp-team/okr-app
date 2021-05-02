@@ -46,11 +46,15 @@ export const deleteCollection = functions
     const secondOkrs = db
       .collectionGroup(`secondOkrs`)
       .where('creatorId', '==', user.uid);
+    const customers = db
+      .collection(`customers`)
+      .where('userId', '==', user.uid);
     return Promise.all([
       deleteCollectionByReference(primariesRef),
       deleteCollectionByReference(secondOkrKeyResultsRef),
       deleteCollectionByReference(secondOkrObjectsRef),
       deleteCollectionByReference(secondOkrs),
+      deleteCollectionByReference(customers),
     ]);
   });
 
