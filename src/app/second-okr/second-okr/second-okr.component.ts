@@ -169,23 +169,10 @@ export class SecondOkrComponent implements OnInit {
     });
   }
 
-  editKeyResults(secondOkrObjectId) {
-    this.row.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((secondOkrKeyResult) => {
-        this.updateSecondOkrKeyResult(
-          secondOkrObjectId,
-          secondOkrKeyResult.secondOkrKeyResultId,
-          secondOkrKeyResult,
-          this.rows[secondOkrObjectId].controls.length
-        );
-      });
-  }
-
   addRow(secondOkrObjectId: string) {
     const now = new Date();
     const date = formatDate(now, 'yyyy/MM/dd', this.locale);
-    this.row = this.fb.group({
+    const defaultData = this.fb.group({
       key: ['', [Validators.required, Validators.maxLength(20)]],
       target: [
         '',
@@ -206,9 +193,7 @@ export class SecondOkrComponent implements OnInit {
       percentage: [0 + '%', [Validators.required]],
       lastUpdated: [date, [Validators.required]],
     });
-    this.rows[secondOkrObjectId].push(this.row);
-    this.editKeyResults(secondOkrObjectId);
-    const formData = this.row.value;
+    const formData = defaultData.value;
     const subTaskValue: Omit<
       SecondOkrKeyResult,
       'secondOkrKeyResultId' | 'lastUpdated'
@@ -226,17 +211,51 @@ export class SecondOkrComponent implements OnInit {
       secondOkrObjectId,
       this.secondOkrId
     );
+    this.okrService
+      .getSecondOkrKeyResultId(this.secondOkrId)
+      .pipe(take(1))
+      .subscribe((secondOkrKeyResults) => {
+        secondOkrKeyResults.forEach((secondOkrKeyResult) => {
+          this.secondOkrKeyResultId = secondOkrKeyResult.secondOkrKeyResultId;
+        });
+        this.row = this.fb.group({
+          key: ['', [Validators.required, Validators.maxLength(20)]],
+          target: [
+            '',
+            [
+              Validators.required,
+              Validators.pattern('^[0-9]*$'),
+              Validators.maxLength(3),
+            ],
+          ],
+          current: [
+            0,
+            [
+              Validators.required,
+              Validators.pattern('^[0-9]*$'),
+              Validators.maxLength(3),
+            ],
+          ],
+          percentage: [0 + '%', [Validators.required]],
+          lastUpdated: [date, [Validators.required]],
+          secondOkrKeyResultId: this.secondOkrKeyResultId,
+        });
+        this.rows[secondOkrObjectId].push(this.row);
+        this.editKeyResults(secondOkrObjectId);
+      });
   }
 
-  removeRow(secondOkrObjectId: string, rowIndex: number) {
-    const secondOkrKeyResultId = this.rows[secondOkrObjectId].value[rowIndex]
-      .secondOkrKeyResultId;
-    this.okrService.deleteSecondOkrKeyResultDocument(
-      this.secondOkrId,
-      secondOkrObjectId,
-      secondOkrKeyResultId
-    );
-    this.rows[secondOkrObjectId].removeAt(rowIndex);
+  editKeyResults(secondOkrObjectId) {
+    this.row.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((secondOkrKeyResult) => {
+        this.updateSecondOkrKeyResult(
+          secondOkrObjectId,
+          secondOkrKeyResult.secondOkrKeyResultId,
+          secondOkrKeyResult,
+          this.rows[secondOkrObjectId].controls.length
+        );
+      });
   }
 
   updateSecondOkrKeyResult(
@@ -269,7 +288,6 @@ export class SecondOkrComponent implements OnInit {
         average: Math.round((average / (rowLength * 100)) * 100),
         uid: this.authService.uid,
       };
-
       this.okrService.updateSecondOkrObject(
         this.authService.uid,
         this.secondOkrId,
@@ -297,30 +315,13 @@ export class SecondOkrComponent implements OnInit {
       uid: this.authService.uid,
       percentage: result + '%',
     };
-    this.okrService
-      .getSecondOkrKeyResultId(this.secondOkrId)
-      .subscribe((secondOkrKeyResults) => {
-        secondOkrKeyResults.forEach((secondOkrKeyResult) => {
-          this.secondOkrKeyResultId = secondOkrKeyResult.secondOkrKeyResultId;
-        });
-      });
-    if (secondOkrKeyResultId) {
-      this.okrService.updateSecondOkrKeyResult(
-        this.authService.uid,
-        this.secondOkrId,
-        secondOkrObjectId,
-        secondOkrKeyResultId,
-        secondOkrKeyResult
-      );
-    } else {
-      this.okrService.updateSecondOkrKeyResult(
-        this.authService.uid,
-        this.secondOkrId,
-        secondOkrObjectId,
-        this.secondOkrKeyResultId,
-        secondOkrKeyResult
-      );
-    }
+    this.okrService.updateSecondOkrKeyResult(
+      this.authService.uid,
+      this.secondOkrId,
+      secondOkrObjectId,
+      secondOkrKeyResultId,
+      secondOkrKeyResult
+    );
   }
 
   updateSecondOkrPrimaryTitle(
@@ -333,5 +334,16 @@ export class SecondOkrComponent implements OnInit {
       secondOkrObjects.secondOkrObjectId,
       secondOkrObject
     );
+  }
+
+  removeRow(secondOkrObjectId: string, rowIndex: number) {
+    const secondOkrKeyResultId = this.rows[secondOkrObjectId].value[rowIndex]
+      .secondOkrKeyResultId;
+    this.okrService.deleteSecondOkrKeyResultDocument(
+      this.secondOkrId,
+      secondOkrObjectId,
+      secondOkrKeyResultId
+    );
+    this.rows[secondOkrObjectId].removeAt(rowIndex);
   }
 }
