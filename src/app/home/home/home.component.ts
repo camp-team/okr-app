@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
-import { ShepherdService } from 'angular-shepherd';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 

@@ -1,29 +1,15 @@
 <div class="second-okr">
   <div class="container">
     <div class="second-okr__title">
-      <h1 class="second-okr__title-content">進行中の</h1>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="68"
-        height="42"
-        viewBox="0 0 68 42"
-      >
-        <text
-          id="OKR"
-          transform="translate(0 33)"
-          font-size="30"
-          font-family="ComicSansMS-Bold, Comic Sans MS"
-          font-weight="700"
-          letter-spacing="0.096em"
-        >
-          <tspan x="0" y="0">OKR</tspan>
-        </text>
-      </svg>
+      <h1 class="second-okr__title-content">進行中のOKR</h1>
     </div>
     <ng-container *ngIf="isComplete === true; else blank">
       <app-second-okr-title></app-second-okr-title>
       <div class="data">
-        <div *ngFor="let secondOkrObject of secondOkrObjects; let i = index">
+        <div
+          *ngFor="let secondOkrObject of secondOkrObjects; let i = index"
+          class="second-okr__container"
+        >
           <form
             [formGroup]="
               secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]
@@ -40,7 +26,7 @@
             >
               <ng-container [formGroupName]="primaryArrayIndex">
                 <div class="objective">
-                  <span class="objective__title">Objective(目標)：</span>
+                  <span class="objective__title">Objective(目標)</span>
                   <input
                     (keyup)="
                       updateSecondOkrPrimaryTitle(
@@ -134,6 +120,7 @@
                           type="text"
                           formControlName="key"
                           autocomplete="off"
+                          class="second-okr__key-result"
                         />
                         <mat-error *ngIf="row.get('key').hasError('required')">
                           <span
@@ -169,6 +156,7 @@
                           autocomplete="off"
                           required
                           maxlength="20"
+                          class="second-okr__key-result"
                         />
                         <mat-error
                           *ngIf="row.get('target').hasError('required')"
@@ -211,6 +199,7 @@
                           formControlName="current"
                           autocomplete="off"
                           required
+                          class="second-okr__key-result"
                         />
                         <mat-error
                           *ngIf="row.get('current').hasError('required')"
@@ -234,6 +223,7 @@
                           formControlName="percentage"
                           autocomplete="off"
                           disabled
+                          class="second-okr__key-result"
                         />
                       </td>
                       <td class="body-right">
@@ -242,6 +232,7 @@
                           formControlName="lastUpdated"
                           autocomplete="off"
                           disabled
+                          class="second-okr__key-result"
                         />
                       </td>
                       <div
@@ -251,7 +242,12 @@
                           removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
                         "
                       >
-                        ➖削除
+                        <mat-icon>
+                          minimize
+                        </mat-icon>
+                        <span>
+                          削除
+                        </span>
                       </div>
                     </ng-container>
                   </tr>
@@ -260,7 +256,8 @@
                     (click)="addRow(secondOkrObject.secondOkrObjectId)"
                     class="add-row second-okr__add-row"
                   >
-                    ➕追加
+                    <mat-icon>add</mat-icon>
+                    <span>レコード追加</span>
                   </div>
                 </tbody>
               </table>

@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Okr } from 'src/app/interfaces/okr';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateFirstOkrDialogComponent } from 'src/app/create-first-okr-dialog/create-first-okr-dialog.component';
 import { Observable } from 'rxjs';
 import { TutorialService } from 'src/app/services/tutorial.service';
 

@@ -11,10 +11,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { CreateFirstOkrDialogComponent } from '../create-first-okr-dialog/create-first-okr-dialog.component';
 
 @NgModule({
-  declarations: [EditComponent, CreateFirstOkrDialogComponent],
+  declarations: [EditComponent],
   imports: [
     CommonModule,
     EditRoutingModule,

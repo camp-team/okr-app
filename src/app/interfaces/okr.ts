@@ -1,8 +1,8 @@
-import { firestore } from 'firebase';
+import * as firebase from 'firebase';
 export interface Okr {
   primaries: any;
-  start?: firestore.Timestamp;
-  end?: firestore.Timestamp;
+  start?: firebase.default.firestore.Timestamp;
+  end?: firebase.default.firestore.Timestamp;
   creatorId: string;
   okrId: string;
   title: string;

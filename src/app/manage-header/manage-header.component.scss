@@ -1,88 +1,35 @@
 @import 'variables';
 @import 'mixins';
 
-.manage-header {
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 10%;
+li {
+  cursor: pointer;
 }
-.header {
-  z-index: 1000;
-  background-color: #fff;
-  top: 0;
-  left: 0;
-  height: 64px;
-  &__hamburger-menu {
-    margin-right: 16px;
-  }
-  &__link {
-    text-decoration: none;
-    color: inherit;
-  }
-  &__spacer {
-    flex: 1;
-  }
-  &__right {
-    display: flex;
-  }
-  &__search {
-    color: rgba(0, 0, 0, 0.24);
-    position: relative;
-    margin: 0 24px;
-    input {
-      color: rgba(0, 0, 0, 0.24);
-      border-color: rgba(0, 0, 0, 0.24);
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding-right: 32px;
-      padding-left: 16px;
-      line-height: 32px;
-      border-radius: 16px;
-      border: 1px solid;
-    }
-    mat-icon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 8px;
-    }
-  }
-  &__mypage {
-    grid-area: icon;
-    justify-self: end;
-  }
-  &__icon {
-    background-position: center;
-    background-size: cover;
-    box-shadow: none;
-  }
-  &__progress {
-    &:hover {
-      cursor: pointer;
-    }
+
+.manage-header {
+  padding: 0 62px;
+  background-color: #e9e3df;
+  @include sm {
+    padding: 0 34px;
   }
 }
 
 .nav {
   z-index: 1000;
   padding: 0;
-  background-color: #fff;
-  width: 100%;
+  max-width: 1200px;
   height: 56px;
   display: flex;
-  margin: 0 10px 0 0;
+  margin: 0 auto;
   list-style: none;
   align-items: center;
   font-size: 14px;
   font-weight: 600;
+  @include sm {
+    padding: 0;
+    justify-content: space-between;
+  }
   .okr {
     align-items: center;
-  }
-  li {
-    @include sm {
-      width: 100%;
-      display: flex;
-    }
   }
   a {
     text-decoration: none;
@@ -99,10 +46,13 @@
       left: 50%;
       transform: translateX(-50%);
       width: 0;
-      background-color: #bdbdbd;
-      height: 2px;
+      background-color: #757575;
+      height: 3px;
       border-radius: 2px;
       transition: width 0.4s;
+      @include sm {
+        bottom: -5px;
+      }
     }
     &:hover {
       &::before {

@@ -1,8 +1,20 @@
 @import 'variables';
 @import 'mixins';
 
+.terms {
+  &__title {
+    text-align: center;
+    font-size: 28px;
+    margin: 0;
+    padding: 38px 0 24px;
+    @include sm {
+      font-size: 20px;
+    }
+  }
+}
+
 .container {
-  padding: 56px;
+  padding: 0 56px 24px;
   max-width: 600px;
   margin: 0 auto;
   @include sm {
@@ -10,22 +22,8 @@
   }
 }
 
-.terms {
-  @include sm {
-    padding: 30px 0;
-    &__title {
-      text-align: center;
-      font-size: 20px;
-      margin: 0;
-      padding-bottom: 24px;
-    }
-  }
-}
-
 hr {
-  @include sm {
-    margin-bottom: 40px;
-  }
+  margin: 0;
 }
 
 p {

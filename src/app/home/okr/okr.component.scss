@@ -4,23 +4,38 @@
 .okr {
   text-align: center;
   padding-bottom: 36px;
+  width: 600px;
+  margin: 0 auto;
+  @include sm {
+    width: 356px;
+    margin: 0 auto;
+  }
   &__objective {
     display: block;
     border: none;
     background-color: inherit;
     font-size: 28px;
     font-weight: 700;
+    @include sm {
+      font-size: 24px;
+      padding: 0;
+    }
   }
   &__objective-wrapper {
     padding: 6px 0 0 12px;
-  }
-  &__title .mat-error {
-    font-size: 16px;
+    @include sm {
+      padding: 0;
+    }
   }
   &__keyResult {
     border: none;
     background-color: inherit;
     font-size: 28px;
+    @include sm {
+      padding: 0;
+      font-size: 20px;
+      display: block;
+    }
   }
   &__title {
     display: flex;
@@ -29,14 +44,18 @@
     margin: 0 auto;
     width: 600px;
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 36px;
     @include sm {
+      display: block;
+      padding-bottom: 20px;
       font-size: 24px;
-      font-weight: 500;
-      margin: 0 auto 0;
-      width: 300px;
+      width: 100%;
+      margin: 0;
     }
+  }
+  &__title .mat-error {
+    font-size: 16px;
   }
   &__icon {
     position: absolute;
@@ -45,31 +64,51 @@
     cursor: pointer;
     @include sm {
       position: absolute;
-      top: -18%;
-      right: 16%;
+      top: -3%;
+      right: 0;
     }
   }
   &__keyResults {
     position: relative;
     width: 600px;
     margin: 0 auto;
+    text-align: start;
+    padding-bottom: 24px;
     @include sm {
-      width: 300px;
+      width: 100%;
+      padding-bottom: 20px;
     }
   }
   &__content {
+    position: relative;
     font-size: 26px;
     text-align: start;
     @include sm {
-      font-size: 18px;
+      display: block;
+      font-size: 20px;
+    }
+    &::after {
+      content: ':';
+      position: absolute;
+      top: 0;
+      right: -15px;
+      @include sm {
+        display: none;
+      }
     }
   }
-
   &__keyResult-container {
     position: absolute;
     width: 194px;
     top: 5px;
     right: -66px;
+    @include sm {
+      position: inherit;
+      width: 100%;
+      right: 0;
+      top: 0;
+      text-align: start;
+    }
   }
 
   &__key-result {

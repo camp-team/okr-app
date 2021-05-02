@@ -2,20 +2,26 @@
 @import 'mixins';
 
 .header {
+  z-index: 1000;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  background-color: #e9e3df;
   &__inner {
+    max-width: 1324px;
+    padding: 0 74px;
     align-items: center;
     justify-content: space-between;
-    background-color: #e9e3df;
-    padding: 0 6%;
+    margin: 0 auto;
     @include sm {
-      padding: 0 3%;
+      padding: 0 44px;
     }
   }
   &__logo {
     margin: 0;
-    padding-top: 2em;
+    padding-top: 16px;
     @include sm {
-      padding-top: 1em;
+      padding-top: 16px;
     }
   }
   &__link {
@@ -23,7 +29,22 @@
     color: inherit;
   }
   &__right {
+    display: flex;
     padding-top: 0.6em;
+  }
+  &__mypage {
+    grid-area: icon;
+    justify-self: end;
+  }
+  &__icon {
+    background-position: center;
+    background-size: cover;
+    box-shadow: none;
+  }
+  &__progress {
+    &:hover {
+      cursor: pointer;
+    }
   }
   &__nav {
     list-style: none;

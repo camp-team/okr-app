@@ -1,7 +1,7 @@
 <div class="okr">
   <h1 class="okr__title">
     <ng-container [formGroup]="form">
-      <span>Objective(目標) :</span>
+      <span>Objective(目標)</span>
       <div class="okr__objective-wrapper">
         <input
           class="okr__objective"
@@ -32,9 +32,9 @@
     </mat-menu>
   </h1>
   <div *ngFor="let primary of primaries$ | async" class="okr__keyResults">
-    <p class="okr__content">
-      Key Result(目標達成のための成果指標) :
-    </p>
+    <span class="okr__content">
+      Key Result(目標達成のための成果指標)
+    </span>
     <div
       class="okr__keyResult-container"
       [formGroup]="keyResults[primary.primaryId]"

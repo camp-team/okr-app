@@ -1,67 +1,4 @@
 <div class="manage-header">
-  <mat-toolbar class="header">
-    <div class="header__left">
-      <div class="header__title">
-        <a routerLink="/about" class="header__link">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="68"
-            height="42"
-            viewBox="0 0 68 42"
-          >
-            <text
-              id="OKR"
-              transform="translate(0 33)"
-              font-size="24"
-              font-family="ComicSansMS-Bold, Comic Sans MS"
-              font-weight="700"
-              letter-spacing="0.096em"
-            >
-              <tspan x="0" y="0">OKR</tspan>
-            </text>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <span class="header__spacer"></span>
-
-    <div class="header__right">
-      <ng-container
-        *ngIf="authService.user$ | async as user"
-        class="header__mypage"
-      >
-        <button
-          mat-mini-fab
-          [matMenuTriggerFor]="userMenu"
-          [style.background-image]="'url(' + user?.avatarURL + ')'"
-          class="header__icon"
-        ></button>
-        <mat-menu #userMenu="matMenu">
-          <button mat-menu-item routerLink="/manage/edit">
-            <mat-icon>edit</mat-icon>
-            <span>1番目のOKRの入力</span>
-          </button>
-          <button mat-menu-item routerLink="/manage/okr-edit">
-            <mat-icon>edit</mat-icon>
-            <span>2番目のOKRの入力</span>
-          </button>
-          <button mat-menu-item *ngIf="!(user$ | async)" (click)="login()">
-            <mat-icon>login</mat-icon>
-            <span>ログイン</span>
-          </button>
-          <button mat-menu-item routerLink="/settings">
-            <mat-icon>settings</mat-icon>
-            <span>設定</span>
-          </button>
-          <button mat-menu-item *ngIf="user$ | async" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span>ログアウト</span>
-          </button>
-        </mat-menu>
-      </ng-container>
-    </div>
-  </mat-toolbar>
   <ul class="nav">
     <li>
       <a routerLink="/manage/home">
@@ -71,7 +8,7 @@
     <li>
       <ng-container *ngIf="isSecondOkr; else blank">
         <ng-container *ngIf="isComplete === true; else blank">
-          <a (click)="progress()" class="header__progress">
+          <a (click)="progress()">
             <span>進行中</span>
           </a>
         </ng-container>

@@ -42,16 +42,14 @@
       font-size: 42px;
     }
     @include sm {
-      width: 270px;
-      margin: 0 auto;
-      font-size: 32px;
+      width: 100%;
+      font-size: 36px;
+      text-align: center;
     }
     span {
       display: block;
       @include sm {
-        max-width: 336px;
         margin: 0 auto;
-        text-align: start;
       }
     }
   }
@@ -126,7 +124,7 @@
     @include md {
       margin: 0 auto;
       padding-top: 42px;
-      width: 200px;
+      width: 300px;
     }
   }
 }

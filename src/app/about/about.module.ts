@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { PointsComponent } from '../points/points.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HeroComponent } from '../hero/hero.component';
-import { HeaderComponent } from '../header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UseComponent } from '../use/use.component';
@@ -19,7 +18,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     AboutComponent,
     PointsComponent,
     HeroComponent,
-    HeaderComponent,
     UseComponent,
     CvComponent,
   ],

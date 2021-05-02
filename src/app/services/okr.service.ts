@@ -4,12 +4,10 @@ import { Okr } from '../interfaces/okr';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
-import { SubTask } from '../interfaces/sub-task';
-import { firestore } from 'firebase';
+import firestore from 'firebase';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
-import { object } from 'firebase-functions/lib/providers/storage';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -101,23 +99,6 @@ export class OkrService {
       .set(value);
   }
 
-  createSubTask(
-    subTask: Omit<SubTask, 'id' | 'lastUpdated'>,
-    primaryId: string,
-    okrId: string
-  ) {
-    const id = this.db.createId();
-    return this.db
-      .doc<SubTask>(
-        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${id}`
-      )
-      .set({
-        id,
-        lastUpdated: firestore.Timestamp.now(),
-        ...subTask,
-      });
-  }
-
   createSecondOkrKeyResult(
     secondOkrKeyResult: Omit<
       SecondOkrKeyResult,
@@ -133,7 +114,7 @@ export class OkrService {
       )
       .set({
         secondOkrKeyResultId,
-        lastUpdated: firestore.Timestamp.now(),
+        lastUpdated: firestore.firestore.Timestamp.now(),
         ...secondOkrKeyResult,
       });
   }
@@ -202,26 +183,6 @@ export class OkrService {
     return this.db
       .doc<Primary>(
         `users/${this.authsearvice.uid}/okrs/${okrid}/primaries/${primaryId}`
-      )
-      .valueChanges();
-  }
-
-  getSubTask(
-    okrId: string,
-    primaryId: string,
-    subTaskId: string
-  ): Observable<SubTask> {
-    return this.db
-      .doc<SubTask>(
-        `users/${this.authsearvice.uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
-      )
-      .valueChanges();
-  }
-
-  getSubTasksCollection(okrId: string): Observable<SubTask[]> {
-    return this.db
-      .collectionGroup<SubTask>('subTasks', (ref) =>
-        ref.where('okrId', '==', okrId)
       )
       .valueChanges();
   }
@@ -354,23 +315,6 @@ export class OkrService {
       .update({ secondOkrObject: secondOkrObjects });
   }
 
-  updateSubTask(
-    uid: string,
-    okrId: string,
-    primaryId: string,
-    subTaskId: string,
-    subTask: Omit<SubTask, 'lastUpdated'>
-  ): Promise<void> {
-    return this.db
-      .doc(
-        `users/${uid}/okrs/${okrId}/primaries/${primaryId}/subTasks/${subTaskId}`
-      )
-      .update({
-        lastUpdated: firestore.Timestamp.now(),
-        ...subTask,
-      });
-  }
-
   updateSecondOkrKeyResult(
     uid: string,
     secondOkrId: string,
@@ -383,7 +327,7 @@ export class OkrService {
         `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
       )
       .update({
-        lastUpdated: firestore.Timestamp.now(),
+        lastUpdated: firestore.firestore.Timestamp.now(),
         ...secondOkrKeyResult,
       });
   }

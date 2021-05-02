@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OkrEditComponent } from './okr-edit.component';
+import { FooterComponent } from './footer.component';
 
-describe('OkrEditComponent', () => {
-  let component: OkrEditComponent;
-  let fixture: ComponentFixture<OkrEditComponent>;
+describe('FooterComponent', () => {
+  let component: FooterComponent;
+  let fixture: ComponentFixture<FooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OkrEditComponent],
+      declarations: [FooterComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OkrEditComponent);
+    fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

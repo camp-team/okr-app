@@ -24,6 +24,13 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CompleteOkrDialogComponent } from './complete-okr-dialog/complete-okr-dialog.component';
 import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -34,6 +41,8 @@ import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delet
     LoginDialogComponent,
     CompleteOkrDialogComponent,
     DeleteSecondOkrDialogComponent,
+    FooterComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +58,16 @@ import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delet
     MatSnackBarModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatTooltipModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },

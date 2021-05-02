@@ -1,3 +1,6 @@
+@import 'variables';
+@import 'mixins';
+
 .delete-second-okr-dialog {
   text-align: center;
   &__title {
@@ -5,9 +8,15 @@
     margin: 0;
     padding-bottom: 24px;
     letter-spacing: 1.5px;
+    @include sm {
+      font-size: 24px;
+    }
   }
   &__content {
     padding-bottom: 24px;
+    @include sm {
+      text-align: start;
+    }
     span {
       display: block;
       letter-spacing: 1.5px;

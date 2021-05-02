@@ -5,6 +5,7 @@ import { DeleteAccountDialogComponent } from 'src/app/delete-account-dialog/dele
 import { ImageCropDialogComponent } from 'src/app/image-crop-dialog/image-crop-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { CustomerService } from 'src/app/services/customer.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-settings',
@@ -12,13 +13,20 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
+  user$ = this.authService.user$;
+
   constructor(
     private dialog: MatDialog,
     public authService: AuthService,
-    public customerService: CustomerService
+    public customerService: CustomerService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {}
+
+  logout() {
+    this.authService.logout();
+  }
 
   openDeleteAccountDialog() {
     this.dialog.open(DeleteAccountDialogComponent, {
@@ -37,6 +45,7 @@ export class SettingsComponent implements OnInit {
   }
 
   async redirectToCheckout() {
+    this.loadingService.loading = true;
     const stripe = await loadStripe(environment.stripe.publicKey);
     this.customerService.checkoutSession().then((ref) => {
       stripe.redirectToCheckout({ sessionId: ref });
