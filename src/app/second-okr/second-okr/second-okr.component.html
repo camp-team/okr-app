@@ -28,12 +28,6 @@
                 <div class="objective">
                   <span class="objective__title">Objective(目標)</span>
                   <input
-                    (keyup)="
-                      updateSecondOkrPrimaryTitle(
-                        secondOkrObject,
-                        primaryTitle.value.primaryTitle
-                      )
-                    "
                     placeholder="記入例) 技術者として売れる"
                     type="text"
                     formControlName="primaryTitle"
@@ -107,15 +101,6 @@
                     <ng-container [formGroupName]="rowIndex">
                       <td class="body-left">
                         <input
-                          (keyup)="
-                            updateSecondOkrKeyResult(
-                              secondOkrObject.secondOkrObjectId,
-                              row.value.secondOkrKeyResultId,
-                              row.value,
-                              rows[secondOkrObject.secondOkrObjectId].controls
-                                .length
-                            )
-                          "
                           placeholder="記入例) 記事を10記事投稿"
                           type="text"
                           formControlName="key"
@@ -140,15 +125,6 @@
                       </td>
                       <td>
                         <input
-                          (keyup)="
-                            updateSecondOkrKeyResult(
-                              secondOkrObject.secondOkrObjectId,
-                              row.value.secondOkrKeyResultId,
-                              row.value,
-                              rows[secondOkrObject.secondOkrObjectId].controls
-                                .length
-                            )
-                          "
                           placeholder="記入例) 10"
                           name="target"
                           type="text"
@@ -185,15 +161,6 @@
                       </td>
                       <td>
                         <input
-                          (keyup)="
-                            updateSecondOkrKeyResult(
-                              secondOkrObject.secondOkrObjectId,
-                              row.value.secondOkrKeyResultId,
-                              row.value,
-                              rows[secondOkrObject.secondOkrObjectId].controls
-                                .length
-                            )
-                          "
                           placeholder="記入例) 3"
                           type="text"
                           formControlName="current"

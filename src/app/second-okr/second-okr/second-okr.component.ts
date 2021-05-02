@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
 import { combineLatest, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { SecondOkrKeyResult } from 'src/app/interfaces/second-okr-key-result';
 import { SecondOkrObject } from 'src/app/interfaces/second-okr-object';
@@ -63,10 +63,7 @@ export class SecondOkrComponent implements OnInit {
           this.secondOkrObjectTitles[
             secondOkrObject.secondOkrObjectId
           ] = this.fb.array([]);
-          this.initSecondOkrObject(
-            secondOkrObject.secondOkrObjectId,
-            secondOkrObject.secondOkrObject
-          );
+          this.initSecondOkrObject(secondOkrObject);
         });
         secondOkrKeyResults.forEach((secondOkrKeyResult) => {
           this.initRows(
@@ -100,16 +97,24 @@ export class SecondOkrComponent implements OnInit {
     });
   }
 
-  initSecondOkrObject(secondOkrObjectId: string, secondOkrObject: string) {
+  initSecondOkrObject(secondOkrObject) {
     this.secondOkrObjectTitle = this.fb.group({
       primaryTitle: [
-        secondOkrObject,
+        secondOkrObject.secondOkrObject,
         [Validators.required, Validators.maxLength(20)],
       ],
     });
-    this.secondOkrObjectTitles[secondOkrObjectId].push(
+    this.secondOkrObjectTitles[secondOkrObject.secondOkrObjectId].push(
       this.secondOkrObjectTitle
     );
+    this.secondOkrObjectTitle.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((secondOkrObjects) => {
+        this.updateSecondOkrPrimaryTitle(
+          secondOkrObjects.primaryTitle,
+          secondOkrObject
+        );
+      });
   }
 
   ngAfterViewInit() {
@@ -153,6 +158,7 @@ export class SecondOkrComponent implements OnInit {
       secondOkrKeyResultId,
     });
     this.rows[secondOkrObjectId].push(this.row);
+    this.editKeyResults(secondOkrObjectId);
   }
 
   okrId() {
@@ -161,6 +167,19 @@ export class SecondOkrComponent implements OnInit {
         secondOkr.secondOkrId;
       });
     });
+  }
+
+  editKeyResults(secondOkrObjectId) {
+    this.row.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((secondOkrKeyResult) => {
+        this.updateSecondOkrKeyResult(
+          secondOkrObjectId,
+          secondOkrKeyResult.secondOkrKeyResultId,
+          secondOkrKeyResult,
+          this.rows[secondOkrObjectId].controls.length
+        );
+      });
   }
 
   addRow(secondOkrObjectId: string) {
@@ -188,6 +207,7 @@ export class SecondOkrComponent implements OnInit {
       lastUpdated: [date, [Validators.required]],
     });
     this.rows[secondOkrObjectId].push(this.row);
+    this.editKeyResults(secondOkrObjectId);
     const formData = this.row.value;
     const subTaskValue: Omit<
       SecondOkrKeyResult,
@@ -310,8 +330,8 @@ export class SecondOkrComponent implements OnInit {
     this.okrService.updateSecondOkrPrimaryTitle(
       this.authService.uid,
       this.secondOkrId,
-      secondOkrObject.secondOkrObjectId,
-      secondOkrObjects
+      secondOkrObjects.secondOkrObjectId,
+      secondOkrObject
     );
   }
 }
