@@ -5,7 +5,11 @@
     </div>
     <ul class="points-contents">
       <li class="points-contents__item" *ngFor="let point of points">
-        <div class="points-contents__icon">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="2000"
+          class="points-contents__icon"
+        >
           <mat-icon>
             {{ point.icon }}
           </mat-icon>
