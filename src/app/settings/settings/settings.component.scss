@@ -121,7 +121,8 @@
     }
   }
   &__action {
-    margin-bottom: 36px;
+    display: block;
+    margin: 0 auto;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
