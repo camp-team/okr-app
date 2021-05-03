@@ -16,14 +16,14 @@ export const deleteOkr = functions
 export const deleteSecondOkr = functions
   .region('asia-northeast1')
   .https.onCall(async (secondOkrId: any) => {
-    const secondOkrKeyResults = db
+    const secondOkrKeyResultsRef = db
       .collectionGroup(`secondOkrKeyResults`)
       .where('secondOkrId', '==', secondOkrId);
     const secondOkrObjectsRef = db
       .collectionGroup(`secondOkrObjects`)
       .where('secondOkrId', '==', secondOkrId);
     return Promise.all([
-      deleteCollectionByReference(secondOkrKeyResults),
+      deleteCollectionByReference(secondOkrKeyResultsRef),
       deleteCollectionByReference(secondOkrObjectsRef),
     ]);
   });
