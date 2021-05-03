@@ -21,6 +21,7 @@ export class OkrDeleteDialogComponent implements OnInit {
 
   okrDelete() {
     this.okrService.deleteOkr(this.data.okrId);
+    this.okrService.deleteOkrDocument(this.data.okrId);
     this.dialogRef.close();
   }
 
