@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -9,9 +10,11 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
+import { SecondOkrKeyResult } from 'src/app/interfaces/second-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { OkrService } from 'src/app/services/okr.service';
 import { TutorialService } from 'src/app/services/tutorial.service';
 
@@ -58,12 +61,14 @@ export class OkrEditComponent implements OnInit {
   }
 
   constructor(
+    @Inject(LOCALE_ID) private locale: string,
     private fb: FormBuilder,
     private okrService: OkrService,
     private authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private tutorialService: TutorialService
+    private tutorialService: TutorialService,
+    private loadingService: LoadingService
   ) {
     const currentYear = new Date().getFullYear();
     const currentMouth = new Date().getMonth();
@@ -121,6 +126,7 @@ export class OkrEditComponent implements OnInit {
   }
 
   cleateSecondOkr() {
+    this.loadingService.loading = true;
     const formData = this.form.value;
     const okrValue: Omit<SecondOkr, 'secondOkrId' | 'isComplete'> = {
       start: formData.start,
@@ -128,17 +134,65 @@ export class OkrEditComponent implements OnInit {
       creatorId: this.authService.uid,
       secondOkrObjects: formData.primaries,
     };
+    const kyeResult = this.secondOkrKeyResults();
     const primaryArray = formData.primaries;
-    this.okrService.createSecondOkr(okrValue, primaryArray).then(() => {
-      this.okrService.getSecondOkrId().subscribe((secondOkrs) => {
-        secondOkrs.forEach((secondOkr) => {
-          this.snackBar.open('作成しました', null);
-          this.router.navigate(['manage/secondOkr'], {
-            queryParams: { v: secondOkr.secondOkrId },
+    this.okrService
+      .createSecondOkr(okrValue, primaryArray, kyeResult)
+      .then(() => {
+        this.okrService
+          .getSecondOkrId()
+          .pipe(debounceTime(400))
+          .subscribe((secondOkrs) => {
+            secondOkrs.forEach((secondOkr) => {
+              this.loadingService.loading = false;
+              this.snackBar.open('作成しました', null);
+              this.router.navigate(['manage/secondOkr'], {
+                queryParams: { v: secondOkr.secondOkrId },
+              });
+            });
           });
-        });
       });
+  }
+
+  secondOkrKeyResults() {
+    const now = new Date();
+    const date = formatDate(now, 'yyyy/MM/dd', this.locale);
+    const defaultData = this.fb.group({
+      key: ['', [Validators.required, Validators.maxLength(20)]],
+      target: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+        ],
+      ],
+      current: [
+        0,
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+        ],
+      ],
+      percentage: [0 + '%', [Validators.required]],
+      lastUpdated: [date, [Validators.required]],
     });
+    const formData = defaultData.value;
+    const subTaskValue: Omit<
+      SecondOkrKeyResult,
+      | 'secondOkrKeyResultId'
+      | 'lastUpdated'
+      | 'secondOkrObjectId'
+      | 'secondOkrId'
+    > = {
+      key: formData.key,
+      target: formData.target,
+      current: formData.current,
+      percentage: formData.percentage,
+      uid: this.authService.uid,
+    };
+    return subTaskValue;
   }
 
   secondOkr() {

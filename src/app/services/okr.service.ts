@@ -62,7 +62,14 @@ export class OkrService {
 
   createSecondOkr(
     secondOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete'>,
-    secondOkrObjects: string[]
+    secondOkrObjects: string[],
+    kyeResult: Omit<
+      SecondOkrKeyResult,
+      | 'secondOkrId'
+      | 'secondOkrKeyResultId'
+      | 'lastUpdated'
+      | 'secondOkrObjectId'
+    >
   ): Promise<void> {
     const secondOkrId = this.db.createId();
     const isComplete = true;
@@ -78,12 +85,22 @@ export class OkrService {
       .then(() => {
         secondOkrObjects.forEach((secondOkrObject) => {
           const average = 0;
-          this.createSecondOkrObject(secondOkrObject, secondOkrId);
+          this.createSecondOkrObject(secondOkrObject, secondOkrId, kyeResult);
         });
       });
   }
 
-  createSecondOkrObject(secondOkrObject: string, secondOkrId: string) {
+  createSecondOkrObject(
+    secondOkrObject: string,
+    secondOkrId: string,
+    kyeResult: Omit<
+      SecondOkrKeyResult,
+      | 'secondOkrId'
+      | 'secondOkrKeyResultId'
+      | 'lastUpdated'
+      | 'secondOkrObjectId'
+    >
+  ) {
     const secondOkrObjectId = this.db.createId();
     const value: SecondOkrObject = {
       secondOkrObject: secondOkrObject,
@@ -96,7 +113,35 @@ export class OkrService {
       .doc<SecondOkrObject>(
         `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
       )
-      .set(value);
+      .set(value)
+      .then(() => {
+        this.createkey(secondOkrId, secondOkrObjectId, kyeResult);
+      });
+  }
+
+  createkey(
+    secondOkrId: string,
+    secondOkrObjectId: string,
+    kyeResult: Omit<
+      SecondOkrKeyResult,
+      | 'secondOkrId'
+      | 'secondOkrKeyResultId'
+      | 'lastUpdated'
+      | 'secondOkrObjectId'
+    >
+  ) {
+    const secondOkrKeyResultId = this.db.createId();
+    return this.db
+      .doc<SecondOkrKeyResult>(
+        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      )
+      .set({
+        secondOkrKeyResultId,
+        secondOkrObjectId,
+        secondOkrId,
+        lastUpdated: firestore.firestore.Timestamp.now(),
+        ...kyeResult,
+      });
   }
 
   createSecondOkrKeyResult(
