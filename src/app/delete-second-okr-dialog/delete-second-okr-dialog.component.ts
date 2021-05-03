@@ -30,11 +30,11 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
   deleteSecondOkr() {
     try {
       const callable = this.fns.httpsCallable('deleteSecondOkr');
-      this.okrService.deleteSecondOkrDocument(this.data.secondOkrId);
       this.dialogRef.close();
       return callable(this.data.secondOkrId)
         .toPromise()
         .then(() => {
+          this.okrService.deleteSecondOkrDocument(this.data.secondOkrId);
           this.snackBar.open('削除しました');
           this.okrService
             .getSecondOkrCollection()
