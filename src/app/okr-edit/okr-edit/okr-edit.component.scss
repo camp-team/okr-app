@@ -248,6 +248,7 @@
   &__field {
     display: inline-block;
     max-width: 540px;
+    padding-bottom: 40px;
     @include sm {
       padding-bottom: 0;
       margin-bottom: 20px;
