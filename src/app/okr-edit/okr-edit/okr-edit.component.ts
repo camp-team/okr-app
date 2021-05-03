@@ -10,7 +10,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { debounceTime, take } from 'rxjs/operators';
+import { debounceTime, take, tap } from 'rxjs/operators';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { SecondOkrKeyResult } from 'src/app/interfaces/second-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
@@ -141,7 +141,10 @@ export class OkrEditComponent implements OnInit {
       .then(() => {
         this.okrService
           .getSecondOkrId()
-          .pipe(debounceTime(400))
+          .pipe(
+            tap(() => (this.loadingService.loading = true)),
+            debounceTime(400)
+          )
           .subscribe((secondOkrs) => {
             secondOkrs.forEach((secondOkr) => {
               this.loadingService.loading = false;
