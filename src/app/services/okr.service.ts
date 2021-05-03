@@ -210,7 +210,7 @@ export class OkrService {
       .valueChanges();
   }
 
-  deleteOkr(okrId: string): Promise<void> {
+  deleteOkr(okrId: string) {
     const callable = this.fns.httpsCallable('deleteOkr');
     callable(okrId)
       .toPromise()
@@ -218,7 +218,12 @@ export class OkrService {
         this.router.navigateByUrl('/manage/home');
         this.snackBar.open('削除しました', '');
       });
-    return this.db.doc(`users/${this.authsearvice.uid}/okrs/${okrId}`).delete();
+  }
+
+  deleteOkrDocument(okrId: string): Promise<void> {
+    return this.db
+      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
+      .delete();
   }
 
   deleteSecondOkrDocument(secondOkrId): Promise<void> {
