@@ -48,6 +48,7 @@ export class SettingsComponent implements OnInit {
     this.loadingService.loading = true;
     const stripe = await loadStripe(environment.stripe.publicKey);
     this.customerService.checkoutSession().then((ref) => {
+      this.loadingService.loading = false;
       stripe.redirectToCheckout({ sessionId: ref });
     });
   }
