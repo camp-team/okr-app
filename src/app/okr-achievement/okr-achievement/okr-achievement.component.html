@@ -66,9 +66,21 @@
       </p>
     </div>
     <div class="achieve__action">
-      <a mat-raised-button color="primary" routerLink="/manage/okr-edit">
-        2番目のOKRを作成する
-      </a>
+      <ng-container *ngIf="secondOkrId; else createSecondOkr">
+        <a
+          color="primary"
+          mat-raised-button
+          routerLink="/manage/secondOkr"
+          [queryParams]="{ v: secondOkrId }"
+        >
+          進行中のOKRに進む
+        </a>
+      </ng-container>
+      <ng-template #createSecondOkr>
+        <a mat-raised-button color="primary" routerLink="/manage/okr-edit">
+          2番目のOKRを作成する
+        </a>
+      </ng-template>
     </div>
   </div>
 </ng-template>
