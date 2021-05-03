@@ -144,16 +144,19 @@ mat-error {
   }
   &__remove {
     height: 35px;
-    margin-top: 6px;
+    span {
+      top: 5px;
+    }
+  }
+  &__remove-icon {
+    font-size: 22px !important;
   }
   &__add-row,
   &__remove {
     position: relative;
     font-size: 14px;
-    border-style: none;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.36);
-    align-items: center;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
@@ -161,10 +164,6 @@ mat-error {
   &__add-row span {
     position: absolute;
     top: 0;
-  }
-  &__remove span {
-    position: absolute;
-    top: 5px;
   }
   &__average {
     text-align: center;
