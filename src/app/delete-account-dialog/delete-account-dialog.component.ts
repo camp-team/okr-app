@@ -37,7 +37,6 @@ export class DeleteAccountDialogComponent implements OnInit {
   }
   deleteAccount(okrId: string) {
     this.loadingService.loading = true;
-    this.okrService.deleteOkr(okrId);
     this.dialogRef.close();
     const callable = this.fns.httpsCallable('deleteAfUser');
     return callable(this.authService.uid)
