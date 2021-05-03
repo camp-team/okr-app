@@ -257,10 +257,17 @@ export class TutorialService {
         'bottom'
       ),
       this.getTutorialStep(
-        'さあ、はじめよう！',
-        'レコードを追加してはじめてみよう！',
-        'last',
+        '作業管理画面だよ！',
+        'レコードを追加してタスクを増やせるよ！',
+        'each',
         '.add-row',
+        'bottom'
+      ),
+      this.getTutorialStep(
+        'さあ、はじめよう！',
+        '目標達成目指して頑張ろう！',
+        'last',
+        '.key',
         'bottom'
       ),
     ]);
