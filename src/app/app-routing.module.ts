@@ -16,8 +16,6 @@ const routes: Routes = [
   {
     path: 'intl',
     loadChildren: () => import('./intl/intl.module').then((m) => m.IntlModule),
-    canLoad: [AuthGuard],
-    canActivate: [AuthGuard],
   },
   {
     path: 'manage',
