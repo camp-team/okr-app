@@ -5,7 +5,7 @@ import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, shareReplay, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../interfaces/user';
 import { LoadingService } from './loading.service';
@@ -16,16 +16,7 @@ import { LoadingService } from './loading.service';
 export class AuthService {
   uid: string;
   initialLogin: boolean;
-  afUser$: Observable<firebase.default.User> = this.afAuth.user.pipe(
-    map((user) => {
-      if (user) {
-        this.uid = user.uid;
-        return user;
-      } else {
-        return null;
-      }
-    })
-  );
+  afUser$: Observable<firebase.default.User> = this.afAuth.user;
   user$: Observable<User> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
@@ -34,7 +25,8 @@ export class AuthService {
       } else {
         return of(null);
       }
-    })
+    }),
+    shareReplay(1)
   );
 
   constructor(
@@ -65,8 +57,8 @@ export class AuthService {
 
   logout() {
     this.afAuth.signOut().then(() => {
-      this.snackBar.open('ログアウトしました', null);
       this.router.navigateByUrl('/about');
+      this.snackBar.open('ログアウトしました');
     });
   }
 }
