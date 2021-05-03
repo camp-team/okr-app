@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
     private okrService: OkrService,
     private fns: AngularFireFunctions,
     private dialogRef: MatDialogRef<DeleteSecondOkrDialogComponent>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {}
@@ -29,12 +31,14 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
 
   deleteSecondOkr() {
     try {
+      this.loadingService.loading = true;
       const callable = this.fns.httpsCallable('deleteSecondOkr');
       this.dialogRef.close();
       return callable(this.data.secondOkrId)
         .toPromise()
         .then(() => {
           this.okrService.deleteSecondOkrDocument(this.data.secondOkrId);
+          this.loadingService.loading = false;
           this.snackBar.open('削除しました');
           this.okrService
             .getSecondOkrCollection()
