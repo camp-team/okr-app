@@ -66,41 +66,41 @@
                     </mat-form-field>
                     <button
                       *ngIf="i"
-                      class="first-step__remcontents"
+                      mat-raised-button
                       type="button"
                       (click)="removeOption(i)"
-                      mat-icon-button
+                      class="first-step__remcontents"
                     >
                       <mat-icon>remove</mat-icon>
                       削除
                     </button>
                   </div>
-                  <button
-                    *ngIf="objectForm < 3"
-                    class="add-form first-step__addcontents"
-                    type="button"
-                    mat-raised-button
-                    (click)="addOptionForm()"
-                  >
-                    <mat-icon>add</mat-icon>
-                    追加
-                  </button>
                 </div>
               </form>
               <button
-                (click)="secondStepOkr(1)"
-                mat-button
-                matStepperNext
-                [disabled]="primariesControl.invalid"
+                *ngIf="objectForm < 3"
+                class="add-form first-step__addcontents"
+                type="button"
                 mat-raised-button
-                color="primary"
-                class="okr-edit__next"
+                (click)="addOptionForm()"
               >
-                次へ
+                <mat-icon>add</mat-icon>
+                追加
               </button>
-              <div class="okr-edit__sidebar">
+              <div class="first-step__action">
+                <button
+                  (click)="secondStepOkr(1)"
+                  mat-button
+                  matStepperNext
+                  [disabled]="primariesControl.invalid"
+                  mat-raised-button
+                  color="primary"
+                  class="okr-edit__next"
+                >
+                  次へ
+                </button>
                 <img
-                  class="okr-edit__img"
+                  class="first-step__img"
                   src="assets/images/second-okr-first-step.svg"
                   alt="フォーム画像"
                 />
@@ -132,11 +132,7 @@
                   </mat-icon>
                 </span>
               </p>
-              <form
-                [formGroup]="form"
-                (ngSubmit)="cleateSecondOkr()"
-                class="second-step__form"
-              >
+              <form [formGroup]="form" (ngSubmit)="cleateSecondOkr()">
                 <mat-form-field
                   appearance="fill"
                   class="second-okr-callender second-step__field"
@@ -191,13 +187,11 @@
                   </button>
                 </div>
               </form>
-              <div class="okr-edit__sidebar">
-                <img
-                  class="okr-edit__img"
-                  src="assets/images/second-step-item.svg"
-                  alt="フォーム画像"
-                />
-              </div>
+              <img
+                class="okr-edit__img"
+                src="assets/images/second-step-item.svg"
+                alt="フォーム画像"
+              />
             </div>
           </mat-step>
         </div>
