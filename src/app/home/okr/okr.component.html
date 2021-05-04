@@ -1,6 +1,6 @@
 <div class="okr">
-  <h1 class="okr__title">
-    <ng-container [formGroup]="form">
+  <div class="okr__title">
+    <form [formGroup]="obj" class="okr__form-container">
       <span>Objective(目標)</span>
       <div class="okr__objective-wrapper">
         <input
@@ -17,7 +17,7 @@
           最大文字数は20文字です。
         </mat-error>
       </div>
-    </ng-container>
+    </form>
     <button class="okr__icon" mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
@@ -29,22 +29,22 @@
         <span>削除する</span>
       </button>
     </mat-menu>
-  </h1>
-  <div *ngFor="let primary of primaries$ | async" class="okr__keyResults">
+  </div>
+  <div *ngFor="let primary of primaries" class="okr__keyResults">
     <span class="okr__content">
       Key Result(目標達成のための成果指標)
     </span>
-    <div
+    <form
       class="okr__keyResult-container"
       [formGroup]="keyResults[primary.primaryId]"
     >
       <ng-container
         *ngFor="
           let KeyResult of keyResults[primary.primaryId].controls;
-          index as i
+          index as KeyResultArrayIndex
         "
       >
-        <div [formGroupName]="i">
+        <div [formGroupName]="KeyResultArrayIndex">
           <input
             class="okr__keyResult"
             type="text"
@@ -60,6 +60,6 @@
           </mat-error>
         </div>
       </ng-container>
-    </div>
+    </form>
   </div>
 </div>

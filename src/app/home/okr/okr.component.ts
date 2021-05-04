@@ -9,7 +9,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 import { Okr } from 'src/app/interfaces/okr';
 import { Primary } from 'src/app/interfaces/primary';
 import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
@@ -28,7 +28,8 @@ export class OkrComponent implements OnInit {
   } = {};
   obj: FormGroup;
   key: FormGroup;
-  primaries$: Observable<Primary[]>;
+  primaries: Primary[] = [];
+  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
 
   constructor(
     private okrService: OkrService,
@@ -39,18 +40,20 @@ export class OkrComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.primaries$ = this.okrService.getPrimaries(this.okr.okrId);
+    this.okrService
+      .getPrimaries(this.okr.okrId)
+      .pipe(take(1))
+      .subscribe((primaries) => {
+        primaries.forEach((primary) => {
+          this.primaries.push(primary);
+          this.keyResults[primary.primaryId] = this.fb.array([]);
+          this.initkeyResult(primary);
+        });
+      });
     this.objective();
-    this.keyResult();
-  }
-
-  get objectiveContoroll() {
-    return this.obj.get('objective') as FormControl;
   }
 
   objective() {
-    console.log('fafa');
-
     this.obj = this.fb.group({
       objective: [
         this.okr.title,
@@ -62,24 +65,21 @@ export class OkrComponent implements OnInit {
     });
   }
 
-  keyResult() {
-    this.okrService.getPrimaries(this.okr.okrId).subscribe((primaries) => {
-      primaries.forEach((primary) => {
-        this.keyResults[primary.primaryId] = this.fb.array([]);
-        this.key = this.fb.group({
-          key: [
-            primary.primaryTitle,
-            [Validators.required, Validators.maxLength(20)],
-          ],
-        });
-        this.keyResults[primary.primaryId].push(this.key);
-        this.key.valueChanges
-          .pipe(debounceTime(500))
-          .subscribe((primaryTitle) => {
-            this.updateKeyResult(primary.primaryId, primaryTitle.key);
-          });
-      });
+  initkeyResult(primary) {
+    this.key = this.fb.group({
+      key: [
+        primary.primaryTitle,
+        [Validators.required, Validators.maxLength(20)],
+      ],
     });
+    this.keyResults[primary.primaryId].push(this.key);
+    this.key.valueChanges.pipe(debounceTime(500)).subscribe((primaryTitle) => {
+      this.updateKeyResult(primary.primaryId, primaryTitle.key);
+    });
+  }
+
+  get objectiveContoroll() {
+    return this.obj.get('objective') as FormControl;
   }
 
   updateObjective(objective) {
