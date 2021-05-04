@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { TutorialService } from 'src/app/services/tutorial.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-edit',
@@ -24,10 +25,8 @@ export class EditComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   objectiveEdit: number = 0;
-
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
   okrIscomplete: boolean;
-
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
     primaries: this.fb.array([]),
@@ -48,12 +47,23 @@ export class EditComponent implements OnInit {
     private okrService: OkrService,
     private authService: AuthService,
     private router: Router,
-    private dialog: MatDialog,
-    private tutorialService: TutorialService
+    private tutorialService: TutorialService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {
-    this.addOptionForm();
+    this.addObjectiveForm();
+    this.checkOkr();
+  }
+
+  addObjectiveForm() {
+    this.primaries.push(
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
+    );
+    this.objectiveEdit = this.objectiveEdit + 1;
+  }
+
+  checkOkr() {
     this.okrs$.subscribe((okr) => {
       if (okr.length === 0) {
         this.okrIscomplete = false;
@@ -63,7 +73,7 @@ export class EditComponent implements OnInit {
     });
   }
 
-  secondEditTutorial(num: number) {
+  secondStepTutorial(num: number) {
     this.ngAfterViewInit(num);
   }
 
@@ -87,24 +97,19 @@ export class EditComponent implements OnInit {
     this.objectiveEdit = this.objectiveEdit - 1;
   }
 
-  addOptionForm() {
-    this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(20)])
-    );
-    this.objectiveEdit = this.objectiveEdit + 1;
-  }
-
-  submit() {
-    const formData = this.form.value;
+  createOkr() {
+    this.loadingService.loading = true;
+    const formedOkrData = this.form.value;
     const okrValue: Omit<Okr, 'okrId' | 'isComplete'> = {
-      title: formData.title,
-      primaries: formData.primaries,
+      title: formedOkrData.title,
+      primaries: formedOkrData.primaries,
       creatorId: this.authService.uid,
     };
-    const primaryArray = formData.primaries;
+    const primaryArray = formedOkrData.primaries;
     this.okrService
       .createOkr(okrValue, primaryArray, this.authService.uid)
       .then(() => {
+        this.loadingService.loading = false;
         this.router.navigateByUrl('manage/home');
       });
   }
