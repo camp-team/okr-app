@@ -1,51 +1,43 @@
-@import 'variables';
 @import 'mixins';
 
 .okr {
-  text-align: center;
   padding-bottom: 36px;
-  width: 600px;
+  max-width: 960px;
   margin: 0 auto;
+  @include md {
+    max-width: 500px;
+    margin: 0 auto;
+  }
   @include sm {
     width: 356px;
     margin: 0 auto;
   }
-  &__objective {
-    display: block;
-    border: none;
-    background-color: inherit;
-    font-size: 28px;
-    font-weight: 700;
-    @include sm {
-      font-size: 24px;
-      padding: 0;
-    }
-  }
-  &__objective-wrapper {
-    padding: 6px 0 0 12px;
-    @include sm {
-      padding: 0;
-    }
-  }
-  &__keyResult {
-    border: none;
-    background-color: inherit;
-    font-size: 28px;
-    @include sm {
-      padding: 0;
-      font-size: 20px;
-      display: block;
-    }
-  }
   &__title {
-    display: flex;
-    text-align: start;
     position: relative;
-    margin: 0 auto;
-    width: 600px;
+    display: flex;
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 36px;
+    span {
+      width: 270px;
+      &::after {
+        content: ':';
+      }
+      @include md {
+        &::after {
+          display: none;
+        }
+      }
+    }
+    .mat-error {
+      font-size: 16px;
+    }
+    @include md {
+      display: block;
+      &::after {
+        display: none;
+      }
+    }
     @include sm {
       display: block;
       padding-bottom: 20px;
@@ -54,14 +46,31 @@
       margin: 0;
     }
   }
-  &__title .mat-error {
-    font-size: 16px;
+  &__objective-wrapper {
+    margin-top: 6px;
+    width: 100%;
+    @include sm {
+      padding: 0;
+    }
+  }
+  &__objective {
+    width: 100%;
+    border: none;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 0;
+    @include sm {
+      font-size: 24px;
+      padding: 0;
+    }
   }
   &__icon {
-    position: absolute;
-    top: 0;
-    right: 0;
     cursor: pointer;
+    @include md {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
     @include sm {
       position: absolute;
       top: -3%;
@@ -69,39 +78,34 @@
     }
   }
   &__keyResults {
-    position: relative;
-    width: 600px;
-    margin: 0 auto;
-    text-align: start;
+    display: flex;
     padding-bottom: 24px;
+    @include md {
+      display: block;
+    }
     @include sm {
       width: 100%;
       padding-bottom: 20px;
     }
   }
   &__content {
-    position: relative;
+    width: 100%;
     font-size: 26px;
-    text-align: start;
+    &::after {
+      content: ':';
+    }
+    @include md {
+      &::after {
+        display: none;
+      }
+    }
     @include sm {
       display: block;
       font-size: 20px;
     }
-    &::after {
-      content: ':';
-      position: absolute;
-      top: 0;
-      right: -15px;
-      @include sm {
-        display: none;
-      }
-    }
   }
   &__keyResult-container {
-    position: absolute;
-    width: 194px;
-    top: 5px;
-    right: -66px;
+    width: 100%;
     @include sm {
       position: inherit;
       width: 100%;
@@ -110,11 +114,16 @@
       text-align: start;
     }
   }
-
-  &__key-result {
-    width: 200px;
-  }
-  &__span {
-    width: 300px;
+  &__keyResult {
+    border: none;
+    background-color: inherit;
+    font-size: 28px;
+    margin-top: 3px;
+    width: 100%;
+    @include sm {
+      padding: 0;
+      font-size: 20px;
+      display: block;
+    }
   }
 }
