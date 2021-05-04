@@ -30,10 +30,7 @@
     background-color: inherit;
     font-size: 20px;
     border-style: none;
-    width: 300px;
-    @include sm {
-      width: 300px;
-    }
+    width: 440px;
   }
 }
 
@@ -97,6 +94,9 @@ mat-error {
   }
   &__container {
     margin-bottom: 32px;
+    @include sm {
+      width: 1000px;
+    }
   }
   &__key-result {
     width: 98%;
@@ -140,7 +140,11 @@ mat-error {
     }
   }
   &__add-row {
-    margin-top: 8px;
+    margin: 8px 0 6px 0;
+    span {
+      position: absolute;
+      top: 0;
+    }
   }
   &__remove {
     height: 35px;
@@ -163,13 +167,12 @@ mat-error {
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
-  &__add-row span {
-    position: absolute;
-    top: 0;
-  }
   &__average {
     text-align: center;
     margin-bottom: 12px;
+    @include sm {
+      text-align: start;
+    }
   }
   &__average-text {
     margin-right: 8px;
