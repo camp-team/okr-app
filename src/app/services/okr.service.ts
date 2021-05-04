@@ -50,7 +50,6 @@ export class OkrService {
       primaryTitle: primary,
       okrId: okrId,
       uid,
-      average: 0,
       primaryId,
     };
     return this.db
