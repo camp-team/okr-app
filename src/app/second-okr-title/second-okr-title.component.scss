@@ -3,11 +3,15 @@
 
 .second-okr-title {
   &__date {
+    font-weight: 700;
     @include sm {
       font-size: 16px;
-      font-weight: 400;
       text-align: center;
       margin: 0 0 24px;
     }
+  }
+  &__differenceInDay {
+    font-size: 18px;
+    font-weight: 700;
   }
 }
