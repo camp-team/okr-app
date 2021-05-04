@@ -17,10 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class OkrService {
   constructor(
     private db: AngularFirestore,
-    private authsearvice: AuthService,
-    private fns: AngularFireFunctions,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private authsearvice: AuthService
   ) {}
 
   createOkr(
@@ -252,16 +249,6 @@ export class OkrService {
           .limit(1)
       )
       .valueChanges();
-  }
-
-  deleteOkr(okrId: string) {
-    const callable = this.fns.httpsCallable('deleteOkr');
-    callable(okrId)
-      .toPromise()
-      .then(() => {
-        this.router.navigateByUrl('/manage/home');
-        this.snackBar.open('削除しました', '');
-      });
   }
 
   deleteOkrDocument(okrId: string): Promise<void> {
