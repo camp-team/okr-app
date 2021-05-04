@@ -326,8 +326,6 @@ export class OkrService {
       .update(secondOkr);
   }
 
-  updateObjective() {}
-
   updatePrimary(
     uid: string,
     okrId: string,
