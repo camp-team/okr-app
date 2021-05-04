@@ -1,5 +1,11 @@
 import { formatDate } from '@angular/common';
-import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  Inject,
+  LOCALE_ID,
+  OnInit,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -7,6 +13,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+import {
+  DateRange,
+  MatDateRangeSelectionStrategy,
+  MAT_DATE_RANGE_SELECTION_STRATEGY,
+} from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -18,10 +30,39 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { OkrService } from 'src/app/services/okr.service';
 import { TutorialService } from 'src/app/services/tutorial.service';
 
+@Injectable()
+export class FiveDayRangeSelectionStrategy<D>
+  implements MatDateRangeSelectionStrategy<D> {
+  constructor(private _dateAdapter: DateAdapter<D>) {}
+
+  selectionFinished(date: D | null): DateRange<D> {
+    return this._createFiveDayRange(date);
+  }
+
+  createPreview(activeDate: D | null): DateRange<D> {
+    return this._createFiveDayRange(activeDate);
+  }
+
+  private _createFiveDayRange(date: D | null): DateRange<D> {
+    if (date) {
+      const start = this._dateAdapter.addCalendarDays(date, 0);
+      const end = this._dateAdapter.addCalendarDays(date, 90);
+      return new DateRange<D>(start, end);
+    }
+
+    return new DateRange<D>(null, null);
+  }
+}
 @Component({
   selector: 'app-okr-edit',
   templateUrl: './okr-edit.component.html',
   styleUrls: ['./okr-edit.component.scss'],
+  providers: [
+    {
+      provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+      useClass: FiveDayRangeSelectionStrategy,
+    },
+  ],
 })
 export class OkrEditComponent implements OnInit {
   minDate: Date;
@@ -71,7 +112,7 @@ export class OkrEditComponent implements OnInit {
     const currentMouth = new Date().getMonth();
     const currentDate = new Date().getDate();
     this.minDate = new Date(currentYear - 0, currentMouth, currentDate);
-    this.maxDate = new Date(currentYear + 0, currentMouth + 3, currentDate);
+    this.maxDate = new Date(currentYear + 0, currentMouth + 4, currentDate);
   }
 
   ngOnInit(): void {
