@@ -23,13 +23,12 @@ import { OkrService } from 'src/app/services/okr.service';
 })
 export class OkrComponent implements OnInit {
   @Input() okr: Okr;
-  primaries$: Observable<Primary[]>;
-
-  form: FormGroup;
-  keyResult: FormGroup;
   keyResults: {
     [primaryId: string]: FormArray;
   } = {};
+  obj: FormGroup;
+  key: FormGroup;
+  primaries$: Observable<Primary[]>;
 
   constructor(
     private okrService: OkrService,
@@ -42,38 +41,39 @@ export class OkrComponent implements OnInit {
   ngOnInit(): void {
     this.primaries$ = this.okrService.getPrimaries(this.okr.okrId);
     this.objective();
-    this.keyResultfa();
+    this.keyResult();
+  }
+
+  get objectiveContoroll() {
+    return this.obj.get('objective') as FormControl;
   }
 
   objective() {
-    this.form = this.fb.group({
+    console.log('fafa');
+
+    this.obj = this.fb.group({
       objective: [
         this.okr.title,
         [Validators.required, Validators.maxLength(20)],
       ],
-      categories: this.fb.array([]),
     });
-    this.form.valueChanges.pipe(debounceTime(500)).subscribe((title) => {
-      this.updateObjective(title.objective);
+    this.obj.valueChanges.pipe(debounceTime(500)).subscribe((obj) => {
+      this.updateObjective(obj.objective);
     });
   }
 
-  get objectiveContoroll() {
-    return this.form.get('objective') as FormControl;
-  }
-
-  keyResultfa() {
+  keyResult() {
     this.okrService.getPrimaries(this.okr.okrId).subscribe((primaries) => {
       primaries.forEach((primary) => {
         this.keyResults[primary.primaryId] = this.fb.array([]);
-        this.keyResult = this.fb.group({
+        this.key = this.fb.group({
           key: [
             primary.primaryTitle,
             [Validators.required, Validators.maxLength(20)],
           ],
         });
-        this.keyResults[primary.primaryId].push(this.keyResult);
-        this.keyResult.valueChanges
+        this.keyResults[primary.primaryId].push(this.key);
+        this.key.valueChanges
           .pipe(debounceTime(500))
           .subscribe((primaryTitle) => {
             this.updateKeyResult(primary.primaryId, primaryTitle.key);
@@ -109,7 +109,7 @@ export class OkrComponent implements OnInit {
       isComplete: false,
     };
     this.okrService.updateOkr(this.authService.uid, okrId, okrValue);
-    this.snackBar.open('お疲れ様でした✨', null);
+    this.snackBar.open('お疲れ様でした✨');
   }
 
   deleteOkr() {
