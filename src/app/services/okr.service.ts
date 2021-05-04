@@ -299,21 +299,10 @@ export class OkrService {
       .valueChanges();
   }
 
-  updateOkr(
-    uid: string,
-    okrId: string,
-    okr: Omit<
-      Okr,
-      | 'okrId'
-      | 'primaries'
-      | 'start'
-      | 'end'
-      | 'creatorId'
-      | 'title'
-      | 'isComplete'
-    >
-  ): Promise<void> {
-    return this.db.doc(`users/${uid}/okrs/${okrId}`).update({ title: okr });
+  updateOkr(uid: string, okrId: string, objective: Okr): Promise<void> {
+    return this.db
+      .doc(`users/${uid}/okrs/${okrId}`)
+      .update({ title: objective });
   }
 
   updateSecondOkr(
