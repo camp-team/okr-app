@@ -1,14 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 import { Okr } from 'src/app/interfaces/okr';
 import { Primary } from 'src/app/interfaces/primary';
@@ -26,9 +20,13 @@ export class OkrComponent implements OnInit {
   keyResults: {
     [primaryId: string]: FormArray;
   } = {};
+  objectives: {
+    [okrId: string]: FormArray;
+  } = {};
   obj: FormGroup;
   key: FormGroup;
   primaries: Primary[] = [];
+  okrs: Okr[] = [];
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
 
   constructor(
@@ -40,26 +38,27 @@ export class OkrComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.okrService
-      .getPrimaries(this.okr.okrId)
+    combineLatest([this.okrService.getPrimaries(this.okr.okrId), this.okrs$])
       .pipe(take(1))
-      .subscribe((primaries) => {
+      .subscribe(([primaries, okrs]) => {
         primaries.forEach((primary) => {
           this.primaries.push(primary);
           this.keyResults[primary.primaryId] = this.fb.array([]);
           this.initkeyResult(primary);
         });
+        okrs.forEach((okr) => {
+          this.okrs.push(okr);
+          this.objectives[okr.okrId] = this.fb.array([]);
+          this.initObjective(okr);
+        });
       });
-    this.objective();
   }
 
-  objective() {
+  initObjective(okr) {
     this.obj = this.fb.group({
-      objective: [
-        this.okr.title,
-        [Validators.required, Validators.maxLength(20)],
-      ],
+      objective: [okr.title, [Validators.required, Validators.maxLength(20)]],
     });
+    this.objectives[okr.okrId].push(this.obj);
     this.obj.valueChanges.pipe(debounceTime(500)).subscribe((obj) => {
       this.updateObjective(obj.objective);
     });
@@ -78,11 +77,7 @@ export class OkrComponent implements OnInit {
     });
   }
 
-  get objectiveContoroll() {
-    return this.obj.get('objective') as FormControl;
-  }
-
-  updateObjective(objective) {
+  updateObjective(objective: Okr) {
     this.okrService.updateOkr(this.authService.uid, this.okr.okrId, objective);
   }
 
@@ -96,16 +91,7 @@ export class OkrComponent implements OnInit {
   }
 
   okrComplete(okrId: string) {
-    const okrValue: Omit<
-      Okr,
-      | 'okrId'
-      | 'primaries'
-      | 'start'
-      | 'end'
-      | 'creatorId'
-      | 'title'
-      | 'isComplete'
-    > = {
+    const okrValue: Okr = {
       isComplete: false,
     };
     this.okrService.updateOkr(this.authService.uid, okrId, okrValue);

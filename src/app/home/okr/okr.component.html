@@ -1,23 +1,35 @@
 <div class="okr">
   <div class="okr__title">
-    <form [formGroup]="obj" class="okr__form-container">
+    <div *ngFor="let okr of okrs" class="okr__objectives">
       <span>Objective(目標)</span>
-      <div class="okr__objective-wrapper">
-        <input
-          class="okr__objective"
-          type="text"
-          formControlName="objective"
-          autocomplete="off"
-          placeholder="記入例) 幸せになる"
-        />
-        <mat-error *ngIf="objectiveContoroll.hasError('required')">
-          必須入力です。
-        </mat-error>
-        <mat-error *ngIf="objectiveContoroll.hasError('maxlength')">
-          最大文字数は20文字です。
-        </mat-error>
-      </div>
-    </form>
+      <form [formGroup]="objectives[okr.okrId]" class="okr__form-container">
+        <ng-container
+          *ngFor="
+            let objective of objectives[okr.okrId].controls;
+            index as objectiveArrayIndex
+          "
+        >
+          <div
+            [formGroupName]="objectiveArrayIndex"
+            class="okr__objective-wrapper"
+          >
+            <input
+              class="okr__objective"
+              type="text"
+              formControlName="objective"
+              autocomplete="off"
+              placeholder="記入例) 幸せになる"
+            />
+            <mat-error *ngIf="objective.get('objective').hasError('required')">
+              必須入力です。
+            </mat-error>
+            <mat-error *ngIf="objective.get('objective').hasError('maxlength')">
+              最大文字数は20文字です。
+            </mat-error>
+          </div>
+        </ng-container>
+      </form>
+    </div>
     <button class="okr__icon" mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
