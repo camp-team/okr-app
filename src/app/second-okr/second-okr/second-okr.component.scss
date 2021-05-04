@@ -6,6 +6,7 @@
   margin-bottom: 12px;
   align-items: center;
   &__title {
+    font-weight: 700;
     position: relative;
     font-size: 20px;
     width: 150px;
@@ -24,6 +25,7 @@
     }
   }
   &__form {
+    font-weight: 700;
     margin: 0;
     background-color: inherit;
     font-size: 20px;
@@ -49,7 +51,6 @@ mat-error {
 
 .second-okr {
   padding: 24px 62px;
-  // margin: 0 96px 0;
   margin: 0 auto;
   max-width: 1200px;
   height: 100%;
@@ -70,8 +71,7 @@ mat-error {
   th,
   td {
     position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.36);
-    color: rgba(0, 0, 0, 0.36);
+    border: 1px solid;
     font-weight: 300;
     min-width: 230px;
   }
@@ -151,12 +151,14 @@ mat-error {
   &__remove-icon {
     font-size: 22px !important;
   }
+  &__remove {
+    color: rgba(0, 0, 0, 0.36);
+  }
   &__add-row,
   &__remove {
     position: relative;
     font-size: 14px;
     cursor: pointer;
-    color: rgba(0, 0, 0, 0.36);
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
