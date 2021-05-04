@@ -41,7 +41,7 @@
               </mat-form-field>
             </form>
             <button
-              (click)="secondEditTutorial(1)"
+              (click)="secondStepTutorial(1)"
               mat-button
               matStepperNext
               [disabled]="titleControl.invalid"
@@ -83,7 +83,7 @@
                 </mat-icon>
               </span>
             </p>
-            <form [formGroup]="form" (ngSubmit)="submit()">
+            <form [formGroup]="form" (ngSubmit)="createOkr()">
               <div formArrayName="primaries">
                 <div *ngFor="let primary of primaries.controls; let i = index">
                   <mat-form-field class="second-okr-form second-step__field">
@@ -116,7 +116,7 @@
                   class="add-form second-step__addcontents"
                   type="button"
                   mat-raised-button
-                  (click)="addOptionForm()"
+                  (click)="addObjectiveForm()"
                 >
                   <mat-icon>add</mat-icon>
                   追加

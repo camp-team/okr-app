@@ -122,7 +122,7 @@
   &__main {
     position: relative;
     padding: 40px 0;
-    max-width: 600px;
+    max-width: 580px;
     @include sm {
       padding: 0;
     }
@@ -159,7 +159,7 @@
     position: absolute;
     z-index: 3;
     top: 120px;
-    right: -600px;
+    right: -580px;
     width: 350px;
     @include photo {
       display: none;
