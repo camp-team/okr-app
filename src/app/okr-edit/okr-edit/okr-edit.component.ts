@@ -26,12 +26,9 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 export class OkrEditComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
-
-  objectForm: number = 1;
-
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-
+  objectForm: number = 1;
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   isCompletes: boolean;
 
@@ -78,6 +75,17 @@ export class OkrEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addObjective();
+    this.checkSecondOkr();
+  }
+
+  addObjective() {
+    this.primaries.push(
+      new FormControl('', [Validators.required, Validators.maxLength(20)])
+    );
+  }
+
+  checkSecondOkr() {
     this.secondOkrs$.subscribe((secondOkrs) => {
       secondOkrs.forEach((secondOkr) => {
         if (secondOkr.isComplete === true) {
@@ -85,7 +93,6 @@ export class OkrEditComponent implements OnInit {
         }
       });
     });
-    this.addObjective();
   }
 
   secondStepOkr(num) {
@@ -107,18 +114,12 @@ export class OkrEditComponent implements OnInit {
     });
   }
 
-  addObjective() {
-    this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(20)])
-    );
-  }
-
-  removeOption(i: number) {
+  removeObjectiveForm(i: number) {
     this.primaries.removeAt(i);
     this.objectForm = this.objectForm - 1;
   }
 
-  addOptionForm() {
+  addObjectiveForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
@@ -127,15 +128,15 @@ export class OkrEditComponent implements OnInit {
 
   cleateSecondOkr() {
     this.loadingService.loading = true;
-    const formData = this.form.value;
+    const createdSecondOkrFormData = this.form.value;
     const okrValue: Omit<SecondOkr, 'secondOkrId' | 'isComplete'> = {
-      start: formData.start,
-      end: formData.end,
+      start: createdSecondOkrFormData.start,
+      end: createdSecondOkrFormData.end,
       creatorId: this.authService.uid,
-      secondOkrObjects: formData.primaries,
+      secondOkrObjects: createdSecondOkrFormData.primaries,
     };
     const kyeResult = this.secondOkrKeyResults();
-    const primaryArray = formData.primaries;
+    const primaryArray = createdSecondOkrFormData.primaries;
     this.okrService
       .createSecondOkr(okrValue, primaryArray, kyeResult)
       .then(() => {
@@ -160,7 +161,7 @@ export class OkrEditComponent implements OnInit {
   secondOkrKeyResults() {
     const now = new Date();
     const date = formatDate(now, 'yyyy/MM/dd', this.locale);
-    const defaultData = this.fb.group({
+    const defaultSecondOkrData = this.fb.group({
       key: ['', [Validators.required, Validators.maxLength(20)]],
       target: [
         '',
@@ -181,21 +182,21 @@ export class OkrEditComponent implements OnInit {
       percentage: [0 + '%', [Validators.required]],
       lastUpdated: [date, [Validators.required]],
     });
-    const formData = defaultData.value;
-    const subTaskValue: Omit<
+    const defaultSecondOkrFormData = defaultSecondOkrData.value;
+    const defaultSecondOkrValue: Omit<
       SecondOkrKeyResult,
       | 'secondOkrKeyResultId'
       | 'lastUpdated'
       | 'secondOkrObjectId'
       | 'secondOkrId'
     > = {
-      key: formData.key,
-      target: formData.target,
-      current: formData.current,
-      percentage: formData.percentage,
+      key: defaultSecondOkrFormData.key,
+      target: defaultSecondOkrFormData.target,
+      current: defaultSecondOkrFormData.current,
+      percentage: defaultSecondOkrFormData.percentage,
       uid: this.authService.uid,
     };
-    return subTaskValue;
+    return defaultSecondOkrValue;
   }
 
   secondOkr() {
