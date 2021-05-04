@@ -12,6 +12,13 @@
     width: 356px;
     margin: 0 auto;
   }
+  &__form-container {
+    width: 100%;
+    display: flex;
+    @include md {
+      display: block;
+    }
+  }
   &__title {
     position: relative;
     display: flex;
