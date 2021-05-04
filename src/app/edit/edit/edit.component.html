@@ -1,67 +1,63 @@
 <div class="edit">
   <ng-container *ngIf="!okrIscomplete; else blank">
     <mat-horizontal-stepper #stepper class="stepper">
-      <div class="container">
-        <div class="first-step">
-          <mat-step
-            [stepControl]="firstFormGroup"
-            errorMessage="Address is required."
-          >
-            <div class="form-detail">1番目のOKRの作成(手順 1/2)</div>
-            <div class="edit__main">
-              <p class="edit__title">
-                <span
-                  class="tooltip"
-                  data-tooltip="目標は&#13;&#10;自分のなりたい姿から設定してみましょう&#13;&#10;&#13;&#10;例)&#13;&#10;・幸せになる&#13;&#10;・有名になる&#13;&#10;・可愛くなる"
-                >
-                  <span class="edit__text">
-                    OKRを作成していきます
-                  </span>
-                  <span>まず、目標を入力しましょう！</span>
-                  <mat-icon>
-                    help_outline
-                  </mat-icon>
-                </span>
-              </p>
-              <form [formGroup]="form">
-                <mat-form-field class="okr-edit first-step__field">
-                  <mat-label class="edit__lavel">なりたい姿を入力</mat-label>
-                  <input
-                    formControlName="title"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                    required
-                  />
-                  <mat-error *ngIf="titleControl.hasError('required')"
-                    >必須入力です</mat-error
-                  >
-                  <mat-error *ngIf="titleControl.hasError('maxlength')"
-                    >文字数は最大で20文字までです</mat-error
-                  >
-                </mat-form-field>
-              </form>
-              <button
-                (click)="secondEditTutorial(1)"
-                mat-button
-                matStepperNext
-                [disabled]="titleControl.invalid"
-                mat-raised-button
-                color="primary"
-                class="edit__button"
+      <div class="first-step">
+        <mat-step
+          [stepControl]="firstFormGroup"
+          errorMessage="Address is required."
+        >
+          <div class="form-detail">1番目のOKRの作成(手順 1/2)</div>
+          <div class="edit__main">
+            <p class="edit__title">
+              <span
+                class="tooltip"
+                data-tooltip="目標は&#13;&#10;自分のなりたい姿から設定してみましょう&#13;&#10;&#13;&#10;例)&#13;&#10;・幸せになる&#13;&#10;・有名になる&#13;&#10;・可愛くなる"
               >
-                次へ
-              </button>
-              <div class="edit__sidebar">
-                <img
-                  class="edit__img"
-                  src="assets/images/first-step-item.svg"
-                  alt="フォーム画像"
+                <span class="edit__text">
+                  OKRを作成していきます
+                </span>
+                <span>まず、目標を入力しましょう！</span>
+                <mat-icon>
+                  help_outline
+                </mat-icon>
+              </span>
+            </p>
+            <form [formGroup]="form">
+              <mat-form-field class="okr-edit first-step__field">
+                <mat-label class="edit__lavel">なりたい姿を入力</mat-label>
+                <input
+                  formControlName="title"
+                  type="text"
+                  matInput
+                  autocomplete="off"
+                  required
                 />
-              </div>
-            </div>
-          </mat-step>
-        </div>
+                <mat-error *ngIf="titleControl.hasError('required')"
+                  >必須入力です</mat-error
+                >
+                <mat-error *ngIf="titleControl.hasError('maxlength')"
+                  >文字数は最大で20文字までです</mat-error
+                >
+              </mat-form-field>
+            </form>
+            <button
+              (click)="secondEditTutorial(1)"
+              mat-button
+              matStepperNext
+              [disabled]="titleControl.invalid"
+              mat-raised-button
+              color="primary"
+              class="edit__button"
+            >
+              次へ
+            </button>
+            <img
+              class="edit__img"
+              src="assets/images/first-step-item.svg"
+              alt="フォーム画像"
+            />
+          </div>
+        </mat-step>
       </div>
 
       <div class="second-step">
@@ -87,11 +83,7 @@
                 </mat-icon>
               </span>
             </p>
-            <form
-              [formGroup]="form"
-              class="second-step__form"
-              (ngSubmit)="submit()"
-            >
+            <form [formGroup]="form" (ngSubmit)="submit()">
               <div formArrayName="primaries">
                 <div *ngFor="let primary of primaries.controls; let i = index">
                   <mat-form-field class="second-okr-form second-step__field">
@@ -113,7 +105,7 @@
                     class="second-step__remcontents"
                     type="button"
                     (click)="removeOption(i)"
-                    mat-icon-button
+                    mat-raised-button
                   >
                     <mat-icon>remove</mat-icon>
                     削除
@@ -142,15 +134,13 @@
                 >
                   OKRを作成する
                 </button>
+                <img
+                  class="second-step__img"
+                  src="assets/images/second-step-item.svg"
+                  alt="フォーム画像"
+                />
               </div>
             </form>
-            <div class="edit__sidebar">
-              <img
-                class="edit__img"
-                src="assets/images/second-step-item.svg"
-                alt="フォーム画像"
-              />
-            </div>
           </div>
         </mat-step>
       </div>
