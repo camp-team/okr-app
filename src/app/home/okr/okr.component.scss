@@ -53,6 +53,10 @@
       margin: 0;
     }
   }
+  &__objectives {
+    display: flex;
+    width: 100%;
+  }
   &__objective-wrapper {
     margin-top: 6px;
     width: 100%;
