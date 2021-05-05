@@ -1,18 +1,43 @@
 @import 'variables';
 @import 'mixins';
 
-.second-okr-title {
-  &__date {
-    font-weight: 700;
+.page-toolbar-structure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #6f7782;
+  border-bottom: 1px solid #e8ecee;
+  &__left {
     @include sm {
       font-size: 16px;
       text-align: center;
       margin: 0 0 24px;
     }
   }
-  &__differenceInDay {
-    margin-bottom: 36px;
-    font-size: 18px;
-    font-weight: 700;
+  &__right {
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    .material-icons {
+      font-size: 16px;
+    }
+    .differenceInDay {
+      margin: 12px 0 0;
+      font-size: 24px;
+    }
+    .is-completed {
+      margin: 0 16px;
+      padding: 0 8px;
+      line-height: inherit;
+      color: #6f7782;
+      box-shadow: none;
+      p {
+        margin: 0;
+      }
+      &:hover {
+        background-color: rgba(21, 27, 38, 0.08);
+      }
+    }
   }
 }

@@ -1,22 +1,27 @@
 <div class="second-okr-title">
-  <div class="container">
+  <div class="page-toolbar-structure">
     <ng-container *ngIf="secondOkr$ | async as secondOkr">
-      <h3 class="second-okr-title__date">
+      <p class="page-toolbar-structure__left">
         📅期間: {{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
           secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
         }}
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-      </h3>
-      <p class="second-okr-title__differenceInDay">
-        終了まで、あと{{ differenceInDay }}日だよ！
       </p>
+      <div class="page-toolbar-structure__right">
+        <button
+          mat-raised-button
+          (click)="secondOkrComplete()"
+          class="is-completed"
+        >
+          <span class="material-icons">
+            check_circle_outline
+          </span>
+          完了にする
+        </button>
+        <span class="material-icons">
+          schedule
+        </span>
+        <p>残り{{ differenceInDay }}日</p>
+      </div>
     </ng-container>
-    <mat-menu #menu="matMenu">
-      <button (click)="secondOkrComplete()" mat-menu-item>
-        <span>OKRを達成済みにする。</span>
-      </button>
-    </mat-menu>
   </div>
 </div>
