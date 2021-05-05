@@ -54,7 +54,7 @@ export class FiveDayRangeSelectionStrategy<D>
   }
 }
 @Component({
-  selector: 'app-okr-edit',
+  selector: 'app-child-okr-form',
   templateUrl: './child-okr-form.component.html',
   styleUrls: ['./child-okr-form.component.scss'],
   providers: [
