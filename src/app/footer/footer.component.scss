@@ -4,7 +4,10 @@
 .footer {
   background-color: #151b26;
   text-align: center;
-  padding: 60px 60px;
+  padding: 60px 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   @include sm {
     padding: 60px 0;
   }
