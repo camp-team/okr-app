@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EditRoutingModule } from './edit-routing.module';
-import { EditComponent } from './edit/edit.component';
+import { ParentOkrFormRoutingModule } from './parent-okr-form-routing.module';
+import { ParentOkrFormComponent } from './parent-okr-form/parent-okr-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,10 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [EditComponent],
+  declarations: [ParentOkrFormComponent],
   imports: [
     CommonModule,
-    EditRoutingModule,
+    ParentOkrFormRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
@@ -29,4 +29,4 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   providers: [],
 })
-export class EditModule {}
+export class ParentOkrFormModule {}

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EditComponent } from './edit/edit.component';
+import { ParentOkrFormComponent } from './parent-okr-form/parent-okr-form.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: EditComponent,
+    component: ParentOkrFormComponent,
   },
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class EditRoutingModule {}
+export class ParentOkrFormRoutingModule {}

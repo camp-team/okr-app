@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditComponent } from './edit.component';
+import { ParentOkrFormComponent } from './parent-okr-form.component';
 
-describe('EditComponent', () => {
-  let component: EditComponent;
-  let fixture: ComponentFixture<EditComponent>;
+describe('ParentOkrFormComponent', () => {
+  let component: ParentOkrFormComponent;
+  let fixture: ComponentFixture<ParentOkrFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EditComponent],
+      declarations: [ParentOkrFormComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditComponent);
+    fixture = TestBed.createComponent(ParentOkrFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

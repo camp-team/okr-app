@@ -16,12 +16,12 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
+  selector: 'app-parent-okr-form',
+  templateUrl: './parent-okr-form.component.html',
+  styleUrls: ['./parent-okr-form.component.scss'],
   providers: [],
 })
-export class EditComponent implements OnInit {
+export class ParentOkrFormComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   objectiveEdit: number = 0;
