@@ -1,9 +1,22 @@
 <div class="home">
-  <h1 class="home__title">OKR管理</h1>
+  <div class="home__general-next-section">
+    <h1 class="home__welcome-text">{{ user }}さん、OKRへようこそ</h1>
+    <p class="home__description">
+      以下から、作成されたのOKRや今後のタスクをご確認ください
+    </p>
+  </div>
+
   <ng-container *ngIf="okr; else blank">
-    <ng-container *ngFor="let okr of okrs$ | async">
-      <app-okr [okr]="okr"></app-okr>
-    </ng-container>
+    <div class="home__parent-okr-section">
+      <p class="home__parent-okr-title">メインのOKR</p>
+      <ng-container *ngFor="let okr of okrs$ | async">
+        <app-okr [okr]="okr"></app-okr>
+      </ng-container>
+    </div>
+
+    <div class="home__parent-okr-section">
+      最近のタスク
+    </div>
     <ng-container *ngIf="secondOkrId; else notSecondOkrId">
       <a
         mat-raised-button
@@ -25,6 +38,9 @@
         進行中のOKRを作成する
       </a>
     </ng-template>
+    <div class="home__parent-okr-section">
+      使い方
+    </div>
   </ng-container>
 </div>
 
