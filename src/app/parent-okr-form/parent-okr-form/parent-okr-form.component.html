@@ -1,4 +1,4 @@
-<div class="edit">
+<div class="parent-okr-form">
   <ng-container *ngIf="!okrIscomplete; else blank">
     <mat-horizontal-stepper #stepper class="stepper">
       <div class="first-step">
@@ -7,13 +7,13 @@
           errorMessage="Address is required."
         >
           <div class="form-detail">1番目のOKRの作成(手順 1/2)</div>
-          <div class="edit__main">
-            <p class="edit__title">
+          <div class="parent-okr-form__main">
+            <p class="parent-okr-form__title">
               <span
                 class="tooltip"
                 data-tooltip="目標は&#13;&#10;自分のなりたい姿から設定してみましょう&#13;&#10;&#13;&#10;例)&#13;&#10;・幸せになる&#13;&#10;・有名になる&#13;&#10;・可愛くなる"
               >
-                <span class="edit__text">
+                <span class="parent-okr-form__text">
                   OKRを作成していきます
                 </span>
                 <span>まず、目標を入力しましょう！</span>
@@ -23,8 +23,10 @@
               </span>
             </p>
             <form [formGroup]="form">
-              <mat-form-field class="okr-edit first-step__field">
-                <mat-label class="edit__lavel">なりたい姿を入力</mat-label>
+              <mat-form-field class="okr-parent-okr-form first-step__field">
+                <mat-label class="parent-okr-form__lavel"
+                  >なりたい姿を入力</mat-label
+                >
                 <input
                   formControlName="title"
                   type="text"
@@ -47,12 +49,12 @@
               [disabled]="titleControl.invalid"
               mat-raised-button
               color="primary"
-              class="edit__button"
+              class="parent-okr-form__button"
             >
               次へ
             </button>
             <img
-              class="edit__img"
+              class="parent-okr-form__img"
               src="assets/images/first-step-item.svg"
               alt="フォーム画像"
             />
@@ -66,13 +68,13 @@
           errorMessage="Address is required."
         >
           <div class="form-detail">OKRの作成(手順 2/2)</div>
-          <div class="edit__main">
-            <p class="edit__title">
+          <div class="parent-okr-form__main">
+            <p class="parent-okr-form__title">
               <span
                 class="tooltip"
                 data-tooltip="目標に紐づいた項目を設定しましょう。&#13;&#10;3個に絞って設定するのがおすすめです。&#13;&#10;&#13;&#10;例)&#13;&#10;・自分の好きなことが出来ている。&#13;&#10;・自己受容ができている。&#13;&#10;・家族や友人と時間を共有出来ている。"
               >
-                <span class="edit__text">
+                <span class="parent-okr-form__text">
                   目標を達成するために必要となる
                 </span>
                 <span>
@@ -87,7 +89,7 @@
               <div formArrayName="primaries">
                 <div *ngFor="let primary of primaries.controls; let i = index">
                   <mat-form-field class="second-okr-form second-step__field">
-                    <mat-label class="edit__lavel">
+                    <mat-label class="parent-okr-form__lavel">
                       目標を入力 {{ i + 1 }}つ目
                     </mat-label>
                     <input
@@ -123,7 +125,11 @@
                 </button>
               </div>
               <div class="second-step__action">
-                <button mat-button matStepperPrevious class="edit__button">
+                <button
+                  mat-button
+                  matStepperPrevious
+                  class="parent-okr-form__button"
+                >
                   戻る
                 </button>
                 <button
