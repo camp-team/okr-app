@@ -9,6 +9,7 @@
   color: #6f7782;
   border-bottom: 1px solid #e8ecee;
   &__left {
+    margin: 0;
     @include sm {
       font-size: 16px;
       text-align: center;
