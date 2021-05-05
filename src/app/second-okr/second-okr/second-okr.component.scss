@@ -43,7 +43,7 @@ mat-error {
 }
 
 .second-okr {
-  padding: 0 62px;
+  padding: 12px 62px;
   margin: 0 auto;
   height: 100%;
   @include sm {
@@ -85,8 +85,9 @@ mat-error {
     border-left-style: none;
   }
   .target,
-  .current {
-    width: 100px;
+  .current,
+  .percentage {
+    width: 180px;
   }
   &__key-result {
     width: 89%;
