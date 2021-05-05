@@ -11,7 +11,9 @@ const routes: Routes = [
       {
         path: 'edit',
         loadChildren: () =>
-          import('../edit/edit.module').then((m) => m.EditModule),
+          import('../parent-okr-form/parent-okr-form.module').then(
+            (m) => m.ParentOkrFormModule
+          ),
       },
       {
         path: 'home',
