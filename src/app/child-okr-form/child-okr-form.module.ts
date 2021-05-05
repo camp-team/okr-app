@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OkrEditRoutingModule } from './okr-edit-routing.module';
-import { OkrEditComponent } from './okr-edit/okr-edit.component';
+import { ChildOkrFormRoutingModule } from './child-okr-form-routing.module';
+import { ChildOkrFormComponent } from './child-okr-form/child-okr-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,10 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
-  declarations: [OkrEditComponent],
+  declarations: [ChildOkrFormComponent],
   imports: [
     CommonModule,
-    OkrEditRoutingModule,
+    ChildOkrFormRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
@@ -26,4 +26,4 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatStepperModule,
   ],
 })
-export class OkrEditModule {}
+export class ChildOkrFormModule {}

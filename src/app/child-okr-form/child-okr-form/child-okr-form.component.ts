@@ -55,8 +55,8 @@ export class FiveDayRangeSelectionStrategy<D>
 }
 @Component({
   selector: 'app-okr-edit',
-  templateUrl: './okr-edit.component.html',
-  styleUrls: ['./okr-edit.component.scss'],
+  templateUrl: './child-okr-form.component.html',
+  styleUrls: ['./child-okr-form.component.scss'],
   providers: [
     {
       provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
@@ -64,7 +64,7 @@ export class FiveDayRangeSelectionStrategy<D>
     },
   ],
 })
-export class OkrEditComponent implements OnInit {
+export class ChildOkrFormComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   secondFormGroup: FormGroup;
