@@ -1,248 +1,231 @@
 <div class="second-okr">
-  <div class="container">
-    <div class="second-okr__title">
-      <h1 class="second-okr__title-content">進行中のOKR</h1>
-    </div>
-    <ng-container *ngIf="isComplete === true; else blank">
-      <app-second-okr-title></app-second-okr-title>
-      <div class="data">
-        <div
-          *ngFor="let secondOkrObject of secondOkrObjects; let i = index"
-          class="second-okr__container"
+  <ng-container *ngIf="isComplete === true; else blank">
+    <app-second-okr-title></app-second-okr-title>
+    <div class="data">
+      <div *ngFor="let secondOkrObject of secondOkrObjects; let i = index">
+        <form
+          [formGroup]="secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]"
         >
-          <form
-            [formGroup]="
-              secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]
+          <div
+            *ngFor="
+              let primaryTitle of secondOkrObjectTitles[
+                secondOkrObject.secondOkrObjectId
+              ].controls;
+              index as primaryArrayIndex
             "
+            class="second-okr__object"
           >
-            <div
-              *ngFor="
-                let primaryTitle of secondOkrObjectTitles[
-                  secondOkrObject.secondOkrObjectId
-                ].controls;
-                index as primaryArrayIndex
-              "
-              class="second-okr__object"
-            >
-              <ng-container [formGroupName]="primaryArrayIndex">
-                <div class="objective">
-                  <span class="objective__title">Objective(目標)</span>
-                  <input
-                    placeholder="記入例) 技術者として売れる"
-                    type="text"
-                    formControlName="primaryTitle"
-                    class="objective__form"
-                    required
-                  />
-                </div>
-                <mat-error
-                  *ngIf="primaryTitle.get('primaryTitle').hasError('required')"
-                >
-                  必須入力です。
-                </mat-error>
-                <mat-error
-                  *ngIf="primaryTitle.get('primaryTitle').hasError('maxlength')"
-                >
-                  最大文字数は20文字です。
-                </mat-error>
-              </ng-container>
-            </div>
-          </form>
-          <div class="second-okr__table">
-            <form [formGroup]="rows[secondOkrObject.secondOkrObjectId]">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="item header-left">
-                      項目
-                      <mat-icon
-                        class="table-icon"
-                        matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
-                      >
-                        help_outline
-                      </mat-icon>
-                    </th>
-                    <th class="target">
-                      標的
-                      <mat-icon class="table-icon" matTooltip="数値を入力">
-                        help_outline
-                      </mat-icon>
-                    </th>
-                    <th class="current">
-                      現在
-                      <mat-icon
-                        class="table-icon"
-                        matTooltip="達成した数値を入力"
-                      >
-                        help_outline
-                      </mat-icon>
-                    </th>
-                    <th class="percent">
-                      パーセント
-                      <mat-icon
-                        class="table-icon"
-                        matTooltip="自動で更新されます"
-                      >
-                        help_outline
-                      </mat-icon>
-                    </th>
-                    <th class="last-update header-right">更新日</th>
-                  </tr>
-                </thead>
+            <ng-container [formGroupName]="primaryArrayIndex">
+              <div class="objective">
+                <span class="objective__title">Objective(目標)</span>
+                <input
+                  placeholder="記入例) 技術者として売れる"
+                  type="text"
+                  formControlName="primaryTitle"
+                  class="objective__form"
+                  required
+                />
+              </div>
+              <mat-error
+                *ngIf="primaryTitle.get('primaryTitle').hasError('required')"
+              >
+                必須入力です。
+              </mat-error>
+              <mat-error
+                *ngIf="primaryTitle.get('primaryTitle').hasError('maxlength')"
+              >
+                最大文字数は20文字です。
+              </mat-error>
+            </ng-container>
+          </div>
+        </form>
+        <div class="second-okr__table">
+          <form [formGroup]="rows[secondOkrObject.secondOkrObjectId]">
+            <table>
+              <thead>
+                <tr>
+                  <th class="item header-left">
+                    タスク名
+                    <mat-icon
+                      class="table-icon"
+                      matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
+                    >
+                      help_outline
+                    </mat-icon>
+                  </th>
+                  <th class="target">
+                    標的
+                    <mat-icon class="table-icon" matTooltip="数値を入力">
+                      help_outline
+                    </mat-icon>
+                  </th>
+                  <th class="current">
+                    現在
+                    <mat-icon
+                      class="table-icon"
+                      matTooltip="達成した数値を入力"
+                    >
+                      help_outline
+                    </mat-icon>
+                  </th>
+                  <th class="percent">
+                    達成率
+                    <mat-icon
+                      class="table-icon"
+                      matTooltip="自動で更新されます"
+                    >
+                      help_outline
+                    </mat-icon>
+                  </th>
+                  <th class="last-update header-right">更新日</th>
+                </tr>
+              </thead>
 
-                <tbody>
-                  <tr
-                    *ngFor="
-                      let row of rows[secondOkrObject.secondOkrObjectId]
-                        .controls;
-                      index as rowIndex
-                    "
-                  >
-                    <ng-container [formGroupName]="rowIndex">
-                      <td class="key body-left">
-                        <input
-                          placeholder="記入例) 記事を10記事投稿"
-                          type="text"
-                          formControlName="key"
-                          autocomplete="off"
-                          class="second-okr__key-result"
-                        />
-                        <mat-error *ngIf="row.get('key').hasError('required')">
-                          <span
-                            [hidden]="
-                              !(
-                                row.get('key').errors?.required &&
-                                row.get('key').dirty
-                              )
-                            "
-                          >
-                            必須入力です。
-                          </span>
-                        </mat-error>
-                        <mat-error *ngIf="row.get('key').hasError('maxlength')">
-                          最大文字数は20文字です。
-                        </mat-error>
-                      </td>
-                      <td>
-                        <input
-                          placeholder="記入例) 10"
-                          name="target"
-                          type="text"
-                          formControlName="target"
-                          autocomplete="off"
-                          required
-                          maxlength="20"
-                          class="second-okr__key-result"
-                        />
-                        <mat-error
-                          *ngIf="row.get('target').hasError('required')"
-                        >
-                          <span
-                            [hidden]="
-                              !(
-                                row.get('target').errors?.required &&
-                                row.get('target').dirty
-                              )
-                            "
-                          >
-                            必須入力です。
-                          </span>
-                        </mat-error>
-                        <mat-error
-                          *ngIf="row.get('target').hasError('pattern')"
-                        >
-                          半角数値で入力してください。
-                        </mat-error>
-                        <mat-error
-                          *ngIf="row.get('target').hasError('maxlength')"
-                        >
-                          最大数は999までです。
-                        </mat-error>
-                      </td>
-                      <td>
-                        <input
-                          placeholder="記入例) 3"
-                          type="text"
-                          formControlName="current"
-                          autocomplete="off"
-                          required
-                          class="second-okr__key-result"
-                        />
-                        <mat-error
-                          *ngIf="row.get('current').hasError('required')"
+              <tbody>
+                <tr
+                  *ngFor="
+                    let row of rows[secondOkrObject.secondOkrObjectId].controls;
+                    index as rowIndex
+                  "
+                >
+                  <ng-container [formGroupName]="rowIndex">
+                    <td class="key body-left">
+                      <input
+                        placeholder="タスク名を入力"
+                        type="text"
+                        formControlName="key"
+                        autocomplete="off"
+                        class="second-okr__key-result"
+                      />
+                      <mat-error *ngIf="row.get('key').hasError('required')">
+                        <span
+                          [hidden]="
+                            !(
+                              row.get('key').errors?.required &&
+                              row.get('key').dirty
+                            )
+                          "
                         >
                           必須入力です。
-                        </mat-error>
-                        <mat-error
-                          *ngIf="row.get('current').hasError('pattern')"
-                        >
-                          半角数値で入力してください。
-                        </mat-error>
-                        <mat-error
-                          *ngIf="row.get('current').hasError('maxlength')"
-                        >
-                          最大数は999までです。
-                        </mat-error>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          formControlName="percentage"
-                          autocomplete="off"
-                          disabled
-                          class="second-okr__key-result"
-                        />
-                      </td>
-                      <td class="body-right">
-                        <input
-                          type="text"
-                          formControlName="lastUpdated"
-                          autocomplete="off"
-                          disabled
-                          class="second-okr__key-result"
-                        />
-                      </td>
-                      <div
-                        class="second-okr__remove"
-                        type="button"
-                        (click)="
-                          removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
-                        "
-                      >
-                        <mat-icon class="second-okr__remove-icon">
-                          minimize
-                        </mat-icon>
-                        <span>
-                          削除
                         </span>
-                      </div>
-                    </ng-container>
-                  </tr>
-                  <div
-                    *ngIf="rows[secondOkrObject.secondOkrObjectId].length < 3"
-                    (click)="addRow(secondOkrObject.secondOkrObjectId)"
-                    class="add-row second-okr__add-row"
-                  >
-                    <mat-icon>add</mat-icon>
-                    <span>レコード追加</span>
-                  </div>
-                </tbody>
-              </table>
-            </form>
-          </div>
-          <div class="second-okr__average">
-            <span class="second-okr__average-text">達成度</span>
-            <ng-container *ngIf="secondOkrObject.average === 0; else blank">
-              <span>{{ secondOkrObject.average }}%</span>
-            </ng-container>
-            <ng-template #blank>
-              <span>{{ secondOkrObject.average }}%</span>
-            </ng-template>
-          </div>
+                      </mat-error>
+                      <mat-error *ngIf="row.get('key').hasError('maxlength')">
+                        最大文字数は20文字です。
+                      </mat-error>
+                    </td>
+                    <td class="target">
+                      <input
+                        placeholder="数値を入力"
+                        name="target"
+                        type="text"
+                        formControlName="target"
+                        autocomplete="off"
+                        required
+                        maxlength="20"
+                        class="second-okr__key-result"
+                      />
+                      <mat-error *ngIf="row.get('target').hasError('required')">
+                        <span
+                          [hidden]="
+                            !(
+                              row.get('target').errors?.required &&
+                              row.get('target').dirty
+                            )
+                          "
+                        >
+                          必須入力です。
+                        </span>
+                      </mat-error>
+                      <mat-error *ngIf="row.get('target').hasError('pattern')">
+                        半角数値で入力してください。
+                      </mat-error>
+                      <mat-error
+                        *ngIf="row.get('target').hasError('maxlength')"
+                      >
+                        最大数は999までです。
+                      </mat-error>
+                    </td>
+                    <td class="current">
+                      <input
+                        placeholder="記入例) 3"
+                        type="text"
+                        formControlName="current"
+                        autocomplete="off"
+                        required
+                        class="second-okr__key-result"
+                      />
+                      <mat-error
+                        *ngIf="row.get('current').hasError('required')"
+                      >
+                        必須入力です。
+                      </mat-error>
+                      <mat-error *ngIf="row.get('current').hasError('pattern')">
+                        半角数値で入力してください。
+                      </mat-error>
+                      <mat-error
+                        *ngIf="row.get('current').hasError('maxlength')"
+                      >
+                        最大数は999までです。
+                      </mat-error>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        formControlName="percentage"
+                        autocomplete="off"
+                        disabled
+                        class="second-okr__key-result"
+                      />
+                    </td>
+                    <td class="body-right">
+                      <input
+                        type="text"
+                        formControlName="lastUpdated"
+                        autocomplete="off"
+                        disabled
+                        class="second-okr__key-result"
+                      />
+                    </td>
+                    <div
+                      class="second-okr__remove"
+                      type="button"
+                      (click)="
+                        removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
+                      "
+                    >
+                      <mat-icon class="second-okr__remove-icon">
+                        minimize
+                      </mat-icon>
+                      <span>
+                        削除
+                      </span>
+                    </div>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+            <div
+              *ngIf="rows[secondOkrObject.secondOkrObjectId].length < 3"
+              (click)="addRow(secondOkrObject.secondOkrObjectId)"
+              class="add-row second-okr__add-task"
+            >
+              <mat-icon>add</mat-icon>
+              <span>タスクを追加</span>
+            </div>
+          </form>
+        </div>
+        <div class="second-okr__average">
+          <span class="second-okr__average-text">達成度</span>
+          <ng-container *ngIf="secondOkrObject.average === 0; else blank">
+            <span>{{ secondOkrObject.average }}%</span>
+          </ng-container>
+          <ng-template #blank>
+            <span>{{ secondOkrObject.average }}%</span>
+          </ng-template>
         </div>
       </div>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
 </div>
 
 <ng-template #blank>
