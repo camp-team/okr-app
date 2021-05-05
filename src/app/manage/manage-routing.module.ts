@@ -23,7 +23,9 @@ const routes: Routes = [
       {
         path: 'okr-edit',
         loadChildren: () =>
-          import('../okr-edit/okr-edit.module').then((m) => m.OkrEditModule),
+          import('../child-okr-form/child-okr-form.module').then(
+            (m) => m.ChildOkrFormModule
+          ),
       },
       {
         path: 'secondOkr',
