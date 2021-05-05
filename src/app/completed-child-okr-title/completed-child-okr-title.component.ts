@@ -7,11 +7,11 @@ import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
-  selector: 'app-complete-okr-title',
-  templateUrl: './complete-okr-title.component.html',
-  styleUrls: ['./complete-okr-title.component.scss'],
+  selector: 'app-completed-child-okr-title',
+  templateUrl: './completed-child-okr-title.component.html',
+  styleUrls: ['./completed-child-okr-title.component.scss'],
 })
-export class CompleteOkrTitleComponent implements OnInit {
+export class CompletedChildOkrTitleComponent implements OnInit {
   private secondOkrId = this.route.snapshot.queryParamMap.get('v');
   secondOkr$: Observable<SecondOkr> = this.okrService.getSecondOkr(
     this.secondOkrId

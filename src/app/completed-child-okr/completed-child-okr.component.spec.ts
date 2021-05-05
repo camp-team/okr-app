@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CompletedChildOkrComponent } from './completed-child-okr.component';
 
-import { CompleteOkrTitleComponent } from './complete-okr-title.component';
-
-describe('CompleteOkrTitleComponent', () => {
-  let component: CompleteOkrTitleComponent;
-  let fixture: ComponentFixture<CompleteOkrTitleComponent>;
+describe('CompletedChildOkrComponent', () => {
+  let component: CompletedChildOkrComponent;
+  let fixture: ComponentFixture<CompletedChildOkrComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CompleteOkrTitleComponent],
+      declarations: [CompletedChildOkrComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CompleteOkrTitleComponent);
+    fixture = TestBed.createComponent(CompletedChildOkrComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

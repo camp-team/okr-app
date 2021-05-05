@@ -1,6 +1,6 @@
-<div class="second-okr">
+<div class="completed-okr">
   <div class="container">
-    <app-complete-okr-title></app-complete-okr-title>
+    <app-completed-child-okr-title></app-completed-child-okr-title>
     <div class="data">
       <div *ngFor="let secondOkrObject of secondOkrObjects">
         <form
@@ -13,14 +13,14 @@
               ].controls;
               index as primaryArrayIndex
             "
-            class="second-okr__object"
+            class="completed-okr__object"
           >
             <ng-container [formGroupName]="primaryArrayIndex">
               <input disabled type="text" formControlName="primaryTitle" />
             </ng-container>
           </div>
         </form>
-        <div class="second-okr__table">
+        <div class="completed-okr__table">
           <form [formGroup]="rows[secondOkrObject.secondOkrObjectId]">
             <table>
               <thead>
@@ -113,8 +113,8 @@
             </table>
           </form>
         </div>
-        <div class="second-okr__average">
-          <span class="second-okr__average-text">達成度</span>
+        <div class="completed-okr__average">
+          <span class="completed-okr__average-text">達成度</span>
           <ng-container *ngIf="secondOkrObject.average === 0; else blank">
             <span>{{ secondOkrObject.average }}%</span>
           </ng-container>

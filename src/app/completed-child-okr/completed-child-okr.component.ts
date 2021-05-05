@@ -12,12 +12,12 @@ import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
-  selector: 'app-complete-okr',
-  templateUrl: './complete-okr.component.html',
-  styleUrls: ['./complete-okr.component.scss'],
+  selector: 'app-completed-child-okr',
+  templateUrl: './completed-child-okr.component.html',
+  styleUrls: ['./completed-child-okr.component.scss'],
   providers: [DatePipe],
 })
-export class CompleteOkrComponent implements OnInit {
+export class CompletedChildOkrComponent implements OnInit {
   private secondOkrId = this.route.snapshot.queryParamMap.get('v');
   row: FormGroup;
   rows: {
