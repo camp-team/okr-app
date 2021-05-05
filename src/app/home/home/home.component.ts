@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   okr: boolean;
   secondOkrId: string;
+  user: string;
 
   constructor(
     public okrService: OkrService,
@@ -39,6 +40,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe((user) => {
+      this.user = user.name;
+    });
+    this.checkOkr();
+    this.secondOkr();
+  }
+
+  checkOkr() {
     this.okrs$.subscribe((okrs) => {
       if (okrs.length === 0) {
         this.okr = false;
@@ -46,7 +55,6 @@ export class HomeComponent implements OnInit {
         this.okr = true;
       }
     });
-    this.secondOkr();
   }
 
   secondOkr() {
