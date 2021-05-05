@@ -37,10 +37,6 @@ const routes: Routes = [
             (m) => m.OkrAchievementModule
           ),
       },
-      {
-        path: ':secondOkrId',
-        component: CompleteOkrComponent,
-      },
     ],
   },
 ];
