@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { CompleteOkrDialogComponent } from '../complete-okr-dialog/complete-okr-dialog.component';
 import { SecondOkr } from '../interfaces/second-okr';
 import { AuthService } from '../services/auth.service';
@@ -32,9 +33,9 @@ export class SecondOkrTitleComponent implements OnInit {
   }
 
   differenceInDays() {
-    this.secondOkr$.subscribe((secondOkr) => {
+    this.secondOkr$.pipe(take(1)).subscribe((secondOkr) => {
       const nowDate = new Date();
-      const endDate = new Date(secondOkr.end.toDate());
+      const endDate = secondOkr.end.toDate();
       const differenceInTime = endDate.getTime() - nowDate.getTime();
       const differenceInDays = differenceInTime / (1000 * 3600 * 24);
       this.differenceInDay = Math.ceil(differenceInDays);
