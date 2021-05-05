@@ -41,6 +41,11 @@
     background-size: cover;
     box-shadow: none;
   }
+  &__menu {
+    line-height: 30px !important;
+    height: 36px;
+  }
+
   &__progress {
     &:hover {
       cursor: pointer;

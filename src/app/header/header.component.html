@@ -18,23 +18,28 @@
         class="header__icon"
       ></button>
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item routerLink="/manage/edit">
+        <button mat-menu-item routerLink="/manage/edit" class="header__menu">
           <mat-icon>edit</mat-icon>
-          <span>1番目のOKRの入力</span>
+          <span>OKRを入力</span>
         </button>
-        <button mat-menu-item routerLink="/manage/okr-edit">
+        <button
+          mat-menu-item
+          routerLink="/manage/okr-edit"
+          class="header__menu"
+        >
           <mat-icon>edit</mat-icon>
-          <span>進行中のOKRの入力</span>
+          <span>タスクを入力</span>
         </button>
         <button
           mat-menu-item
           *ngIf="!(this.authService.user$ | async)"
           (click)="login()"
+          class="header__menu"
         >
           <mat-icon>login</mat-icon>
           <span>ログイン</span>
         </button>
-        <button mat-menu-item routerLink="/settings">
+        <button mat-menu-item routerLink="/settings" class="header__menu">
           <mat-icon>settings</mat-icon>
           <span>設定</span>
         </button>
