@@ -15,17 +15,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { CompletedChildOkrComponent } from '../completed-child-okr/completed-child-okr.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { CompletedChildOkrTitleComponent } from '../completed-child-okr-title/completed-child-okr-title.component';
 
 @NgModule({
-  declarations: [
-    ManageComponent,
-    ManageHeaderComponent,
-    CompletedChildOkrComponent,
-    CompletedChildOkrTitleComponent,
-  ],
+  declarations: [ManageComponent, ManageHeaderComponent],
   imports: [
     CommonModule,
     ManageRoutingModule,
