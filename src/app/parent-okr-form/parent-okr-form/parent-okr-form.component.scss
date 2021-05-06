@@ -186,66 +186,10 @@
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
-  &__text {
-    display: block;
-  }
   &__button {
-    width: 120px;
-    height: 40px;
+    width: 100%;
     &:hover {
       background-color: #9e9e9e;
-    }
-  }
-  &__img {
-    position: absolute;
-    z-index: 3;
-    top: 120px;
-    right: -580px;
-    width: 350px;
-    @include photo {
-      display: none;
-    }
-  }
-  .first-step {
-    &__field {
-      display: block;
-      width: 440px;
-      padding-bottom: 40px;
-      @include sm {
-        width: 300px;
-      }
-    }
-  }
-
-  .second-step {
-    &__field {
-      width: 440px;
-      @include sm {
-        width: 300px;
-      }
-    }
-    &__action {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 48px;
-    }
-    &__next {
-      display: block;
-      width: 100%;
-      &:hover {
-        background-color: #9e9e9e;
-      }
-    }
-    &__img {
-      position: absolute;
-      z-index: 3;
-      top: -200px;
-      right: -600px;
-      width: 350px;
-      @include photo {
-        display: none;
-      }
     }
   }
 }
@@ -275,12 +219,5 @@
       background-color: #757575;
       border-radius: 2px;
     }
-  }
-  &__image {
-    margin-bottom: 36px;
-    width: 100%;
-    text-align: center;
-    display: block;
-    height: 200px;
   }
 }

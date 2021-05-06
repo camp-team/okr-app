@@ -63,16 +63,14 @@
               追加
             </button>
           </div>
-          <div class="second-step__action">
-            <button
-              [disabled]="form.invalid"
-              mat-raised-button
-              color="primary"
-              class="create-okr-button second-step__next"
-            >
-              OKRを作成する
-            </button>
-          </div>
+          <button
+            [disabled]="form.invalid"
+            mat-raised-button
+            color="primary"
+            class="create-okr-button create-parent-okr__button"
+          >
+            OKRを作成する
+          </button>
         </form>
       </ng-container>
     </div>
