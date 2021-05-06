@@ -3,7 +3,7 @@
   *ngIf="isCompletes === true; else blank"
 >
   <div class="not-child-okr-form__wrapper">
-    <h1 class="not-child-okr-form__title">進行中のOKRは作成済みです</h1>
+    <h1 class="not-child-okr-form__title">タスクは作成済みです</h1>
     <img
       src="/assets/images/no-data.svg"
       alt="OKR作成済み画像"
@@ -15,7 +15,7 @@
       class="not-child-okr-form__button"
       (click)="secondOkr()"
     >
-      進行中のOKRへすすむ
+      タスクへすすむ
     </a>
   </div>
 </ng-container>
@@ -30,7 +30,7 @@
             errorMessage="Address is required."
           >
             <div class="child-okr-form__header">
-              進行中のOKRの作成(手順 1/2)
+              タスクの作成(手順 1/2)
             </div>
             <div class="child-okr-form__main">
               <p class="child-okr-form__title">
@@ -120,7 +120,7 @@
             errorMessage="Address is required."
           >
             <div class="child-okr-form__header">
-              進行中のOKRの作成(手順 2/2)
+              タスクの作成(手順 2/2)
             </div>
             <div class="child-okr-form__main">
               <p class="child-okr-form__title">
