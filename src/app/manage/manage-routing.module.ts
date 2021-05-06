@@ -40,6 +40,13 @@ const routes: Routes = [
             (m) => m.OkrAchievementModule
           ),
       },
+      {
+        path: 'complete',
+        loadChildren: () =>
+          import('../completed-child-okr/completed-child-okr.module').then(
+            (m) => m.CompletedChildOkrModule
+          ),
+      },
     ],
   },
 ];
