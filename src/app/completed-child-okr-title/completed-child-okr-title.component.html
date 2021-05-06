@@ -1,7 +1,4 @@
 <div class="complete-okr-title">
-  <div class="complete-okr-title__title">
-    <h1 class="complete-okr-title__title-content">達成済みのOKR</h1>
-  </div>
   <h3 *ngIf="secondOkr$ | async as secondOkr" class="complete-okr-title__date">
     📅期間: {{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
       secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
