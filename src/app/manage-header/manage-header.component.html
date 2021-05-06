@@ -9,20 +9,20 @@
       <ng-container *ngIf="isSecondOkr; else blank">
         <ng-container *ngIf="isComplete === true; else blank">
           <a (click)="progress()">
-            <span>タスク</span>
+            <span>進行中のOKR</span>
           </a>
         </ng-container>
       </ng-container>
 
       <ng-template #blank>
         <a href="" routerLink="/manage/secondOkr">
-          <span>タスク</span>
+          <span>進行中のOKR</span>
         </a>
       </ng-template>
     </li>
     <li>
       <a routerLink="/manage/achieve">
-        <span>完了したタスク</span>
+        <span>完了したOKR</span>
       </a>
     </li>
   </ul>
