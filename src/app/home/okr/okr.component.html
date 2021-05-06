@@ -1,7 +1,7 @@
 <div class="okr">
   <div class="okr__title">
     <div *ngFor="let okr of okrs" class="okr__objectives">
-      <span>Objective(目標)</span>
+      <span>目標(Objective)</span>
       <form [formGroup]="objectives[okr.okrId]" class="okr__form-container">
         <ng-container
           *ngFor="
@@ -44,7 +44,7 @@
   </div>
   <div *ngFor="let primary of primaries" class="okr__keyResults">
     <span class="okr__content">
-      Key Result(目標達成のための成果指標)
+      目標達成のための成果指標(Key Result)
     </span>
     <form
       class="okr__keyResult-container"
