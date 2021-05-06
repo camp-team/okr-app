@@ -174,7 +174,7 @@ export class TutorialService {
       ),
       this.getTutorialStep(
         '2つ目のOKR作成するよ！！',
-        '入力できたら進行中のOKRを作成しよう！',
+        '入力できたらタスクを作成しよう！',
         'last',
         '.create-secondOkr',
         'bottom'
@@ -202,7 +202,7 @@ export class TutorialService {
       ),
       this.getTutorialStep(
         'OKR管理画面です！',
-        '次は、進行中のOKRを作成しよう！',
+        '次は、タスクを作成しよう！',
         'last',
         '.start-second-okr-edit',
         'bottom'
