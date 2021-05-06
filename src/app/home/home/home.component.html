@@ -2,7 +2,7 @@
   <div class="home__general-next-section">
     <h1 class="home__welcome-text">{{ user }}さん、OKRへようこそ</h1>
     <p class="home__description">
-      以下から、メインのOKRや最近のプロジェクトをご確認ください
+      以下から、メインのOKRや最近のOKRをご確認ください
     </p>
   </div>
 
@@ -26,13 +26,13 @@
   </div>
 
   <div class="home__parent-okr-section">
-    <p class="home__parent-okr-header">最近のプロジェクト</p>
+    <p class="home__parent-okr-header">最近のOKR</p>
     <div class="home__list-item-grid">
       <div class="home__tile-Structure">
         <ng-container *ngIf="secondOkrId; else notSecondOkrId">
           <a routerLink="/manage/secondOkr" [queryParams]="{ v: secondOkrId }">
             <div class="home__list-item"></div>
-            <p>タスクに移動</p>
+            <p>進行中のOKR</p>
           </a>
         </ng-container>
         <ng-template #notSecondOkrId>
@@ -50,7 +50,10 @@
               [queryParams]="{ v: secondOkr.secondOkrId }"
             >
               <div class="home__list-item"></div>
-              <p>📅 {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}</p>
+              <p>
+                最近完了したOKR<br />📅
+                {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+              </p>
             </a>
           </div>
         </ng-container>
