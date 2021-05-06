@@ -57,7 +57,7 @@ export class OkrService {
   }
 
   createSecondOkr(
-    secondOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete'>,
+    secondOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete' | 'start'>,
     secondOkrObjects: string[],
     kyeResult: Omit<
       SecondOkrKeyResult,
@@ -176,7 +176,7 @@ export class OkrService {
     return this.db
       .collection<SecondOkr>(
         `users/${this.authsearvice.uid}/secondOkrs`,
-        (ref) => ref.orderBy('start', 'desc')
+        (ref) => ref.orderBy('end', 'desc')
       )
       .valueChanges();
   }
@@ -186,7 +186,7 @@ export class OkrService {
       .collection<SecondOkr>(
         `users/${this.authsearvice.uid}/secondOkrs`,
         (ref) =>
-          ref.where('isComplete', '==', false).orderBy('start', 'desc').limit(3)
+          ref.where('isComplete', '==', false).orderBy('end', 'desc').limit(3)
       )
       .valueChanges();
   }
