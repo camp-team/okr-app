@@ -2,9 +2,7 @@
   <div class="page-toolbar-structure">
     <ng-container *ngIf="secondOkr$ | async as secondOkr">
       <p class="page-toolbar-structure__left">
-        📅期間: {{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-          secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
-        }}
+        📅期日: {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
       </p>
       <div class="page-toolbar-structure__right">
         <button
