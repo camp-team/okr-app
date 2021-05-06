@@ -10,9 +10,7 @@
                 [queryParams]="{ v: secondOkr.secondOkrId }"
                 class="achieve__calendar"
               >
-                📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-                  secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
-                }}
+                📅 {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
               </a>
               <a
                 (click)="deleteSecondOkr(secondOkr.secondOkrId)"
