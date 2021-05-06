@@ -2,66 +2,65 @@
   <div class="home__general-next-section">
     <h1 class="home__welcome-text">{{ user }}さん、OKRへようこそ</h1>
     <p class="home__description">
-      以下から、作成されたのOKRや今後のタスクをご確認ください
+      以下から、メインのOKRや最近のプロジェクトをご確認ください
     </p>
   </div>
 
-  <ng-container *ngIf="okr; else blank">
-    <div class="home__parent-okr-section">
-      <p class="home__parent-okr-title">メインのOKR</p>
+  <div class="home__parent-okr-section">
+    <p class="home__parent-okr-header">メインのOKR</p>
+    <ng-container *ngIf="okr; else blank">
       <ng-container *ngFor="let okr of okrs$ | async">
         <app-okr [okr]="okr"></app-okr>
       </ng-container>
-    </div>
-
-    <div class="home__parent-okr-section">
-      最近のタスク
-    </div>
-    <ng-container *ngIf="secondOkrId; else notSecondOkrId">
-      <a
-        mat-raised-button
-        color="primary"
-        routerLink="/manage/secondOkr"
-        [queryParams]="{ v: secondOkrId }"
-        class="start-second-okr-edit home__create-second-okr"
-      >
-        進行中のOKRにすすむ
-      </a>
     </ng-container>
-    <ng-template #notSecondOkrId>
-      <a
-        mat-raised-button
-        color="primary"
-        routerLink="/manage/okr-edit"
-        class="start-second-okr-edit home__create-second-okr"
-      >
-        進行中のOKRを作成する
-      </a>
+    <ng-template #blank>
+      <div class="home__list-item-grid">
+        <div class="home__tile-Structure">
+          <a [routerLink]="['/manage/edit']">
+            <div class="home__list-item"></div>
+            <p>OKRを作成する</p>
+          </a>
+        </div>
+      </div>
     </ng-template>
-    <div class="home__parent-okr-section">
-      使い方
-    </div>
-  </ng-container>
-</div>
-
-<ng-template #blank>
-  <div class="not-data">
-    <img
-      src="assets/images/no-data.svg"
-      alt="OKR未作成画像"
-      class="not-data__img"
-    />
-    <div class="not-data__content">
-      <h1 class="not-data__title">OKRが作成されていません</h1>
-      <p class="not-data__text">1番目のOKRを作成しましょう!</p>
-    </div>
-    <a
-      mat-raised-button
-      color="primary"
-      [routerLink]="['/manage/edit']"
-      class="not-data__action"
-    >
-      1番目のOKRを作成する
-    </a>
   </div>
-</ng-template>
+
+  <div class="home__parent-okr-section">
+    <p class="home__parent-okr-header">最近のプロジェクト</p>
+    <div class="home__list-item-grid">
+      <div class="home__tile-Structure">
+        <ng-container *ngIf="secondOkrId; else notSecondOkrId">
+          <a routerLink="/manage/secondOkr" [queryParams]="{ v: secondOkrId }">
+            <div class="home__list-item"></div>
+            <p>タスクに移動</p>
+          </a>
+        </ng-container>
+        <ng-template #notSecondOkrId>
+          <a routerLink="/manage/okr-edit">
+            <div class="home__list-item"></div>
+            <p>タスクを作成する</p>
+          </a>
+        </ng-template>
+      </div>
+      <ng-container *ngFor="let secondOkr of achieveSecondOkrs$ | async">
+        <ng-container *ngIf="!secondOkr.isComplete">
+          <div class="home__tile-Structure">
+            <a
+              [routerLink]="['/manage/complete']"
+              [queryParams]="{ v: secondOkr.secondOkrId }"
+            >
+              <div class="home__list-item"></div>
+              <p>
+                📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }} <br />
+                〜{{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+              </p>
+            </a>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="home__parent-okr-section">
+    <p class="home__parent-okr-header">使い方</p>
+  </div>
+</div>

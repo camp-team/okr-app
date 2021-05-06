@@ -51,14 +51,41 @@
   &__parent-okr-section {
     width: 672px;
     margin: 32px auto;
-    text-align: center;
   }
-  &__parent-okr-title {
+  &__parent-okr-header {
     padding: 8px 0;
     color: #151b26;
-    text-align: center;
     font-size: 16px;
-    margin: 0;
+    margin: 0 16px;
+    border-bottom: 2px solid #e8ecee;
+  }
+  &__list-item-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 16px;
+    place-items: center;
+  }
+  &__tile-Structure {
+    padding: 16px 0;
+    a {
+      text-decoration: none;
+    }
+    p {
+      height: 38px;
+      font-size: 12px;
+      text-align: center;
+      color: #151b26;
+      font-weight: 600;
+    }
+  }
+  &__list-item {
+    width: 120px;
+    height: 120px;
+    background-color: #e9e3df;
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
   }
   &__create-second-okr {
     margin: 0 auto;

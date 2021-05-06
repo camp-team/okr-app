@@ -16,6 +16,9 @@ import { SecondOkr } from 'src/app/interfaces/second-okr';
 export class HomeComponent implements OnInit {
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
+  achieveSecondOkrs$: Observable<
+    SecondOkr[]
+  > = this.okrService.searchAchieveSecondOkrs();
   okr: boolean;
   secondOkrId: string;
   user: string;
