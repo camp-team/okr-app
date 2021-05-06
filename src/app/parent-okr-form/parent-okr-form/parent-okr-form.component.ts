@@ -10,10 +10,10 @@ import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Okr } from 'src/app/interfaces/okr';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-parent-okr-form',
@@ -48,7 +48,8 @@ export class ParentOkrFormComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private tutorialService: TutorialService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -74,23 +75,23 @@ export class ParentOkrFormComponent implements OnInit {
   }
 
   secondStepTutorial(num: number) {
-    this.ngAfterViewInit(num);
+    // this.ngAfterViewInit(num);
   }
 
-  ngAfterViewInit(num: number): void {
-    this.okrs$.subscribe((okrs) => {
-      if (!okrs.length) {
-        switch (num) {
-          case undefined:
-            this.tutorialService.startEditTutorial();
-            break;
-          case 1:
-            this.tutorialService.secondStepEditTutorial();
-            break;
-        }
-      }
-    });
-  }
+  // ngAfterViewInit(num: number): void {
+  //   this.okrs$.subscribe((okrs) => {
+  //     if (!okrs.length) {
+  //       switch (num) {
+  //         case undefined:
+  //           this.tutorialService.startEditTutorial();
+  //           break;
+  //         case 1:
+  //           this.tutorialService.secondStepEditTutorial();
+  //           break;
+  //       }
+  //     }
+  //   });
+  // }
 
   removeOption(i: number) {
     this.primaries.removeAt(i);
@@ -111,6 +112,7 @@ export class ParentOkrFormComponent implements OnInit {
       .then(() => {
         this.loadingService.loading = false;
         this.router.navigateByUrl('manage/home');
+        this.snackBar.open('作成しました');
       });
   }
 }

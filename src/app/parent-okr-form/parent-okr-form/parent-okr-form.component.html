@@ -1,157 +1,82 @@
-<div class="parent-okr-form">
-  <ng-container *ngIf="!okrIscomplete; else blank">
-    <mat-horizontal-stepper #stepper class="stepper">
-      <div class="first-step">
-        <mat-step
-          [stepControl]="firstFormGroup"
-          errorMessage="Address is required."
-        >
-          <div class="form-detail">OKRの作成(手順 1/2)</div>
-          <div class="parent-okr-form__main">
-            <p class="parent-okr-form__title">
-              <span
-                class="tooltip"
-                data-tooltip="目標は&#13;&#10;自分のなりたい姿から設定してみましょう&#13;&#10;&#13;&#10;例)&#13;&#10;・幸せになる&#13;&#10;・有名になる&#13;&#10;・可愛くなる"
+<div class="create-parent-okr">
+  <div class="create-parent-okr__body">
+    <div class="container">
+      <ng-container *ngIf="!okrIscomplete; else blank">
+        <h3 class="create-parent-okr__title">新規OKR</h3>
+        <form [formGroup]="form" (ngSubmit)="createOkr()">
+          <div class="create-parent-okr__contents">
+            <label class="create-parent-okr__lavel"
+              >なりたい姿を入力(Objective)</label
+            >
+            <input
+              formControlName="title"
+              type="text"
+              autocomplete="off"
+              placeholder="例: 「有名になる」など"
+              class="create-parent-okr__input"
+            />
+            <mat-error *ngIf="titleControl.hasError('maxlength')"
+              >文字数は最大で20文字までです</mat-error
+            >
+          </div>
+
+          <div class="create-parent-okr__contents">
+            <div
+              formArrayName="primaries"
+              *ngFor="let primary of primaries.controls; let i = index"
+              class="create-parent-okr__form-structure"
+            >
+              <label class="create-parent-okr__lavel"
+                >目標を入力 {{ i + 1 }}つ目</label
               >
-                <span class="parent-okr-form__text">
-                  OKRを作成していきます
-                </span>
-                <span>まず、目標を入力しましょう！</span>
-                <mat-icon>
-                  help_outline
-                </mat-icon>
-              </span>
-            </p>
-            <form [formGroup]="form">
-              <mat-form-field class="okr-parent-okr-form first-step__field">
-                <mat-label class="parent-okr-form__lavel"
-                  >なりたい姿を入力</mat-label
-                >
+              <div class="create-parent-okr__form">
                 <input
-                  formControlName="title"
+                  [formControlName]="i"
                   type="text"
-                  matInput
                   autocomplete="off"
-                  required
+                  placeholder="例: 「30歳までにフォロワー1万人」など"
+                  class="create-parent-okr__input"
                 />
-                <mat-error *ngIf="titleControl.hasError('required')"
-                  >必須入力です</mat-error
-                >
-                <mat-error *ngIf="titleControl.hasError('maxlength')"
+                <mat-error *ngIf="primary.hasError('maxlength')"
                   >文字数は最大で20文字までです</mat-error
                 >
-              </mat-form-field>
-            </form>
+                <button
+                  *ngIf="i"
+                  class="create-parent-okr__remove-form"
+                  type="button"
+                  (click)="removeOption(i)"
+                  mat-raised-button
+                >
+                  <mat-icon>remove</mat-icon>
+                  削除
+                </button>
+              </div>
+            </div>
             <button
-              (click)="secondStepTutorial(1)"
-              mat-button
-              matStepperNext
-              [disabled]="titleControl.invalid"
+              *ngIf="objectiveEdit < 3"
+              class="add-form create-parent-okr__add-form"
+              type="button"
+              mat-raised-button
+              (click)="addObjectiveForm()"
+            >
+              <mat-icon>add</mat-icon>
+              追加
+            </button>
+          </div>
+          <div class="second-step__action">
+            <button
+              [disabled]="form.invalid"
               mat-raised-button
               color="primary"
-              class="parent-okr-form__button"
+              class="create-okr-button second-step__next"
             >
-              次へ
+              OKRを作成する
             </button>
-            <img
-              class="parent-okr-form__img"
-              src="assets/images/first-step-item.svg"
-              alt="フォーム画像"
-            />
           </div>
-        </mat-step>
-      </div>
-
-      <div class="second-step">
-        <mat-step
-          [stepControl]="secondFormGroup"
-          errorMessage="Address is required."
-        >
-          <div class="form-detail">OKRの作成(手順 2/2)</div>
-          <div class="parent-okr-form__main">
-            <p class="parent-okr-form__title">
-              <span
-                class="tooltip"
-                data-tooltip="目標に紐づいた項目を設定しましょう。&#13;&#10;3個に絞って設定するのがおすすめです。&#13;&#10;&#13;&#10;例)&#13;&#10;・自分の好きなことが出来ている。&#13;&#10;・自己受容ができている。&#13;&#10;・家族や友人と時間を共有出来ている。"
-              >
-                <span class="parent-okr-form__text">
-                  目標を達成するために必要となる
-                </span>
-                <span>
-                  項目を設定しましょう！
-                </span>
-                <mat-icon>
-                  help_outline
-                </mat-icon>
-              </span>
-            </p>
-            <form [formGroup]="form" (ngSubmit)="createOkr()">
-              <div formArrayName="primaries">
-                <div *ngFor="let primary of primaries.controls; let i = index">
-                  <mat-form-field class="second-okr-form second-step__field">
-                    <mat-label class="parent-okr-form__lavel">
-                      目標を入力 {{ i + 1 }}つ目
-                    </mat-label>
-                    <input
-                      [formControlName]="i"
-                      type="text"
-                      matInput
-                      autocomplete="off"
-                    />
-                    <mat-error *ngIf="primary.hasError('maxlength')"
-                      >文字数は最大で20文字までです</mat-error
-                    >
-                  </mat-form-field>
-                  <button
-                    *ngIf="i"
-                    class="second-step__remcontents"
-                    type="button"
-                    (click)="removeOption(i)"
-                    mat-raised-button
-                  >
-                    <mat-icon>remove</mat-icon>
-                    削除
-                  </button>
-                </div>
-                <button
-                  *ngIf="objectiveEdit < 3"
-                  class="add-form second-step__addcontents"
-                  type="button"
-                  mat-raised-button
-                  (click)="addObjectiveForm()"
-                >
-                  <mat-icon>add</mat-icon>
-                  追加
-                </button>
-              </div>
-              <div class="second-step__action">
-                <button
-                  mat-button
-                  matStepperPrevious
-                  class="parent-okr-form__button"
-                >
-                  戻る
-                </button>
-                <button
-                  [disabled]="form.invalid"
-                  mat-raised-button
-                  color="primary"
-                  class="create-okr-button second-step__next"
-                >
-                  OKRを作成する
-                </button>
-                <img
-                  class="second-step__img"
-                  src="assets/images/second-step-item.svg"
-                  alt="フォーム画像"
-                />
-              </div>
-            </form>
-          </div>
-        </mat-step>
-      </div>
-    </mat-horizontal-stepper>
-  </ng-container>
+        </form>
+      </ng-container>
+    </div>
+  </div>
 </div>
 
 <ng-template #blank>
