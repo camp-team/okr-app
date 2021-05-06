@@ -1,11 +1,5 @@
 import { formatDate } from '@angular/common';
-import {
-  Component,
-  Injectable,
-  Inject,
-  LOCALE_ID,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -13,12 +7,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
-import {
-  DateRange,
-  MatDateRangeSelectionStrategy,
-  MAT_DATE_RANGE_SELECTION_STRATEGY,
-} from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -29,40 +17,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { OkrService } from 'src/app/services/okr.service';
 import { TutorialService } from 'src/app/services/tutorial.service';
-
-@Injectable()
-export class FiveDayRangeSelectionStrategy<D>
-  implements MatDateRangeSelectionStrategy<D> {
-  constructor(private _dateAdapter: DateAdapter<D>) {}
-
-  selectionFinished(date: D | null): DateRange<D> {
-    return this._createFiveDayRange(date);
-  }
-
-  createPreview(activeDate: D | null): DateRange<D> {
-    return this._createFiveDayRange(activeDate);
-  }
-
-  private _createFiveDayRange(date: D | null): DateRange<D> {
-    if (date) {
-      const start = this._dateAdapter.addCalendarDays(date, 0);
-      const end = this._dateAdapter.addCalendarDays(date, 90);
-      return new DateRange<D>(start, end);
-    }
-
-    return new DateRange<D>(null, null);
-  }
-}
 @Component({
   selector: 'app-child-okr-form',
   templateUrl: './child-okr-form.component.html',
   styleUrls: ['./child-okr-form.component.scss'],
-  providers: [
-    {
-      provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
-      useClass: FiveDayRangeSelectionStrategy,
-    },
-  ],
 })
 export class ChildOkrFormComponent implements OnInit {
   minDate: Date;
@@ -81,15 +39,11 @@ export class ChildOkrFormComponent implements OnInit {
 
   form = this.fb.group({
     primaries: this.fb.array([]),
-    start: ['', [Validators.required, Validators.maxLength(40)]],
     end: ['', [Validators.required, Validators.maxLength(40)]],
   });
 
   get primaries(): FormArray {
     return this.form.get('primaries') as FormArray;
-  }
-  get startControl() {
-    return this.form.get('start') as FormControl;
   }
   get endControl() {
     return this.form.get('end') as FormControl;
@@ -112,7 +66,7 @@ export class ChildOkrFormComponent implements OnInit {
     const currentMouth = new Date().getMonth();
     const currentDate = new Date().getDate();
     this.minDate = new Date(currentYear - 0, currentMouth, currentDate);
-    this.maxDate = new Date(currentYear + 0, currentMouth + 4, currentDate);
+    this.maxDate = new Date(currentYear + 0, currentMouth + 3, currentDate);
   }
 
   ngOnInit(): void {
@@ -137,23 +91,23 @@ export class ChildOkrFormComponent implements OnInit {
   }
 
   secondStepOkr(num) {
-    this.ngAfterViewInit(num);
+    // this.ngAfterViewInit(num);
   }
 
-  ngAfterViewInit(num: number) {
-    this.secondOkrs$.pipe(take(1)).subscribe((secondOkrs) => {
-      if (secondOkrs.length === 0) {
-        switch (num) {
-          case undefined:
-            this.tutorialService.firstStepSecondOkrEditTutorial();
-            break;
-          case 1:
-            this.tutorialService.secondStepSecondOkrEditTutorial();
-            break;
-        }
-      }
-    });
-  }
+  // ngAfterViewInit(num: number) {
+  //   this.secondOkrs$.pipe(take(1)).subscribe((secondOkrs) => {
+  //     if (secondOkrs.length === 0) {
+  //       switch (num) {
+  //         case undefined:
+  //           this.tutorialService.firstStepSecondOkrEditTutorial();
+  //           break;
+  //         case 1:
+  //           this.tutorialService.secondStepSecondOkrEditTutorial();
+  //           break;
+  //       }
+  //     }
+  //   });
+  // }
 
   removeObjectiveForm(i: number) {
     this.primaries.removeAt(i);
@@ -170,8 +124,7 @@ export class ChildOkrFormComponent implements OnInit {
   cleateSecondOkr() {
     this.loadingService.loading = true;
     const createdSecondOkrFormData = this.form.value;
-    const okrValue: Omit<SecondOkr, 'secondOkrId' | 'isComplete'> = {
-      start: createdSecondOkrFormData.start,
+    const okrValue: Omit<SecondOkr, 'secondOkrId' | 'isComplete' | 'start'> = {
       end: createdSecondOkrFormData.end,
       creatorId: this.authService.uid,
       secondOkrObjects: createdSecondOkrFormData.primaries,
