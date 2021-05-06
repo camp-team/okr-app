@@ -181,6 +181,16 @@ export class OkrService {
       .valueChanges();
   }
 
+  searchAchieveSecondOkrs(): Observable<SecondOkr[]> {
+    return this.db
+      .collection<SecondOkr>(
+        `users/${this.authsearvice.uid}/secondOkrs`,
+        (ref) =>
+          ref.where('isComplete', '==', false).orderBy('start', 'desc').limit(3)
+      )
+      .valueChanges();
+  }
+
   getSecondOkrCollection(): Observable<SecondOkr[]> {
     return this.db
       .collection<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs`)
