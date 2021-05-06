@@ -2,14 +2,13 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import * as firebase from 'firebase';
 import { combineLatest, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { SecondOkr } from '../interfaces/second-okr';
-import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
-import { SecondOkrObject } from '../interfaces/second-okr-object';
-import { AuthService } from '../services/auth.service';
-import { OkrService } from '../services/okr.service';
+import { SecondOkr } from 'src/app/interfaces/second-okr';
+import { SecondOkrKeyResult } from 'src/app/interfaces/second-okr-key-result';
+import { SecondOkrObject } from 'src/app/interfaces/second-okr-object';
+import { AuthService } from 'src/app/services/auth.service';
+import { OkrService } from 'src/app/services/okr.service';
 
 @Component({
   selector: 'app-completed-child-okr',
