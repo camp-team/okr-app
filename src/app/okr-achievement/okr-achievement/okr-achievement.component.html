@@ -1,8 +1,5 @@
 <div class="achieve">
   <div class="container">
-    <div class="achieve__title">
-      <h1 class="achieve__title-content">達成済みのOKR</h1>
-    </div>
     <ng-container *ngIf="secondOkr; else blank">
       <div class="achieve__main">
         <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
@@ -37,12 +34,12 @@
             routerLink="/manage/secondOkr"
             [queryParams]="{ v: secondOkrId }"
           >
-            進行中のOKRに進む
+            タスクに進む
           </a>
         </ng-container>
         <ng-template #createSecondOkr>
           <a color="primary" mat-raised-button routerLink="/manage/okr-edit">
-            進行中のOKRを作成する
+            タスクを作成する
           </a>
         </ng-template>
       </div>
@@ -52,33 +49,20 @@
 
 <ng-template #blank>
   <div class="no-data">
-    <img
-      src="assets/images/no-data.svg"
-      alt="未達成画像"
-      class="no-data__img"
-    />
-    <div class="no-data__content">
-      <h1 class="no-data__title">達成済みのOKRはありません</h1>
-      <p class="no-data__text">
-        <span>
-          進行中のOKRを達成する必要があります
-        </span>
-      </p>
-    </div>
+    <h1 class="no-data__title">タスクが完了されていません</h1>
     <div class="achieve__action">
       <ng-container *ngIf="secondOkrId; else createSecondOkr">
         <a
-          color="primary"
           mat-raised-button
           routerLink="/manage/secondOkr"
           [queryParams]="{ v: secondOkrId }"
         >
-          進行中のOKRに進む
+          タスクに進む
         </a>
       </ng-container>
       <ng-template #createSecondOkr>
-        <a mat-raised-button color="primary" routerLink="/manage/okr-edit">
-          進行中のOKRを作成する
+        <a mat-raised-button routerLink="/manage/okr-edit">
+          タスクを作成する
         </a>
       </ng-template>
     </div>
