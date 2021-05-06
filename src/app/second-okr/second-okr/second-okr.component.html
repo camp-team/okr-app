@@ -230,22 +230,13 @@
 
 <ng-template #blank>
   <div class="not-exist">
-    <img
-      src="assets/images/no-data.svg"
-      alt="フォーム画像"
-      class="not-exist__img"
-    />
-    <div class="not-exist__content">
-      <h1 class="not-exist__title">進行中のOKRが作成されていません</h1>
-      <p class="not-exist__text">進行中のOKRを作成しましょう！</p>
-    </div>
+    <h1 class="not-exist__title">まだタスクが作成されていません</h1>
     <a
       mat-raised-button
-      color="primary"
       [routerLink]="['/manage/okr-edit']"
       class="not-exist__action"
     >
-      進行中のOKRを作成する
+      タスクを作成する
     </a>
   </div>
 </ng-template>
