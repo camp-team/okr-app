@@ -50,10 +50,7 @@
               [queryParams]="{ v: secondOkr.secondOkrId }"
             >
               <div class="home__list-item"></div>
-              <p>
-                📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }} <br />
-                〜{{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
-              </p>
+              <p>📅 {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}</p>
             </a>
           </div>
         </ng-container>
