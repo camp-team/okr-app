@@ -34,6 +34,30 @@
             <div class="home__list-item"></div>
             <p>進行中のOKR</p>
           </a>
+
+          <div class="child-okr-description-menu">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Example icon-button with a menu"
+            >
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button
+                mat-menu-item
+                routerLink="/manage/secondOkr"
+                [queryParams]="{ v: secondOkrId }"
+              >
+                <mat-icon>visibility_outline</mat-icon>
+                <span>詳細を表示</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>delete_outline</mat-icon>
+                <span>OKRを削除</span>
+              </button>
+            </mat-menu>
+          </div>
         </ng-container>
         <ng-template #notSecondOkrId>
           <a routerLink="/manage/okr-edit">
@@ -55,6 +79,30 @@
                 {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
               </p>
             </a>
+
+            <div class="child-okr-description-menu">
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu"
+              >
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  [routerLink]="['/manage/complete']"
+                  [queryParams]="{ v: secondOkr.secondOkrId }"
+                >
+                  <mat-icon>visibility_outline</mat-icon>
+                  <span>詳細を表示</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>delete_outline</mat-icon>
+                  <span>OKRを削除</span>
+                </button>
+              </mat-menu>
+            </div>
           </div>
         </ng-container>
       </ng-container>
