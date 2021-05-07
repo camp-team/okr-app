@@ -1,19 +1,33 @@
 @import 'variables';
 @import 'mixins';
 
-.container {
-  @include sm {
-    padding: 0 16px;
+.objective {
+  display: flex;
+  margin: 0 0 12px 8px;
+  &__title {
+    position: relative;
+    font-size: 16px;
+    width: 120px;
+    @include sm {
+      min-width: 160px;
+      font-size: 20px;
+    }
+    &::after {
+      content: ':';
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      @include sm {
+        right: 10px;
+      }
+    }
   }
-}
-
-.completed-okr {
-  padding: 24px 0;
-  margin: 0 96px 0;
-  height: 100%;
-  @include sm {
-    margin: 0;
-    padding: 40px 0;
+  &__form {
+    font-size: 16px;
+    border: 2px solid #e8ecee;
+    border-radius: 8px;
+    line-height: 22px;
+    width: 440px;
   }
 }
 
@@ -21,23 +35,39 @@
   overflow-x: auto;
 }
 
-.completed-okr {
+.second-okr {
+  padding: 12px 62px;
+  margin: 0 auto;
+  height: 100%;
+  @include sm {
+    margin: 0;
+    padding: 40px 0;
+  }
+  &__thead {
+    margin-bottom: 12px;
+  }
   th,
   td {
     position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.36);
-    color: rgba(0, 0, 0, 0.36);
+    border: 1px solid #e8ecee;
     font-weight: 300;
-    min-width: 250px;
+    color: #6f7782;
+  }
+  th {
+    text-align: start;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+  tr {
+    height: 36px;
   }
   table {
-    min-width: 1000px;
+    width: 100%;
     border-collapse: collapse;
-  }
-  input {
-    width: 98%;
-    height: 100%;
-    border-style: none;
+    white-space: nowrap;
+    @include md {
+      max-width: 1000px;
+    }
   }
   .header-right,
   .body-right {
@@ -47,73 +77,41 @@
   .body-left {
     border-left-style: none;
   }
-  &__title {
-    text-align: center;
-    @include sm {
-      font-size: 24px;
-      letter-spacing: 2px;
-      font-weight: 500;
-      padding-bottom: 24px;
-      margin: 0;
-    }
+  .target,
+  .current,
+  .percentage {
+    width: 180px;
   }
-  &__object input {
-    background-color: inherit;
-    font-size: 20px;
-    margin-top: 24px;
-    @include sm {
-      padding-bottom: 12px;
-    }
-  }
-  &__add-row,
-  &__remove {
-    font-size: 14px;
+  &__key-result {
+    width: 89%;
+    height: 30px;
     border-style: none;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.36);
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
-    }
-  }
-  &__average {
-    text-align: center;
-  }
-  &__average-text {
-    color: rgba(0, 0, 0, 0.36);
-    margin-right: 8px;
-  }
-}
-
-.not-exist {
-  padding-bottom: 0;
-  &__img {
-    height: 250px;
-    margin: 0 auto;
-    display: block;
+    background-color: transparent;
+    padding: 0 12px;
     @include sm {
-      height: 200px;
-    }
-  }
-  &__content {
-    padding: 24px 0;
-  }
-  &__text {
-    text-align: center;
-    font-size: 20px;
-    @include sm {
+      width: 90%;
       font-size: 16px;
     }
   }
-  &__title {
+  &__average {
+    font-size: 14px;
     text-align: center;
+    margin-bottom: 12px;
     @include sm {
-      font-size: 20px;
-      font-weight: 400;
+      text-align: start;
     }
   }
-  &__action {
-    margin: 0 auto;
-    display: block;
-    width: fit-content;
+  &__average-text {
+    margin-right: 8px;
+    color: rgba(55, 53, 47, 0.4);
   }
+}
+
+.material-icons {
+  font-size: 16px;
+}
+
+.table-icon {
+  position: absolute;
+  top: 9px;
 }

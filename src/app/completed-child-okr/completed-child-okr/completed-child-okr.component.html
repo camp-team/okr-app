@@ -1,127 +1,144 @@
-<div class="completed-okr">
-  <div class="container">
-    <app-completed-child-okr-title></app-completed-child-okr-title>
-    <div class="data">
-      <div *ngFor="let secondOkrObject of secondOkrObjects">
-        <form
-          [formGroup]="secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]"
+<div class="second-okr">
+  <app-completed-child-okr-title></app-completed-child-okr-title>
+  <div class="data">
+    <div *ngFor="let secondOkrObject of secondOkrObjects; let i = index">
+      <form
+        [formGroup]="secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]"
+      >
+        <div
+          *ngFor="
+            let primaryTitle of secondOkrObjectTitles[
+              secondOkrObject.secondOkrObjectId
+            ].controls;
+            index as primaryArrayIndex
+          "
+          class="second-okr__object"
         >
-          <div
-            *ngFor="
-              let primaryTitle of secondOkrObjectTitles[
-                secondOkrObject.secondOkrObjectId
-              ].controls;
-              index as primaryArrayIndex
-            "
-            class="completed-okr__object"
-          >
-            <ng-container [formGroupName]="primaryArrayIndex">
-              <input disabled type="text" formControlName="primaryTitle" />
-            </ng-container>
-          </div>
-        </form>
-        <div class="completed-okr__table">
-          <form [formGroup]="rows[secondOkrObject.secondOkrObjectId]">
-            <table>
-              <thead>
-                <tr>
-                  <th class="header-left">項目</th>
-                  <th>標的</th>
-                  <th>現在</th>
-                  <th>パーセント</th>
-                  <th class="header-right">更新日</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr
-                  *ngFor="
-                    let row of rows[secondOkrObject.secondOkrObjectId].controls;
-                    index as rowIndex
-                  "
-                >
-                  <ng-container [formGroupName]="rowIndex">
-                    <td class="body-left">
-                      <input
-                        (keyup)="
-                          updateSecondOkrKeyResult(
-                            secondOkrObject.secondOkrObjectId,
-                            row.value.secondOkrKeyResultId,
-                            row.value
-                          )
-                        "
-                        disabled
-                        type="text"
-                        formControlName="key"
-                        autocomplete="off"
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        (keyup)="
-                          updateSecondOkrKeyResult(
-                            secondOkrObject.secondOkrObjectId,
-                            row.value.secondOkrKeyResultId,
-                            row.value
-                          )
-                        "
-                        disabled
-                        type="text"
-                        formControlName="target"
-                        autocomplete="off"
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        (keyup)="
-                          updateSecondOkrKeyResult(
-                            secondOkrObject.secondOkrObjectId,
-                            row.value.secondOkrKeyResultId,
-                            row.value
-                          )
-                        "
-                        disabled
-                        type="text"
-                        formControlName="current"
-                        autocomplete="off"
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        disabled
-                        type="text"
-                        formControlName="percentage"
-                        autocomplete="off"
-                        required
-                      />
-                    </td>
-                    <td class="body-right">
-                      <input
-                        disabled
-                        type="text"
-                        formControlName="lastUpdated"
-                        autocomplete="off"
-                        required
-                      />
-                    </td>
-                  </ng-container>
-                </tr>
-              </tbody>
-            </table>
-          </form>
-        </div>
-        <div class="completed-okr__average">
-          <span class="completed-okr__average-text">達成度</span>
-          <ng-container *ngIf="secondOkrObject.average === 0; else blank">
-            <span>{{ secondOkrObject.average }}%</span>
+          <ng-container [formGroupName]="primaryArrayIndex">
+            <div class="objective">
+              <span class="objective__title">目標(Objective)</span>
+              <input
+                placeholder="記入例) 技術者として売れる"
+                type="text"
+                formControlName="primaryTitle"
+                class="objective__form"
+                required
+                disabled
+              />
+            </div>
           </ng-container>
-          <ng-template #blank>
-            <span>{{ secondOkrObject.average }}%</span>
-          </ng-template>
         </div>
+      </form>
+      <div class="second-okr__table">
+        <form [formGroup]="rows[secondOkrObject.secondOkrObjectId]">
+          <table>
+            <thead>
+              <tr>
+                <th class="item header-left">
+                  タスク名
+                  <mat-icon
+                    class="table-icon"
+                    matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
+                  >
+                    help_outline
+                  </mat-icon>
+                </th>
+                <th class="target">
+                  標的
+                  <mat-icon class="table-icon" matTooltip="数値を入力">
+                    help_outline
+                  </mat-icon>
+                </th>
+                <th class="current">
+                  現在
+                  <mat-icon class="table-icon" matTooltip="達成した数値を入力">
+                    help_outline
+                  </mat-icon>
+                </th>
+                <th class="percent">
+                  達成率
+                  <mat-icon class="table-icon" matTooltip="自動で更新されます">
+                    help_outline
+                  </mat-icon>
+                </th>
+                <th class="last-update header-right">更新日</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="
+                  let row of rows[secondOkrObject.secondOkrObjectId].controls;
+                  index as rowIndex
+                "
+              >
+                <ng-container [formGroupName]="rowIndex">
+                  <td class="key body-left">
+                    <input
+                      placeholder="タスク名を入力"
+                      type="text"
+                      formControlName="key"
+                      autocomplete="off"
+                      class="second-okr__key-result"
+                      disabled
+                    />
+                  </td>
+                  <td class="target">
+                    <input
+                      placeholder="数値を入力"
+                      name="target"
+                      type="text"
+                      formControlName="target"
+                      autocomplete="off"
+                      required
+                      maxlength="20"
+                      class="second-okr__key-result"
+                      disabled
+                    />
+                  </td>
+                  <td class="current">
+                    <input
+                      placeholder="記入例) 3"
+                      type="text"
+                      formControlName="current"
+                      autocomplete="off"
+                      required
+                      class="second-okr__key-result"
+                      disabled
+                    />
+                  </td>
+                  <td class="percentage">
+                    <input
+                      type="text"
+                      formControlName="percentage"
+                      autocomplete="off"
+                      disabled
+                      class="second-okr__key-result"
+                    />
+                  </td>
+                  <td class="body-right">
+                    <input
+                      type="text"
+                      formControlName="lastUpdated"
+                      autocomplete="off"
+                      disabled
+                      class="second-okr__key-result"
+                    />
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div class="second-okr__average">
+        <span class="second-okr__average-text">達成度</span>
+        <ng-container *ngIf="secondOkrObject.average === 0; else blank">
+          <span>{{ secondOkrObject.average }}%</span>
+        </ng-container>
+        <ng-template #blank>
+          <span>{{ secondOkrObject.average }}%</span>
+        </ng-template>
       </div>
     </div>
   </div>
