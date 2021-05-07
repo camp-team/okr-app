@@ -67,6 +67,7 @@
     place-items: center;
   }
   &__tile-Structure {
+    position: relative;
     padding: 16px 0;
     a {
       text-decoration: none;
@@ -77,6 +78,11 @@
       text-align: center;
       color: #151b26;
       font-weight: 600;
+    }
+    &:hover {
+      .child-okr-description-menu {
+        display: inline;
+      }
     }
   }
   &__list-item {
@@ -95,6 +101,17 @@
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
+}
+
+.child-okr-description-menu {
+  display: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6f7782;
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 24px;
+  right: 6px;
 }
 
 .not-data {
