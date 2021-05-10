@@ -55,7 +55,6 @@ export class HomeComponent implements OnInit {
   checkOkr() {
     this.parentOkrs$.subscribe((parentOkrs) => {
       const parentOkrIsEmpty = parentOkrs.length;
-      console.log(parentOkrIsEmpty);
       if (parentOkrIsEmpty === 0) {
         this.parentOkr = false;
       } else {
