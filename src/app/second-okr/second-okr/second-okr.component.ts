@@ -83,7 +83,6 @@ export class SecondOkrComponent implements OnInit {
       } else {
         this.isSecondOkr = true;
       }
-      this.ngAfterViewInit();
       secondOkrs.map((secondOkr) => {
         this.isComplete = secondOkr.isComplete;
         this.isCompletes.push(this.isComplete);
@@ -95,6 +94,7 @@ export class SecondOkrComponent implements OnInit {
         if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
       });
     });
+    this.determineIfStartingTutorial();
   }
 
   initSecondOkrObject(secondOkrObject) {
@@ -117,11 +117,12 @@ export class SecondOkrComponent implements OnInit {
       });
   }
 
-  ngAfterViewInit() {
-    if (this.tutorialService.tutorial && this.isSecondOkr) {
-      this.tutorialService.secondOkrTutorial();
-      this.tutorialService.tutorial = false;
-    }
+  determineIfStartingTutorial() {
+    this.tutorialService.startTutorial({
+      okrType: 'childOkr',
+      groupIndex: 2,
+    });
+    this.tutorialService.tutorial = false;
   }
 
   initRows(
