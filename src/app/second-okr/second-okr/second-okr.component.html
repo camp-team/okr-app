@@ -2,7 +2,10 @@
   <ng-container *ngIf="isComplete === true; else blank">
     <app-second-okr-title></app-second-okr-title>
     <div class="data">
-      <div *ngFor="let secondOkrObject of secondOkrObjects; let i = index">
+      <div
+        *ngFor="let secondOkrObject of secondOkrObjects; let i = index"
+        class="data__fa"
+      >
         <form
           [formGroup]="secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]"
         >

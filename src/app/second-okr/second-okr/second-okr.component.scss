@@ -4,13 +4,15 @@
 .objective {
   display: flex;
   margin: 0 0 12px 8px;
+  @include sm {
+    margin: 0 0 12px;
+  }
   &__title {
     position: relative;
     font-size: 16px;
     width: 120px;
     @include sm {
       min-width: 160px;
-      font-size: 20px;
     }
     &::after {
       content: ':';
@@ -28,6 +30,13 @@
     border-radius: 8px;
     line-height: 22px;
     width: 440px;
+    @include sm {
+      width: 90%;
+      margin-top: 6px;
+    }
+  }
+  @include sm {
+    display: block;
   }
 }
 
@@ -39,6 +48,19 @@ mat-error {
 
 .data {
   overflow-x: auto;
+  &__fa {
+    @include sm {
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      width: 90%;
+    }
+  }
+}
+
+form {
+  display: inline-block;
+  width: 90%;
 }
 
 .second-okr {
@@ -87,6 +109,9 @@ mat-error {
   .current,
   .percentage {
     width: 180px;
+    @include sm {
+      width: 80px;
+    }
   }
   &__key-result {
     width: 89%;
@@ -95,7 +120,7 @@ mat-error {
     background-color: transparent;
     padding: 0 12px;
     @include sm {
-      width: 90%;
+      width: inherit;
       font-size: 16px;
     }
   }
