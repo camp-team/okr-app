@@ -72,6 +72,7 @@ export class ChildOkrFormComponent implements OnInit {
   ngOnInit(): void {
     this.addObjective();
     this.checkSecondOkr();
+    this.determineIfStartingTutorial();
   }
 
   addObjective() {
@@ -90,24 +91,12 @@ export class ChildOkrFormComponent implements OnInit {
     });
   }
 
-  secondStepOkr(num) {
-    // this.ngAfterViewInit(num);
+  determineIfStartingTutorial() {
+    this.tutorialService.startTutorial({
+      okrType: 'childOkr',
+      groupIndex: 1,
+    });
   }
-
-  // ngAfterViewInit(num: number) {
-  //   this.secondOkrs$.pipe(take(1)).subscribe((secondOkrs) => {
-  //     if (secondOkrs.length === 0) {
-  //       switch (num) {
-  //         case undefined:
-  //           this.tutorialService.firstStepSecondOkrEditTutorial();
-  //           break;
-  //         case 1:
-  //           this.tutorialService.secondStepSecondOkrEditTutorial();
-  //           break;
-  //       }
-  //     }
-  //   });
-  // }
 
   removeObjectiveForm(i: number) {
     this.primaries.removeAt(i);
