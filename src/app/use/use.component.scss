@@ -1,74 +1,46 @@
 @import 'variables';
 @import 'mixins';
 
-.container {
-  max-width: 1300px;
-  margin: 0 auto;
-  @include md {
-    max-width: 700px;
-  }
-  @include sm {
-    padding: 0 16px;
-  }
+.ta-centar {
+  text-align: center;
 }
 
 .use {
-  @include sm {
-    padding: 42px 0 0;
-  }
-  &__list {
-    padding: 0;
-    list-style: none;
-    margin: 0;
-    @include sm {
-      margin: 0;
-      padding: 32px 24px 0;
-    }
+  padding-top: 96px;
+  padding-bottom: 96px;
+  &__row {
+    margin-bottom: 160px;
+    display: flex;
+    align-items: center;
   }
   &__title {
-    padding: 24px 0;
-    font-weight: 700;
-    letter-spacing: 5px;
+    color: #151b26;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 16px;
     text-align: center;
-    font-size: 32px;
+    font-size: 45px;
     @include md {
       margin: 0;
-      padding: 24px 0;
+      margin-bottom: 16px;
       font-size: 32px;
     }
     @include sm {
-      margin: 0;
-      padding: 0;
-      font-size: 24px;
+      font-size: 32px;
     }
   }
-  &__data-title {
-    padding: 0 0 30px 0;
-    margin: 0;
-    font-weight: 700;
-    font-size: 40px;
+  &__sub-title {
+    color: #646f79;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 32px;
+    max-width: 66.66667%;
+    margin: 0 auto;
     @include sm {
-      padding: 0 0 32px;
-      margin: 0;
-      font-size: 20px;
+      max-width: 100%;
+      padding: 0 16px;
+      font-size: 16px;
       text-align: center;
-    }
-  }
-  &__img {
-    position: relative;
-    z-index: 1000;
-    display: block;
-    width: 320px;
-    height: auto;
-    @include md {
-      margin: 0 auto;
-      padding-bottom: 38px;
-      width: 300px;
-    }
-    @include sm {
-      margin: 0 auto;
-      width: 200px;
-      padding-bottom: 24px;
     }
   }
   &__text {
@@ -88,22 +60,6 @@
       text-align: start;
     }
   }
-  &__container {
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    padding-bottom: 166px;
-    @include md {
-      display: block;
-      padding-bottom: 32px;
-    }
-    @include sm {
-      background-color: #e9e3df;
-      padding: 24px;
-      margin-bottom: 32px;
-    }
-  }
   &__img-block {
     position: absolute;
     top: 50;
@@ -120,21 +76,7 @@
       display: none;
     }
   }
-  &__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-bottom: 166px;
-    @include md {
-      display: block;
-      padding-bottom: 62px;
-    }
-    @include sm {
-      background-color: #e9e3df;
-      margin-bottom: 32px;
-      padding: 24px;
-    }
-  }
+
   &__data {
     margin: 0;
     z-index: 1000;
@@ -145,6 +87,82 @@
     }
     @include sm {
       width: 100%;
+    }
+  }
+}
+
+.use-list {
+  &__row {
+    display: flex;
+    align-items: center;
+    @include sm {
+      display: block;
+    }
+  }
+  &__row-reverse {
+    margin-bottom: 160px;
+    display: flex;
+    flex-flow: row-reverse;
+    align-items: center;
+  }
+  &__columin-large {
+    padding: 0 16px;
+    text-align: center;
+    @include sm {
+      margin-bottom: 48px;
+    }
+  }
+  &__columin-medium {
+    margin-left: 8.33333%;
+    padding: 0 16px;
+    @include sm {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  &__columin-medium-reverse {
+    margin-right: 8.33333%;
+    padding: 0 16px;
+  }
+  &__img {
+    width: 500px;
+    box-shadow: 0 20px 30px 0 rgb(36 50 66 / 14%);
+    @include md {
+      margin: 0 auto;
+      padding-bottom: 38px;
+      width: 300px;
+    }
+    @include sm {
+      padding-bottom: 24px;
+    }
+  }
+  &__text-stack {
+    max-width: 400px;
+  }
+  &__title {
+    color: #151b26;
+    font-weight: 400;
+    margin-top: 0;
+    font-size: 31px;
+    @include md {
+      margin: 0;
+      padding: 24px 0;
+      font-size: 32px;
+    }
+    @include sm {
+      margin: 0;
+      padding: 0;
+      font-size: 24px;
+    }
+  }
+  &__sub-title {
+    color: #646f79;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 32px;
+    @include sm {
+      margin: 0 0 14px;
+      font-size: 16px;
     }
   }
 }
