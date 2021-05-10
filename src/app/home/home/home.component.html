@@ -101,7 +101,10 @@
                     <mat-icon>visibility_outline</mat-icon>
                     <span>詳細を表示</span>
                   </button>
-                  <button mat-menu-item>
+                  <button
+                    mat-menu-item
+                    (click)="deleteFindByChildOkr(secondOkr.secondOkrId)"
+                  >
                     <mat-icon>delete_outline</mat-icon>
                     <span>OKRを削除</span>
                   </button>

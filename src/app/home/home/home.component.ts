@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
+import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -77,5 +78,15 @@ export class HomeComponent implements OnInit {
       this.tutorialService.startOkrTutorial();
       this.tutorialService.tutorial = false;
     }
+  }
+
+  deleteFindByChildOkr(secondOkrId) {
+    this.dialog.open(DeleteSecondOkrDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        secondOkrId: secondOkrId,
+      },
+    });
   }
 }
