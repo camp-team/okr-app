@@ -15,12 +15,12 @@ import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  parentOkrs$: Observable<Okr[]> = this.okrService.getOkrs();
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   achieveSecondOkrs$: Observable<
     SecondOkr[]
   > = this.okrService.searchAchieveSecondOkrs();
-  okr: boolean;
+  parentOkr: boolean;
   secondOkrId: string;
   user: string;
 
@@ -49,14 +49,17 @@ export class HomeComponent implements OnInit {
     });
     this.checkOkr();
     this.secondOkr();
+    this.determineIfStartingTutorial();
   }
 
   checkOkr() {
-    this.okrs$.subscribe((okrs) => {
-      if (okrs.length === 0) {
-        this.okr = false;
+    this.parentOkrs$.subscribe((parentOkrs) => {
+      const parentOkrIsEmpty = parentOkrs.length;
+      console.log(parentOkrIsEmpty);
+      if (parentOkrIsEmpty === 0) {
+        this.parentOkr = false;
       } else {
-        this.okr = true;
+        this.parentOkr = true;
       }
     });
   }
@@ -73,11 +76,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(num: number) {
-    if (this.tutorialService.tutorial) {
-      this.tutorialService.startOkrTutorial();
-      this.tutorialService.tutorial = false;
-    }
+  determineIfStartingTutorial() {
+    // if (this.tutorialService.tutorial) {
+    this.tutorialService.startTutorial({
+      okrType: 'childOkr',
+      groupIndex: 0,
+    });
+    this.tutorialService.tutorial = false;
+    // }
   }
 
   deleteFindByChildOkr(secondOkrId) {

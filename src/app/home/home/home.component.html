@@ -9,9 +9,9 @@
 
     <div class="home__parent-okr-section">
       <p class="home__parent-okr-header">メインのOKR</p>
-      <ng-container *ngIf="okr; else blank">
-        <ng-container *ngFor="let okr of okrs$ | async">
-          <app-okr [okr]="okr"></app-okr>
+      <ng-container *ngIf="parentOkr; else blank">
+        <ng-container *ngFor="let parentOkr of parentOkrs$ | async">
+          <app-okr [okr]="parentOkr"></app-okr>
         </ng-container>
       </ng-container>
       <ng-template #blank>
