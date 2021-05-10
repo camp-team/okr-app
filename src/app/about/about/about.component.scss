@@ -1,8 +1,2 @@
 @import 'variables';
 @import 'mixins';
-
-.container {
-  @include sm {
-    padding: 0 16px;
-  }
-}
