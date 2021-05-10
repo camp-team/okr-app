@@ -27,6 +27,7 @@ li {
   font-size: 14px;
   color: #6f7782;
   @include sm {
+    display: none;
     padding: 0;
     justify-content: space-between;
   }
