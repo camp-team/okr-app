@@ -12,9 +12,15 @@
   padding: 16px 0;
   max-width: 650px;
   margin: 0 auto;
+  @include sm {
+    padding: 32px 8px;
+  }
   &__section {
     padding: 32px 0;
     border-bottom: 1px solid #cbd4db;
+    @include sm {
+      padding: 0;
+    }
   }
 }
 
@@ -22,10 +28,15 @@
   display: flex;
   align-items: center;
   @include sm {
-    width: 300px;
+    display: block;
   }
   &__photo-display {
     margin-right: 20px;
+    @include sm {
+      border-bottom: 1px solid #cbd4db;
+      padding-bottom: 32px;
+      margin: 0;
+    }
   }
   &__avatar-image {
     position: relative;
@@ -36,6 +47,10 @@
     background-size: cover;
     border-radius: 50%;
     cursor: pointer;
+    @include sm {
+      width: 130px;
+      height: 130px;
+    }
   }
   &__avatar-icon-wrap {
     position: absolute;
@@ -69,6 +84,10 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    @include sm {
+      display: block;
+      padding-bottom: 16px;
+    }
   }
 }
 
@@ -77,18 +96,31 @@
     font-weight: 500;
     font-size: 20px;
     margin-bottom: 32px;
+    padding-bottom: 32px;
+    text-align: center;
+    border-bottom: 1px solid #cbd4db;
+    @include sm {
+      margin-top: 0;
+    }
   }
   &__row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @include sm {
+      display: block;
+    }
   }
+
   &__action {
     background-color: rgba(2, 5, 211, 0.5);
     display: block;
     margin: 0 auto;
     &:hover {
       opacity: 0.9;
+    }
+    @include sm {
+      margin-bottom: 32px;
     }
   }
 }
