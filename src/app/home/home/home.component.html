@@ -1,83 +1,42 @@
 <div class="home">
-  <div class="home__general-next-section">
-    <h1 class="home__welcome-text">{{ user }}さん、OKRへようこそ</h1>
-    <p class="home__description">
-      以下から、メインのOKRや最近のOKRをご確認ください
-    </p>
-  </div>
+  <div class="home__container">
+    <div class="home__general-next-section">
+      <h1 class="home__welcome-text">{{ user }}さん、OKRへようこそ</h1>
+      <p class="home__description">
+        以下から、メインのOKRや最近のOKRをご確認ください
+      </p>
+    </div>
 
-  <div class="home__parent-okr-section">
-    <p class="home__parent-okr-header">メインのOKR</p>
-    <ng-container *ngIf="okr; else blank">
-      <ng-container *ngFor="let okr of okrs$ | async">
-        <app-okr [okr]="okr"></app-okr>
+    <div class="home__parent-okr-section">
+      <p class="home__parent-okr-header">メインのOKR</p>
+      <ng-container *ngIf="okr; else blank">
+        <ng-container *ngFor="let okr of okrs$ | async">
+          <app-okr [okr]="okr"></app-okr>
+        </ng-container>
       </ng-container>
-    </ng-container>
-    <ng-template #blank>
+      <ng-template #blank>
+        <div class="home__list-item-grid">
+          <div class="home__tile-Structure">
+            <a [routerLink]="['/manage/edit']">
+              <div class="home__list-item"></div>
+              <p>OKRを作成する</p>
+            </a>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="home__parent-okr-section">
+      <p class="home__parent-okr-header">最近のOKR</p>
       <div class="home__list-item-grid">
         <div class="home__tile-Structure">
-          <a [routerLink]="['/manage/edit']">
-            <div class="home__list-item"></div>
-            <p>OKRを作成する</p>
-          </a>
-        </div>
-      </div>
-    </ng-template>
-  </div>
-
-  <div class="home__parent-okr-section">
-    <p class="home__parent-okr-header">最近のOKR</p>
-    <div class="home__list-item-grid">
-      <div class="home__tile-Structure">
-        <ng-container *ngIf="secondOkrId; else notSecondOkrId">
-          <a routerLink="/manage/secondOkr" [queryParams]="{ v: secondOkrId }">
-            <div class="home__list-item"></div>
-            <p>進行中のOKR</p>
-          </a>
-
-          <div class="child-okr-description-menu">
-            <button
-              mat-icon-button
-              [matMenuTriggerFor]="menu"
-              aria-label="Example icon-button with a menu"
-            >
-              <mat-icon>more_horiz</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button
-                mat-menu-item
-                routerLink="/manage/secondOkr"
-                [queryParams]="{ v: secondOkrId }"
-              >
-                <mat-icon>visibility_outline</mat-icon>
-                <span>詳細を表示</span>
-              </button>
-              <button mat-menu-item>
-                <mat-icon>delete_outline</mat-icon>
-                <span>OKRを削除</span>
-              </button>
-            </mat-menu>
-          </div>
-        </ng-container>
-        <ng-template #notSecondOkrId>
-          <a routerLink="/manage/okr-edit">
-            <div class="home__list-item"></div>
-            <p>タスクを作成する</p>
-          </a>
-        </ng-template>
-      </div>
-      <ng-container *ngFor="let secondOkr of achieveSecondOkrs$ | async">
-        <ng-container *ngIf="!secondOkr.isComplete">
-          <div class="home__tile-Structure">
+          <ng-container *ngIf="secondOkrId; else notSecondOkrId">
             <a
-              [routerLink]="['/manage/complete']"
-              [queryParams]="{ v: secondOkr.secondOkrId }"
+              routerLink="/manage/secondOkr"
+              [queryParams]="{ v: secondOkrId }"
             >
               <div class="home__list-item"></div>
-              <p>
-                最近完了したOKR<br />📅
-                {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
-              </p>
+              <p>進行中のOKR</p>
             </a>
 
             <div class="child-okr-description-menu">
@@ -91,8 +50,8 @@
               <mat-menu #menu="matMenu">
                 <button
                   mat-menu-item
-                  [routerLink]="['/manage/complete']"
-                  [queryParams]="{ v: secondOkr.secondOkrId }"
+                  routerLink="/manage/secondOkr"
+                  [queryParams]="{ v: secondOkrId }"
                 >
                   <mat-icon>visibility_outline</mat-icon>
                   <span>詳細を表示</span>
@@ -103,12 +62,58 @@
                 </button>
               </mat-menu>
             </div>
-          </div>
+          </ng-container>
+          <ng-template #notSecondOkrId>
+            <a routerLink="/manage/okr-edit">
+              <div class="home__list-item"></div>
+              <p>タスクを作成する</p>
+            </a>
+          </ng-template>
+        </div>
+        <ng-container *ngFor="let secondOkr of achieveSecondOkrs$ | async">
+          <ng-container *ngIf="!secondOkr.isComplete">
+            <div class="home__tile-Structure">
+              <a
+                [routerLink]="['/manage/complete']"
+                [queryParams]="{ v: secondOkr.secondOkrId }"
+              >
+                <div class="home__list-item"></div>
+                <p>
+                  最近完了したOKR<br />📅
+                  {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+                </p>
+              </a>
+
+              <div class="child-okr-description-menu">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Example icon-button with a menu"
+                >
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button
+                    mat-menu-item
+                    [routerLink]="['/manage/complete']"
+                    [queryParams]="{ v: secondOkr.secondOkrId }"
+                  >
+                    <mat-icon>visibility_outline</mat-icon>
+                    <span>詳細を表示</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>delete_outline</mat-icon>
+                    <span>OKRを削除</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
     </div>
-  </div>
-  <div class="home__parent-okr-section">
-    <p class="home__parent-okr-header">使い方</p>
+    <div class="home__parent-okr-section">
+      <p class="home__parent-okr-header">使い方</p>
+    </div>
   </div>
 </div>
