@@ -136,12 +136,12 @@
     display: block;
     margin-bottom: 8px;
     @include sm {
-      font-size: 24px;
+      font-size: 18px;
     }
   }
   &__input {
     position: relative;
-    width: 100%;
+    width: 356px;
     border: none;
     font-size: 14px;
     line-height: 22px;
@@ -150,6 +150,9 @@
     border: 2px solid #e8ecee;
     border-radius: 6px;
     height: 34px;
+    @include sm {
+      width: 92%;
+    }
   }
   &__form {
     position: relative;
