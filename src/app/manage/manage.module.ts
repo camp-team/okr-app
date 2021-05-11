@@ -16,9 +16,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ManageFooterComponent } from '../manage-footer/manage-footer.component';
 
 @NgModule({
-  declarations: [ManageComponent, ManageHeaderComponent],
+  declarations: [ManageComponent, ManageHeaderComponent, ManageFooterComponent],
   imports: [
     CommonModule,
     ManageRoutingModule,
