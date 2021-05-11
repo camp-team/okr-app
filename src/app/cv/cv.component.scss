@@ -4,6 +4,9 @@
 .cv {
   padding: 128px 0;
   margin: 0 auto;
+  @include sm {
+    padding: 128px 0 224px;
+  }
   &__main {
     text-align: center;
     @include md {
