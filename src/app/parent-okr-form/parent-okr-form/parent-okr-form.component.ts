@@ -24,7 +24,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ParentOkrFormComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  objectiveEdit: number = 0;
+  objectiveEdit: number = 3;
   okrs$: Observable<Okr[]> = this.okrService.getOkrs();
   okrIscomplete: boolean;
   form = this.fb.group({
@@ -53,16 +53,24 @@ export class ParentOkrFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.addObjectiveForm();
+    this.initObjectiveForm();
     this.checkOkr();
     this.determineIfStartingTutorial();
+  }
+
+  initObjectiveForm() {
+    for (let i = 0; i < 3; i++) {
+      this.primaries.push(
+        new FormControl('', [Validators.required, Validators.maxLength(20)])
+      );
+    }
   }
 
   addObjectiveForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
-    this.objectiveEdit = this.objectiveEdit + 1;
+    this.objectiveEdit++;
   }
 
   checkOkr() {
@@ -84,7 +92,7 @@ export class ParentOkrFormComponent implements OnInit {
 
   removeOption(i: number) {
     this.primaries.removeAt(i);
-    this.objectiveEdit = this.objectiveEdit - 1;
+    this.objectiveEdit--;
   }
 
   createOkr() {
