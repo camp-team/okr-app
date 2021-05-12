@@ -2,22 +2,14 @@
   <div class="page-toolbar-structure">
     <ng-container *ngIf="secondOkr$ | async as secondOkr">
       <p class="page-toolbar-structure__left">
-        📅期日: {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+        📅　期日: {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
       </p>
       <div class="page-toolbar-structure__right">
-        <button
-          mat-raised-button
-          (click)="secondOkrComplete()"
-          class="is-completed"
-        >
-          <span class="material-icons">
-            check_circle_outline
-          </span>
-          完了する
+        <button (click)="secondOkrComplete()" class="is-completed">
+          <mat-icon class="material-icons">check_circle_outline</mat-icon>
+          <p>完了する</p>
         </button>
-        <span class="material-icons">
-          schedule
-        </span>
+        <mat-icon class="material-icons">schedule</mat-icon>
         <p>残り{{ differenceInDay }}日</p>
       </div>
     </ng-container>
