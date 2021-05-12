@@ -18,7 +18,9 @@
         <div class="home__list-item-grid">
           <div class="home__tile-Structure">
             <a [routerLink]="['/manage/edit']">
-              <div class="home__list-item"></div>
+              <div class="home__list-item">
+                <mat-icon>airplanemode_active</mat-icon>
+              </div>
               <p>OKRを作成する</p>
             </a>
           </div>
@@ -35,7 +37,9 @@
               routerLink="/manage/secondOkr"
               [queryParams]="{ v: secondOkrId }"
             >
-              <div class="home__list-item"></div>
+              <div class="home__list-item">
+                <mat-icon>airplanemode_active</mat-icon>
+              </div>
               <p>進行中のOKR</p>
             </a>
 
@@ -68,7 +72,9 @@
           </ng-container>
           <ng-template #notSecondOkrId>
             <a routerLink="/manage/okr-edit">
-              <div class="home__list-item"></div>
+              <div class="home__list-item">
+                <mat-icon>airplanemode_active</mat-icon>
+              </div>
               <p>タスクを作成する</p>
             </a>
           </ng-template>
@@ -80,7 +86,9 @@
                 [routerLink]="['/manage/complete']"
                 [queryParams]="{ v: secondOkr.secondOkrId }"
               >
-                <div class="home__list-item"></div>
+                <div class="home__list-item">
+                  <mat-icon>airplanemode_active</mat-icon>
+                </div>
                 <p>
                   最近完了したOKR<br />📅
                   {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}

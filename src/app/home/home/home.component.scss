@@ -92,12 +92,20 @@
     }
   }
   &__list-item {
+    position: relative;
     width: 120px;
     height: 120px;
     background-color: rgba(2, 5, 211, 0.5);
     border-radius: 20px;
     align-self: center;
     justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 30%;
+      right: 50%;
+    }
   }
   &__create-second-okr {
     margin: 0 auto;
