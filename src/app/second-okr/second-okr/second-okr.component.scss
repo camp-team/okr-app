@@ -48,7 +48,8 @@ mat-error {
 
 .data {
   overflow-x: auto;
-  &__fa {
+  &__container {
+    padding-bottom: 16px;
     @include sm {
       overflow-x: auto;
       white-space: nowrap;
@@ -60,7 +61,7 @@ mat-error {
 
 form {
   display: inline-block;
-  width: 90%;
+  width: 100%;
 }
 
 .second-okr {
@@ -80,6 +81,27 @@ form {
     border: 1px solid #e8ecee;
     font-weight: 300;
     color: #6f7782;
+  }
+  td {
+    &:hover {
+      input {
+        display: inline-block;
+        background-color: #fff;
+        border: 1px solid #e8ecee;
+      }
+    }
+    input:focus {
+      position: absolute;
+      z-index: 300;
+      top: 0;
+      width: 93%;
+      height: 100%;
+      padding: 0 12px;
+      background-color: #fff;
+      outline: none;
+      border-top: 1px solid #1296d8;
+      border-bottom: 1px solid #1296d8;
+    }
   }
   th {
     text-align: start;
@@ -105,6 +127,14 @@ form {
   .body-left {
     border-left-style: none;
   }
+  .body-left {
+    position: relative;
+    &:hover {
+      .select-child-okr-remove {
+        display: inline;
+      }
+    }
+  }
   .target,
   .current,
   .percentage {
@@ -114,8 +144,8 @@ form {
     }
   }
   &__key-result {
-    width: 89%;
-    height: 30px;
+    width: 77%;
+    line-height: 20px;
     border-style: none;
     background-color: transparent;
     padding: 0 12px;
@@ -138,20 +168,7 @@ form {
       color: rgba(55, 53, 47, 0.4);
     }
   }
-  &__remove {
-    height: 35px;
-    span {
-      top: 5px;
-    }
-  }
-  &__remove-icon {
-    font-size: 22px !important;
-  }
-  &__remove {
-    color: rgba(0, 0, 0, 0.36);
-  }
-  &__add-task,
-  &__remove {
+  &__add-task {
     position: relative;
     font-size: 14px;
     cursor: pointer;
@@ -170,6 +187,27 @@ form {
   &__average-text {
     margin-right: 8px;
     color: rgba(55, 53, 47, 0.4);
+  }
+}
+
+.edit-tr-child-second-okr {
+  &:hover {
+    background-color: #f6f8f9;
+  }
+}
+
+.select-child-okr-remove {
+  display: none;
+  position: absolute;
+  z-index: 500;
+  top: 0;
+  right: 10px;
+  color: rgba(0, 0, 0, 0.36);
+  font-size: 12px;
+  cursor: pointer;
+  mat-icon {
+    width: 16px;
+    font-size: 20px;
   }
 }
 

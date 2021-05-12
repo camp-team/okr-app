@@ -4,7 +4,7 @@
     <div class="data">
       <div
         *ngFor="let secondOkrObject of secondOkrObjects; let i = index"
-        class="data__fa"
+        class="data__container"
       >
         <form
           [formGroup]="secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]"
@@ -90,6 +90,7 @@
                     let row of rows[secondOkrObject.secondOkrObjectId].controls;
                     index as rowIndex
                   "
+                  class="edit-tr-child-second-okr"
                 >
                   <ng-container [formGroupName]="rowIndex">
                     <td class="key body-left">
@@ -115,6 +116,20 @@
                       <mat-error *ngIf="row.get('key').hasError('maxlength')">
                         最大文字数は20文字です。
                       </mat-error>
+                      <div
+                        class="select-child-okr-remove"
+                        type="button"
+                        (click)="
+                          removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
+                        "
+                      >
+                        <mat-icon class="select-child-okr-remove-icon">
+                          minimize
+                        </mat-icon>
+                        <span>
+                          削除
+                        </span>
+                      </div>
                     </td>
                     <td class="target">
                       <input
@@ -189,20 +204,6 @@
                         class="second-okr__key-result"
                       />
                     </td>
-                    <div
-                      class="second-okr__remove"
-                      type="button"
-                      (click)="
-                        removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
-                      "
-                    >
-                      <mat-icon class="second-okr__remove-icon">
-                        minimize
-                      </mat-icon>
-                      <span>
-                        削除
-                      </span>
-                    </div>
                   </ng-container>
                 </tr>
               </tbody>
