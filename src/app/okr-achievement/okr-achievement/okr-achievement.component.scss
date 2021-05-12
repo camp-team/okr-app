@@ -61,6 +61,13 @@
     border-radius: 20px;
     align-self: center;
     justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 25%;
+      right: 50%;
+    }
   }
 
   &__main {

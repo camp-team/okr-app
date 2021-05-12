@@ -11,7 +11,9 @@
                   [routerLink]="['/manage/complete']"
                   [queryParams]="{ v: secondOkr.secondOkrId }"
                 >
-                  <div class="child-okr-achieve__list-item"></div>
+                  <div class="child-okr-achieve__list-item">
+                    <mat-icon>airplanemode_active</mat-icon>
+                  </div>
                   <p>
                     📅 {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
                   </p>
