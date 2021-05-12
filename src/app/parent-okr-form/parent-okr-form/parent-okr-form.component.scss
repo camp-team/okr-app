@@ -107,9 +107,6 @@
     font-weight: 400;
     line-height: 32px;
     margin: 0 0 32px;
-    @include md {
-      min-width: 586px;
-    }
     @include sm {
       font-size: 20px;
       letter-spacing: 1px;
