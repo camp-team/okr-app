@@ -27,7 +27,7 @@ export class ChildOkrFormComponent implements OnInit {
   maxDate: Date;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  objectForm: number = 1;
+  objectForm: number = 3;
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   isCompletes: boolean;
 
@@ -70,9 +70,17 @@ export class ChildOkrFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addObjective();
+    this.initObjective();
     this.checkSecondOkr();
     this.determineIfStartingTutorial();
+  }
+
+  initObjective() {
+    for (let i = 0; i < 3; i++) {
+      this.primaries.push(
+        new FormControl('', [Validators.required, Validators.maxLength(20)])
+      );
+    }
   }
 
   addObjective() {
