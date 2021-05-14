@@ -4,6 +4,10 @@
 .header {
   background-color: inherit;
   &__inner {
+    position: fixed;
+    top: 0;
+    z-index: 300;
+    background-color: #fff;
     border-bottom: 1px solid #e8ecee;
     max-width: 1324px;
     padding: 0 74px;
@@ -16,6 +20,7 @@
   }
   &__logo {
     margin: 0;
+    height: 28px;
     @include sm {
       padding-top: 16px;
     }
