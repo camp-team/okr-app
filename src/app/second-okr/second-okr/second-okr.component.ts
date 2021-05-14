@@ -347,4 +347,13 @@ export class SecondOkrComponent implements OnInit {
     );
     this.rows[secondOkrObjectId].removeAt(rowIndex);
   }
+
+  focusNextInput(nextTarget?: number) {
+    const nextElement = document.querySelectorAll('.key')[
+      nextTarget
+    ] as HTMLElement;
+    if (nextElement) {
+      nextElement.focus();
+    }
+  }
 }

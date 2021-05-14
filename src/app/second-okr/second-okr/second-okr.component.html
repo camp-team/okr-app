@@ -93,13 +93,14 @@
                   class="edit-tr-child-second-okr"
                 >
                   <ng-container [formGroupName]="rowIndex">
-                    <td class="key body-left">
+                    <td class="body-left">
                       <input
                         placeholder="タスク名を入力"
                         type="text"
                         formControlName="key"
                         autocomplete="off"
-                        class="second-okr__key-result"
+                        class="key second-okr__key-result"
+                        (keyup.enter)="focusNextInput(i + i + rowIndex + i + 1)"
                       />
                       <mat-error *ngIf="row.get('key').hasError('required')">
                         <span
@@ -208,14 +209,14 @@
                 </tr>
               </tbody>
             </table>
-            <div
+            <button
               *ngIf="rows[secondOkrObject.secondOkrObjectId].length < 3"
               (click)="addRow(secondOkrObject.secondOkrObjectId)"
               class="add-row second-okr__add-task"
             >
               <mat-icon>add</mat-icon>
               <span>タスクを追加</span>
-            </div>
+            </button>
           </form>
         </div>
         <div class="second-okr__average">
