@@ -7,18 +7,19 @@ li {
 
 .manage-header {
   position: absolute;
-  top: 4px;
-  max-width: 1324px;
-  padding: 0 124px;
+  z-index: 1000;
+  top: -60px;
+  left: 12%;
+  padding: 0 42px;
   @include sm {
     padding: 0 34px;
   }
 }
 
 .nav {
+  position: fixed;
   z-index: 1000;
   padding: 0;
-  max-width: 1200px;
   height: 56px;
   display: flex;
   margin: 0 auto;
