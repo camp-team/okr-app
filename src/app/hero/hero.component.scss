@@ -5,6 +5,8 @@
   padding-top: 132px;
   padding-bottom: 144px;
   background-color: #f6f8f9;
+  margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
   @include sm {
     padding-top: 200px;
   }
