@@ -3,17 +3,19 @@
 
 .header {
   background-color: inherit;
+  border-bottom: 1px solid #e8ecee;
+
   &__inner {
-    position: fixed;
-    top: 0;
     z-index: 300;
+    position: fixed;
+    max-width: 1324px;
+    justify-content: space-between;
+    left: 50%;
+    transform: translate(-50%, 0);
+    align-items: center;
+    padding: 0 74px;
     background-color: #fff;
     border-bottom: 1px solid #e8ecee;
-    max-width: 1324px;
-    padding: 0 74px;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
     @include sm {
       padding: 0 24px;
     }
