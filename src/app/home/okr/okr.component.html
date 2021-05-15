@@ -30,17 +30,6 @@
         </ng-container>
       </form>
     </div>
-    <button class="okr__icon" mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="deleteOkr()">
-        <mat-icon>
-          delete
-        </mat-icon>
-        <span>削除する</span>
-      </button>
-    </mat-menu>
   </div>
   <div *ngFor="let primary of primaries" class="okr__keyResults">
     <span class="okr__content">
