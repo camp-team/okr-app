@@ -14,8 +14,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'intl',
-    loadChildren: () => import('./intl/intl.module').then((m) => m.IntlModule),
+    path: 'terms',
+    loadChildren: () =>
+      import('./terms/terms.module').then((m) => m.TermsModule),
+  },
+  {
+    path: 'legal',
+    loadChildren: () =>
+      import('./legal/legal.module').then((m) => m.LegalModule),
   },
   {
     path: 'manage',
