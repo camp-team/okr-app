@@ -2,17 +2,14 @@
   class="not-create-child-okr"
   *ngIf="isCompletes === true; else blank"
 >
-  <div class="not-create-child-okr__wrapper">
-    <h1 class="not-create-child-okr__title">タスクは作成済みです</h1>
-    <a
-      mat-raised-button
-      color="primary"
-      class="not-create-child-okr__button"
-      (click)="secondOkr()"
-    >
-      タスクへすすむ
-    </a>
-  </div>
+  <h1 class="not-create-child-okr__title">タスクは作成済みです</h1>
+  <a
+    mat-raised-button
+    class="not-create-child-okr__action"
+    (click)="secondOkr()"
+  >
+    タスクへすすむ
+  </a>
 </ng-container>
 
 <ng-template #blank>

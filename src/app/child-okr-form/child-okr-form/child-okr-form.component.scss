@@ -1,45 +1,29 @@
 @import 'variables';
 @import 'mixins';
 
-.not-child-okr-form {
-  &__wrapper {
-    padding: 48px 0;
-    text-align: center;
-    @include sm {
-      padding: 40px 0;
-    }
+.not-create-child-okr {
+  text-align: center;
+  @include sm {
+    padding: 0;
   }
   &__title {
-    position: relative;
+    padding: 48px 0 36px 0;
+    margin: 0;
+    text-align: center;
     font-size: 24px;
-    margin: 0 0 66px 0;
+    line-height: 32px;
+    font-weight: 400;
+    color: #151b26;
     @include sm {
       font-size: 20px;
     }
-    &::before {
-      content: '';
-      position: absolute;
-      top: 60px;
-      right: 50%;
-      transform: translateX(50%);
-      width: 70px;
-      height: 5px;
-      background-color: #757575;
-      border-radius: 2px;
-    }
   }
-  &__no-data {
-    width: 100%;
-    height: 200px;
+  &__action {
+    margin: 0 auto;
     display: block;
-    margin-bottom: 32px;
-  }
-  &__button {
-    width: 100%;
-    background-color: rgba(2, 5, 211, 0.5);
-    color: #fff;
+    width: fit-content;
     &:hover {
-      opacity: 0.9;
+      background-color: rgba(0, 0, 0, 0.12);
     }
   }
 }
