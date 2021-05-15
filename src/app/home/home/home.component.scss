@@ -56,11 +56,21 @@
     margin: 32px 0;
   }
   &__parent-okr-header {
+    position: relative;
     padding: 8px 0;
     color: #151b26;
     font-size: 16px;
     margin: 0 36px;
     border-bottom: 2px solid #e8ecee;
+    p {
+      margin: 0;
+    }
+    &:hover {
+      .delete-parent-okr {
+        display: inline;
+        background-color: inherit;
+      }
+    }
   }
   &__list-item-grid {
     display: grid;
@@ -114,6 +124,20 @@
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
+  }
+}
+
+.delete-parent-okr {
+  color: #6f7782;
+  position: absolute;
+  display: none;
+  top: 0;
+  right: 0;
+  width: 120px;
+  background-color: inherit;
+  mat-icon {
+    margin: 0;
+    font-size: 20px;
   }
 }
 

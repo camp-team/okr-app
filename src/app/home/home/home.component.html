@@ -8,7 +8,21 @@
     </div>
 
     <div class="home__parent-okr-section">
-      <p class="home__parent-okr-header">メインのOKR</p>
+      <div class="home__parent-okr-header">
+        <p>メインのOKR</p>
+        <ng-container *ngFor="let parentOkr of parentOkrs$ | async">
+          <button
+            mat-menu-item
+            (click)="deleteOkr(parentOkr.okrId)"
+            class="delete-parent-okr"
+          >
+            <mat-icon>
+              delete_outline
+            </mat-icon>
+            <span>削除する</span>
+          </button>
+        </ng-container>
+      </div>
       <ng-container *ngIf="parentOkr; else blank">
         <ng-container *ngFor="let parentOkr of parentOkrs$ | async">
           <app-okr [okr]="parentOkr"></app-okr>
