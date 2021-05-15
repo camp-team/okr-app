@@ -2,7 +2,7 @@
 @import 'mixins';
 
 .footer {
-  background-color: #151b26;
+  background-color: #222b37;
   text-align: center;
   padding: 60px 0;
   position: absolute;
@@ -15,7 +15,7 @@
 }
 
 .footer-navs {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   color: #ffffff;
 }
 
@@ -28,7 +28,13 @@ a {
     padding-bottom: 8px;
   }
 }
+.twitter-icon {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
 .copyright {
   color: #ffffff;
   font-size: 16px;
+  display: block;
+  margin: 0;
 }
