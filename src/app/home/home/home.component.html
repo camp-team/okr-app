@@ -29,7 +29,7 @@
         <ng-container
           *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
         >
-          <app-okr [okr]="parentOkr"></app-okr>
+          <app-okr [parentOkr]="parentOkr"></app-okr>
         </ng-container>
       </ng-container>
       <ng-template #blank>
@@ -146,6 +146,16 @@
     </div>
     <div class="home__parent-okr-section">
       <p class="home__parent-okr-header">使い方</p>
+      <div class="home__list-item-grid">
+        <div class="home__tile-Structure">
+          <a routerLink="/use-service">
+            <div class="home__list-item">
+              <mat-icon>airplanemode_active</mat-icon>
+            </div>
+            <p>サービスの使い方</p>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
