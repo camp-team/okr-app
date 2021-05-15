@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
@@ -9,6 +9,7 @@ import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog
 import { LoadingService } from 'src/app/services/loading.service';
 import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
+import { Okr } from 'src/app/interfaces/okr';
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,14 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
+  user: string;
+  parentOkrs: Okr[];
+  childOkrs: SecondOkr[];
+  parentOkr: boolean;
+  secondOkrId: string;
   achieveSecondOkrs$: Observable<
     SecondOkr[]
   > = this.okrService.searchAchieveSecondOkrs();
-  parentOkr: boolean;
-  secondOkrId: string;
-  user: string;
 
   constructor(
     public okrService: OkrService,
@@ -32,8 +34,16 @@ export class HomeComponent implements OnInit {
     private tutorialService: TutorialService
   ) {
     this.loadingService.loading = true;
-    this.authService.user$.subscribe((user) => {
+    combineLatest([
+      this.okrService.parentOkrs$,
+      this.okrService.childOkrs$,
+      this.authService.user$,
+    ]).subscribe(([parentOkrs, childOkrs, user]) => {
+      this.parentOkrs = parentOkrs;
+      this.childOkrs = childOkrs;
       this.user = user.name;
+      this.checkParentOkr();
+      this.checkChildtOkr();
     });
     this.isInitLogin();
     this.loadingService.loading = false;
@@ -50,31 +60,25 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checkOkr();
-    this.secondOkr();
     this.determineIfStartingTutorial();
   }
 
-  checkOkr() {
-    this.okrService.parentOkrs$.subscribe((parentOkrs) => {
-      const parentOkrIsEmpty = parentOkrs.length;
-      if (parentOkrIsEmpty === 0) {
-        this.parentOkr = false;
-      } else {
-        this.parentOkr = true;
-      }
-    });
+  checkParentOkr() {
+    const parentOkrIsEmpty = this.parentOkrs.length;
+    if (parentOkrIsEmpty === 0) {
+      this.parentOkr = false;
+    } else {
+      this.parentOkr = true;
+    }
   }
 
-  secondOkr() {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      secondOkrs.forEach((secondOkr) => {
-        if (secondOkr.isComplete) {
-          this.secondOkrId = secondOkr.secondOkrId;
-        } else {
-          return null;
-        }
-      });
+  checkChildtOkr() {
+    this.childOkrs.forEach((secondOkr) => {
+      if (secondOkr.isComplete) {
+        this.secondOkrId = secondOkr.secondOkrId;
+      } else {
+        return null;
+      }
     });
   }
 

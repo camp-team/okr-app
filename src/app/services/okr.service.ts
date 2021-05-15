@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Okr } from '../interfaces/okr';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
 import firestore from 'firebase';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
-import { switchMap } from 'rxjs/operators';
+import { shareReplay, switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,16 +17,22 @@ export class OkrService {
     switchMap((afuser) => {
       if (afuser.uid) {
         return this.getOkrs();
+      } else {
+        return of(null);
       }
-    })
+    }),
+    shareReplay(1)
   );
 
   childOkrs$ = this.authsearvice.afUser$.pipe(
     switchMap((afUser) => {
       if (afUser) {
         return this.getSecondOkrs();
+      } else {
+        return of(null);
       }
-    })
+    }),
+    shareReplay(1)
   );
 
   constructor(
