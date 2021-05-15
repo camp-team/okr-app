@@ -6,7 +6,6 @@ import { combineLatest, Observable } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 import { Okr } from 'src/app/interfaces/okr';
 import { Primary } from 'src/app/interfaces/primary';
-import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
 
@@ -33,7 +32,6 @@ export class OkrComponent implements OnInit {
     private okrService: OkrService,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
     private fb: FormBuilder
   ) {}
 
@@ -96,15 +94,5 @@ export class OkrComponent implements OnInit {
     };
     this.okrService.updateOkr(this.authService.uid, okrId, okrValue);
     this.snackBar.open('お疲れ様でした✨');
-  }
-
-  deleteOkr() {
-    this.dialog.open(OkrDeleteDialogComponent, {
-      autoFocus: false,
-      restoreFocus: false,
-      data: {
-        okrId: this.okr.okrId,
-      },
-    });
   }
 }
