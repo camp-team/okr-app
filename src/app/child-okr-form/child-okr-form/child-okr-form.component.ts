@@ -9,8 +9,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { debounceTime, take, tap } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { SecondOkrKeyResult } from 'src/app/interfaces/second-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,15 +27,7 @@ export class ChildOkrFormComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   objectForm: number = 3;
-  secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
-  isCompletes: boolean;
-
-  myFilter = (date: Date) => {
-    const calenderYear = (date || new Date()).getFullYear();
-    const nowYear = new Date().getFullYear();
-    return calenderYear >= nowYear && calenderYear <= nowYear + 1;
-  };
-
+  isChildOkrCompletes: boolean;
   form = this.fb.group({
     primaries: this.fb.array([]),
     end: ['', [Validators.required, Validators.maxLength(40)]],
@@ -72,7 +63,7 @@ export class ChildOkrFormComponent implements OnInit {
   ngOnInit(): void {
     this.initObjective();
     this.checkSecondOkr();
-    this.determineIfStartingTutorial();
+    // this.determineIfStartingTutorial();
   }
 
   initObjective() {
@@ -83,28 +74,34 @@ export class ChildOkrFormComponent implements OnInit {
     }
   }
 
+  checkSecondOkr() {
+    this.okrService.childOkrs$.subscribe((childOkrs) => {
+      childOkrs.forEach((childOkr) => {
+        if (childOkr.isComplete === true) {
+          this.isChildOkrCompletes = childOkr.isComplete;
+        }
+      });
+    });
+  }
+
+  myFilter = (date: Date) => {
+    const calenderYear = (date || new Date()).getFullYear();
+    const nowYear = new Date().getFullYear();
+    return calenderYear >= nowYear && calenderYear <= nowYear + 1;
+  };
+
   addObjective() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
   }
 
-  checkSecondOkr() {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      secondOkrs.forEach((secondOkr) => {
-        if (secondOkr.isComplete === true) {
-          this.isCompletes = secondOkr.isComplete;
-        }
-      });
-    });
-  }
-
-  determineIfStartingTutorial() {
-    this.tutorialService.startTutorial({
-      okrType: 'childOkr',
-      groupIndex: 1,
-    });
-  }
+  // determineIfStartingTutorial() {
+  //   this.tutorialService.startTutorial({
+  //     okrType: 'childOkr',
+  //     groupIndex: 1,
+  //   });
+  // }
 
   removeObjectiveForm(i: number) {
     this.primaries.removeAt(i);
@@ -191,12 +188,12 @@ export class ChildOkrFormComponent implements OnInit {
   }
 
   secondOkr() {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      const secondOkr = secondOkrs.filter(
-        (secondOkr) => secondOkr.isComplete === true
+    this.okrService.childOkrs$.subscribe((childOkrs) => {
+      const childOkr = childOkrs.filter(
+        (childOkr) => childOkr.isComplete === true
       );
       this.router.navigateByUrl(
-        '/manage/secondOkr?v=' + secondOkr[0].secondOkrId
+        '/manage/secondOkr?v=' + childOkr[0].secondOkrId
       );
     });
   }
