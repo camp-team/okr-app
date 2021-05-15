@@ -94,7 +94,7 @@ export class SecondOkrComponent implements OnInit {
         if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
       });
     });
-    this.determineIfStartingTutorial();
+    // this.determineIfStartingTutorial();
   }
 
   initSecondOkrObject(secondOkrObject) {
@@ -117,13 +117,13 @@ export class SecondOkrComponent implements OnInit {
       });
   }
 
-  determineIfStartingTutorial() {
-    this.tutorialService.startTutorial({
-      okrType: 'childOkr',
-      groupIndex: 2,
-    });
-    this.tutorialService.tutorial = false;
-  }
+  // determineIfStartingTutorial() {
+  //   this.tutorialService.startTutorial({
+  //     okrType: 'childOkr',
+  //     groupIndex: 2,
+  //   });
+  //   this.tutorialService.tutorial = false;
+  // }
 
   initRows(
     key: string,
