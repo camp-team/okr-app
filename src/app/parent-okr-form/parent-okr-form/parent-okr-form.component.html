@@ -1,7 +1,7 @@
 <div class="create-parent-okr">
   <div class="create-parent-okr__body">
     <div class="container">
-      <ng-container *ngIf="!okrIscomplete; else blank">
+      <ng-container *ngIf="!parentOkrIscomplete; else blank">
         <h3 class="create-parent-okr__title">新規OKR</h3>
         <form [formGroup]="form" (ngSubmit)="createOkr()">
           <div class="create-parent-okr__contents">

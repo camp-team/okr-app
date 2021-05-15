@@ -10,7 +10,6 @@ import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Okr } from 'src/app/interfaces/okr';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,8 +24,7 @@ export class ParentOkrFormComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   objectiveEdit: number = 3;
-  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
-  okrIscomplete: boolean;
+  parentOkrIscomplete: boolean;
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
     primaries: this.fb.array([]),
@@ -74,11 +72,11 @@ export class ParentOkrFormComponent implements OnInit {
   }
 
   checkOkr() {
-    this.okrs$.subscribe((okr) => {
-      if (okr.length === 0) {
-        this.okrIscomplete = false;
+    this.okrService.parentOkrs$.subscribe((parentOkr) => {
+      if (parentOkr.length === 0) {
+        this.parentOkrIscomplete = false;
       } else {
-        this.okrIscomplete = true;
+        this.parentOkrIscomplete = true;
       }
     });
   }
