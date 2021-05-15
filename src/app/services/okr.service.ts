@@ -8,13 +8,19 @@ import firestore from 'firebase';
 import { SecondOkr } from '../interfaces/second-okr';
 import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
 import { SecondOkrObject } from '../interfaces/second-okr-object';
-import { AngularFireFunctions } from '@angular/fire/functions';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
 export class OkrService {
+  parentOkrs$ = this.authsearvice.afUser$.pipe(
+    switchMap((afuser) => {
+      if (afuser.uid) {
+        return this.getOkrs();
+      }
+    })
+  );
+
   constructor(
     private db: AngularFirestore,
     private authsearvice: AuthService
