@@ -18,7 +18,7 @@
               type="text"
               formControlName="objective"
               autocomplete="off"
-              placeholder="記入例) 幸せになる"
+              placeholder="例) 幸せになる"
             />
             <mat-error *ngIf="objective.get('objective').hasError('required')">
               必須入力です。
@@ -51,7 +51,7 @@
             type="text"
             formControlName="key"
             autocomplete="off"
-            placeholder="技術者として売れる"
+            placeholder="例) 3年後に技術者として売れている"
           />
           <mat-error *ngIf="KeyResult.get('key').hasError('required')">
             必須入力です。
