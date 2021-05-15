@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HeroComponent } from '../hero/hero.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { UseComponent } from '../use/use.component';
+import { HowToUseComponent } from '../how-to-use/how-to-use.component';
 import { CvComponent } from '../cv/cv.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -18,7 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AboutComponent,
     PointsComponent,
     HeroComponent,
-    UseComponent,
+    HowToUseComponent,
     CvComponent,
   ],
   imports: [

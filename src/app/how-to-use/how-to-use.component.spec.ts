@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UseComponent } from './use.component';
+import { HowToUseComponent } from './how-to-use.component';
 
-describe('UseComponent', () => {
-  let component: UseComponent;
-  let fixture: ComponentFixture<UseComponent>;
+describe('HowToUseComponent', () => {
+  let component: HowToUseComponent;
+  let fixture: ComponentFixture<HowToUseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UseComponent],
+      declarations: [HowToUseComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UseComponent);
+    fixture = TestBed.createComponent(HowToUseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
