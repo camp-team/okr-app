@@ -10,7 +10,9 @@
     <div class="home__parent-okr-section">
       <div class="home__parent-okr-header">
         <p>メインのOKR</p>
-        <ng-container *ngFor="let parentOkr of parentOkrs$ | async">
+        <ng-container
+          *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
+        >
           <button
             mat-menu-item
             (click)="deleteOkr(parentOkr.okrId)"
@@ -24,7 +26,9 @@
         </ng-container>
       </div>
       <ng-container *ngIf="parentOkr; else blank">
-        <ng-container *ngFor="let parentOkr of parentOkrs$ | async">
+        <ng-container
+          *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
+        >
           <app-okr [okr]="parentOkr"></app-okr>
         </ng-container>
       </ng-container>

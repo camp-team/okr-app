@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Okr } from 'src/app/interfaces/okr';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
-import { TutorialService } from 'src/app/services/tutorial.service';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { LoadingService } from 'src/app/services/loading.service';
+import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
+import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,6 @@ import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  parentOkrs$: Observable<Okr[]> = this.okrService.getOkrs();
   secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   achieveSecondOkrs$: Observable<
     SecondOkr[]
@@ -26,11 +26,17 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public okrService: OkrService,
-    private authService: AuthService,
+    public authService: AuthService,
     private dialog: MatDialog,
+    private loadingService: LoadingService,
     private tutorialService: TutorialService
   ) {
+    this.loadingService.loading = true;
+    this.authService.user$.subscribe((user) => {
+      this.user = user.name;
+    });
     this.isInitLogin();
+    this.loadingService.loading = false;
   }
 
   private isInitLogin() {
@@ -44,16 +50,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((user) => {
-      this.user = user.name;
-    });
     this.checkOkr();
     this.secondOkr();
     this.determineIfStartingTutorial();
   }
 
   checkOkr() {
-    this.parentOkrs$.subscribe((parentOkrs) => {
+    this.okrService.parentOkrs$.subscribe((parentOkrs) => {
       const parentOkrIsEmpty = parentOkrs.length;
       if (parentOkrIsEmpty === 0) {
         this.parentOkr = false;
@@ -76,13 +79,13 @@ export class HomeComponent implements OnInit {
   }
 
   determineIfStartingTutorial() {
-    // if (this.tutorialService.tutorial) {
-    this.tutorialService.startTutorial({
-      okrType: 'childOkr',
-      groupIndex: 0,
-    });
-    this.tutorialService.tutorial = false;
-    // }
+    if (this.tutorialService.tutorial) {
+      this.tutorialService.startTutorial({
+        okrType: 'childOkr',
+        groupIndex: 0,
+      });
+      this.tutorialService.tutorial = false;
+    }
   }
 
   deleteFindByChildOkr(secondOkrId) {
@@ -91,6 +94,16 @@ export class HomeComponent implements OnInit {
       restoreFocus: false,
       data: {
         secondOkrId: secondOkrId,
+      },
+    });
+  }
+
+  deleteOkr(parentOkrId: string) {
+    this.dialog.open(OkrDeleteDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        okrId: parentOkrId,
       },
     });
   }
