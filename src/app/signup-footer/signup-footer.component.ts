@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-cv',
-  templateUrl: './cv.component.html',
-  styleUrls: ['./cv.component.scss'],
+  selector: 'app-signup-footer',
+  templateUrl: './signup-footer.component.html',
+  styleUrls: ['./signup-footer.component.scss'],
 })
-export class CvComponent implements OnInit {
+export class SignupFooterComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}

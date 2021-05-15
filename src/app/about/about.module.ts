@@ -10,7 +10,7 @@ import { HeroComponent } from '../hero/hero.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HowToUseComponent } from '../how-to-use/how-to-use.component';
-import { CvComponent } from '../cv/cv.component';
+import { SignupFooterComponent } from '../signup-footer/signup-footer.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     PointsComponent,
     HeroComponent,
     HowToUseComponent,
-    CvComponent,
+    SignupFooterComponent,
   ],
   imports: [
     CommonModule,
