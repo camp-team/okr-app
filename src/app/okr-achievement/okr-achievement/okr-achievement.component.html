@@ -1,10 +1,12 @@
 <div class="child-okr-achieve">
   <div class="container">
-    <ng-container *ngIf="secondOkr; else blank">
+    <ng-container *ngIf="childOkr; else blank">
       <div class="child-okr-achieve__child-okr-section">
         <p class="child-okr-achieve__child-okr-header">完了したOKR</p>
         <div class="child-okr-achieve__list-item-grid">
-          <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
+          <ng-container
+            *ngFor="let secondOkr of this.okrService.childOkrs$ | async"
+          >
             <ng-container *ngIf="!secondOkr.isComplete">
               <div class="child-okr-achieve__tile-Structure">
                 <a
@@ -64,11 +66,11 @@
   <div class="no-data">
     <h1 class="no-data__title">まだタスクが完了されていません</h1>
     <div class="child-okr-achieve__action">
-      <ng-container *ngIf="secondOkrId; else createSecondOkr">
+      <ng-container *ngIf="childOkrId; else createSecondOkr">
         <a
           mat-raised-button
           routerLink="/manage/secondOkr"
-          [queryParams]="{ v: secondOkrId }"
+          [queryParams]="{ v: childOkrId }"
         >
           タスクに進む
         </a>
