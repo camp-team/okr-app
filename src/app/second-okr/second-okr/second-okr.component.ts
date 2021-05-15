@@ -29,15 +29,14 @@ export class SecondOkrComponent implements OnInit {
   } = {};
   secondOkrObjectTitle: FormGroup;
   secondOkrObjects: SecondOkrObject[] = [];
-  secondOkr$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
   secondOkrObjects$: Observable<
     SecondOkrObject[]
   > = this.okrService.getSecondOkrObjects(this.secondOkrId);
   secondOkrKeyResults$: Observable<
     SecondOkrKeyResult[]
   > = this.okrService.getSecondOkrKeyResultsCollection(this.secondOkrId);
-  isComplete: boolean;
-  isCompletes = [];
+  isChildOkrComplete: boolean;
+  isChildOkrCompletes = [];
   isSecondOkr: boolean;
   secondOkr: SecondOkr;
   secondOkrKeyResultId: string;
@@ -77,21 +76,23 @@ export class SecondOkrComponent implements OnInit {
           );
         });
       });
-    this.secondOkr$.subscribe((secondOkrs) => {
-      if (secondOkrs.length === 0) {
+    this.okrService.childOkrs$.subscribe((childOkrs) => {
+      if (childOkrs.length === 0) {
         this.isSecondOkr = false;
       } else {
         this.isSecondOkr = true;
       }
-      secondOkrs.map((secondOkr) => {
-        this.isComplete = secondOkr.isComplete;
-        this.isCompletes.push(this.isComplete);
-        this.isCompletes.forEach((isComplete) => {
-          if (isComplete === true) {
-            this.isComplete = true;
+      childOkrs.map((childOkr) => {
+        this.isChildOkrComplete = childOkr.isComplete;
+        this.isChildOkrCompletes.push(this.isChildOkrComplete);
+        this.isChildOkrCompletes.forEach((childOkrComplete) => {
+          if (childOkrComplete === true) {
+            this.isChildOkrComplete = true;
           }
         });
-        if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
+        if (childOkr.isComplete === true) {
+          this.secondOkr = childOkr;
+        }
       });
     });
     // this.determineIfStartingTutorial();
@@ -163,9 +164,9 @@ export class SecondOkrComponent implements OnInit {
   }
 
   okrId() {
-    this.secondOkr$.subscribe((secondOkr) => {
-      secondOkr.forEach((secondOkr) => {
-        secondOkr.secondOkrId;
+    this.okrService.childOkrs$.subscribe((childOkrs) => {
+      childOkrs.forEach((childOkr) => {
+        childOkr.secondOkrId;
       });
     });
   }
