@@ -1,6 +1,6 @@
 <div class="okr">
   <div class="okr__title">
-    <div *ngFor="let okr of okrs" class="okr__objectives">
+    <div *ngFor="let okr of parentOkrs" class="okr__objectives">
       <span>目標(Objective)</span>
       <form [formGroup]="objectives[okr.okrId]" class="okr__form-container">
         <ng-container

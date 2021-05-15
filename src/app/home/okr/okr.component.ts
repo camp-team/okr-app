@@ -15,7 +15,7 @@ import { OkrService } from 'src/app/services/okr.service';
   styleUrls: ['./okr.component.scss'],
 })
 export class OkrComponent implements OnInit {
-  @Input() okr: Okr;
+  @Input() parentOkr: Okr;
   keyResults: {
     [primaryId: string]: FormArray;
   } = {};
@@ -25,8 +25,7 @@ export class OkrComponent implements OnInit {
   obj: FormGroup;
   key: FormGroup;
   primaries: Primary[] = [];
-  okrs: Okr[] = [];
-  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  parentOkrs: Okr[] = [];
 
   constructor(
     private okrService: OkrService,
@@ -36,27 +35,33 @@ export class OkrComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([this.okrService.getPrimaries(this.okr.okrId), this.okrs$])
+    combineLatest([
+      this.okrService.getPrimaries(this.parentOkr.okrId),
+      this.okrService.parentOkrs$,
+    ])
       .pipe(take(1))
-      .subscribe(([primaries, okrs]) => {
+      .subscribe(([primaries, parentOkrs]) => {
         primaries.forEach((primary) => {
           this.primaries.push(primary);
           this.keyResults[primary.primaryId] = this.fb.array([]);
           this.initkeyResult(primary);
         });
-        okrs.forEach((okr) => {
-          this.okrs.push(okr);
-          this.objectives[okr.okrId] = this.fb.array([]);
-          this.initObjective(okr);
+        parentOkrs.forEach((parentOkr) => {
+          this.parentOkrs.push(parentOkr);
+          this.objectives[parentOkr.okrId] = this.fb.array([]);
+          this.initObjective(parentOkr);
         });
       });
   }
 
-  initObjective(okr) {
+  initObjective(parentOkr) {
     this.obj = this.fb.group({
-      objective: [okr.title, [Validators.required, Validators.maxLength(20)]],
+      objective: [
+        parentOkr.title,
+        [Validators.required, Validators.maxLength(20)],
+      ],
     });
-    this.objectives[okr.okrId].push(this.obj);
+    this.objectives[parentOkr.okrId].push(this.obj);
     this.obj.valueChanges.pipe(debounceTime(500)).subscribe((obj) => {
       this.updateObjective(obj.objective);
     });
@@ -76,13 +81,17 @@ export class OkrComponent implements OnInit {
   }
 
   updateObjective(objective: Okr) {
-    this.okrService.updateOkr(this.authService.uid, this.okr.okrId, objective);
+    this.okrService.updateOkr(
+      this.authService.uid,
+      this.parentOkr.okrId,
+      objective
+    );
   }
 
   updateKeyResult(keyResultId: string, primaryTitle: Primary) {
     this.okrService.updatePrimary(
       this.authService.uid,
-      this.okr.okrId,
+      this.parentOkr.okrId,
       keyResultId,
       primaryTitle
     );
