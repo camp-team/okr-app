@@ -4,11 +4,11 @@
 .header {
   background-color: inherit;
   border-bottom: 1px solid #e8ecee;
+  max-width: 1324px;
 
   &__inner {
     z-index: 300;
     position: fixed;
-    max-width: 1324px;
     justify-content: space-between;
     left: 50%;
     transform: translate(-50%, 0);
