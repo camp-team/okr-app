@@ -21,6 +21,14 @@ export class OkrService {
     })
   );
 
+  childOkrs$ = this.authsearvice.afUser$.pipe(
+    switchMap((afUser) => {
+      if (afUser) {
+        return this.getSecondOkrs();
+      }
+    })
+  );
+
   constructor(
     private db: AngularFirestore,
     private authsearvice: AuthService
