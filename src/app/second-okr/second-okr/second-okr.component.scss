@@ -143,6 +143,19 @@ form {
       width: 80px;
     }
   }
+  .percentage,
+  .body-right {
+    &:hover {
+      input {
+        background-color: inherit;
+        border: none;
+      }
+    }
+  }
+  .percent,
+  .header-right {
+    background-color: #f3f3f4;
+  }
   &__key-result {
     width: 77%;
     line-height: 20px;
@@ -155,11 +168,18 @@ form {
     }
   }
   &__add-task {
+    text-align: start;
+    position: relative;
+    font-size: 14px;
+    cursor: pointer;
     margin: 0 0 6px 0;
     padding: 4px 16px;
     width: 100%;
     background-color: inherit;
     border: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
     span {
       position: absolute;
       top: 0;
@@ -168,14 +188,6 @@ form {
     }
     mat-icon {
       color: rgba(55, 53, 47, 0.4);
-    }
-  }
-  &__add-task {
-    position: relative;
-    font-size: 14px;
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
     }
   }
   &__average {
