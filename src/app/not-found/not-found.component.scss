@@ -5,11 +5,22 @@
 .not-found {
   padding: 32px 0;
   &__title {
-    margin-top: 0;
+    text-align: center;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 36px;
+    color: #151b26;
   }
   p {
     margin-bottom: 32px;
   }
+}
+
+button {
+  background-color: rgba(2, 5, 211, 0.5);
+  color: #fff;
 }
 
 h1 {
