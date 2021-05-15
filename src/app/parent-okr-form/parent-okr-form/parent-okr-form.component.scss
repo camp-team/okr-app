@@ -197,29 +197,30 @@
 }
 
 .no-data-first-okr {
-  padding: 36px 0;
+  padding-bottom: 0;
   text-align: center;
   @include sm {
     padding: 0;
   }
   &__title {
-    position: relative;
-    margin-bottom: 66px;
+    text-align: center;
     font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 36px;
+    color: #151b26;
     @include sm {
       margin: 0 0 66px;
       font-size: 20px;
     }
-    &::before {
-      content: '';
-      position: absolute;
-      top: 60px;
-      right: 50%;
-      transform: translateX(50%);
-      width: 70px;
-      height: 5px;
-      background-color: #757575;
-      border-radius: 2px;
+  }
+  &__action {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
     }
   }
 }
