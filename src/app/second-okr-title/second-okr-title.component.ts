@@ -15,7 +15,7 @@ import { OkrService } from '../services/okr.service';
 })
 export class SecondOkrTitleComponent implements OnInit {
   differenceInDay: number;
-  private secondOkrId = this.route.snapshot.queryParamMap.get('v');
+  private secondOkrId = this.route.snapshot.queryParamMap.get('id');
   secondOkr$: Observable<SecondOkr> = this.okrService.getSecondOkr(
     this.secondOkrId
   );
