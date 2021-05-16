@@ -40,11 +40,11 @@ export class OkrService {
     private authsearvice: AuthService
   ) {}
 
-  createParentOkr(
-    okr: Omit<Okr, 'okrId' | 'isComplete'>,
-    primaries: string[],
-    uid: string
-  ): Promise<void> {
+  createParentOkr(params: {
+    okrType: Omit<Okr, 'okrId' | 'isComplete'>;
+    KeyResultsType: string[];
+    uid: string;
+  }): Promise<void> {
     const okrId = this.db.createId();
     const isComplete = true;
     return this.db
@@ -52,11 +52,11 @@ export class OkrService {
       .set({
         okrId,
         isComplete,
-        ...okr,
+        ...params.okrType,
       })
       .then(() => {
-        primaries.forEach((primary) => {
-          this.createPrimary(primary, okrId, uid);
+        params.KeyResultsType.forEach((primary) => {
+          this.createPrimary(primary, okrId, params.uid);
         });
       });
   }

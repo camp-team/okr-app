@@ -101,9 +101,13 @@ export class ParentOkrFormComponent implements OnInit {
       primaries: parentOkrForm.primaries,
       creatorId: this.authService.uid,
     };
-    const parentOkrprimaries = parentOkrForm.primaries;
+    const parentOkrKeyResults = parentOkrForm.primaries;
     this.okrService
-      .createParentOkr(parentOkr, parentOkrprimaries, this.authService.uid)
+      .createParentOkr({
+        okrType: parentOkr,
+        KeyResultsType: parentOkrKeyResults,
+        uid: this.authService.uid,
+      })
       .then(() => {
         this.loadingService.loading = false;
         this.router.navigateByUrl('manage/home');
