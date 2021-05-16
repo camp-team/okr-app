@@ -50,11 +50,8 @@
       <p class="home__parent-okr-header">最近のOKR</p>
       <div class="home__list-item-grid">
         <div class="home__tile-Structure">
-          <ng-container *ngIf="secondOkrId; else notSecondOkrId">
-            <a
-              routerLink="/manage/secondOkr"
-              [queryParams]="{ v: secondOkrId }"
-            >
+          <ng-container *ngIf="childOkrId; else notSecondOkrId">
+            <a routerLink="/manage/secondOkr" [queryParams]="{ v: childOkrId }">
               <div class="home__list-item">
                 <mat-icon>airplanemode_active</mat-icon>
               </div>
@@ -73,14 +70,14 @@
                 <button
                   mat-menu-item
                   routerLink="/manage/secondOkr"
-                  [queryParams]="{ v: secondOkrId }"
+                  [queryParams]="{ v: childOkrId }"
                 >
                   <mat-icon>visibility_outline</mat-icon>
                   <span>詳細を表示</span>
                 </button>
                 <button
                   mat-menu-item
-                  (click)="deleteFindByChildOkr(secondOkrId)"
+                  (click)="deleteFindByChildOkr(childOkrId)"
                 >
                   <mat-icon>delete_outline</mat-icon>
                   <span>OKRを削除</span>
@@ -97,19 +94,19 @@
             </a>
           </ng-template>
         </div>
-        <ng-container *ngFor="let secondOkr of achieveSecondOkrs$ | async">
-          <ng-container *ngIf="!secondOkr.isComplete">
+        <ng-container *ngFor="let childOkr of achieveChildOkrIdOkrs$ | async">
+          <ng-container *ngIf="!childOkr.isComplete">
             <div class="home__tile-Structure">
               <a
                 [routerLink]="['/manage/complete']"
-                [queryParams]="{ v: secondOkr.secondOkrId }"
+                [queryParams]="{ v: childOkr.secondOkrId }"
               >
                 <div class="home__list-item">
                   <mat-icon>airplanemode_active</mat-icon>
                 </div>
                 <p>
                   最近完了したOKR<br />📅
-                  {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+                  {{ childOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
                 </p>
               </a>
 
@@ -125,14 +122,14 @@
                   <button
                     mat-menu-item
                     [routerLink]="['/manage/complete']"
-                    [queryParams]="{ v: secondOkr.secondOkrId }"
+                    [queryParams]="{ v: childOkr.secondOkrId }"
                   >
                     <mat-icon>visibility_outline</mat-icon>
                     <span>詳細を表示</span>
                   </button>
                   <button
                     mat-menu-item
-                    (click)="deleteFindByChildOkr(secondOkr.secondOkrId)"
+                    (click)="deleteFindByChildOkr(childOkr.secondOkrId)"
                   >
                     <mat-icon>delete_outline</mat-icon>
                     <span>OKRを削除</span>

@@ -21,10 +21,10 @@ export class HomeComponent implements OnInit {
   parentOkrs: Okr[];
   childOkrs: SecondOkr[];
   parentOkr: boolean;
-  secondOkrId: string;
-  achieveSecondOkrs$: Observable<
+  childOkrId: string;
+  achieveChildOkrIdOkrs$: Observable<
     SecondOkr[]
-  > = this.okrService.searchAchieveSecondOkrs();
+  > = this.okrService.achieveChildOkrIdOkrs();
 
   constructor(
     public okrService: OkrService,
@@ -45,11 +45,11 @@ export class HomeComponent implements OnInit {
       this.checkParentOkr();
       this.checkChildtOkr();
     });
-    this.isInitLogin();
+    this.isFirstLogin();
     this.loadingService.loading = false;
   }
 
-  private isInitLogin() {
+  private isFirstLogin() {
     if (this.authService.initialLogin) {
       this.dialog.open(LoginDialogComponent, {
         autoFocus: false,
@@ -73,9 +73,9 @@ export class HomeComponent implements OnInit {
   }
 
   checkChildtOkr() {
-    this.childOkrs.forEach((secondOkr) => {
-      if (secondOkr.isComplete) {
-        this.secondOkrId = secondOkr.secondOkrId;
+    this.childOkrs.forEach((childOkr) => {
+      if (childOkr.isComplete) {
+        this.childOkrId = childOkr.secondOkrId;
       } else {
         return null;
       }
@@ -92,12 +92,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  deleteFindByChildOkr(secondOkrId) {
+  deleteFindByChildOkr(childOkrId: string) {
     this.dialog.open(DeleteSecondOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
       data: {
-        secondOkrId: secondOkrId,
+        secondOkrId: childOkrId,
       },
     });
   }
