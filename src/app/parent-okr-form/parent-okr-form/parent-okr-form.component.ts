@@ -21,20 +21,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ParentOkrFormComponent implements OnInit {
   objectiveForm: number = 3;
-  parentOkrIscomplete: boolean;
-  form = this.fb.group({
+  isParentOkrcomplete: boolean;
+  parentOkrform = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
     primaries: this.fb.array([]),
   });
 
   get primaries(): FormArray {
-    return this.form.get('primaries') as FormArray;
+    return this.parentOkrform.get('primaries') as FormArray;
   }
   get titleControl() {
-    return this.form.get('title') as FormControl;
+    return this.parentOkrform.get('title') as FormControl;
   }
   get primariesControl() {
-    return this.form.get('primaries') as FormControl;
+    return this.parentOkrform.get('primaries') as FormControl;
   }
 
   constructor(
@@ -71,9 +71,9 @@ export class ParentOkrFormComponent implements OnInit {
   checkOkr() {
     this.okrService.parentOkrs$.subscribe((parentOkr) => {
       if (parentOkr.length === 0) {
-        this.parentOkrIscomplete = false;
+        this.isParentOkrcomplete = false;
       } else {
-        this.parentOkrIscomplete = true;
+        this.isParentOkrcomplete = true;
       }
     });
   }
@@ -92,7 +92,7 @@ export class ParentOkrFormComponent implements OnInit {
 
   createOkr() {
     this.loadingService.loading = true;
-    const formedOkrData = this.form.value;
+    const formedOkrData = this.parentOkrform.value;
     const okrValue: Omit<Okr, 'okrId' | 'isComplete'> = {
       title: formedOkrData.title,
       primaries: formedOkrData.primaries,

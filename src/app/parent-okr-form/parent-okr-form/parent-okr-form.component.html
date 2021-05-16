@@ -1,9 +1,9 @@
 <div class="create-parent-okr">
   <div class="create-parent-okr__body">
     <div class="container">
-      <ng-container *ngIf="!parentOkrIscomplete; else blank">
+      <ng-container *ngIf="!isParentOkrcomplete; else blank">
         <h3 class="create-parent-okr__title">新規OKR</h3>
-        <form [formGroup]="form" (ngSubmit)="createOkr()">
+        <form [formGroup]="parentOkrform" (ngSubmit)="createOkr()">
           <div class="create-parent-okr__contents">
             <label class="create-parent-okr__lavel"
               >なりたい姿を入力(Objective)</label
@@ -64,7 +64,7 @@
             </button>
           </div>
           <button
-            [disabled]="form.invalid"
+            [disabled]="parentOkrform.invalid"
             mat-raised-button
             class="create-okr-button create-parent-okr__button"
           >
