@@ -76,17 +76,17 @@ export class OkrService {
       .set(value);
   }
 
-  createSecondOkr(
-    secondOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete' | 'start'>,
-    secondOkrObjects: string[],
-    kyeResult: Omit<
+  createSecondOkr(params: {
+    childOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete' | 'start'>;
+    Objectives: string[];
+    initialForm: Omit<
       SecondOkrKeyResult,
       | 'secondOkrId'
       | 'secondOkrKeyResultId'
       | 'lastUpdated'
       | 'secondOkrObjectId'
-    >
-  ): Promise<void> {
+    >;
+  }): Promise<void> {
     const secondOkrId = this.db.createId();
     const isComplete = true;
     return this.db
@@ -96,12 +96,16 @@ export class OkrService {
       .set({
         secondOkrId,
         isComplete,
-        ...secondOkr,
+        ...params.childOkr,
       })
       .then(() => {
-        secondOkrObjects.forEach((secondOkrObject) => {
+        params.Objectives.forEach((secondOkrObject) => {
           const average = 0;
-          this.createSecondOkrObject(secondOkrObject, secondOkrId, kyeResult);
+          this.createSecondOkrObject(
+            secondOkrObject,
+            secondOkrId,
+            params.initialForm
+          );
         });
       });
   }
@@ -217,7 +221,7 @@ export class OkrService {
       .valueChanges();
   }
 
-  getSecondOkrId(): Observable<SecondOkr[]> {
+  getChildOkrInProgress(): Observable<SecondOkr[]> {
     return this.db
       .collection<SecondOkr>(
         `users/${this.authsearvice.uid}/secondOkrs`,
