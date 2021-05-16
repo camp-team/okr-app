@@ -201,7 +201,7 @@ export class OkrService {
       .valueChanges();
   }
 
-  searchAchieveSecondOkrs(): Observable<SecondOkr[]> {
+  achieveChildOkrIdOkrs(): Observable<SecondOkr[]> {
     return this.db
       .collection<SecondOkr>(
         `users/${this.authsearvice.uid}/secondOkrs`,
