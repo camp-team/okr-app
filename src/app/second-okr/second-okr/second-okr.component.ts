@@ -19,7 +19,7 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   providers: [DatePipe],
 })
 export class SecondOkrComponent implements OnInit {
-  private secondOkrId = this.route.snapshot.queryParamMap.get('v');
+  private secondOkrId = this.route.snapshot.queryParamMap.get('id');
   row: FormGroup;
   rows: {
     [secondOkrObjectId: string]: FormArray;

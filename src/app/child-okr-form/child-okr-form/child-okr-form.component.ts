@@ -130,7 +130,7 @@ export class ChildOkrFormComponent implements OnInit {
             this.loadingService.loading = false;
             this.snackBar.open('作成しました', null);
             this.router.navigate(['manage/secondOkr'], {
-              queryParams: { v: childOkrInProgress[0].secondOkrId },
+              queryParams: { id: childOkrInProgress[0].secondOkrId },
             });
           });
       });
@@ -181,7 +181,7 @@ export class ChildOkrFormComponent implements OnInit {
       (childOkr) => (childOkr.isComplete = true)
     );
     this.router.navigateByUrl(
-      '/manage/secondOkr?v=' + childOkrInProgress[0].secondOkrId
+      '/manage/secondOkr?id=' + childOkrInProgress[0].secondOkrId
     );
   }
 }
