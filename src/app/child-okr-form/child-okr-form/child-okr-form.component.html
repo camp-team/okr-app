@@ -20,8 +20,8 @@
         <form [formGroup]="childOkrForm" (ngSubmit)="cleateChildOkr()">
           <div class="create-child-okr__contents">
             <div
-              formArrayName="primaries"
-              *ngFor="let option of primaries.controls; let i = index"
+              formArrayName="objectives"
+              *ngFor="let option of objectives.controls; let i = index"
               class="create-child-okr__form-structure"
             >
               <label class="create-child-okr__lavel">
@@ -90,7 +90,6 @@
             [disabled]="endControl.invalid || childOkrForm.invalid"
             mat-button
             mat-raised-button
-            color="primary"
             class="create-secondOkr create-child-okr__button"
           >
             OKRを作成する

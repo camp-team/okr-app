@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, take, tap } from 'rxjs/operators';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
 import { SecondOkrKeyResult } from 'src/app/interfaces/second-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
@@ -27,12 +27,12 @@ export class ChildOkrFormComponent implements OnInit {
   objectForm: number = 3;
   isChildOkrCompletes: boolean;
   childOkrForm = this.fb.group({
-    primaries: this.fb.array([]),
+    objectives: this.fb.array([]),
     end: ['', [Validators.required, Validators.maxLength(40)]],
   });
 
-  get primaries(): FormArray {
-    return this.childOkrForm.get('primaries') as FormArray;
+  get objectives(): FormArray {
+    return this.childOkrForm.get('objectives') as FormArray;
   }
   get endControl() {
     return this.childOkrForm.get('end') as FormControl;
@@ -66,7 +66,7 @@ export class ChildOkrFormComponent implements OnInit {
 
   displayToInitialObjectiveForm() {
     for (let i = 0; i < 3; i++) {
-      this.primaries.push(
+      this.objectives.push(
         new FormControl('', [Validators.required, Validators.maxLength(20)])
       );
     }
@@ -88,12 +88,12 @@ export class ChildOkrFormComponent implements OnInit {
   // }
 
   removeObjectiveForm(i: number) {
-    this.primaries.removeAt(i);
+    this.objectives.removeAt(i);
     this.objectForm--;
   }
 
   addObjectiveForm() {
-    this.primaries.push(
+    this.objectives.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
     this.objectForm++;
@@ -107,11 +107,11 @@ export class ChildOkrFormComponent implements OnInit {
       'secondOkrId' | 'isComplete' | 'start'
     > = {
       end: childOkrObjectiveFormInformation.end,
-      secondOkrObjects: childOkrObjectiveFormInformation.primaries,
+      secondOkrObjects: childOkrObjectiveFormInformation.objectives,
       creatorId: this.authService.uid,
     };
     const childOkrKeyResultsInitialForm = this.getChildOkrKeyResultsInitialForm();
-    const childOkrObjectives = childOkrObjectiveFormInformation.primaries;
+    const childOkrObjectives = childOkrObjectiveFormInformation.objectives;
     this.okrService
       .createSecondOkr({
         childOkr: childOkrObjectiveInformation,
@@ -122,6 +122,7 @@ export class ChildOkrFormComponent implements OnInit {
         this.okrService
           .getChildOkrInProgress()
           .pipe(
+            take(1),
             tap(() => (this.loadingService.loading = true)),
             debounceTime(400)
           )
