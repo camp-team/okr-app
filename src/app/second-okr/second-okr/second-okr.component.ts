@@ -99,7 +99,7 @@ export class SecondOkrComponent implements OnInit {
 
   initializeChildOkrObject(childOkrObjective: SecondOkrObject) {
     this.childOkrObjectiveForm = this.fb.group({
-      primaryTitle: [
+      childOkrObjective: [
         childOkrObjective.secondOkrObject,
         [Validators.required, Validators.maxLength(20)],
       ],
@@ -109,9 +109,9 @@ export class SecondOkrComponent implements OnInit {
     );
     this.childOkrObjectiveForm.valueChanges
       .pipe(debounceTime(500))
-      .subscribe((secondOkrObjects) => {
+      .subscribe((childOkrObjectives) => {
         this.updateSecondOkrPrimaryTitle(
-          secondOkrObjects.primaryTitle,
+          childOkrObjectives.childOkrObjective,
           childOkrObjective
         );
       });
