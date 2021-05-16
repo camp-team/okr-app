@@ -22,10 +22,9 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./child-okr-form.component.scss'],
 })
 export class ChildOkrFormComponent implements OnInit {
+  childOkrs: SecondOkr[];
   minDate: Date;
   maxDate: Date;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
   objectForm: number = 3;
   isChildOkrCompletes: boolean;
   form = this.fb.group({
@@ -58,15 +57,18 @@ export class ChildOkrFormComponent implements OnInit {
     const currentDate = new Date().getDate();
     this.minDate = new Date(currentYear - 0, currentMouth, currentDate);
     this.maxDate = new Date(currentYear + 0, currentMouth + 3, currentDate);
+    this.okrService.childOkrs$.subscribe((childOkrs) => {
+      this.childOkrs = childOkrs;
+      this.checkChildOkr();
+    });
+    this.displayToInitialObjectiveForm();
   }
 
   ngOnInit(): void {
-    this.initObjective();
-    this.checkSecondOkr();
     // this.determineIfStartingTutorial();
   }
 
-  initObjective() {
+  displayToInitialObjectiveForm() {
     for (let i = 0; i < 3; i++) {
       this.primaries.push(
         new FormControl('', [Validators.required, Validators.maxLength(20)])
@@ -74,13 +76,11 @@ export class ChildOkrFormComponent implements OnInit {
     }
   }
 
-  checkSecondOkr() {
-    this.okrService.childOkrs$.subscribe((childOkrs) => {
-      childOkrs.forEach((childOkr) => {
-        if (childOkr.isComplete === true) {
-          this.isChildOkrCompletes = childOkr.isComplete;
-        }
-      });
+  checkChildOkr() {
+    this.childOkrs.forEach((childOkr) => {
+      if (childOkr.isComplete) {
+        this.isChildOkrCompletes = true;
+      }
     });
   }
 
