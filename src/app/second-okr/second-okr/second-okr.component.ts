@@ -28,7 +28,7 @@ export class SecondOkrComponent implements OnInit {
     [parentOkrObjectId: string]: FormArray;
   } = {};
   parentOkrObjectTitle: FormGroup;
-  secondOkrObjects: SecondOkrObject[] = [];
+  parentOkrObjects: SecondOkrObject[] = [];
   secondOkrObjects$: Observable<
     SecondOkrObject[]
   > = this.okrService.getSecondOkrObjects(this.parentOkrId);
@@ -57,7 +57,7 @@ export class SecondOkrComponent implements OnInit {
       .pipe(take(1))
       .subscribe(([secondOkrObjects, secondOkrKeyResults]) => {
         secondOkrObjects.forEach((secondOkrObject) => {
-          this.secondOkrObjects.push(secondOkrObject);
+          this.parentOkrObjects.push(secondOkrObject);
           this.rows[secondOkrObject.secondOkrObjectId] = this.fb.array([]);
           this.parentOkrObjectTitles[
             secondOkrObject.secondOkrObjectId
