@@ -49,7 +49,7 @@ export class ParentOkrFormComponent implements OnInit {
 
   ngOnInit() {
     this.initObjectiveForm();
-    this.checkOkr();
+    this.checkParentOkr();
     // this.determineIfStartingTutorial();
   }
 
@@ -68,7 +68,7 @@ export class ParentOkrFormComponent implements OnInit {
     this.objectiveForm++;
   }
 
-  checkOkr() {
+  checkParentOkr() {
     this.okrService.parentOkrs$.subscribe((parentOkr) => {
       if (parentOkr.length === 0) {
         this.isParentOkrcomplete = false;
