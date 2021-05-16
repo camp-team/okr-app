@@ -4,7 +4,6 @@ import {
   FormArray,
   FormBuilder,
   FormControl,
-  FormGroup,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -37,9 +36,6 @@ export class ChildOkrFormComponent implements OnInit {
   }
   get endControl() {
     return this.form.get('end') as FormControl;
-  }
-  get primariesControl() {
-    return this.form.get('primaries') as FormControl;
   }
 
   constructor(
@@ -129,13 +125,11 @@ export class ChildOkrFormComponent implements OnInit {
             tap(() => (this.loadingService.loading = true)),
             debounceTime(400)
           )
-          .subscribe((secondOkrs) => {
-            secondOkrs.forEach((secondOkr) => {
-              this.loadingService.loading = false;
-              this.snackBar.open('作成しました', null);
-              this.router.navigate(['manage/secondOkr'], {
-                queryParams: { v: secondOkr.secondOkrId },
-              });
+          .subscribe((childOkrInProgress) => {
+            this.loadingService.loading = false;
+            this.snackBar.open('作成しました', null);
+            this.router.navigate(['manage/secondOkr'], {
+              queryParams: { v: childOkrInProgress[0].secondOkrId },
             });
           });
       });
@@ -182,14 +176,12 @@ export class ChildOkrFormComponent implements OnInit {
     return defaultSecondOkrValue;
   }
 
-  secondOkr() {
-    this.okrService.childOkrs$.subscribe((childOkrs) => {
-      const childOkr = childOkrs.filter(
-        (childOkr) => childOkr.isComplete === true
-      );
-      this.router.navigateByUrl(
-        '/manage/secondOkr?v=' + childOkr[0].secondOkrId
-      );
-    });
+  moveToChildOkrOfProgress() {
+    const childOkrInProgress = this.childOkrs.filter(
+      (childOkr) => (childOkr.isComplete = true)
+    );
+    this.router.navigateByUrl(
+      '/manage/secondOkr?v=' + childOkrInProgress[0].secondOkrId
+    );
   }
 }
