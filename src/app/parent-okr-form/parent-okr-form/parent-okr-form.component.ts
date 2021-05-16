@@ -88,22 +88,22 @@ export class ParentOkrFormComponent implements OnInit {
   //   });
   // }
 
-  removeOption(i: number) {
+  removeObjectiveForm(i: number) {
     this.primaries.removeAt(i);
     this.objectiveForm--;
   }
 
-  createOkr() {
+  createParentOkr() {
     this.loadingService.loading = true;
-    const formedOkrData = this.parentOkrform.value;
-    const okrValue: Omit<Okr, 'okrId' | 'isComplete'> = {
-      title: formedOkrData.objective,
-      primaries: formedOkrData.primaries,
+    const parentOkrForm = this.parentOkrform.value;
+    const parentOkr: Omit<Okr, 'okrId' | 'isComplete'> = {
+      title: parentOkrForm.objective,
+      primaries: parentOkrForm.primaries,
       creatorId: this.authService.uid,
     };
-    const primaryArray = formedOkrData.primaries;
+    const parentOkrprimaries = parentOkrForm.primaries;
     this.okrService
-      .createOkr(okrValue, primaryArray, this.authService.uid)
+      .createParentOkr(parentOkr, parentOkrprimaries, this.authService.uid)
       .then(() => {
         this.loadingService.loading = false;
         this.router.navigateByUrl('manage/home');

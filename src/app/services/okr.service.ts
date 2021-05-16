@@ -40,7 +40,7 @@ export class OkrService {
     private authsearvice: AuthService
   ) {}
 
-  createOkr(
+  createParentOkr(
     okr: Omit<Okr, 'okrId' | 'isComplete'>,
     primaries: string[],
     uid: string

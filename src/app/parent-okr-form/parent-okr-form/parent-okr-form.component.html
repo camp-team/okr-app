@@ -3,7 +3,7 @@
     <div class="container">
       <ng-container *ngIf="!isParentOkrcomplete; else blank">
         <h3 class="create-parent-okr__title">新規OKR</h3>
-        <form [formGroup]="parentOkrform" (ngSubmit)="createOkr()">
+        <form [formGroup]="parentOkrform" (ngSubmit)="createParentOkr()">
           <div class="create-parent-okr__contents">
             <label class="create-parent-okr__lavel"
               >なりたい姿を入力(Objective)</label
@@ -44,7 +44,7 @@
                   *ngIf="i"
                   class="create-parent-okr__remove-form"
                   type="button"
-                  (click)="removeOption(i)"
+                  (click)="removeObjectiveForm(i)"
                   mat-raised-button
                 >
                   <mat-icon>remove</mat-icon>
