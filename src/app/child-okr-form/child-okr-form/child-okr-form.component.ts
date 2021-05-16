@@ -122,7 +122,6 @@ export class ChildOkrFormComponent implements OnInit {
         this.okrService
           .getChildOkrInProgress()
           .pipe(
-            take(1),
             tap(() => (this.loadingService.loading = true)),
             debounceTime(400)
           )
