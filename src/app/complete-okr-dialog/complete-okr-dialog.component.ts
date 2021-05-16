@@ -32,13 +32,16 @@ export class CompleteOkrDialogComponent implements OnInit {
     const secondOkrValue: SecondOkr = {
       isComplete: false,
     };
-    this.okrService.updateSecondOkr(
-      this.authService.uid,
-      this.data.secondOkrId,
-      secondOkrValue
-    );
-    this.dialogRef.close();
-    this.snackBar.open('お疲れ様でした✨');
-    this.router.navigateByUrl('manage/achieve');
+    this.okrService
+      .updateSecondOkr(
+        this.authService.uid,
+        this.data.secondOkrId,
+        secondOkrValue
+      )
+      .then(() => {
+        this.dialogRef.close();
+        this.snackBar.open('お疲れ様でした✨');
+        this.router.navigateByUrl('manage/achieve');
+      });
   }
 }

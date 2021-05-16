@@ -1,43 +1,35 @@
-@import 'variables';
 @import 'mixins';
 
-.container {
-  padding: 0 16px;
-}
-
 .home {
-  padding: 24px 0;
+  padding: 12px 0;
   @include sm {
     padding: 40px 0;
   }
-
-  &__path {
-    text-decoration: none;
-    color: inherit;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
-    }
+  &__container {
+    max-width: 840px;
+    margin: 32px auto;
+  }
+  &__general-next-section {
+    text-align: center;
+  }
+  &__welcome-text {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    margin-bottom: 0 0 16px;
+  }
+  &__description {
+    color: #6f7782;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 auto;
+    max-width: 380px;
   }
   &__title {
-    margin: 0;
-    display: flex;
-    justify-content: center;
+    position: relative;
     text-align: center;
     font-size: 30px;
     padding-bottom: 56px;
-    span {
-      font-size: 46px;
-    }
-    @include sm {
-      font-size: 24px;
-      font-weight: 500;
-      letter-spacing: 2px;
-      margin: 0;
-      padding-bottom: 56px;
-    }
-  }
-  &__title-content {
-    position: relative;
     margin: 0;
     font-size: 26px;
     letter-spacing: 1.5px;
@@ -52,56 +44,78 @@
       background-color: #757575;
       border-radius: 2px;
     }
-  }
-  &__card {
-    height: 240px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 16px;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
-    }
     @include sm {
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #fff;
-      cursor: pointer;
-      border-radius: 16px;
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.12);
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin: 0;
+      padding-bottom: 56px;
+    }
+  }
+  &__parent-okr-section {
+    margin: 32px 0;
+  }
+  &__parent-okr-header {
+    position: relative;
+    padding: 8px 0;
+    color: #151b26;
+    font-size: 16px;
+    margin: 0 36px;
+    border-bottom: 2px solid #e8ecee;
+    p {
+      margin: 0;
+    }
+    &:hover {
+      .delete-parent-okr {
+        display: inline;
+        background-color: inherit;
+        width: auto;
       }
     }
   }
-  &__button {
-    display: flex;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+  &__list-item-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 16px;
+    place-items: center;
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-  &__icon {
-    margin-bottom: 12px;
-    font-size: 36px;
-    width: 36px;
-    color: #1a73e8;
-  }
-  &__text {
-    font-size: 14px;
-    text-align: center;
-    color: #1a73e8;
-  }
-  &__complete {
-    display: block;
-    text-decoration: none;
-    color: inherit;
+  &__tile-Structure {
+    position: relative;
+    padding: 16px 0;
+    a {
+      text-decoration: none;
+    }
+    p {
+      height: 38px;
+      font-size: 12px;
+      text-align: center;
+      color: #151b26;
+      font-weight: 600;
+    }
     &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
+      .child-okr-description-menu {
+        display: inline;
+      }
+    }
+  }
+  &__list-item {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: rgba(2, 5, 211, 0.5);
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 30%;
+      right: 50%;
     }
   }
   &__create-second-okr {
@@ -114,17 +128,43 @@
   }
 }
 
+.delete-parent-okr {
+  color: #6f7782;
+  position: absolute;
+  display: none;
+  top: 0;
+  right: 0;
+  width: 120px;
+  background-color: inherit;
+  mat-icon {
+    margin: 0;
+    font-size: 20px;
+  }
+}
+
+.child-okr-description-menu {
+  display: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6f7782;
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 24px;
+  right: 6px;
+}
+
 .not-data {
   &__img {
     height: 200px;
     margin: 0 auto;
     display: block;
+    padding-bottom: 24px;
     @include sm {
       height: 200px;
     }
   }
   &__content {
-    padding: 24px 0;
+    padding-bottom: 24px;
   }
   &__title {
     font-size: 24px;

@@ -1,64 +1,77 @@
 <mat-tab-group animationDuration="0ms">
-  <div class="mat-tab-container">
-    <mat-tab label="プロフィール">
-      <div class="settings">
-        <div class="settings__container">
-          <h1 class="settings__title">アカウント設定</h1>
+  <mat-tab label="プロフィール">
+    <div class="profile-settings-account-content">
+      <div class="profile-settings-account-content__section">
+        <div class="photo-upload">
           <ng-container *ngIf="authService.user$ | async as user">
-            <div class="settings__profile-container">
-              <h2 class="settings__profile-title">プロフィール</h2>
+            <div class="photo-upload__photo-display">
               <label
                 for="avatar-file"
                 [style.background-image]="'url(' + user?.avatarURL + ')'"
                 alt="プロフィール画像"
-                class="settings__avatar-image"
+                class="photo-upload__avatar-image"
               >
-                <div class="settings__avatar-icon-wrap">
-                  <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
+                <div class="photo-upload__avatar-icon-wrap">
+                  <mat-icon class="photo-upload__avatar-icon"
+                    >add_a_photo</mat-icon
+                  >
                 </div>
               </label>
               <input
                 id="avatar-file"
                 type="file"
                 multiple
-                accept=".png, .jpg, .jpeg"
-                class="settings__avatar-input"
+                accept=".png,.jpg,.jpeg"
+                class="photo-upload__avatar-input"
                 (change)="openImageCropDialog($event, imageSelecter)"
                 #imageSelecter
               />
             </div>
-
-            <a
-              mat-raised-button
-              (click)="openDeleteAccountDialog()"
-              class="settings__delete-button"
-            >
-              退会する
-            </a>
+            <div class="photo-upload__description">
+              <p (change)="openImageCropDialog($event, imageSelecter)">
+                写真をアップロード
+              </p>
+              <p>プロフィール画像を変更することが出来ます</p>
+            </div>
           </ng-container>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab label="開発資金をサポートする">
-      <div class="support">
-        <div class="support__container">
-          <h1 class="support__title">開発資金をサポートする</h1>
-          <div class="support__text">
-            <span
-              >プロダクトを使いたい、より良くしたいと思ってくれるコアな
-              ユーザーに幾らかのご支援いただきたく思います。</span
-            >
+
+      <div class="profile-settings-account-content__section">
+        <div class="withdrawal">
+          <p>退会</p>
+          <div class="withdrawal__row">
+            <p class="withdrawal__descriptin">
+              これまで作成したOKRとアカウントを削除します
+            </p>
+            <a (click)="openDeleteAccountDialog()" class="withdrawal__button">
+              退会する
+            </a>
           </div>
-          <button
-            class="support__action"
-            (click)="redirectToCheckout()"
-            mat-raised-button
-            color="primary"
-          >
-            開発資金をサポートする
-          </button>
         </div>
       </div>
-    </mat-tab>
-  </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="開発資金をサポートする">
+    <div class="profile-settings-account-content">
+      <div class="profile-settings-account-content__section">
+        <div class="support">
+          <h1 class="support__heading">開発資金をサポートする</h1>
+          <div class="support__row">
+            <p>
+              プロダクトを使いたい、より良くしたいと思ってくれる<br />コアなユーザーに幾らかのご支援いただきたく思います。
+            </p>
+            <button
+              class="support__action"
+              (click)="redirectToCheckout()"
+              mat-raised-button
+              color="primary"
+            >
+              開発資金をサポートする
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
 </mat-tab-group>

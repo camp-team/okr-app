@@ -37,18 +37,24 @@ export class DeleteAccountDialogComponent implements OnInit {
   }
   deleteAccount(okrId: string) {
     this.loadingService.loading = true;
-    this.okrService.deleteOkr(okrId);
-    const callable = this.fns.httpsCallable('deleteAfUser');
     this.dialogRef.close();
+    const callable = this.fns.httpsCallable('deleteAfUser');
     return callable(this.authService.uid)
       .toPromise()
       .then(() => {
-        this.router.navigateByUrl('/');
+        this.loadingService.loading = false;
         this.authService.afAuth.signOut().then(() => {
+          this.router.navigateByUrl('/about');
           this.snackBar.open(
-            'アカウントを削除しました。反映には時間がかかります。'
+            'アカウントが削除されました。ご利用ありがとうございました。'
           );
         });
+      })
+      .catch(() => {
+        this.snackBar.open(
+          '削除に失敗しました。再度ログインしてお試しください。',
+          '閉じる'
+        );
       });
   }
 

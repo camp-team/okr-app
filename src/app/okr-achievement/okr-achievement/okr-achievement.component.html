@@ -1,50 +1,62 @@
-<div class="achieve">
+<div class="child-okr-achieve">
   <div class="container">
-    <div class="achieve__title">
-      <h1 class="achieve__title-content">達成済みのOKR</h1>
-    </div>
-    <ng-container *ngIf="secondOkr; else blank">
-      <div class="achieve__main">
-        <ng-container *ngFor="let secondOkr of secondOkrs$ | async">
-          <ng-container *ngIf="!secondOkr.isComplete">
-            <div class="achieve__secondOkr">
-              <a
-                [routerLink]="['/manage/complete']"
-                [queryParams]="{ v: secondOkr.secondOkrId }"
-                class="achieve__calendar"
-              >
-                📅{{ secondOkr.start.toDate() | date: 'yyyy年MM月dd日' }}〜{{
-                  secondOkr.end.toDate() | date: 'yyyy年MM月dd日'
-                }}
-              </a>
-              <a
-                (click)="deleteSecondOkr(secondOkr.secondOkrId)"
-                class="achieve__delete"
-              >
-                <mat-icon>
-                  delete_outline
-                </mat-icon>
-              </a>
-            </div>
-          </ng-container>
-        </ng-container>
-      </div>
-      <div class="achieve__action">
-        <ng-container *ngIf="secondOkrId; else createSecondOkr">
-          <a
-            color="primary"
-            mat-raised-button
-            routerLink="/manage/secondOkr"
-            [queryParams]="{ v: secondOkrId }"
+    <ng-container *ngIf="childOkr; else blank">
+      <div class="child-okr-achieve__child-okr-section">
+        <p class="child-okr-achieve__child-okr-header">完了したOKR</p>
+        <div class="child-okr-achieve__list-item-grid">
+          <ng-container
+            *ngFor="let secondOkr of this.okrService.childOkrs$ | async"
           >
-            進行中のOKRに進む
-          </a>
-        </ng-container>
-        <ng-template #createSecondOkr>
-          <a color="primary" mat-raised-button routerLink="/manage/okr-edit">
-            2番目のOKRを作成する
-          </a>
-        </ng-template>
+            <ng-container *ngIf="!secondOkr.isComplete">
+              <div class="child-okr-achieve__tile-Structure">
+                <a
+                  [routerLink]="['/manage/complete']"
+                  [queryParams]="{ v: secondOkr.secondOkrId }"
+                >
+                  <div class="child-okr-achieve__list-item">
+                    <mat-icon>airplanemode_active</mat-icon>
+                  </div>
+                  <p>
+                    📅 {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+                  </p>
+                </a>
+
+                <div class="child-okr-achieve-description-menu">
+                  <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    aria-label="Example icon-button with a menu"
+                  >
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button
+                      mat-menu-item
+                      [routerLink]="['/manage/complete']"
+                      [queryParams]="{ v: secondOkr.secondOkrId }"
+                    >
+                      <mat-icon>visibility_outline</mat-icon>
+                      <span>詳細を表示</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="deleteSecondOkr(secondOkr.secondOkrId)"
+                    >
+                      <mat-icon>delete_outline</mat-icon>
+                      <span>OKRを削除</span>
+                    </button>
+                  </mat-menu>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #notSecondOkrId>
+              <a routerLink="/manage/okr-edit">
+                <div class="child-okr-achieve__list-item"></div>
+                <p>タスクを作成する</p>
+              </a>
+            </ng-template>
+          </ng-container>
+        </div>
       </div>
     </ng-container>
   </div>
@@ -52,23 +64,22 @@
 
 <ng-template #blank>
   <div class="no-data">
-    <img
-      src="assets/images/no-data.svg"
-      alt="未達成画像"
-      class="no-data__img"
-    />
-    <div class="no-data__content">
-      <h1 class="no-data__title">達成済みのOKRはありません</h1>
-      <p class="no-data__text">
-        <span>
-          進行中のOKRを達成する必要があります
-        </span>
-      </p>
-    </div>
-    <div class="achieve__action">
-      <a mat-raised-button color="primary" routerLink="/manage/okr-edit">
-        2番目のOKRを作成する
-      </a>
+    <h1 class="no-data__title">まだタスクが完了されていません</h1>
+    <div class="child-okr-achieve__action">
+      <ng-container *ngIf="childOkrId; else createSecondOkr">
+        <a
+          mat-raised-button
+          routerLink="/manage/secondOkr"
+          [queryParams]="{ v: childOkrId }"
+        >
+          タスクに進む
+        </a>
+      </ng-container>
+      <ng-template #createSecondOkr>
+        <a mat-raised-button routerLink="/manage/okr-edit">
+          タスクを作成する
+        </a>
+      </ng-template>
     </div>
   </div>
 </ng-template>

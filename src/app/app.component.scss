@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .loading {
   position: absolute;
   margin: auto;
@@ -8,6 +10,22 @@
   left: 0;
 }
 
+.inner {
+  position: relative;
+  max-width: 1354px;
+  margin: 0 auto;
+  padding-bottom: 200px;
+  @include sm {
+    padding-bottom: 100px;
+  }
+}
+
 .shadow {
   opacity: 0.4;
+}
+
+.wrapper {
+  width: 100%;
+  position: relative;
+  min-height: 100%;
 }

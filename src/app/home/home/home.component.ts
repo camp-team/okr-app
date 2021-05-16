@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Okr } from 'src/app/interfaces/okr';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
-import { TutorialService } from 'src/app/services/tutorial.service';
 import { SecondOkr } from 'src/app/interfaces/second-okr';
+import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { LoadingService } from 'src/app/services/loading.service';
+import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
+import { TutorialService } from 'src/app/services/tutorial.service';
+import { Okr } from 'src/app/interfaces/okr';
 
 @Component({
   selector: 'app-home',
@@ -14,21 +17,39 @@ import { SecondOkr } from 'src/app/interfaces/second-okr';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  okrs$: Observable<Okr[]> = this.okrService.getOkrs();
-  secondOkrs$: Observable<SecondOkr[]> = this.okrService.getSecondOkrs();
-  okr: boolean;
-  secondOkrId: string;
+  user: string;
+  parentOkrs: Okr[];
+  childOkrs: SecondOkr[];
+  parentOkr: boolean;
+  childOkrId: string;
+  achieveChildOkrIdOkrs$: Observable<
+    SecondOkr[]
+  > = this.okrService.achieveChildOkrIdOkrs();
 
   constructor(
     public okrService: OkrService,
-    private authService: AuthService,
+    public authService: AuthService,
     private dialog: MatDialog,
+    private loadingService: LoadingService,
     private tutorialService: TutorialService
   ) {
-    this.isInitLogin();
+    this.loadingService.loading = true;
+    combineLatest([
+      this.okrService.parentOkrs$,
+      this.okrService.childOkrs$,
+      this.authService.user$,
+    ]).subscribe(([parentOkrs, childOkrs, user]) => {
+      this.parentOkrs = parentOkrs;
+      this.childOkrs = childOkrs;
+      this.user = user.name;
+      this.checkParentOkr();
+      this.checkChildtOkr();
+    });
+    this.isFirstLogin();
+    this.loadingService.loading = false;
   }
 
-  private isInitLogin() {
+  private isFirstLogin() {
     if (this.authService.initialLogin) {
       this.dialog.open(LoginDialogComponent, {
         autoFocus: false,
@@ -39,32 +60,55 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.okrs$.subscribe((okrs) => {
-      if (okrs.length === 0) {
-        this.okr = false;
+    this.determineIfStartingTutorial();
+  }
+
+  checkParentOkr() {
+    const parentOkrIsEmpty = this.parentOkrs.length;
+    if (parentOkrIsEmpty === 0) {
+      this.parentOkr = false;
+    } else {
+      this.parentOkr = true;
+    }
+  }
+
+  checkChildtOkr() {
+    this.childOkrs.forEach((childOkr) => {
+      if (childOkr.isComplete) {
+        this.childOkrId = childOkr.secondOkrId;
       } else {
-        this.okr = true;
+        return null;
       }
     });
-    this.secondOkr();
   }
 
-  secondOkr() {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      secondOkrs.forEach((secondOkr) => {
-        if (secondOkr.isComplete) {
-          this.secondOkrId = secondOkr.secondOkrId;
-        } else {
-          return null;
-        }
+  determineIfStartingTutorial() {
+    if (this.tutorialService.tutorial) {
+      this.tutorialService.startTutorial({
+        okrType: 'childOkr',
+        groupIndex: 0,
       });
+      this.tutorialService.tutorial = false;
+    }
+  }
+
+  deleteFindByChildOkr(childOkrId: string) {
+    this.dialog.open(DeleteSecondOkrDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        secondOkrId: childOkrId,
+      },
     });
   }
 
-  ngAfterViewInit(num: number) {
-    if (this.tutorialService.tutorial) {
-      this.tutorialService.startOkrTutorial();
-      this.tutorialService.tutorial = false;
-    }
+  deleteOkr(parentOkrId: string) {
+    this.dialog.open(OkrDeleteDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        okrId: parentOkrId,
+      },
+    });
   }
 }

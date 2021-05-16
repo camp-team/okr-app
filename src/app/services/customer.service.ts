@@ -30,7 +30,7 @@ export class CustomerService {
         const callable = this.fns.httpsCallable('getStripeCustomer');
         return callable(null);
       } else {
-        return (this.customerPortalURL = null);
+        return of((this.customerPortalURL = null));
       }
     }),
     tap((customer: Stripe.Customer) => {

@@ -1,20 +1,26 @@
 <div class="points">
-  <div class="container">
-    <div class="points-title">
-      <p class="points-text">OKR管理ツール<span>の特徴</span></p>
-    </div>
-    <ul class="points-contents">
-      <li class="points-contents__item" *ngFor="let point of points">
-        <div class="points-contents__icon">
-          <mat-icon>
+  <div class="points__container">
+    <div class="points__row">
+      <div class="points__colmin">
+        <h3 class="points__header">
+          OKR管理ツールを使用する主なメリット
+        </h3>
+      </div>
+      <div class="points-contents">
+        <div class="points-contents__item" *ngFor="let point of points">
+          <mat-icon
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="points-contents__icon"
+          >
             {{ point.icon }}
           </mat-icon>
+          <div class="points-contents__date">
+            <h4 class="points-contents__title">{{ point.title }}</h4>
+            <p class="points-contents__body">{{ point.text }}</p>
+          </div>
         </div>
-        <dl class="points-contents__date">
-          <dt class="points-contents__dt">{{ point.title }}</dt>
-          <dd class="points-contents__dd">{{ point.text }}</dd>
-        </dl>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </div>

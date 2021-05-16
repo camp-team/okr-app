@@ -1,7 +1,7 @@
 import { stripe } from './client';
 import * as functions from 'firebase-functions';
 
-const YOUR_DOMAIN = 'https://okr-app-de4fa.web.app';
+const YOUR_DOMAIN = 'https://okr-prod.web.app/';
 
 export const createCheckoutSession = functions
   .region('asia-northeast1')

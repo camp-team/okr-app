@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-terms',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./terms.component.scss'],
 })
 export class TermsComponent implements OnInit {
-  constructor() {}
+  constructor(protected router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
+  }
 }

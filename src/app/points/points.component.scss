@@ -1,67 +1,50 @@
 @import 'mixins';
 
 .points {
-  background-color: #e9e3df;
-  padding-bottom: calc(80px + 3.5vw);
-  @include md {
-    padding: 38px 0;
-  }
-  @include sm {
-    padding: 30px 0;
-  }
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  @include md {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  background-color: #f6f8f9;
+  margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+  &__container {
+    max-width: 1312px;
     margin: 0 auto;
   }
-  @include sm {
-    padding: 0 16px;
+  &__row {
+    display: flex;
+    width: calc(100% - 128px);
+    margin: 0 auto;
+    @include sm {
+      display: block;
+      width: 100%;
+    }
   }
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.points-title {
-  padding-top: 80px;
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 28px;
-  @include md {
-    padding: 0;
+  &__colmin {
+    padding-left: 16px;
+    padding-right: 16px;
   }
-  @include sm {
-    margin: 0;
-    padding-bottom: 30px;
-  }
-}
-
-.points-text {
-  margin: 0;
-  font-weight: 700;
-  font-size: 1.8vw;
-  letter-spacing: 2.5px;
-  @include md {
-    font-size: 24px;
-  }
-  @include sm {
-    font-size: 20px;
+  &__header {
+    color: #151b26;
+    font-weight: 400;
+    font-size: 31px;
+    margin: 0 0 16px;
+    @include md {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    @include sm {
+      font-size: 22px;
+    }
   }
 }
 
 .points-contents {
-  max-width: 160px;
-  margin: 32px auto 0;
-  max-width: 100%;
   display: grid;
-  column-gap: 32px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  padding-left: 16px;
+  padding-right: 16px;
+  margin: 0 auto;
   @include md {
     margin: 32px;
   }
@@ -72,40 +55,36 @@ ul {
     gap: 52px;
   }
   &__item {
-    background-color: #fff;
-    padding: 54px 24px;
     margin: 0 auto;
-    width: 80%;
-    height: 80%;
+    width: 300px;
+    margin-bottom: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
     @include sm {
-      padding: 24px 16px 38px;
+      margin-bottom: 0;
+      padding: 0;
     }
   }
   &__icon {
-    position: relative;
-    padding-bottom: 6px;
-    height: 40%;
-  }
-  mat-icon {
-    position: absolute;
-    top: 0;
-    left: 40%;
-    font-size: 54px;
+    margin-bottom: 36px;
+    font-size: 36px;
   }
   &__date {
     margin: 0;
   }
-  &__dt {
-    text-align: center;
-    padding-bottom: 24px;
-    font-weight: 600;
+  &__title {
+    font-weight: 400;
+    margin-bottom: 16px;
+    font-size: 22px;
+    color: #222b37;
     @include sm {
-      padding-bottom: 12px;
+      font-size: 16px;
     }
   }
-  &__dd {
-    margin: 4px 0 0;
-    font-size: 14px;
-    color: #545454;
+  &__body {
+    margin: 0;
+    font-size: 16px;
+    line-height: 25px;
+    color: #646f79;
   }
 }

@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { CompleteOkrDialogComponent } from '../complete-okr-dialog/complete-okr-dialog.component';
 import { SecondOkr } from '../interfaces/second-okr';
 import { AuthService } from '../services/auth.service';
@@ -15,7 +14,8 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./second-okr-title.component.scss'],
 })
 export class SecondOkrTitleComponent implements OnInit {
-  private secondOkrId = this.route.snapshot.queryParamMap.get('v');
+  differenceInDay: number;
+  private secondOkrId = this.route.snapshot.queryParamMap.get('id');
   secondOkr$: Observable<SecondOkr> = this.okrService.getSecondOkr(
     this.secondOkrId
   );
@@ -27,7 +27,19 @@ export class SecondOkrTitleComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.differenceInDays();
+  }
+
+  differenceInDays() {
+    this.secondOkr$.pipe(take(1)).subscribe((secondOkr) => {
+      const nowDate = new Date();
+      const endDate = secondOkr.end.toDate();
+      const differenceInTime = endDate.getTime() - nowDate.getTime();
+      const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+      this.differenceInDay = Math.ceil(differenceInDays);
+    });
+  }
 
   secondOkrComplete() {
     this.dialog.open(CompleteOkrDialogComponent, {

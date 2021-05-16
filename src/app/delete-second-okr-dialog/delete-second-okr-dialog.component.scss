@@ -2,28 +2,43 @@
 @import 'mixins';
 
 .delete-second-okr-dialog {
-  text-align: center;
+  padding: 0 24px;
   &__title {
-    font-size: 30px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
     margin: 0;
     padding-bottom: 24px;
-    letter-spacing: 1.5px;
+    border-bottom: 1px solid #e8ecee;
     @include sm {
-      font-size: 24px;
+      font-size: 20px;
     }
   }
   &__content {
-    padding-bottom: 24px;
-    @include sm {
-      text-align: start;
-    }
+    padding: 24px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #e8ecee;
     span {
       display: block;
-      letter-spacing: 1.5px;
     }
   }
   &__actions {
     display: flex;
+    font-size: 14px;
+    padding-top: 24px;
     justify-content: space-between;
+  }
+  &__cancel {
+    box-shadow: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__delete-second-okr {
+    background-color: #ff5263;
+    color: #fff;
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }

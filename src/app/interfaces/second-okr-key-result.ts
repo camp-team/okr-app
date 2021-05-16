@@ -9,5 +9,5 @@ export interface SecondOkrKeyResult {
   target: number;
   current: number;
   percentage: string;
-  lastUpdated: firebase.default.firestore.Timestamp;
+  lastUpdated?: firebase.default.firestore.Timestamp;
 }

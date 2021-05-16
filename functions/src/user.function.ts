@@ -34,6 +34,9 @@ export const deleteCollection = functions
   .region('asia-northeast1')
   .auth.user()
   .onDelete((user) => {
+    const okrsRef = db
+      .collectionGroup(`okrs`)
+      .where('creatorId', '==', user.uid);
     const primariesRef = db
       .collectionGroup(`primaries`)
       .where('uid', '==', user.uid);
@@ -46,11 +49,16 @@ export const deleteCollection = functions
     const secondOkrs = db
       .collectionGroup(`secondOkrs`)
       .where('creatorId', '==', user.uid);
+    const customers = db
+      .collection(`customers`)
+      .where('userId', '==', user.uid);
     return Promise.all([
+      deleteCollectionByReference(okrsRef),
       deleteCollectionByReference(primariesRef),
       deleteCollectionByReference(secondOkrKeyResultsRef),
       deleteCollectionByReference(secondOkrObjectsRef),
       deleteCollectionByReference(secondOkrs),
+      deleteCollectionByReference(customers),
     ]);
   });
 

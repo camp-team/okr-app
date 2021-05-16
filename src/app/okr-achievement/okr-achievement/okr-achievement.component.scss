@@ -8,15 +8,83 @@
   }
 }
 
-.achieve {
-  padding: 24px 0;
+.child-okr-achieve {
+  padding: 12px 62px;
   text-align: center;
+  &__child-okr-section {
+    width: 672px;
+    margin: 32px auto;
+    @include sm {
+      width: inherit;
+    }
+  }
+  &__child-okr-header {
+    padding: 8px 0;
+    color: #151b26;
+    font-size: 16px;
+    margin: 0 16px;
+    border-bottom: 2px solid #e8ecee;
+  }
+  &__list-item-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 16px;
+    place-items: center;
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  &__tile-Structure {
+    position: relative;
+    padding: 16px 0;
+    a {
+      text-decoration: none;
+    }
+    p {
+      height: 38px;
+      font-size: 12px;
+      text-align: center;
+      color: #151b26;
+      font-weight: 600;
+    }
+    &:hover {
+      .child-okr-achieve-description-menu {
+        display: inline;
+      }
+    }
+  }
+  &__list-item {
+    width: 120px;
+    height: 120px;
+    background-color: rgba(2, 5, 211, 0.5);
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 25%;
+      right: 50%;
+    }
+  }
+
   &__main {
     margin-bottom: 24px;
   }
   &__secondOkr {
     display: flex;
     justify-content: center;
+    a {
+      margin: 0 auto;
+      width: 300px;
+      text-decoration: none;
+      color: inherit;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+      }
+    }
   }
   &__title {
     display: flex;
@@ -55,53 +123,33 @@
     width: inherit;
     cursor: pointer;
   }
-  &__action a {
-    display: block;
-    margin: 0 auto;
-    width: 180px;
-  }
 }
 
-a {
-  margin: 0 auto;
-  width: 300px;
-  text-decoration: none;
-  color: inherit;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.12);
-  }
+.child-okr-achieve-description-menu {
+  display: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6f7782;
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 24px;
+  right: 6px;
 }
 
 .no-data {
   @include sm {
     padding: 0;
   }
-  &__img {
-    height: 200px;
-    display: block;
-    margin: 0 auto;
-    @include sm {
-      height: 200px;
-    }
-  }
   &__title {
     font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
     text-align: center;
+    margin-top: 48px;
+    margin-bottom: 36px;
     @include sm {
       font-size: 20px;
       font-weight: 400;
-    }
-  }
-  &__content {
-    padding: 24px 0;
-  }
-  &__text {
-    text-align: center;
-    @include sm {
-      font-size: 16px;
-    }
-    span {
-      display: block;
     }
   }
 }

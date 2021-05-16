@@ -1,17 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
+import { debounceTime, take } from 'rxjs/operators';
 import { Okr } from 'src/app/interfaces/okr';
 import { Primary } from 'src/app/interfaces/primary';
-import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
 
@@ -21,95 +14,93 @@ import { OkrService } from 'src/app/services/okr.service';
   styleUrls: ['./okr.component.scss'],
 })
 export class OkrComponent implements OnInit {
-  @Input() okr: Okr;
-  primaries$: Observable<Primary[]>;
-
-  form: FormGroup;
-  keyResult: FormGroup;
+  @Input() parentOkr: Okr;
   keyResults: {
     [primaryId: string]: FormArray;
   } = {};
+  objectives: {
+    [okrId: string]: FormArray;
+  } = {};
+  obj: FormGroup;
+  key: FormGroup;
+  primaries: Primary[] = [];
+  parentOkrs: Okr[] = [];
 
   constructor(
     private okrService: OkrService,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.primaries$ = this.okrService.getPrimaries(this.okr.okrId);
-    this.objective();
-    this.keyResultfa();
+    combineLatest([
+      this.okrService.getPrimaries(this.parentOkr.okrId),
+      this.okrService.parentOkrs$,
+    ])
+      .pipe(take(1))
+      .subscribe(([primaries, parentOkrs]) => {
+        primaries.forEach((primary) => {
+          this.primaries.push(primary);
+          this.keyResults[primary.primaryId] = this.fb.array([]);
+          this.initkeyResult(primary);
+        });
+        parentOkrs.forEach((parentOkr) => {
+          this.parentOkrs.push(parentOkr);
+          this.objectives[parentOkr.okrId] = this.fb.array([]);
+          this.initObjective(parentOkr);
+        });
+      });
   }
 
-  objective() {
-    this.form = this.fb.group({
+  initObjective(parentOkr) {
+    this.obj = this.fb.group({
       objective: [
-        this.okr.title,
+        parentOkr.title,
         [Validators.required, Validators.maxLength(20)],
       ],
-      categories: this.fb.array([]),
+    });
+    this.objectives[parentOkr.okrId].push(this.obj);
+    this.obj.valueChanges.pipe(debounceTime(500)).subscribe((obj) => {
+      this.updateObjective(obj.objective);
     });
   }
 
-  get objectiveContoroll() {
-    return this.form.get('objective') as FormControl;
-  }
-
-  keyResultfa() {
-    this.okrService.getPrimaries(this.okr.okrId).subscribe((primaries) => {
-      primaries.forEach((primary) => {
-        this.keyResults[primary.primaryId] = this.fb.array([]);
-        this.keyResult = this.fb.group({
-          key: [
-            primary.primaryTitle,
-            [Validators.required, Validators.maxLength(20)],
-          ],
-        });
-        this.keyResults[primary.primaryId].push(this.keyResult);
-      });
+  initkeyResult(primary) {
+    this.key = this.fb.group({
+      key: [
+        primary.primaryTitle,
+        [Validators.required, Validators.maxLength(20)],
+      ],
+    });
+    this.keyResults[primary.primaryId].push(this.key);
+    this.key.valueChanges.pipe(debounceTime(500)).subscribe((primaryTitle) => {
+      this.updateKeyResult(primary.primaryId, primaryTitle.key);
     });
   }
 
-  updateObjective(objective) {
-    this.okrService.updateOkr(this.authService.uid, this.okr.okrId, objective);
+  updateObjective(objective: Okr) {
+    this.okrService.updateOkr(
+      this.authService.uid,
+      this.parentOkr.okrId,
+      objective
+    );
   }
 
-  updateKeyResult(keyResultId: string, keyResultTitle: Primary) {
+  updateKeyResult(keyResultId: string, primaryTitle: Primary) {
     this.okrService.updatePrimary(
       this.authService.uid,
-      this.okr.okrId,
+      this.parentOkr.okrId,
       keyResultId,
-      keyResultTitle[0].key
+      primaryTitle
     );
   }
 
   okrComplete(okrId: string) {
-    const okrValue: Omit<
-      Okr,
-      | 'okrId'
-      | 'primaries'
-      | 'start'
-      | 'end'
-      | 'creatorId'
-      | 'title'
-      | 'isComplete'
-    > = {
+    const okrValue: Okr = {
       isComplete: false,
     };
     this.okrService.updateOkr(this.authService.uid, okrId, okrValue);
-    this.snackBar.open('お疲れ様でした✨', null);
-  }
-
-  deleteOkr() {
-    this.dialog.open(OkrDeleteDialogComponent, {
-      autoFocus: false,
-      restoreFocus: false,
-      data: {
-        okrId: this.okr.okrId,
-      },
-    });
+    this.snackBar.open('お疲れ様でした✨');
   }
 }

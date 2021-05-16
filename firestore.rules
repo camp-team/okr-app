@@ -2,17 +2,54 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{uid} {
-      allow read, create: if true;
-      allow delete, update: if request.auth.uid == resource.data.uid;
-    }
-    match /users/{uid}/okrs/{id} {
       allow read: if true;
       allow create: if request.auth.uid != null;
-      allow update: if request.auth.uid == resource.data.CreatorId && resource.data.CreatorId == request.resource.data.CreatorId;
-      allow delete: if request.auth.uid == resource.data.CreatorId;
+      allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+      allow delete: if request.auth.uid == resource.data.uid;
+      match /okrs/{okrId} {
+        allow read: if true;
+        allow create: if request.auth.uid != null;
+        allow update: if request.auth.uid == resource.data.creatorId && resource.data.creatorId == request.resource.data.creatorId;
+        allow delete: if request.auth.uid == resource.data.creatorId;
+        match /primaries/{primaryId} {
+          allow read: if true;
+          allow create: if request.auth.uid != null;
+          allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+          allow delete: if request.auth.uid == resource.data.uid;
+        }
+      }
+      match /secondOkrs/{secondOkrId} {
+        allow read: if true;
+        allow create: if request.auth.uid != null;
+        allow update: if request.auth.uid == resource.data.creatorId && resource.data.creatorId == request.resource.data.creatorId;
+        allow delete: if request.auth.uid == resource.data.creatorId;
+        match /secondOkrObjects/{secondOkrObjectId} {
+          allow read: if true;
+          allow create: if request.auth.uid != null;
+          allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+          allow delete: if request.auth.uid == resource.data.uid;
+          match /secondOkrKeyResults/{secondOkrKeyResultId} {
+            allow read: if true;
+            allow create: if request.auth.uid != null;
+            allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+            allow delete: if request.auth.uid == resource.data.uid;
+          }
+        }
+      }
     }
-  }
-  match /databases/{documents=**} {
-    allow read, write: if true;
+
+    match /customers/{userId} {
+      allow read: if true;
+      allow create: if request.auth.uid != null;
+      allow update: if request.auth.uid == resource.data.userId && resource.data.userId == request.resource.data.userId;
+      allow delete: if request.auth.uid == resource.data.userId;
+    }
+
+    match /{path=**}/secondOkrKeyResults/{secondOkrKeyResultId} {
+      allow read: if true;
+      allow create: if request.auth.uid != null;
+      allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+      allow delete: if request.auth.uid == resource.data.uid;
+    }
   }
 }

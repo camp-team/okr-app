@@ -1,20 +1,40 @@
+@import 'variables';
+@import 'mixins';
+
 .delete-account-dialog {
-  &__content,
-  p {
-    margin: 0;
-  }
   &__content {
-    margin-bottom: 24px;
+    padding: 24px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #e8ecee;
   }
   &__title {
-    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    margin: 0;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e8ecee;
+    @include sm {
+      font-size: 20px;
+    }
   }
   &__action {
     display: flex;
+    font-size: 14px;
+    padding-top: 24px;
     justify-content: space-between;
   }
   &__cancel {
-    border: none;
-    background: transparent;
+    box-shadow: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__delete-account {
+    background-color: #ff5263;
+    color: #fff;
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }

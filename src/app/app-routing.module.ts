@@ -14,15 +14,28 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'intl',
-    loadChildren: () => import('./intl/intl.module').then((m) => m.IntlModule),
-    canLoad: [AuthGuard],
-    canActivate: [AuthGuard],
+    path: 'terms',
+    loadChildren: () =>
+      import('./terms/terms.module').then((m) => m.TermsModule),
+  },
+  {
+    path: 'legal',
+    loadChildren: () =>
+      import('./legal/legal.module').then((m) => m.LegalModule),
   },
   {
     path: 'manage',
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'use-service',
+    loadChildren: () =>
+      import('./use-service/use-service.module').then(
+        (m) => m.UseServiceModule
+      ),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
   },

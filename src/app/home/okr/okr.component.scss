@@ -1,51 +1,56 @@
-@import 'variables';
 @import 'mixins';
 
+.mat-error {
+  font-size: 12px;
+}
+
 .okr {
-  text-align: center;
-  padding-bottom: 36px;
-  width: 600px;
-  margin: 0 auto;
+  max-width: 960px;
+  padding-top: 32px;
+  margin: 0 36px;
+  @include md {
+    max-width: 500px;
+    margin: 0 auto;
+  }
   @include sm {
     width: 356px;
     margin: 0 auto;
   }
-  &__objective {
-    display: block;
-    border: none;
-    background-color: inherit;
-    font-size: 28px;
-    font-weight: 700;
-    @include sm {
-      font-size: 24px;
-      padding: 0;
-    }
-  }
-  &__objective-wrapper {
-    padding: 6px 0 0 12px;
-    @include sm {
-      padding: 0;
-    }
-  }
-  &__keyResult {
-    border: none;
-    background-color: inherit;
-    font-size: 28px;
-    @include sm {
-      padding: 0;
-      font-size: 20px;
+  &__form-container {
+    width: 100%;
+    display: flex;
+    @include md {
       display: block;
+    }
+    @include sm {
+      margin-top: 16px;
     }
   }
   &__title {
-    display: flex;
-    text-align: start;
     position: relative;
-    margin: 0 auto;
-    width: 600px;
-    font-size: 28px;
-    font-weight: 700;
+    display: flex;
+    font-size: 24px;
     margin-bottom: 36px;
+    span {
+      width: 250px;
+      &::after {
+        content: ':';
+      }
+      @include md {
+        &::after {
+          display: none;
+        }
+      }
+      @include sm {
+        font-size: 18px;
+      }
+    }
+    @include md {
+      display: block;
+      &::after {
+        display: none;
+      }
+    }
     @include sm {
       display: block;
       padding-bottom: 20px;
@@ -54,67 +59,84 @@
       margin: 0;
     }
   }
-  &__title .mat-error {
-    font-size: 16px;
-  }
-  &__icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
+  &__objectives {
+    align-items: center;
+    display: flex;
+    width: 100%;
     @include sm {
-      position: absolute;
-      top: -3%;
-      right: 0;
+      display: block;
+    }
+  }
+  &__objective-wrapper {
+    width: 100%;
+    text-align: start;
+    @include sm {
+      padding: 0;
+    }
+  }
+  &__objective {
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    border: 2px solid #e8ecee;
+    border-radius: 8px;
+    height: 34px;
+    @include sm {
+      padding: 0;
+      font-size: 18px;
     }
   }
   &__keyResults {
-    position: relative;
-    width: 600px;
-    margin: 0 auto;
-    text-align: start;
-    padding-bottom: 24px;
+    display: flex;
+    padding-bottom: 22px;
+    align-items: center;
+    @include md {
+      display: block;
+    }
     @include sm {
       width: 100%;
       padding-bottom: 20px;
     }
   }
   &__content {
-    position: relative;
-    font-size: 26px;
-    text-align: start;
-    @include sm {
-      display: block;
-      font-size: 20px;
-    }
+    width: 700px;
+    font-size: 20px;
     &::after {
       content: ':';
-      position: absolute;
-      top: 0;
-      right: -15px;
-      @include sm {
+    }
+    @include md {
+      &::after {
         display: none;
       }
     }
+    @include sm {
+      display: block;
+      font-size: 18px;
+    }
   }
   &__keyResult-container {
-    position: absolute;
-    width: 194px;
-    top: 5px;
-    right: -66px;
+    width: 100%;
+    text-align: start;
     @include sm {
       position: inherit;
       width: 100%;
       right: 0;
       top: 0;
-      text-align: start;
     }
   }
-
-  &__key-result {
-    width: 200px;
-  }
-  &__span {
-    width: 300px;
+  &__keyResult {
+    border: none;
+    background-color: inherit;
+    font-size: 16px;
+    width: 100%;
+    border: 2px solid #e8ecee;
+    border-radius: 8px;
+    height: 34px;
+    @include sm {
+      padding: 0;
+      font-size: 18px;
+      margin-top: 16px;
+      display: block;
+    }
   }
 }

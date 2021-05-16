@@ -6,27 +6,36 @@ li {
 }
 
 .manage-header {
-  padding: 0 62px;
-  background-color: #e9e3df;
+  position: absolute;
+  z-index: 1000;
+  top: -60px;
+  left: 12%;
+  padding: 0 42px;
   @include sm {
     padding: 0 34px;
   }
 }
 
 .nav {
+  position: fixed;
   z-index: 1000;
   padding: 0;
-  max-width: 1200px;
   height: 56px;
   display: flex;
   margin: 0 auto;
   list-style: none;
   align-items: center;
   font-size: 14px;
-  font-weight: 600;
   @include sm {
+    display: none;
     padding: 0;
     justify-content: space-between;
+  }
+  span {
+    color: #6f7782;
+    &:hover {
+      color: #000;
+    }
   }
   .okr {
     align-items: center;
@@ -42,11 +51,11 @@ li {
     &::before {
       content: '';
       position: absolute;
-      bottom: -20px;
+      bottom: -25px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
-      background-color: #757575;
+      background-color: #151b26;
       height: 3px;
       border-radius: 2px;
       transition: width 0.4s;
@@ -56,7 +65,7 @@ li {
     }
     &:hover {
       &::before {
-        width: 100%;
+        width: 75%;
       }
     }
     @include sm {

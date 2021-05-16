@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CompleteOkrComponent } from '../complete-okr/complete-okr.component';
 import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
@@ -11,7 +10,9 @@ const routes: Routes = [
       {
         path: 'edit',
         loadChildren: () =>
-          import('../edit/edit.module').then((m) => m.EditModule),
+          import('../parent-okr-form/parent-okr-form.module').then(
+            (m) => m.ParentOkrFormModule
+          ),
       },
       {
         path: 'home',
@@ -21,7 +22,9 @@ const routes: Routes = [
       {
         path: 'okr-edit',
         loadChildren: () =>
-          import('../okr-edit/okr-edit.module').then((m) => m.OkrEditModule),
+          import('../child-okr-form/child-okr-form.module').then(
+            (m) => m.ChildOkrFormModule
+          ),
       },
       {
         path: 'secondOkr',
@@ -38,8 +41,11 @@ const routes: Routes = [
           ),
       },
       {
-        path: ':secondOkrId',
-        component: CompleteOkrComponent,
+        path: 'complete',
+        loadChildren: () =>
+          import('../completed-child-okr/completed-child-okr.module').then(
+            (m) => m.CompletedChildOkrModule
+          ),
       },
     ],
   },

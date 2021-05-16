@@ -1,7 +1,10 @@
 <div class="delete-account-dialog">
   <h2 class="delete-account-dialog__title">退会</h2>
   <div class="delete-account-dialog__content">
-    <p>すべてのデータが削除されます。よろしいですか？</p>
+    <p>
+      退会は永久的なもので、元に戻すことができません。アカウントを退会するとすべてのデータが削除されます。よろしいですか？
+    </p>
+
     <p>※削除されたデータはもとに戻すことはできません。</p>
   </div>
   <div class="delete-account-dialog__action">
@@ -12,7 +15,11 @@
     >
       キャンセル
     </button>
-    <button color="primary" mat-raised-button (click)="deleteAccount(okrId)">
+    <button
+      mat-raised-button
+      (click)="deleteAccount(okrId)"
+      class="delete-account-dialog__delete-account"
+    >
       退会する
     </button>
   </div>

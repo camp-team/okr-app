@@ -32,6 +32,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +65,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     MatIconModule,
     MatMenuModule,
     MatTooltipModule,
+    MatDividerModule,
+    MatListModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

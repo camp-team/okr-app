@@ -1,20 +1,23 @@
 <div class="create-firstOkr-dialog">
-  <div class="container">
-    <div class="main">
-      <h1 class="main__title">OKRへようこそ！</h1>
-      <img
-        src="/assets/images/wellcome.svg"
-        alt="ダイアログ画像"
-        class="main__img"
-      />
-      <p class="main__content">目標に向かって頑張りましょう！</p>
+  <div class="main">
+    <img
+      src="/assets/images/wellcome.svg"
+      alt="ダイアログ画像"
+      class="main__img"
+    />
+    <div class="main__content">
+      <h1 class="main__title">
+        {{ userName }}さん、<br />
+        OKRへようこそ！
+      </h1>
+      <p>目標に向かって頑張りましょう！</p>
     </div>
+  </div>
 
-    <div class="action">
-      <a mat-button (click)="close()" class="action__close">閉じる</a>
-      <a mat-button (click)="createOkr()" class="action__transition-secondOkr">
-        OKRを作成する
-      </a>
-    </div>
+  <div class="action">
+    <a mat-button (click)="close()" class="action__close">閉じる</a>
+    <a mat-button (click)="createOkr()" class="action__transition-secondOkr">
+      OKRを作成する
+    </a>
   </div>
 </div>

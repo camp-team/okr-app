@@ -1,8 +1,33 @@
 @import 'variables';
 @import 'mixins';
 
-.container {
+.footer {
+  background-color: #151b26;
+  text-align: center;
+  padding: 60px 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   @include sm {
-    padding: 0 16px;
+    padding: 32px 0;
   }
+}
+
+.footer-navigations {
+  margin-bottom: 40px;
+  color: #ffffff;
+}
+
+a {
+  text-decoration: none;
+  margin-right: 16px;
+  color: inherit;
+  @include sm {
+    display: block;
+    padding-bottom: 8px;
+  }
+}
+.copyright {
+  color: #ffffff;
+  font-size: 16px;
 }

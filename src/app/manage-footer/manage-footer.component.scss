@@ -1,0 +1,30 @@
+@import 'mixins';
+
+.sp-footer {
+  display: none;
+  @include sm {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    display: block;
+    text-align: center;
+    background-color: #151b26;
+    height: 100px;
+    bottom: 0;
+  }
+  &__navs {
+    @include sm {
+      padding-top: 12px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+    }
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+    span {
+      display: block;
+    }
+  }
+}

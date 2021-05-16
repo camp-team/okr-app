@@ -3,15 +3,17 @@
 
 .objective {
   display: flex;
-  margin-bottom: 12px;
-  align-items: center;
+  margin: 0 0 12px 8px;
+  @include sm {
+    margin: 0 0 12px;
+  }
   &__title {
     position: relative;
-    font-size: 20px;
-    width: 150px;
+    font-size: 16px;
+    width: 120px;
+    color: #6f7782;
     @include sm {
       min-width: 160px;
-      font-size: 20px;
     }
     &::after {
       content: ':';
@@ -24,14 +26,18 @@
     }
   }
   &__form {
-    margin: 0;
-    background-color: inherit;
-    font-size: 20px;
-    border-style: none;
-    width: 300px;
+    font-size: 16px;
+    border: 2px solid #e8ecee;
+    border-radius: 8px;
+    line-height: 22px;
+    width: 440px;
     @include sm {
-      width: 300px;
+      width: 90%;
+      margin-top: 6px;
     }
+  }
+  @include sm {
+    display: block;
   }
 }
 
@@ -41,39 +47,67 @@ mat-error {
   font-size: 12px;
 }
 
-.container {
-  @include sm {
-    padding: 0 16px;
+.data {
+  overflow-x: auto;
+  &__container {
+    padding-bottom: 16px;
+    @include sm {
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      width: 90%;
+    }
   }
 }
 
+form {
+  display: inline-block;
+  width: 100%;
+}
+
 .second-okr {
-  padding: 24px 62px;
-  // margin: 0 96px 0;
+  padding: 12px 62px;
   margin: 0 auto;
-  max-width: 1200px;
   height: 100%;
   @include sm {
     margin: 0;
     padding: 40px 0;
   }
-}
-
-.data {
-  overflow-x: auto;
-}
-
-.second-okr {
   &__thead {
     margin-bottom: 12px;
   }
   th,
   td {
     position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.36);
-    color: rgba(0, 0, 0, 0.36);
+    border: 1px solid #e8ecee;
     font-weight: 300;
-    min-width: 230px;
+    color: #6f7782;
+  }
+  td {
+    &:hover {
+      input {
+        display: inline-block;
+        background-color: #fff;
+        border: 1px solid #e8ecee;
+      }
+    }
+    input:focus {
+      position: absolute;
+      z-index: 300;
+      top: 0;
+      width: 93%;
+      height: 100%;
+      padding: 0 12px;
+      background-color: #fff;
+      outline: none;
+      border-top: 1px solid #1296d8;
+      border-bottom: 1px solid #1296d8;
+    }
+  }
+  th {
+    text-align: start;
+    padding: 0 8px;
+    font-size: 12px;
   }
   tr {
     height: 36px;
@@ -82,7 +116,6 @@ mat-error {
     width: 100%;
     border-collapse: collapse;
     white-space: nowrap;
-    margin-bottom: 12px;
     @include md {
       max-width: 1000px;
     }
@@ -95,118 +128,123 @@ mat-error {
   .body-left {
     border-left-style: none;
   }
-  &__container {
-    margin-bottom: 32px;
+  .body-left {
+    position: relative;
+    &:hover {
+      .select-child-okr-remove {
+        display: inline;
+      }
+    }
+  }
+  .target,
+  .current,
+  .percentage {
+    width: 180px;
+    @include sm {
+      width: 80px;
+    }
+  }
+  .percentage,
+  .body-right {
+    &:hover {
+      input {
+        background-color: inherit;
+        border: none;
+      }
+    }
+  }
+  .percent,
+  .header-right {
+    background-color: #f3f3f4;
   }
   &__key-result {
-    width: 98%;
-    height: 30px;
+    width: 77%;
+    line-height: 20px;
     border-style: none;
     background-color: transparent;
+    padding: 0 12px;
     @include sm {
-      width: 90%;
+      width: inherit;
       font-size: 16px;
     }
   }
-  &__title {
-    display: flex;
-    margin: 0 0 0 0;
-    padding-bottom: 56px;
-    justify-content: center;
-    font-size: 30px;
-    @include sm {
-      font-size: 24px;
-      letter-spacing: 2px;
-      font-weight: 500;
-      padding-bottom: 56px;
-      margin: 0;
-    }
-  }
-  &__title-content {
-    position: relative;
-    font-size: 26px;
-    letter-spacing: 1.5px;
-    margin: 0;
-    &::before {
-      content: '';
-      position: absolute;
-      top: 60px;
-      right: 50%;
-      transform: translateX(50%);
-      width: 70px;
-      height: 5px;
-      background-color: #757575;
-      border-radius: 2px;
-    }
-  }
-  &__add-row {
-    margin-top: 8px;
-  }
-  &__remove {
-    height: 35px;
-    margin-top: 6px;
-  }
-  &__add-row,
-  &__remove {
+  &__add-task {
+    text-align: start;
     position: relative;
     font-size: 14px;
-    border-style: none;
     cursor: pointer;
-    color: rgba(0, 0, 0, 0.36);
-    align-items: center;
+    margin: 0 0 6px 0;
+    padding: 4px 16px;
+    width: 100%;
+    background-color: inherit;
+    border: none;
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
-  }
-  &__add-row span {
-    position: absolute;
-    top: 0;
-  }
-  &__remove span {
-    position: absolute;
-    top: 5px;
+    span {
+      position: absolute;
+      top: 0;
+      padding: 3px 0 0;
+      color: rgba(55, 53, 47, 0.4);
+    }
+    mat-icon {
+      color: rgba(55, 53, 47, 0.4);
+    }
   }
   &__average {
+    font-size: 14px;
     text-align: center;
     margin-bottom: 12px;
+    @include sm {
+      text-align: start;
+    }
   }
   &__average-text {
     margin-right: 8px;
+    color: rgba(55, 53, 47, 0.4);
+  }
+}
+
+.edit-tr-child-second-okr {
+  &:hover {
+    background-color: #f6f8f9;
+  }
+}
+
+.select-child-okr-remove {
+  display: none;
+  position: absolute;
+  z-index: 500;
+  top: 0;
+  right: 10px;
+  color: rgba(0, 0, 0, 0.36);
+  font-size: 12px;
+  cursor: pointer;
+  mat-icon {
+    width: 16px;
+    font-size: 20px;
   }
 }
 
 .material-icons {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .table-icon {
   position: absolute;
-  top: 7px;
+  top: 9px;
 }
 
 .not-exist {
   padding-bottom: 0;
-  &__img {
-    height: 200px;
-    margin: 0 auto;
-    display: block;
-    @include sm {
-      height: 200px;
-    }
-  }
-  &__content {
-    padding: 24px 0;
-  }
-  &__text {
-    text-align: center;
-    font-size: 20px;
-    @include sm {
-      font-size: 16px;
-    }
-  }
   &__title {
     text-align: center;
     font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    margin-top: 48px;
+    margin-bottom: 36px;
+    color: #151b26;
     @include sm {
       font-size: 20px;
       font-weight: 400;
