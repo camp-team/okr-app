@@ -51,7 +51,10 @@
       <div class="home__list-item-grid">
         <div class="home__tile-Structure">
           <ng-container *ngIf="childOkrId; else notSecondOkrId">
-            <a routerLink="/manage/secondOkr" [queryParams]="{ v: childOkrId }">
+            <a
+              routerLink="/manage/secondOkr"
+              [queryParams]="{ id: childOkrId }"
+            >
               <div class="home__list-item">
                 <mat-icon>airplanemode_active</mat-icon>
               </div>
