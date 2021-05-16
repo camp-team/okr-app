@@ -27,7 +27,7 @@ export class SecondOkrComponent implements OnInit {
   parentOkrObjectTitles: {
     [parentOkrObjectId: string]: FormArray;
   } = {};
-  secondOkrObjectTitle: FormGroup;
+  parentOkrObjectTitle: FormGroup;
   secondOkrObjects: SecondOkrObject[] = [];
   secondOkrObjects$: Observable<
     SecondOkrObject[]
@@ -99,16 +99,16 @@ export class SecondOkrComponent implements OnInit {
   }
 
   initSecondOkrObject(secondOkrObject) {
-    this.secondOkrObjectTitle = this.fb.group({
+    this.parentOkrObjectTitle = this.fb.group({
       primaryTitle: [
         secondOkrObject.secondOkrObject,
         [Validators.required, Validators.maxLength(20)],
       ],
     });
     this.parentOkrObjectTitles[secondOkrObject.secondOkrObjectId].push(
-      this.secondOkrObjectTitle
+      this.parentOkrObjectTitle
     );
-    this.secondOkrObjectTitle.valueChanges
+    this.parentOkrObjectTitle.valueChanges
       .pipe(debounceTime(500))
       .subscribe((secondOkrObjects) => {
         this.updateSecondOkrPrimaryTitle(
