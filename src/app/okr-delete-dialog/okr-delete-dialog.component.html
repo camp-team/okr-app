@@ -6,7 +6,7 @@
   <div class="okr-delete-dialog__action">
     <button
       mat-raised-button
-      (click)="closeDeleteOKRDialog()"
+      (click)="closeDialog()"
       class="okr-delete-dialog__cancel"
     >
       キャンセル
@@ -14,7 +14,7 @@
     <button
       color="primary"
       mat-raised-button
-      (click)="okrDelete()"
+      (click)="parentOkrDelete()"
       class="okr-delete-dialog__okr-delete"
     >
       削除する

@@ -25,7 +25,7 @@ export class OkrDeleteDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  okrDelete() {
+  parentOkrDelete() {
     this.loadingService.loading = true;
     const callable = this.fns.httpsCallable('deleteOkr');
     this.dialogRef.close();
@@ -39,7 +39,7 @@ export class OkrDeleteDialogComponent implements OnInit {
       });
   }
 
-  closeDeleteOKRDialog() {
+  closeDialog() {
     this.dialogRef.close();
   }
 }
