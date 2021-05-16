@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providers: [],
 })
 export class ParentOkrFormComponent implements OnInit {
+  parentOkrs: Okr[];
   objectiveForm: number = 3;
   isParentOkrcomplete: boolean;
   parentOkrform = this.fb.group({
@@ -45,11 +46,15 @@ export class ParentOkrFormComponent implements OnInit {
     private tutorialService: TutorialService,
     private loadingService: LoadingService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.okrService.parentOkrs$.subscribe((parentOkrs) => {
+      this.parentOkrs = parentOkrs;
+      this.checkParentOkr();
+    });
+  }
 
   ngOnInit() {
     this.initObjectiveForm();
-    this.checkParentOkr();
     // this.determineIfStartingTutorial();
   }
 
@@ -69,13 +74,11 @@ export class ParentOkrFormComponent implements OnInit {
   }
 
   checkParentOkr() {
-    this.okrService.parentOkrs$.subscribe((parentOkr) => {
-      if (parentOkr.length === 0) {
-        this.isParentOkrcomplete = false;
-      } else {
-        this.isParentOkrcomplete = true;
-      }
-    });
+    if (this.parentOkrs.length === 0) {
+      this.isParentOkrcomplete = false;
+    } else {
+      this.isParentOkrcomplete = true;
+    }
   }
 
   // determineIfStartingTutorial(): void {
