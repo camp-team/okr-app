@@ -21,21 +21,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ParentOkrFormComponent implements OnInit {
   parentOkrs: Okr[];
-  objectiveForm: number = 3;
+  parentOkrObjectiveForm: number = 3;
   isParentOkrcomplete: boolean;
   parentOkrform = this.fb.group({
     objective: ['', [Validators.required, Validators.maxLength(40)]],
-    primaries: this.fb.array([]),
+    keyResults: this.fb.array([]),
   });
 
-  get primaries(): FormArray {
-    return this.parentOkrform.get('primaries') as FormArray;
+  get keyResults(): FormArray {
+    return this.parentOkrform.get('keyResults') as FormArray;
   }
   get objectiveControl() {
     return this.parentOkrform.get('objective') as FormControl;
   }
-  get primariesControl() {
-    return this.parentOkrform.get('primaries') as FormControl;
+  get keyResultsControl() {
+    return this.parentOkrform.get('keyResults') as FormControl;
   }
 
   constructor(
@@ -60,17 +60,17 @@ export class ParentOkrFormComponent implements OnInit {
 
   initObjectiveForm() {
     for (let i = 0; i < 3; i++) {
-      this.primaries.push(
+      this.keyResults.push(
         new FormControl('', [Validators.required, Validators.maxLength(20)])
       );
     }
   }
 
   addObjectiveForm() {
-    this.primaries.push(
+    this.keyResults.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
-    this.objectiveForm++;
+    this.parentOkrObjectiveForm++;
   }
 
   checkParentOkr() {
@@ -89,8 +89,8 @@ export class ParentOkrFormComponent implements OnInit {
   // }
 
   removeObjectiveForm(i: number) {
-    this.primaries.removeAt(i);
-    this.objectiveForm--;
+    this.keyResults.removeAt(i);
+    this.parentOkrObjectiveForm--;
   }
 
   createParentOkr() {
@@ -98,10 +98,10 @@ export class ParentOkrFormComponent implements OnInit {
     const parentOkrForm = this.parentOkrform.value;
     const parentOkr: Omit<Okr, 'okrId' | 'isComplete'> = {
       title: parentOkrForm.objective,
-      primaries: parentOkrForm.primaries,
+      primaries: parentOkrForm.keyResults,
       creatorId: this.authService.uid,
     };
-    const parentOkrKeyResults = parentOkrForm.primaries;
+    const parentOkrKeyResults = parentOkrForm.keyResults;
     this.okrService
       .createParentOkr({
         okrType: parentOkr,

@@ -22,8 +22,8 @@
 
           <div class="create-parent-okr__contents">
             <div
-              formArrayName="primaries"
-              *ngFor="let primary of primaries.controls; let i = index"
+              formArrayName="keyResults"
+              *ngFor="let keyResult of keyResults.controls; let i = index"
               class="create-parent-okr__form-structure"
             >
               <label class="create-parent-okr__lavel"
@@ -37,7 +37,7 @@
                   placeholder="例: 「30歳までにフォロワー1万人」など"
                   class="create-parent-okr__input"
                 />
-                <mat-error *ngIf="primary.hasError('maxlength')"
+                <mat-error *ngIf="keyResult.hasError('maxlength')"
                   >文字数は最大で20文字までです</mat-error
                 >
                 <button
@@ -53,7 +53,7 @@
               </div>
             </div>
             <button
-              *ngIf="objectiveForm < 3"
+              *ngIf="parentOkrObjectiveForm < 3"
               class="add-form create-parent-okr__add-form"
               type="button"
               mat-raised-button
