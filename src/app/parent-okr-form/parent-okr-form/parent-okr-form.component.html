@@ -9,13 +9,13 @@
               >なりたい姿を入力(Objective)</label
             >
             <input
-              formControlName="title"
+              formControlName="objective"
               type="text"
               autocomplete="off"
               placeholder="例: 「有名になる」など"
               class="create-parent-okr__input"
             />
-            <mat-error *ngIf="titleControl.hasError('maxlength')"
+            <mat-error *ngIf="objectiveControl.hasError('maxlength')"
               >文字数は最大で20文字までです</mat-error
             >
           </div>

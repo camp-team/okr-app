@@ -23,15 +23,15 @@ export class ParentOkrFormComponent implements OnInit {
   objectiveForm: number = 3;
   isParentOkrcomplete: boolean;
   parentOkrform = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(40)]],
+    objective: ['', [Validators.required, Validators.maxLength(40)]],
     primaries: this.fb.array([]),
   });
 
   get primaries(): FormArray {
     return this.parentOkrform.get('primaries') as FormArray;
   }
-  get titleControl() {
-    return this.parentOkrform.get('title') as FormControl;
+  get objectiveControl() {
+    return this.parentOkrform.get('objective') as FormControl;
   }
   get primariesControl() {
     return this.parentOkrform.get('primaries') as FormControl;
@@ -94,7 +94,7 @@ export class ParentOkrFormComponent implements OnInit {
     this.loadingService.loading = true;
     const formedOkrData = this.parentOkrform.value;
     const okrValue: Omit<Okr, 'okrId' | 'isComplete'> = {
-      title: formedOkrData.title,
+      title: formedOkrData.objective,
       primaries: formedOkrData.primaries,
       creatorId: this.authService.uid,
     };
