@@ -36,10 +36,10 @@ export class SecondOkrComponent implements OnInit {
     SecondOkrKeyResult[]
   > = this.okrService.getSecondOkrKeyResultsCollection(this.childOkrId);
   isChildOkrComplete: boolean;
-  isChildOkrCompletes = [];
   ischildOkr: boolean;
   childOkr: SecondOkr;
   childOkrKeyResultId: string;
+  childOkrs: SecondOkr[];
 
   constructor(
     @Inject(LOCALE_ID) private locale: string,
@@ -52,9 +52,13 @@ export class SecondOkrComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    combineLatest([this.childOkrObjectives$, this.childOkrKeyResults$])
+    combineLatest([
+      this.childOkrObjectives$,
+      this.childOkrKeyResults$,
+      this.okrService.childOkrs$,
+    ])
       .pipe(take(1))
-      .subscribe(([childOkrObjectives, childOkrKeyResults]) => {
+      .subscribe(([childOkrObjectives, childOkrKeyResults, childOkrs]) => {
         childOkrObjectives.forEach((childOkrObjective) => {
           this.childOkrObjectives.push(childOkrObjective);
           this.rows[childOkrObjective.secondOkrObjectId] = this.fb.array([]);
@@ -74,27 +78,26 @@ export class SecondOkrComponent implements OnInit {
             childOkrKeyResultId: childOkrKeyResult.secondOkrKeyResultId,
           });
         });
+        this.childOkrs = childOkrs;
+        this.checkChildOkr();
       });
-    this.okrService.childOkrs$.subscribe((childOkrs) => {
-      if (childOkrs.length === 0) {
-        this.ischildOkr = false;
-      } else {
-        this.ischildOkr = true;
-      }
-      childOkrs.map((childOkr) => {
-        this.isChildOkrComplete = childOkr.isComplete;
-        this.isChildOkrCompletes.push(this.isChildOkrComplete);
-        this.isChildOkrCompletes.forEach((childOkrComplete) => {
-          if (childOkrComplete === true) {
-            this.isChildOkrComplete = true;
-          }
-        });
-        if (childOkr.isComplete === true) {
-          this.childOkr = childOkr;
-        }
-      });
-    });
     // this.determineIfStartingTutorial();
+  }
+
+  checkChildOkr() {
+    if (this.childOkrs.length === 0) {
+      this.ischildOkr = false;
+    } else {
+      this.ischildOkr = true;
+    }
+    this.childOkrs.forEach((childOkr) => {
+      if (childOkr.isComplete === true) {
+        this.isChildOkrComplete = true;
+      }
+      if (childOkr.isComplete === true) {
+        this.childOkr = childOkr;
+      }
+    });
   }
 
   initializeChildOkrObject(childOkrObjective: SecondOkrObject) {

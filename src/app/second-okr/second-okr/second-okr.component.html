@@ -3,18 +3,18 @@
     <app-second-okr-title></app-second-okr-title>
     <div class="data">
       <div
-        *ngFor="let secondOkrObject of childOkrObjectives; let i = index"
+        *ngFor="let childOkrObjective of childOkrObjectives; let i = index"
         class="data__container"
       >
         <form
           [formGroup]="
-            childOkrObjectivesForm[secondOkrObject.secondOkrObjectId]
+            childOkrObjectivesForm[childOkrObjective.secondOkrObjectId]
           "
         >
           <div
             *ngFor="
               let childOkrObjective of childOkrObjectivesForm[
-                secondOkrObject.secondOkrObjectId
+                childOkrObjective.secondOkrObjectId
               ].controls;
               index as primaryArrayIndex
             "
@@ -53,7 +53,7 @@
           </div>
         </form>
         <div class="second-okr__table">
-          <form [formGroup]="rows[secondOkrObject.secondOkrObjectId]">
+          <form [formGroup]="rows[childOkrObjective.secondOkrObjectId]">
             <table>
               <thead>
                 <tr>
@@ -97,7 +97,8 @@
               <tbody>
                 <tr
                   *ngFor="
-                    let row of rows[secondOkrObject.secondOkrObjectId].controls;
+                    let row of rows[childOkrObjective.secondOkrObjectId]
+                      .controls;
                     index as rowIndex
                   "
                   class="edit-tr-child-second-okr"
@@ -131,7 +132,10 @@
                         class="select-child-okr-remove"
                         type="button"
                         (click)="
-                          removeRow(secondOkrObject.secondOkrObjectId, rowIndex)
+                          removeRow(
+                            childOkrObjective.secondOkrObjectId,
+                            rowIndex
+                          )
                         "
                       >
                         <mat-icon class="select-child-okr-remove-icon">
@@ -220,8 +224,8 @@
               </tbody>
             </table>
             <button
-              *ngIf="rows[secondOkrObject.secondOkrObjectId].length < 3"
-              (click)="addRow(secondOkrObject.secondOkrObjectId)"
+              *ngIf="rows[childOkrObjective.secondOkrObjectId].length < 3"
+              (click)="addRow(childOkrObjective.secondOkrObjectId)"
               class="add-row second-okr__add-task"
             >
               <mat-icon>add</mat-icon>
@@ -231,11 +235,11 @@
         </div>
         <div class="second-okr__average">
           <span class="second-okr__average-text">達成度</span>
-          <ng-container *ngIf="secondOkrObject.average === 0; else blank">
-            <span>{{ secondOkrObject.average }}%</span>
+          <ng-container *ngIf="childOkrObjective.average === 0; else blank">
+            <span>{{ childOkrObjective.average }}%</span>
           </ng-container>
           <ng-template #blank>
-            <span>{{ secondOkrObject.average }}%</span>
+            <span>{{ childOkrObjective.average }}%</span>
           </ng-template>
         </div>
       </div>
