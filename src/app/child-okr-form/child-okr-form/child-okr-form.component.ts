@@ -117,14 +117,14 @@ export class ChildOkrFormComponent implements OnInit {
     const childOkrKeyResultsInitialForm = this.getChildOkrKeyResultsInitialForm();
     const childOkrObjectives = childOkrObjectiveFormInformation.primaries;
     this.okrService
-      .createSecondOkr(
-        childOkrObjectiveInformation,
-        childOkrObjectives,
-        childOkrKeyResultsInitialForm
-      )
+      .createSecondOkr({
+        childOkr: childOkrObjectiveInformation,
+        Objectives: childOkrObjectives,
+        initialForm: childOkrKeyResultsInitialForm,
+      })
       .then(() => {
         this.okrService
-          .getSecondOkrId()
+          .getChildOkrInProgress()
           .pipe(
             tap(() => (this.loadingService.loading = true)),
             debounceTime(400)
