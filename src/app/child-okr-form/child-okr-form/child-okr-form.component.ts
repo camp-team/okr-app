@@ -102,7 +102,7 @@ export class ChildOkrFormComponent implements OnInit {
   cleateChildOkr() {
     this.loadingService.loading = true;
     const childOkrObjectiveFormInformation = this.childOkrForm.value;
-    const childOkrObjectiveInformation: Omit<
+    const childOkrObjective: Omit<
       SecondOkr,
       'secondOkrId' | 'isComplete' | 'start'
     > = {
@@ -110,13 +110,13 @@ export class ChildOkrFormComponent implements OnInit {
       secondOkrObjects: childOkrObjectiveFormInformation.objectives,
       creatorId: this.authService.uid,
     };
-    const childOkrKeyResultsInitialForm = this.getChildOkrKeyResultsInitialForm();
+    const childInitialOkrKeyResultsForm = this.getInitialChildOkrKeyResultsForm();
     const childOkrObjectives = childOkrObjectiveFormInformation.objectives;
     this.okrService
       .createSecondOkr({
-        childOkr: childOkrObjectiveInformation,
+        childOkr: childOkrObjective,
         Objectives: childOkrObjectives,
-        initialForm: childOkrKeyResultsInitialForm,
+        initialForm: childInitialOkrKeyResultsForm,
       })
       .then(() => {
         this.okrService
@@ -136,10 +136,10 @@ export class ChildOkrFormComponent implements OnInit {
       });
   }
 
-  getChildOkrKeyResultsInitialForm() {
+  getInitialChildOkrKeyResultsForm() {
     const now = new Date();
     const date = formatDate(now, 'yyyy/MM/dd', this.locale);
-    const defaultSecondOkrData = this.fb.group({
+    const initialChildOkrForm = this.fb.group({
       key: ['', [Validators.required, Validators.maxLength(20)]],
       target: [
         '',
@@ -160,21 +160,20 @@ export class ChildOkrFormComponent implements OnInit {
       percentage: [0 + '%', [Validators.required]],
       lastUpdated: [date, [Validators.required]],
     });
-    const defaultSecondOkrFormData = defaultSecondOkrData.value;
-    const defaultSecondOkrValue: Omit<
+    const initialChildOkr: Omit<
       SecondOkrKeyResult,
       | 'secondOkrKeyResultId'
       | 'lastUpdated'
       | 'secondOkrObjectId'
       | 'secondOkrId'
     > = {
-      key: defaultSecondOkrFormData.key,
-      target: defaultSecondOkrFormData.target,
-      current: defaultSecondOkrFormData.current,
-      percentage: defaultSecondOkrFormData.percentage,
+      key: initialChildOkrForm.value.key,
+      target: initialChildOkrForm.value.target,
+      current: initialChildOkrForm.value.current,
+      percentage: initialChildOkrForm.value.percentage,
       uid: this.authService.uid,
     };
-    return defaultSecondOkrValue;
+    return initialChildOkr;
   }
 
   moveToChildOkrOfProgress() {
