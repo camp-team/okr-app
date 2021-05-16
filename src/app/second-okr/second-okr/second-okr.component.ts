@@ -29,18 +29,17 @@ export class SecondOkrComponent implements OnInit {
   } = {};
   childOkrObjectiveForm: FormGroup;
   childOkrObjectives: SecondOkrObject[] = [];
-  secondOkrObjectives$: Observable<
+  childOkrObjectives$: Observable<
     SecondOkrObject[]
   > = this.okrService.getSecondOkrObjects(this.childOkrId);
-  secondOkrKeyResults$: Observable<
+  childOkrKeyResults$: Observable<
     SecondOkrKeyResult[]
   > = this.okrService.getSecondOkrKeyResultsCollection(this.childOkrId);
   isChildOkrComplete: boolean;
   isChildOkrCompletes = [];
-  isSecondOkr: boolean;
-  secondOkr: SecondOkr;
-  secondOkrKeyResultId: string;
-  secondOkrObjectsId = [];
+  ischildOkr: boolean;
+  childOkr: SecondOkr;
+  childOkrKeyResultId: string;
 
   constructor(
     @Inject(LOCALE_ID) private locale: string,
@@ -53,7 +52,7 @@ export class SecondOkrComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    combineLatest([this.secondOkrObjectives$, this.secondOkrKeyResults$])
+    combineLatest([this.childOkrObjectives$, this.childOkrKeyResults$])
       .pipe(take(1))
       .subscribe(([secondOkrObjects, secondOkrKeyResults]) => {
         secondOkrObjects.forEach((secondOkrObject) => {
@@ -65,8 +64,6 @@ export class SecondOkrComponent implements OnInit {
           this.initSecondOkrObject(secondOkrObject);
         });
         secondOkrKeyResults.forEach((secondOkrKeyResult) => {
-          console.log(secondOkrKeyResult);
-
           this.initRows(
             secondOkrKeyResult.key,
             secondOkrKeyResult.target,
@@ -80,9 +77,9 @@ export class SecondOkrComponent implements OnInit {
       });
     this.okrService.childOkrs$.subscribe((childOkrs) => {
       if (childOkrs.length === 0) {
-        this.isSecondOkr = false;
+        this.ischildOkr = false;
       } else {
-        this.isSecondOkr = true;
+        this.ischildOkr = true;
       }
       childOkrs.map((childOkr) => {
         this.isChildOkrComplete = childOkr.isComplete;
@@ -93,7 +90,7 @@ export class SecondOkrComponent implements OnInit {
           }
         });
         if (childOkr.isComplete === true) {
-          this.secondOkr = childOkr;
+          this.childOkr = childOkr;
         }
       });
     });
@@ -220,7 +217,7 @@ export class SecondOkrComponent implements OnInit {
       .pipe(take(1))
       .subscribe((secondOkrKeyResults) => {
         secondOkrKeyResults.forEach((secondOkrKeyResult) => {
-          this.secondOkrKeyResultId = secondOkrKeyResult.secondOkrKeyResultId;
+          this.childOkrKeyResultId = secondOkrKeyResult.secondOkrKeyResultId;
         });
         this.row = this.fb.group({
           key: ['', [Validators.required, Validators.maxLength(20)]],
@@ -242,7 +239,7 @@ export class SecondOkrComponent implements OnInit {
           ],
           percentage: [0 + '%', [Validators.required]],
           lastUpdated: [date, [Validators.required]],
-          secondOkrKeyResultId: this.secondOkrKeyResultId,
+          secondOkrKeyResultId: this.childOkrKeyResultId,
         });
         this.rows[secondOkrObjectId].push(this.row);
         this.editKeyResults(secondOkrObjectId);
@@ -268,7 +265,7 @@ export class SecondOkrComponent implements OnInit {
     row: SecondOkrKeyResult,
     rowLength
   ) {
-    this.secondOkrKeyResults$.subscribe((secondOkrKeyResults) => {
+    this.childOkrKeyResults$.subscribe((secondOkrKeyResults) => {
       let average = 0;
       const secondOkrKeyResultPercentage = secondOkrKeyResults.filter(
         (secondOkrKeyResult) => {
