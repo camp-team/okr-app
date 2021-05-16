@@ -100,21 +100,24 @@ export class ChildOkrFormComponent implements OnInit {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
-    this.objectForm = this.objectForm + 1;
+    this.objectForm = this.objectForm++;
   }
 
   cleateSecondOkr() {
     this.loadingService.loading = true;
-    const createdSecondOkrFormData = this.form.value;
-    const okrValue: Omit<SecondOkr, 'secondOkrId' | 'isComplete' | 'start'> = {
-      end: createdSecondOkrFormData.end,
+    const childOkrObjectiveFormInformation = this.form.value;
+    const childOkrObjectiveInformation: Omit<
+      SecondOkr,
+      'secondOkrId' | 'isComplete' | 'start'
+    > = {
+      end: childOkrObjectiveFormInformation.end,
+      secondOkrObjects: childOkrObjectiveFormInformation.primaries,
       creatorId: this.authService.uid,
-      secondOkrObjects: createdSecondOkrFormData.primaries,
     };
     const kyeResult = this.secondOkrKeyResults();
-    const primaryArray = createdSecondOkrFormData.primaries;
+    const primaries = childOkrObjectiveFormInformation.primaries;
     this.okrService
-      .createSecondOkr(okrValue, primaryArray, kyeResult)
+      .createSecondOkr(childOkrObjectiveInformation, primaries, kyeResult)
       .then(() => {
         this.okrService
           .getSecondOkrId()
