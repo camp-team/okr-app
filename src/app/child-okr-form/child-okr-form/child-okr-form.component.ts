@@ -26,16 +26,16 @@ export class ChildOkrFormComponent implements OnInit {
   maxDate: Date;
   objectForm: number = 3;
   isChildOkrCompletes: boolean;
-  form = this.fb.group({
+  childOkrForm = this.fb.group({
     primaries: this.fb.array([]),
     end: ['', [Validators.required, Validators.maxLength(40)]],
   });
 
   get primaries(): FormArray {
-    return this.form.get('primaries') as FormArray;
+    return this.childOkrForm.get('primaries') as FormArray;
   }
   get endControl() {
-    return this.form.get('end') as FormControl;
+    return this.childOkrForm.get('end') as FormControl;
   }
 
   constructor(
@@ -89,19 +89,19 @@ export class ChildOkrFormComponent implements OnInit {
 
   removeObjectiveForm(i: number) {
     this.primaries.removeAt(i);
-    this.objectForm = this.objectForm - 1;
+    this.objectForm--;
   }
 
   addObjectiveForm() {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
-    this.objectForm = this.objectForm++;
+    this.objectForm++;
   }
 
-  cleateSecondOkr() {
+  cleateChildOkr() {
     this.loadingService.loading = true;
-    const childOkrObjectiveFormInformation = this.form.value;
+    const childOkrObjectiveFormInformation = this.childOkrForm.value;
     const childOkrObjectiveInformation: Omit<
       SecondOkr,
       'secondOkrId' | 'isComplete' | 'start'

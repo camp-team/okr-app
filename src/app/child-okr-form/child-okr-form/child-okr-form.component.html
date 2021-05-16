@@ -17,7 +17,7 @@
     <div class="create-child-okr__body">
       <div class="container">
         <h3 class="create-child-okr__title">新規タスク</h3>
-        <form [formGroup]="form" (ngSubmit)="cleateSecondOkr()">
+        <form [formGroup]="childOkrForm" (ngSubmit)="cleateChildOkr()">
           <div class="create-child-okr__contents">
             <div
               formArrayName="primaries"
@@ -81,12 +81,13 @@
               </mat-datepicker-toggle>
             </div>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.controls.end.hasError('matEndDateInvalid')"
+            <mat-error
+              *ngIf="childOkrForm.controls.end.hasError('matEndDateInvalid')"
               >期日を入力して下さい</mat-error
             >
           </div>
           <button
-            [disabled]="endControl.invalid || form.invalid"
+            [disabled]="endControl.invalid || childOkrForm.invalid"
             mat-button
             mat-raised-button
             color="primary"
