@@ -3,7 +3,6 @@ import {
   FormBuilder,
   Validators,
   FormControl,
-  FormGroup,
   FormArray,
 } from '@angular/forms';
 import { OkrService } from 'src/app/services/okr.service';
@@ -21,9 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providers: [],
 })
 export class ParentOkrFormComponent implements OnInit {
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  objectiveEdit: number = 3;
+  objectiveForm: number = 3;
   parentOkrIscomplete: boolean;
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(40)]],
@@ -53,7 +50,7 @@ export class ParentOkrFormComponent implements OnInit {
   ngOnInit() {
     this.initObjectiveForm();
     this.checkOkr();
-    this.determineIfStartingTutorial();
+    // this.determineIfStartingTutorial();
   }
 
   initObjectiveForm() {
@@ -68,7 +65,7 @@ export class ParentOkrFormComponent implements OnInit {
     this.primaries.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
-    this.objectiveEdit++;
+    this.objectiveForm++;
   }
 
   checkOkr() {
@@ -81,16 +78,16 @@ export class ParentOkrFormComponent implements OnInit {
     });
   }
 
-  determineIfStartingTutorial(): void {
-    this.tutorialService.startTutorial({
-      okrType: 'parentOkr',
-      groupIndex: 0,
-    });
-  }
+  // determineIfStartingTutorial(): void {
+  //   this.tutorialService.startTutorial({
+  //     okrType: 'parentOkr',
+  //     groupIndex: 0,
+  //   });
+  // }
 
   removeOption(i: number) {
     this.primaries.removeAt(i);
-    this.objectiveEdit--;
+    this.objectiveForm--;
   }
 
   createOkr() {
