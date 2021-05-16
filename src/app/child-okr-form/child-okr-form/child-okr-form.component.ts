@@ -114,10 +114,14 @@ export class ChildOkrFormComponent implements OnInit {
       secondOkrObjects: childOkrObjectiveFormInformation.primaries,
       creatorId: this.authService.uid,
     };
-    const kyeResult = this.secondOkrKeyResults();
-    const primaries = childOkrObjectiveFormInformation.primaries;
+    const childOkrKeyResultsInitialForm = this.childOkrKeyResultsInitialForm();
+    const childOkrObjectives = childOkrObjectiveFormInformation.primaries;
     this.okrService
-      .createSecondOkr(childOkrObjectiveInformation, primaries, kyeResult)
+      .createSecondOkr(
+        childOkrObjectiveInformation,
+        childOkrObjectives,
+        childOkrKeyResultsInitialForm
+      )
       .then(() => {
         this.okrService
           .getSecondOkrId()
@@ -137,7 +141,7 @@ export class ChildOkrFormComponent implements OnInit {
       });
   }
 
-  secondOkrKeyResults() {
+  childOkrKeyResultsInitialForm() {
     const now = new Date();
     const date = formatDate(now, 'yyyy/MM/dd', this.locale);
     const defaultSecondOkrData = this.fb.group({
