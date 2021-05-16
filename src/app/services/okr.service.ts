@@ -359,17 +359,17 @@ export class OkrService {
       .update(secondOkrObject);
   }
 
-  updateSecondOkrPrimaryTitle(
-    uid: string,
-    secondOkrId: string,
-    secondOkrObjectId: string,
-    secondOkrObjects: SecondOkrObject
-  ): Promise<void> {
+  updateSecondOkrPrimaryTitle(params: {
+    uid: string;
+    childOkrId: string;
+    secondOkrObjectId: string;
+    secondOkrObjects: SecondOkrObject;
+  }): Promise<void> {
     return this.db
       .doc(
-        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
+        `users/${params.uid}/secondOkrs/${params.childOkrId}/secondOkrObjects/${params.secondOkrObjectId}`
       )
-      .update({ secondOkrObject: secondOkrObjects });
+      .update({ secondOkrObject: params.secondOkrObjects });
   }
 
   updateSecondOkrKeyResult(

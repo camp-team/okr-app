@@ -110,7 +110,7 @@ export class SecondOkrComponent implements OnInit {
     this.childOkrObjectiveForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe((childOkrObjectives) => {
-        this.updateSecondOkrPrimaryTitle(
+        this.updateChildOkrObjective(
           childOkrObjectives.childOkrObjective,
           childOkrObjective
         );
@@ -325,16 +325,13 @@ export class SecondOkrComponent implements OnInit {
     );
   }
 
-  updateSecondOkrPrimaryTitle(
-    secondOkrObject,
-    secondOkrObjects: SecondOkrObject
-  ) {
-    this.okrService.updateSecondOkrPrimaryTitle(
-      this.authService.uid,
-      this.childOkrId,
-      secondOkrObjects.secondOkrObjectId,
-      secondOkrObject
-    );
+  updateChildOkrObjective(secondOkrObject, secondOkrObjects: SecondOkrObject) {
+    this.okrService.updateSecondOkrPrimaryTitle({
+      uid: this.authService.uid,
+      childOkrId: this.childOkrId,
+      secondOkrObjectId: secondOkrObjects.secondOkrObjectId,
+      secondOkrObjects: secondOkrObject,
+    });
   }
 
   removeRow(secondOkrObjectId: string, rowIndex: number) {
