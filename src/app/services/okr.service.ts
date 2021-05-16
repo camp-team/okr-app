@@ -164,7 +164,7 @@ export class OkrService {
       });
   }
 
-  createSecondOkrKeyResult(
+  createChildOkrKeyResult(
     secondOkrKeyResult: Omit<
       SecondOkrKeyResult,
       'secondOkrKeyResultId' | 'lastUpdated'
@@ -359,33 +359,33 @@ export class OkrService {
       .update(secondOkrObject);
   }
 
-  updateSecondOkrPrimaryTitle(params: {
+  updateChildOkrObjective(params: {
+    childOkrObjective: SecondOkrObject;
     uid: string;
     childOkrId: string;
-    secondOkrObjectId: string;
-    secondOkrObjects: SecondOkrObject;
+    childOkrObjectId: string;
   }): Promise<void> {
     return this.db
       .doc(
-        `users/${params.uid}/secondOkrs/${params.childOkrId}/secondOkrObjects/${params.secondOkrObjectId}`
+        `users/${params.uid}/secondOkrs/${params.childOkrId}/secondOkrObjects/${params.childOkrObjectId}`
       )
-      .update({ secondOkrObject: params.secondOkrObjects });
+      .update({ secondOkrObject: params.childOkrObjective });
   }
 
-  updateSecondOkrKeyResult(
-    uid: string,
-    secondOkrId: string,
-    secondOkrObjectId: string,
-    secondOkrKeyResultId: string,
-    secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'>
-  ): Promise<void> {
+  updateSecondOkrKeyResult(params: {
+    uid: string;
+    childOkrId: string;
+    childOkrObjectId: string;
+    childOkrKeyResultId: string;
+    childOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'>;
+  }): Promise<void> {
     return this.db
       .doc(
-        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+        `users/${params.uid}/secondOkrs/${params.childOkrId}/secondOkrObjects/${params.childOkrObjectId}/secondOkrKeyResults/${params.childOkrKeyResultId}`
       )
       .update({
         lastUpdated: firestore.firestore.Timestamp.now(),
-        ...secondOkrKeyResult,
+        ...params.childOkrKeyResult,
       });
   }
 
