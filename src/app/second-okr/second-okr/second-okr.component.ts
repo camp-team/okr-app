@@ -19,22 +19,22 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   providers: [DatePipe],
 })
 export class SecondOkrComponent implements OnInit {
-  private parentOkrId = this.route.snapshot.queryParamMap.get('id');
+  private childOkrId = this.route.snapshot.queryParamMap.get('id');
   row: FormGroup;
   rows: {
-    [parentOkrObjectId: string]: FormArray;
+    [childOkrObjectId: string]: FormArray;
   } = {};
-  parentOkrObjectivesForm: {
-    [parentOkrObjectId: string]: FormArray;
+  childOkrObjectivesForm: {
+    [childOkrObjectId: string]: FormArray;
   } = {};
-  parentOkrObjectiveForm: FormGroup;
-  parentOkrObjects: SecondOkrObject[] = [];
-  secondOkrObjects$: Observable<
+  childOkrObjectiveForm: FormGroup;
+  childOkrObjectives: SecondOkrObject[] = [];
+  secondOkrObjectives$: Observable<
     SecondOkrObject[]
-  > = this.okrService.getSecondOkrObjects(this.parentOkrId);
+  > = this.okrService.getSecondOkrObjects(this.childOkrId);
   secondOkrKeyResults$: Observable<
     SecondOkrKeyResult[]
-  > = this.okrService.getSecondOkrKeyResultsCollection(this.parentOkrId);
+  > = this.okrService.getSecondOkrKeyResultsCollection(this.childOkrId);
   isChildOkrComplete: boolean;
   isChildOkrCompletes = [];
   isSecondOkr: boolean;
@@ -53,13 +53,13 @@ export class SecondOkrComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    combineLatest([this.secondOkrObjects$, this.secondOkrKeyResults$])
+    combineLatest([this.secondOkrObjectives$, this.secondOkrKeyResults$])
       .pipe(take(1))
       .subscribe(([secondOkrObjects, secondOkrKeyResults]) => {
         secondOkrObjects.forEach((secondOkrObject) => {
-          this.parentOkrObjects.push(secondOkrObject);
+          this.childOkrObjectives.push(secondOkrObject);
           this.rows[secondOkrObject.secondOkrObjectId] = this.fb.array([]);
-          this.parentOkrObjectivesForm[
+          this.childOkrObjectivesForm[
             secondOkrObject.secondOkrObjectId
           ] = this.fb.array([]);
           this.initSecondOkrObject(secondOkrObject);
@@ -101,16 +101,16 @@ export class SecondOkrComponent implements OnInit {
   }
 
   initSecondOkrObject(secondOkrObject) {
-    this.parentOkrObjectiveForm = this.fb.group({
+    this.childOkrObjectiveForm = this.fb.group({
       primaryTitle: [
         secondOkrObject.secondOkrObject,
         [Validators.required, Validators.maxLength(20)],
       ],
     });
-    this.parentOkrObjectivesForm[secondOkrObject.secondOkrObjectId].push(
-      this.parentOkrObjectiveForm
+    this.childOkrObjectivesForm[secondOkrObject.secondOkrObjectId].push(
+      this.childOkrObjectiveForm
     );
-    this.parentOkrObjectiveForm.valueChanges
+    this.childOkrObjectiveForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe((secondOkrObjects) => {
         this.updateSecondOkrPrimaryTitle(
@@ -134,7 +134,7 @@ export class SecondOkrComponent implements OnInit {
     current: number,
     percentage: string,
     lastUpdated: firebase.default.firestore.Timestamp,
-    parentOkrObjectId: string,
+    childOkrObjectId: string,
     secondOkrKeyResultId: string
   ) {
     const timeStamp = lastUpdated.toDate();
@@ -161,8 +161,8 @@ export class SecondOkrComponent implements OnInit {
       lastUpdated: [date, [Validators.required]],
       secondOkrKeyResultId,
     });
-    this.rows[parentOkrObjectId].push(this.row);
-    this.editKeyResults(parentOkrObjectId);
+    this.rows[childOkrObjectId].push(this.row);
+    this.editKeyResults(childOkrObjectId);
   }
 
   okrId() {
@@ -203,7 +203,7 @@ export class SecondOkrComponent implements OnInit {
       'secondOkrKeyResultId' | 'lastUpdated'
     > = {
       secondOkrObjectId,
-      secondOkrId: this.parentOkrId,
+      secondOkrId: this.childOkrId,
       key: formData.key,
       target: formData.target,
       current: formData.current,
@@ -213,10 +213,10 @@ export class SecondOkrComponent implements OnInit {
     this.okrService.createSecondOkrKeyResult(
       subTaskValue,
       secondOkrObjectId,
-      this.parentOkrId
+      this.childOkrId
     );
     this.okrService
-      .getSecondOkrKeyResultId(this.parentOkrId)
+      .getSecondOkrKeyResultId(this.childOkrId)
       .pipe(take(1))
       .subscribe((secondOkrKeyResults) => {
         secondOkrKeyResults.forEach((secondOkrKeyResult) => {
@@ -249,21 +249,21 @@ export class SecondOkrComponent implements OnInit {
       });
   }
 
-  editKeyResults(parentOkrObjectId) {
+  editKeyResults(childOkrObjectId) {
     this.row.valueChanges
       .pipe(debounceTime(500))
       .subscribe((secondOkrKeyResult) => {
         this.updateSecondOkrKeyResult(
-          parentOkrObjectId,
+          childOkrObjectId,
           secondOkrKeyResult.secondOkrKeyResultId,
           secondOkrKeyResult,
-          this.rows[parentOkrObjectId].controls.length
+          this.rows[childOkrObjectId].controls.length
         );
       });
   }
 
   updateSecondOkrKeyResult(
-    parentOkrObjectId: string,
+    childOkrObjectId: string,
     secondOkrKeyResultId: string,
     row: SecondOkrKeyResult,
     rowLength
@@ -272,7 +272,7 @@ export class SecondOkrComponent implements OnInit {
       let average = 0;
       const secondOkrKeyResultPercentage = secondOkrKeyResults.filter(
         (secondOkrKeyResult) => {
-          if (secondOkrKeyResult.secondOkrObjectId === parentOkrObjectId) {
+          if (secondOkrKeyResult.secondOkrObjectId === childOkrObjectId) {
             return secondOkrKeyResult.percentage;
           }
         }
@@ -288,14 +288,14 @@ export class SecondOkrComponent implements OnInit {
         }
       }
       const secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'> = {
-        secondOkrObjectId: parentOkrObjectId,
+        secondOkrObjectId: childOkrObjectId,
         average: Math.round((average / (rowLength * 100)) * 100),
         uid: this.authService.uid,
       };
       this.okrService.updateSecondOkrObject(
         this.authService.uid,
-        this.parentOkrId,
-        parentOkrObjectId,
+        this.childOkrId,
+        childOkrObjectId,
         secondOkrObject
       );
     });
@@ -311,8 +311,8 @@ export class SecondOkrComponent implements OnInit {
       result = 0;
     }
     const secondOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'> = {
-      secondOkrId: this.parentOkrId,
-      secondOkrObjectId: parentOkrObjectId,
+      secondOkrId: this.childOkrId,
+      secondOkrObjectId: childOkrObjectId,
       key: formData.key,
       target: formData.target,
       current: formData.current,
@@ -321,8 +321,8 @@ export class SecondOkrComponent implements OnInit {
     };
     this.okrService.updateSecondOkrKeyResult(
       this.authService.uid,
-      this.parentOkrId,
-      parentOkrObjectId,
+      this.childOkrId,
+      childOkrObjectId,
       secondOkrKeyResultId,
       secondOkrKeyResult
     );
@@ -334,7 +334,7 @@ export class SecondOkrComponent implements OnInit {
   ) {
     this.okrService.updateSecondOkrPrimaryTitle(
       this.authService.uid,
-      this.parentOkrId,
+      this.childOkrId,
       secondOkrObjects.secondOkrObjectId,
       secondOkrObject
     );
@@ -344,7 +344,7 @@ export class SecondOkrComponent implements OnInit {
     const secondOkrKeyResultId = this.rows[secondOkrObjectId].value[rowIndex]
       .secondOkrKeyResultId;
     this.okrService.deleteSecondOkrKeyResultDocument(
-      this.parentOkrId,
+      this.childOkrId,
       secondOkrObjectId,
       secondOkrKeyResultId
     );

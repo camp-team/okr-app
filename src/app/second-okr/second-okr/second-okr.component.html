@@ -3,17 +3,17 @@
     <app-second-okr-title></app-second-okr-title>
     <div class="data">
       <div
-        *ngFor="let secondOkrObject of parentOkrObjects; let i = index"
+        *ngFor="let secondOkrObject of childOkrObjectives; let i = index"
         class="data__container"
       >
         <form
           [formGroup]="
-            parentOkrObjectivesForm[secondOkrObject.secondOkrObjectId]
+            childOkrObjectivesForm[secondOkrObject.secondOkrObjectId]
           "
         >
           <div
             *ngFor="
-              let primaryTitle of parentOkrObjectivesForm[
+              let primaryTitle of childOkrObjectivesForm[
                 secondOkrObject.secondOkrObjectId
               ].controls;
               index as primaryArrayIndex
