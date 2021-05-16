@@ -26,11 +26,11 @@ export class LoginDialogComponent implements OnInit {
     });
   }
 
-  close() {
+  closeDialog() {
     this.dialogRef.close();
   }
 
-  createOkr() {
+  createParentOkr() {
     this.dialogRef.close();
     this.router.navigateByUrl('/manage/edit');
   }

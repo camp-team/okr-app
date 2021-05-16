@@ -1,4 +1,4 @@
-<div class="create-firstOkr-dialog">
+<div class="login-dialog">
   <div class="main">
     <img
       src="/assets/images/wellcome.svg"
@@ -15,8 +15,12 @@
   </div>
 
   <div class="action">
-    <a mat-button (click)="close()" class="action__close">閉じる</a>
-    <a mat-button (click)="createOkr()" class="action__transition-secondOkr">
+    <a mat-button (click)="closeDialog()" class="action__close">閉じる</a>
+    <a
+      mat-button
+      (click)="createParentOkr()"
+      class="action__transition-secondOkr"
+    >
       OKRを作成する
     </a>
   </div>
