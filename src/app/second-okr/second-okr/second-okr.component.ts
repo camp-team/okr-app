@@ -54,14 +54,14 @@ export class SecondOkrComponent implements OnInit {
   ngOnInit() {
     combineLatest([this.childOkrObjectives$, this.childOkrKeyResults$])
       .pipe(take(1))
-      .subscribe(([secondOkrObjects, secondOkrKeyResults]) => {
-        secondOkrObjects.forEach((secondOkrObject) => {
-          this.childOkrObjectives.push(secondOkrObject);
-          this.rows[secondOkrObject.secondOkrObjectId] = this.fb.array([]);
+      .subscribe(([childOkrObjectives, secondOkrKeyResults]) => {
+        childOkrObjectives.forEach((childOkrObjective) => {
+          this.childOkrObjectives.push(childOkrObjective);
+          this.rows[childOkrObjective.secondOkrObjectId] = this.fb.array([]);
           this.childOkrObjectivesForm[
-            secondOkrObject.secondOkrObjectId
+            childOkrObjective.secondOkrObjectId
           ] = this.fb.array([]);
-          this.initSecondOkrObject(secondOkrObject);
+          this.initializeChildOkrObject(childOkrObjective);
         });
         secondOkrKeyResults.forEach((secondOkrKeyResult) => {
           this.initRows(
@@ -97,14 +97,14 @@ export class SecondOkrComponent implements OnInit {
     // this.determineIfStartingTutorial();
   }
 
-  initSecondOkrObject(secondOkrObject) {
+  initializeChildOkrObject(childOkrObjective: SecondOkrObject) {
     this.childOkrObjectiveForm = this.fb.group({
       primaryTitle: [
-        secondOkrObject.secondOkrObject,
+        childOkrObjective.secondOkrObject,
         [Validators.required, Validators.maxLength(20)],
       ],
     });
-    this.childOkrObjectivesForm[secondOkrObject.secondOkrObjectId].push(
+    this.childOkrObjectivesForm[childOkrObjective.secondOkrObjectId].push(
       this.childOkrObjectiveForm
     );
     this.childOkrObjectiveForm.valueChanges
@@ -112,7 +112,7 @@ export class SecondOkrComponent implements OnInit {
       .subscribe((secondOkrObjects) => {
         this.updateSecondOkrPrimaryTitle(
           secondOkrObjects.primaryTitle,
-          secondOkrObject
+          childOkrObjective
         );
       });
   }
