@@ -84,18 +84,6 @@ export class ChildOkrFormComponent implements OnInit {
     });
   }
 
-  myFilter = (date: Date) => {
-    const calenderYear = (date || new Date()).getFullYear();
-    const nowYear = new Date().getFullYear();
-    return calenderYear >= nowYear && calenderYear <= nowYear + 1;
-  };
-
-  addObjective() {
-    this.primaries.push(
-      new FormControl('', [Validators.required, Validators.maxLength(20)])
-    );
-  }
-
   // determineIfStartingTutorial() {
   //   this.tutorialService.startTutorial({
   //     okrType: 'childOkr',
