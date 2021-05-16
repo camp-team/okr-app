@@ -7,11 +7,11 @@
         class="data__container"
       >
         <form
-          [formGroup]="secondOkrObjectTitles[secondOkrObject.secondOkrObjectId]"
+          [formGroup]="parentOkrObjectTitles[secondOkrObject.secondOkrObjectId]"
         >
           <div
             *ngFor="
-              let primaryTitle of secondOkrObjectTitles[
+              let primaryTitle of parentOkrObjectTitles[
                 secondOkrObject.secondOkrObjectId
               ].controls;
               index as primaryArrayIndex
