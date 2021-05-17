@@ -14,7 +14,7 @@ import { OkrService } from '../services/okr.service';
 export class OkrDeleteDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { okrId: string },
+    public data: { parentOkrId: string },
     private okrService: OkrService,
     private dialogRef: MatDialogRef<OkrDeleteDialogComponent>,
     private fns: AngularFireFunctions,
@@ -25,14 +25,14 @@ export class OkrDeleteDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  parentOkrDelete() {
+  deleteParentOkr() {
     this.loadingService.loading = true;
     const callable = this.fns.httpsCallable('deleteOkr');
     this.dialogRef.close();
-    callable(this.data.okrId)
+    callable(this.data.parentOkrId)
       .toPromise()
       .then(() => {
-        this.okrService.deleteOkrDocument(this.data.okrId);
+        this.okrService.deleteParentOkrDocument(this.data.parentOkrId);
         this.loadingService.loading = false;
         this.router.navigateByUrl('/manage/home');
         this.snackBar.open('削除しました', '');
