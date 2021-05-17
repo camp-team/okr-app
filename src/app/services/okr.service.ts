@@ -62,16 +62,16 @@ export class OkrService {
   }
 
   createPrimary(parentOkrKeyResult: string, parentOkrId: string, uid: string) {
-    const parentOkrkeyResultId = this.db.createId();
+    const parentOkrKeyResultId = this.db.createId();
     const value: ParentOkrKeyResult = {
-      parentOkrkeyResult: parentOkrKeyResult,
-      parentOkrId: parentOkrId,
+      parentOkrKeyResult,
+      parentOkrId,
       uid,
-      parentOkrkeyResultId,
+      parentOkrKeyResultId,
     };
     return this.db
       .doc<ParentOkrKeyResult>(
-        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}/parentOkrkeyResultes/${parentOkrkeyResultId}`
+        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}/parentOkrKeyResultes/${parentOkrKeyResultId}`
       )
       .set(value);
   }
@@ -244,21 +244,23 @@ export class OkrService {
       .valueChanges();
   }
 
-  getPrimaries(parentOkrId: string): Observable<ParentOkrKeyResult[]> {
+  getParentOkrKeyResultes(
+    parentOkrId: string
+  ): Observable<ParentOkrKeyResult[]> {
     return this.db
       .collection<ParentOkrKeyResult>(
-        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}/parentOkrkeyResultes`
+        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}/parentOkrKeyResultes`
       )
       .valueChanges();
   }
 
   getPrimary(
     parentOkrId: string,
-    parentOkrkeyResultId: string
+    parentOkrKeyResultId: string
   ): Observable<ParentOkrKeyResult> {
     return this.db
       .doc<ParentOkrKeyResult>(
-        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}/parentOkrkeyResultes/${parentOkrkeyResultId}`
+        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}/parentOkrKeyResultes/${parentOkrKeyResultId}`
       )
       .valueChanges();
   }
@@ -323,11 +325,11 @@ export class OkrService {
   updateOkr(
     uid: string,
     parentOkrId: string,
-    objective: ParentOkr
+    parentOkrObjective: ParentOkr
   ): Promise<void> {
     return this.db
       .doc(`users/${uid}/parentOkrs/${parentOkrId}`)
-      .update({ title: objective });
+      .update({ parentOkrObjective });
   }
 
   updateSecondOkr(
@@ -340,17 +342,17 @@ export class OkrService {
       .update(secondOkr);
   }
 
-  updatePrimary(
+  updateKeyResult(
     uid: string,
     parentOkrId: string,
-    parentOkrkeyResultId: string,
-    parentOkrkeyResult: ParentOkrKeyResult
+    parentOkrKeyResultId: string,
+    parentOkrKeyResult: ParentOkrKeyResult
   ): Promise<void> {
     return this.db
       .doc(
-        `users/${uid}/parentOkrs/${parentOkrId}/parentOkrkeyResultes/${parentOkrkeyResultId}`
+        `users/${uid}/parentOkrs/${parentOkrId}/parentOkrKeyResultes/${parentOkrKeyResultId}`
       )
-      .update({ parentOkrkeyResult: parentOkrkeyResult });
+      .update({ parentOkrKeyResult });
   }
 
   updateSecondOkrObject(
@@ -409,13 +411,13 @@ export class OkrService {
   updatePrimaryTitle(
     uid: string,
     parentOkrId: string,
-    parentOkrkeyResultId: string,
-    parentOkrkeyResult: ParentOkrKeyResult
+    parentOkrKeyResultId: string,
+    parentOkrKeyResult: ParentOkrKeyResult
   ): Promise<void> {
     return this.db
       .doc(
-        `users/${uid}/parentOkrs/${parentOkrId}/parentOkrkeyResultes/${parentOkrkeyResultId}`
+        `users/${uid}/parentOkrs/${parentOkrId}/parentOkrKeyResultes/${parentOkrKeyResultId}`
       )
-      .update(parentOkrkeyResult[0]);
+      .update(parentOkrKeyResult[0]);
   }
 }
