@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 import { ParentOkr } from 'src/app/interfaces/parentOkr';
-import { Primary } from 'src/app/interfaces/primary';
+import { ParentOkrKeyResult } from 'src/app/interfaces/parentOkrKeyResult';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
 
@@ -23,7 +23,7 @@ export class OkrComponent implements OnInit {
   } = {};
   obj: FormGroup;
   key: FormGroup;
-  primaries: Primary[] = [];
+  primaries: ParentOkrKeyResult[] = [];
   parentOkrs: ParentOkr[] = [];
 
   constructor(
@@ -42,7 +42,7 @@ export class OkrComponent implements OnInit {
       .subscribe(([primaries, parentOkrs]) => {
         primaries.forEach((primary) => {
           this.primaries.push(primary);
-          this.keyResults[primary.primaryId] = this.fb.array([]);
+          this.keyResults[primary.parentOkrkeyResultId] = this.fb.array([]);
           this.initkeyResult(primary);
         });
         parentOkrs.forEach((parentOkr) => {
@@ -87,7 +87,7 @@ export class OkrComponent implements OnInit {
     );
   }
 
-  updateKeyResult(keyResultId: string, primaryTitle: Primary) {
+  updateKeyResult(keyResultId: string, primaryTitle: ParentOkrKeyResult) {
     this.okrService.updatePrimary(
       this.authService.uid,
       this.parentOkr.parentOkrId,
