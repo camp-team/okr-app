@@ -40,25 +40,21 @@ export class OkrService {
     private authsearvice: AuthService
   ) {}
 
-  createParentOkr(params: {
+  async createParentOkr(params: {
     okrType: Omit<Okr, 'okrId' | 'isComplete'>;
     KeyResultsType: string[];
     uid: string;
   }): Promise<void> {
     const okrId = this.db.createId();
     const isComplete = true;
-    return this.db
-      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
-      .set({
-        okrId,
-        isComplete,
-        ...params.okrType,
-      })
-      .then(() => {
-        params.KeyResultsType.forEach((primary) => {
-          this.createPrimary(primary, okrId, params.uid);
-        });
-      });
+    await this.db.doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`).set({
+      okrId,
+      isComplete,
+      ...params.okrType,
+    });
+    params.KeyResultsType.forEach((primary) => {
+      this.createPrimary(primary, okrId, params.uid);
+    });
   }
 
   createPrimary(primary: string, okrId: string, uid: string) {
