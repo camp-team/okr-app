@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
-import { Okr } from 'src/app/interfaces/okr';
+import { ParentOkr } from 'src/app/interfaces/parentOkr';
 import { Primary } from 'src/app/interfaces/primary';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
@@ -14,7 +14,7 @@ import { OkrService } from 'src/app/services/okr.service';
   styleUrls: ['./okr.component.scss'],
 })
 export class OkrComponent implements OnInit {
-  @Input() parentOkr: Okr;
+  @Input() parentOkr: ParentOkr;
   keyResults: {
     [primaryId: string]: FormArray;
   } = {};
@@ -24,7 +24,7 @@ export class OkrComponent implements OnInit {
   obj: FormGroup;
   key: FormGroup;
   primaries: Primary[] = [];
-  parentOkrs: Okr[] = [];
+  parentOkrs: ParentOkr[] = [];
 
   constructor(
     private okrService: OkrService,
@@ -35,7 +35,7 @@ export class OkrComponent implements OnInit {
 
   ngOnInit(): void {
     combineLatest([
-      this.okrService.getPrimaries(this.parentOkr.okrId),
+      this.okrService.getPrimaries(this.parentOkr.parentOkrId),
       this.okrService.parentOkrs$,
     ])
       .pipe(take(1))
@@ -79,10 +79,10 @@ export class OkrComponent implements OnInit {
     });
   }
 
-  updateObjective(objective: Okr) {
+  updateObjective(objective: ParentOkr) {
     this.okrService.updateOkr(
       this.authService.uid,
-      this.parentOkr.okrId,
+      this.parentOkr.parentOkrId,
       objective
     );
   }
@@ -90,15 +90,15 @@ export class OkrComponent implements OnInit {
   updateKeyResult(keyResultId: string, primaryTitle: Primary) {
     this.okrService.updatePrimary(
       this.authService.uid,
-      this.parentOkr.okrId,
+      this.parentOkr.parentOkrId,
       keyResultId,
       primaryTitle
     );
   }
 
   okrComplete(okrId: string) {
-    const okrValue: Okr = {
-      isComplete: false,
+    const okrValue: ParentOkr = {
+      isParentOkrComplete: false,
     };
     this.okrService.updateOkr(this.authService.uid, okrId, okrValue);
     this.snackBar.open('お疲れ様でした✨');

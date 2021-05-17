@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Okr } from '../interfaces/okr';
+import { ParentOkr } from '../interfaces/parentOkr';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
@@ -15,7 +15,7 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./delete-account-dialog.component.scss'],
 })
 export class DeleteAccountDialogComponent implements OnInit {
-  Okrs$: Observable<Okr[]> = this.okrService.getOkrs();
+  Okrs$: Observable<ParentOkr[]> = this.okrService.getOkrs();
   okrId: string;
 
   constructor(
@@ -31,7 +31,7 @@ export class DeleteAccountDialogComponent implements OnInit {
   ngOnInit(): void {
     this.Okrs$.subscribe((okrs) => {
       okrs.forEach((okr) => {
-        this.okrId = okr.okrId;
+        this.okrId = okr.parentOkrId;
       });
     });
   }

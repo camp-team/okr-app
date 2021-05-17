@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Okr } from '../interfaces/okr';
+import { ParentOkr } from '../interfaces/parentOkr';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Primary } from '../interfaces/primary';
@@ -41,19 +41,21 @@ export class OkrService {
   ) {}
 
   async createParentOkr(params: {
-    okrType: Omit<Okr, 'okrId' | 'isComplete'>;
+    okrType: Omit<ParentOkr, 'parentOkrId' | 'isParentOkrComplete'>;
     KeyResultsType: string[];
     uid: string;
   }): Promise<void> {
-    const okrId = this.db.createId();
-    const isComplete = true;
-    await this.db.doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`).set({
-      okrId,
-      isComplete,
-      ...params.okrType,
-    });
+    const parentOkrId = this.db.createId();
+    const isParentOkrComplete = true;
+    await this.db
+      .doc<ParentOkr>(`users/${this.authsearvice.uid}/okrs/${parentOkrId}`)
+      .set({
+        parentOkrId,
+        isParentOkrComplete,
+        ...params.okrType,
+      });
     params.KeyResultsType.forEach((primary) => {
-      this.createPrimary(primary, okrId, params.uid);
+      this.createPrimary(primary, parentOkrId, params.uid);
     });
   }
 
@@ -176,15 +178,15 @@ export class OkrService {
       });
   }
 
-  getOkrs(): Observable<Okr[]> {
+  getOkrs(): Observable<ParentOkr[]> {
     return this.db
-      .collection<Okr>(`users/${this.authsearvice.uid}/okrs`)
+      .collection<ParentOkr>(`users/${this.authsearvice.uid}/okrs`)
       .valueChanges();
   }
 
-  getOkr(okrId: string): Observable<Okr> {
+  getOkr(okrId: string): Observable<ParentOkr> {
     return this.db
-      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
+      .doc<ParentOkr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
       .valueChanges();
   }
 
@@ -279,7 +281,7 @@ export class OkrService {
 
   deleteOkrDocument(okrId: string): Promise<void> {
     return this.db
-      .doc<Okr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
+      .doc<ParentOkr>(`users/${this.authsearvice.uid}/okrs/${okrId}`)
       .delete();
   }
 
@@ -311,7 +313,7 @@ export class OkrService {
       .valueChanges();
   }
 
-  updateOkr(uid: string, okrId: string, objective: Okr): Promise<void> {
+  updateOkr(uid: string, okrId: string, objective: ParentOkr): Promise<void> {
     return this.db
       .doc(`users/${uid}/okrs/${okrId}`)
       .update({ title: objective });
@@ -381,7 +383,7 @@ export class OkrService {
       });
   }
 
-  updateTitle(uid: string, okrId: string, okr: Okr): Promise<void> {
+  updateTitle(uid: string, okrId: string, okr: ParentOkr): Promise<void> {
     return this.db.doc(`users/${uid}/okrs/${okrId}`).update(okr);
   }
 

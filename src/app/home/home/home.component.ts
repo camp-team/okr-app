@@ -9,7 +9,7 @@ import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog
 import { LoadingService } from 'src/app/services/loading.service';
 import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
-import { Okr } from 'src/app/interfaces/okr';
+import { ParentOkr } from 'src/app/interfaces/parentOkr';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ import { Okr } from 'src/app/interfaces/okr';
 })
 export class HomeComponent implements OnInit {
   user: string;
-  parentOkrs: Okr[];
+  parentOkrs: ParentOkr[];
   childOkrs: SecondOkr[];
   parentOkr: boolean;
   childOkrId: string;

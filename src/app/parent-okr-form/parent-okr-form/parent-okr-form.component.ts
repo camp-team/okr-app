@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Okr } from 'src/app/interfaces/okr';
+import { ParentOkr } from 'src/app/interfaces/parentOkr';
 import { Router } from '@angular/router';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -20,7 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providers: [],
 })
 export class ParentOkrFormComponent implements OnInit {
-  parentOkrs: Okr[];
+  parentOkrs: ParentOkr[];
   parentOkrObjectiveForm: number = 3;
   isParentOkrcomplete: boolean;
   parentOkrform = this.fb.group({
@@ -96,10 +96,10 @@ export class ParentOkrFormComponent implements OnInit {
   createParentOkr() {
     this.loadingService.loading = true;
     const parentOkrForm = this.parentOkrform.value;
-    const parentOkr: Omit<Okr, 'okrId' | 'isComplete'> = {
-      title: parentOkrForm.objective,
-      primaries: parentOkrForm.keyResults,
-      creatorId: this.authService.uid,
+    const parentOkr: Omit<ParentOkr, 'parentOkrId' | 'isParentOkrComplete'> = {
+      objective: parentOkrForm.objective,
+      keyResults: parentOkrForm.keyResults,
+      uid: this.authService.uid,
     };
     const parentOkrKeyResults = parentOkrForm.keyResults;
     this.okrService
