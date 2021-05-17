@@ -1,11 +1,14 @@
 <div class="okr">
   <div class="okr__title">
-    <div *ngFor="let okr of parentOkrs" class="okr__objectives">
+    <div *ngFor="let parentOkr of parentOkrs" class="okr__objectives">
       <span>目標(Objective)</span>
-      <form [formGroup]="objectives[okr.okrId]" class="okr__form-container">
+      <form
+        [formGroup]="objectives[parentOkr.parentOkrId]"
+        class="okr__form-container"
+      >
         <ng-container
           *ngFor="
-            let objective of objectives[okr.okrId].controls;
+            let objective of objectives[parentOkr.parentOkrId].controls;
             index as objectiveArrayIndex
           "
         >
@@ -31,17 +34,18 @@
       </form>
     </div>
   </div>
-  <div *ngFor="let primary of primaries" class="okr__keyResults">
+  <div *ngFor="let parentOkrKeyResult of primaries" class="okr__keyResults">
     <span class="okr__content">
       目標達成のための成果指標(Key Result)
     </span>
     <form
       class="okr__keyResult-container"
-      [formGroup]="keyResults[primary.primaryId]"
+      [formGroup]="keyResults[parentOkrKeyResult.parentOkrKeyResultId]"
     >
       <ng-container
         *ngFor="
-          let KeyResult of keyResults[primary.primaryId].controls;
+          let KeyResult of keyResults[parentOkrKeyResult.parentOkrKeyResultId]
+            .controls;
           index as KeyResultArrayIndex
         "
       >

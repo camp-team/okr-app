@@ -16,10 +16,10 @@ import { OkrService } from 'src/app/services/okr.service';
 export class OkrComponent implements OnInit {
   @Input() parentOkr: ParentOkr;
   keyResults: {
-    [primaryId: string]: FormArray;
+    [parentOkrKeyResultId: string]: FormArray;
   } = {};
   objectives: {
-    [okrId: string]: FormArray;
+    [parentOkrId: string]: FormArray;
   } = {};
   obj: FormGroup;
   key: FormGroup;
@@ -35,64 +35,79 @@ export class OkrComponent implements OnInit {
 
   ngOnInit(): void {
     combineLatest([
-      this.okrService.getPrimaries(this.parentOkr.parentOkrId),
+      this.okrService.getParentOkrKeyResultes(this.parentOkr.parentOkrId),
       this.okrService.parentOkrs$,
     ])
       .pipe(take(1))
-      .subscribe(([primaries, parentOkrs]) => {
-        primaries.forEach((primary) => {
-          this.primaries.push(primary);
-          this.keyResults[primary.parentOkrkeyResultId] = this.fb.array([]);
-          this.initkeyResult(primary);
-        });
-        parentOkrs.forEach((parentOkr) => {
+      .subscribe(([parentOkrKeyResultes, parentOkrs]) => {
+        parentOkrKeyResultes.forEach(
+          (parentOkrKeyResult: ParentOkrKeyResult) => {
+            this.primaries.push(parentOkrKeyResult);
+            this.keyResults[
+              parentOkrKeyResult.parentOkrKeyResultId
+            ] = this.fb.array([]);
+            this.initKeyResult(parentOkrKeyResult);
+          }
+        );
+        parentOkrs.forEach((parentOkr: ParentOkr) => {
           this.parentOkrs.push(parentOkr);
-          this.objectives[parentOkr.okrId] = this.fb.array([]);
+          this.objectives[parentOkr.parentOkrId] = this.fb.array([]);
           this.initObjective(parentOkr);
         });
       });
   }
 
-  initObjective(parentOkr) {
+  initObjective(parentOkr: ParentOkr) {
     this.obj = this.fb.group({
       objective: [
-        parentOkr.title,
+        parentOkr.parentOkrObjective,
         [Validators.required, Validators.maxLength(20)],
       ],
     });
-    this.objectives[parentOkr.okrId].push(this.obj);
-    this.obj.valueChanges.pipe(debounceTime(500)).subscribe((obj) => {
-      this.updateObjective(obj.objective);
-    });
+    this.objectives[parentOkr.parentOkrId].push(this.obj);
+    this.obj.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((parentOkrObjectivesForm) => {
+        this.updateObjective(parentOkrObjectivesForm.objective);
+      });
   }
 
-  initkeyResult(primary) {
+  initKeyResult(parentOkrKeyResult: ParentOkrKeyResult) {
     this.key = this.fb.group({
       key: [
-        primary.primaryTitle,
+        parentOkrKeyResult.parentOkrKeyResult,
         [Validators.required, Validators.maxLength(20)],
       ],
     });
-    this.keyResults[primary.primaryId].push(this.key);
-    this.key.valueChanges.pipe(debounceTime(500)).subscribe((primaryTitle) => {
-      this.updateKeyResult(primary.primaryId, primaryTitle.key);
-    });
+    this.keyResults[parentOkrKeyResult.parentOkrKeyResultId].push(this.key);
+
+    this.key.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((parentOkrKeyResultesForm) => {
+        this.updateKeyResult(
+          parentOkrKeyResult.parentOkrKeyResultId,
+          parentOkrKeyResultesForm.key
+        );
+      });
   }
 
-  updateObjective(objective: ParentOkr) {
+  updateObjective(parentOkrObjective: ParentOkr) {
     this.okrService.updateOkr(
       this.authService.uid,
       this.parentOkr.parentOkrId,
-      objective
+      parentOkrObjective
     );
   }
 
-  updateKeyResult(keyResultId: string, primaryTitle: ParentOkrKeyResult) {
-    this.okrService.updatePrimary(
+  updateKeyResult(
+    parentOkrKeyResultId: string,
+    parentOkrKeyResult: ParentOkrKeyResult
+  ) {
+    this.okrService.updateKeyResult(
       this.authService.uid,
       this.parentOkr.parentOkrId,
-      keyResultId,
-      primaryTitle
+      parentOkrKeyResultId,
+      parentOkrKeyResult
     );
   }
 
