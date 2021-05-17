@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
       autoFocus: false,
       restoreFocus: false,
       data: {
-        okrId: parentOkrId,
+        parentOkrId: parentOkrId,
       },
     });
   }
