@@ -97,8 +97,8 @@ export class ParentOkrFormComponent implements OnInit {
     this.loadingService.loading = true;
     const parentOkrForm = this.parentOkrform.value;
     const parentOkr: Omit<ParentOkr, 'parentOkrId' | 'isParentOkrComplete'> = {
-      objective: parentOkrForm.objective,
-      keyResults: parentOkrForm.keyResults,
+      parentOkrObjective: parentOkrForm.objective,
+      parentOkrKeyResults: parentOkrForm.keyResults,
       uid: this.authService.uid,
     };
     const parentOkrKeyResults = parentOkrForm.keyResults;
