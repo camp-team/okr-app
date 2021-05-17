@@ -1,6 +1,6 @@
 export interface ParentOkrKeyResult {
-  parentOkrkeyResult?: string;
-  parentOkrkeyResultId: string;
+  parentOkrKeyResult?: string;
+  parentOkrKeyResultId: string;
   parentOkrId?: string;
   uid?: string;
 }
