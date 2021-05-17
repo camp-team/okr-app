@@ -72,7 +72,7 @@ export class OkrService {
       .set(value);
   }
 
-  createSecondOkr(params: {
+  async createSecondOkr(params: {
     childOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete' | 'start'>;
     Objectives: string[];
     initialForm: Omit<
@@ -85,7 +85,7 @@ export class OkrService {
   }): Promise<void> {
     const secondOkrId = this.db.createId();
     const isComplete = true;
-    return this.db
+    await this.db
       .doc<SecondOkr>(
         `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}`
       )
@@ -93,20 +93,18 @@ export class OkrService {
         secondOkrId,
         isComplete,
         ...params.childOkr,
-      })
-      .then(() => {
-        params.Objectives.forEach((secondOkrObject) => {
-          const average = 0;
-          this.createSecondOkrObject(
-            secondOkrObject,
-            secondOkrId,
-            params.initialForm
-          );
-        });
       });
+    params.Objectives.forEach((secondOkrObject) => {
+      const average = 0;
+      this.createSecondOkrObject(
+        secondOkrObject,
+        secondOkrId,
+        params.initialForm
+      );
+    });
   }
 
-  createSecondOkrObject(
+  async createSecondOkrObject(
     secondOkrObject: string,
     secondOkrId: string,
     kyeResult: Omit<
@@ -125,14 +123,12 @@ export class OkrService {
       uid: this.authsearvice.uid,
       secondOkrObjectId,
     };
-    return this.db
+    await this.db
       .doc<SecondOkrObject>(
         `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
       )
-      .set(value)
-      .then(() => {
-        this.createkey(secondOkrId, secondOkrObjectId, kyeResult);
-      });
+      .set(value);
+    this.createkey(secondOkrId, secondOkrObjectId, kyeResult);
   }
 
   createkey(
