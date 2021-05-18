@@ -35,12 +35,12 @@ export class OkrComponent implements OnInit {
 
   ngOnInit(): void {
     combineLatest([
-      this.okrService.getParentOkrKeyResultes(this.parentOkr.parentOkrId),
+      this.okrService.getParentOkrKeyResults(this.parentOkr.parentOkrId),
       this.okrService.parentOkrs$,
     ])
       .pipe(take(1))
-      .subscribe(([parentOkrKeyResultes, parentOkrs]) => {
-        parentOkrKeyResultes.forEach(
+      .subscribe(([parentOkrKeyResults, parentOkrs]) => {
+        parentOkrKeyResults.forEach(
           (parentOkrKeyResult: ParentOkrKeyResult) => {
             this.primaries.push(parentOkrKeyResult);
             this.keyResults[
@@ -83,10 +83,10 @@ export class OkrComponent implements OnInit {
 
     this.key.valueChanges
       .pipe(debounceTime(500))
-      .subscribe((parentOkrKeyResultesForm) => {
+      .subscribe((parentOkrKeyResultsForm) => {
         this.updateKeyResult(
           parentOkrKeyResult.parentOkrKeyResultId,
-          parentOkrKeyResultesForm.key
+          parentOkrKeyResultsForm.key
         );
       });
   }
