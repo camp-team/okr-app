@@ -27,7 +27,7 @@ export class OkrDeleteDialogComponent implements OnInit {
 
   deleteParentOkr() {
     this.loadingService.loading = true;
-    const callable = this.fns.httpsCallable('deleteOkr');
+    const callable = this.fns.httpsCallable('deleteParentOkr');
     this.dialogRef.close();
     callable(this.data.parentOkrId)
       .toPromise()
