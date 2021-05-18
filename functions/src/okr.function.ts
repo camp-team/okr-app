@@ -4,13 +4,13 @@ import { deleteCollectionByReference } from './utils/firebase.function';
 
 const db = admin.firestore();
 
-export const deleteOkr = functions
+export const deleteParentOkr = functions
   .region('asia-northeast1')
-  .https.onCall(async (okrId: any) => {
-    const primariesRef = db
-      .collectionGroup(`primaries`)
-      .where('okrId', '==', okrId);
-    return Promise.all([deleteCollectionByReference(primariesRef)]);
+  .https.onCall(async (parentOkrId: any) => {
+    const parentOkrKeyResultsRef = db
+      .collectionGroup(`parentOkrKeyResults`)
+      .where('parentOkrId', '==', parentOkrId);
+    return Promise.all([deleteCollectionByReference(parentOkrKeyResultsRef)]);
   });
 
 export const deleteSecondOkr = functions
