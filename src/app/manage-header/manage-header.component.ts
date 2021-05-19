@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SecondOkr } from '../interfaces/second-okr';
+import { ChildOkr } from '../interfaces/child-okr';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
@@ -19,10 +19,10 @@ export class ManageHeaderComponent implements OnInit {
   user$ = this.authService.user$;
   isSecondOkr: boolean;
   avatarURL: string;
-  secondOkrs$: Observable<SecondOkr[]> = this.okrService
-    .getSecondOkrs()
+  secondOkrs$: Observable<ChildOkr[]> = this.okrService
+    .getChildOkrs()
     .pipe(tap(() => (this.loadingService.loading = false)));
-  secondOkr: SecondOkr;
+  secondOkr: ChildOkr;
   isComplete: boolean;
   isCompletes = [];
 
@@ -47,21 +47,21 @@ export class ManageHeaderComponent implements OnInit {
         this.isSecondOkr = true;
       }
       secondOkrs.map((secondOkr) => {
-        this.isComplete = secondOkr.isComplete;
+        this.isComplete = secondOkr.isChildOkrComplete;
         this.isCompletes.push(this.isComplete);
         this.isCompletes.forEach((isComplete) => {
           if (isComplete === true) {
             this.isComplete = true;
           }
         });
-        if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
+        if (secondOkr.isChildOkrComplete === true) this.secondOkr = secondOkr;
       });
     });
   }
 
   progress() {
     this.router.navigate(['manage/secondOkr'], {
-      queryParams: { id: this.secondOkr.secondOkrId },
+      queryParams: { id: this.secondOkr.childOkrId },
     });
   }
 
