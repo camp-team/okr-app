@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CompleteOkrDialogComponent } from '../complete-okr-dialog/complete-okr-dialog.component';
-import { SecondOkr } from '../interfaces/second-okr';
+import { ChildOkr } from '../interfaces/child-okr';
 import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
@@ -15,9 +15,9 @@ import { OkrService } from '../services/okr.service';
 })
 export class SecondOkrTitleComponent implements OnInit {
   differenceInDay: number;
-  private secondOkrId = this.route.snapshot.queryParamMap.get('id');
-  secondOkr$: Observable<SecondOkr> = this.okrService.getSecondOkr(
-    this.secondOkrId
+  private childOkrId = this.route.snapshot.queryParamMap.get('id');
+  childOkr$: Observable<ChildOkr> = this.okrService.getChildOkr(
+    this.childOkrId
   );
 
   constructor(
@@ -32,20 +32,20 @@ export class SecondOkrTitleComponent implements OnInit {
   }
 
   differenceInDays() {
-    this.secondOkr$.pipe(take(1)).subscribe((secondOkr) => {
+    this.childOkr$.pipe(take(1)).subscribe((childOkr) => {
       const nowDate = new Date();
-      const endDate = secondOkr.end.toDate();
+      const endDate = childOkr.end.toDate();
       const differenceInTime = endDate.getTime() - nowDate.getTime();
       const differenceInDays = differenceInTime / (1000 * 3600 * 24);
       this.differenceInDay = Math.ceil(differenceInDays);
     });
   }
 
-  secondOkrComplete() {
+  childOkrComplete() {
     this.dialog.open(CompleteOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
-      data: { secondOkrId: this.secondOkrId },
+      data: { childOkrId: this.childOkrId },
     });
   }
 }
