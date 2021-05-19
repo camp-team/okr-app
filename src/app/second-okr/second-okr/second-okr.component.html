@@ -1,4 +1,4 @@
-<div class="second-okr">
+<div class="child-okr">
   <ng-container *ngIf="isChildOkrComplete === true; else blank">
     <app-second-okr-title></app-second-okr-title>
     <div class="data">
@@ -8,17 +8,17 @@
       >
         <form
           [formGroup]="
-            childOkrObjectivesForm[childOkrObjective.secondOkrObjectId]
+            childOkrObjectivesForm[childOkrObjective.childOkrObjectiveId]
           "
         >
           <div
             *ngFor="
               let childOkrObjective of childOkrObjectivesForm[
-                childOkrObjective.secondOkrObjectId
+                childOkrObjective.childOkrObjectiveId
               ].controls;
               index as primaryArrayIndex
             "
-            class="second-okr__object"
+            class="child-okr__object"
           >
             <ng-container [formGroupName]="primaryArrayIndex">
               <div class="objective">
@@ -52,8 +52,8 @@
             </ng-container>
           </div>
         </form>
-        <div class="second-okr__table">
-          <form [formGroup]="rows[childOkrObjective.secondOkrObjectId]">
+        <div class="child-okr__table">
+          <form [formGroup]="rows[childOkrObjective.childOkrObjectiveId]">
             <table>
               <thead>
                 <tr>
@@ -97,11 +97,11 @@
               <tbody>
                 <tr
                   *ngFor="
-                    let row of rows[childOkrObjective.secondOkrObjectId]
+                    let row of rows[childOkrObjective.childOkrObjectiveId]
                       .controls;
                     index as rowIndex
                   "
-                  class="edit-tr-child-second-okr"
+                  class="edit-tr-child-child-okr"
                 >
                   <ng-container [formGroupName]="rowIndex">
                     <td class="body-left">
@@ -110,7 +110,7 @@
                         type="text"
                         formControlName="key"
                         autocomplete="off"
-                        class="key second-okr__key-result"
+                        class="key child-okr__key-result"
                         (keyup.enter)="focusNextInput(i + i + rowIndex + i + 1)"
                       />
                       <mat-error *ngIf="row.get('key').hasError('required')">
@@ -133,7 +133,7 @@
                         type="button"
                         (click)="
                           removeRow(
-                            childOkrObjective.secondOkrObjectId,
+                            childOkrObjective.childOkrObjectiveId,
                             rowIndex
                           )
                         "
@@ -155,7 +155,7 @@
                         autocomplete="off"
                         required
                         maxlength="20"
-                        class="second-okr__key-result"
+                        class="child-okr__key-result"
                       />
                       <mat-error *ngIf="row.get('target').hasError('required')">
                         <span
@@ -185,7 +185,7 @@
                         formControlName="current"
                         autocomplete="off"
                         required
-                        class="second-okr__key-result"
+                        class="child-okr__key-result"
                       />
                       <mat-error
                         *ngIf="row.get('current').hasError('required')"
@@ -207,7 +207,7 @@
                         formControlName="percentage"
                         autocomplete="off"
                         disabled
-                        class="second-okr__key-result"
+                        class="child-okr__key-result"
                       />
                     </td>
                     <td class="body-right">
@@ -216,7 +216,7 @@
                         formControlName="lastUpdated"
                         autocomplete="off"
                         disabled
-                        class="second-okr__key-result"
+                        class="child-okr__key-result"
                       />
                     </td>
                   </ng-container>
@@ -224,17 +224,17 @@
               </tbody>
             </table>
             <button
-              *ngIf="rows[childOkrObjective.secondOkrObjectId].length < 3"
-              (click)="addRow(childOkrObjective.secondOkrObjectId)"
-              class="add-row second-okr__add-task"
+              *ngIf="rows[childOkrObjective.childOkrObjectiveId].length < 3"
+              (click)="addRow(childOkrObjective.childOkrObjectiveId)"
+              class="add-row child-okr__add-task"
             >
               <mat-icon>add</mat-icon>
               <span>タスクを追加</span>
             </button>
           </form>
         </div>
-        <div class="second-okr__average">
-          <span class="second-okr__average-text">達成度</span>
+        <div class="child-okr__average">
+          <span class="child-okr__average-text">達成度</span>
           <ng-container *ngIf="childOkrObjective.average === 0; else blank">
             <span>{{ childOkrObjective.average }}%</span>
           </ng-container>
