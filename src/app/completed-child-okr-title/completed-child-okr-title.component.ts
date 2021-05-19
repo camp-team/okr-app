@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SecondOkr } from '../interfaces/second-okr';
+import { ChildOkr } from '../interfaces/child-okr';
 import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
@@ -12,8 +12,8 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./completed-child-okr-title.component.scss'],
 })
 export class CompletedChildOkrTitleComponent implements OnInit {
-  private secondOkrId = this.route.snapshot.queryParamMap.get('v');
-  secondOkr$: Observable<SecondOkr> = this.okrService.getSecondOkr(
+  private secondOkrId = this.route.snapshot.queryParamMap.get('id');
+  secondOkr$: Observable<ChildOkr> = this.okrService.getChildOkr(
     this.secondOkrId
   );
 
