@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { combineLatest, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
-import { SecondOkr } from 'src/app/interfaces/second-okr';
+import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
 import { LoadingService } from 'src/app/services/loading.service';
 import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
@@ -19,11 +19,11 @@ import { ParentOkr } from 'src/app/interfaces/parentOkr';
 export class HomeComponent implements OnInit {
   user: string;
   parentOkrs: ParentOkr[];
-  childOkrs: SecondOkr[];
+  childOkrs: ChildOkr[];
   parentOkr: boolean;
   childOkrId: string;
   achieveChildOkrIdOkrs$: Observable<
-    SecondOkr[]
+    ChildOkr[]
   > = this.okrService.achieveChildOkrIdOkrs();
 
   constructor(
@@ -74,8 +74,8 @@ export class HomeComponent implements OnInit {
 
   checkChildtOkr() {
     this.childOkrs.forEach((childOkr) => {
-      if (childOkr.isComplete) {
-        this.childOkrId = childOkr.secondOkrId;
+      if (childOkr.isChildOkrComplete) {
+        this.childOkrId = childOkr.childOkrId;
       } else {
         return null;
       }
