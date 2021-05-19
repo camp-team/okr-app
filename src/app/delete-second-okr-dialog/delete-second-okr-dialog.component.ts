@@ -35,11 +35,11 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
       const callable = this.fns.httpsCallable('deleteSecondOkr');
       this.dialogRef.close();
       await callable(this.data.secondOkrId).toPromise();
-      this.okrService.deleteSecondOkrDocument(this.data.secondOkrId);
+      this.okrService.deleteChildOkrDocument(this.data.secondOkrId);
       this.loadingService.loading = false;
       this.snackBar.open('削除しました');
       this.okrService
-        .getSecondOkrCollection()
+        .getChildOkrCollection()
         .subscribe((SecondOkrCollection) => {
           if (!SecondOkrCollection.length) {
             location.reload();
