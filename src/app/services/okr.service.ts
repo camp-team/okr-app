@@ -5,9 +5,9 @@ import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ParentOkrKeyResult } from '../interfaces/parentOkrKeyResult';
 import firestore from 'firebase';
-import { SecondOkr } from '../interfaces/second-okr';
-import { SecondOkrKeyResult } from '../interfaces/second-okr-key-result';
-import { SecondOkrObject } from '../interfaces/second-okr-object';
+import { ChildOkr } from '../interfaces/child-okr';
+import { ChildOkrKeyResult } from '../interfaces/child-okr-key-result';
+import { ChildOkrObjective } from '../interfaces/child-okr-objective';
 import { shareReplay, switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class OkrService {
   childOkrs$ = this.authsearvice.afUser$.pipe(
     switchMap((afUser) => {
       if (afUser) {
-        return this.getSecondOkrs();
+        return this.getChildOkrs();
       } else {
         return of(null);
       }
@@ -76,107 +76,105 @@ export class OkrService {
       .set(value);
   }
 
-  async createSecondOkr(params: {
-    childOkr: Omit<SecondOkr, 'secondOkrId' | 'isComplete' | 'start'>;
+  async createChildOkr(params: {
+    childOkr: Omit<ChildOkr, 'childOkrId' | 'isChildOkrComplete' | 'start'>;
     Objectives: string[];
     initialForm: Omit<
-      SecondOkrKeyResult,
-      | 'secondOkrId'
-      | 'secondOkrKeyResultId'
+      ChildOkrKeyResult,
+      | 'childOkrId'
+      | 'childOkrKeyResultId'
       | 'lastUpdated'
-      | 'secondOkrObjectId'
+      | 'childOkrObjectiveId'
     >;
   }): Promise<void> {
-    const secondOkrId = this.db.createId();
-    const isComplete = true;
+    const childOkrId = this.db.createId();
+    const isChildOkrComplete = true;
     await this.db
-      .doc<SecondOkr>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}`
-      )
+      .doc<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs/${childOkrId}`)
       .set({
-        secondOkrId,
-        isComplete,
+        childOkrId,
+        isChildOkrComplete,
         ...params.childOkr,
       });
-    params.Objectives.forEach((secondOkrObject) => {
+    params.Objectives.forEach((childOkrObjective) => {
       const average = 0;
-      this.createSecondOkrObject(
-        secondOkrObject,
-        secondOkrId,
+      this.createChildOkrObjective(
+        childOkrObjective,
+        childOkrId,
         params.initialForm
       );
     });
   }
 
-  async createSecondOkrObject(
-    secondOkrObject: string,
-    secondOkrId: string,
+  async createChildOkrObjective(
+    childOkrObjective: string,
+    childOkrId: string,
     kyeResult: Omit<
-      SecondOkrKeyResult,
-      | 'secondOkrId'
-      | 'secondOkrKeyResultId'
+      ChildOkrKeyResult,
+      | 'childOkrId'
+      | 'childOkrKeyResultId'
       | 'lastUpdated'
-      | 'secondOkrObjectId'
+      | 'childOkrObjectiveId'
     >
   ) {
-    const secondOkrObjectId = this.db.createId();
-    const value: SecondOkrObject = {
-      secondOkrObject: secondOkrObject,
-      secondOkrId: secondOkrId,
+    const childOkrObjectiveId = this.db.createId();
+    const value: ChildOkrObjective = {
+      childOkrObjective: childOkrObjective,
+      childOkrId: childOkrId,
       average: 0,
       uid: this.authsearvice.uid,
-      secondOkrObjectId,
+      childOkrObjectiveId,
     };
     await this.db
-      .doc<SecondOkrObject>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
+      .doc<ChildOkrObjective>(
+        `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives/${childOkrObjectiveId}`
       )
       .set(value);
-    this.createkey(secondOkrId, secondOkrObjectId, kyeResult);
+    this.createkey(childOkrId, childOkrObjectiveId, kyeResult);
   }
 
   createkey(
-    secondOkrId: string,
-    secondOkrObjectId: string,
-    kyeResult: Omit<
-      SecondOkrKeyResult,
-      | 'secondOkrId'
-      | 'secondOkrKeyResultId'
+    childOkrId: string,
+    childOkrObjectiveId: string,
+    childOkrKeyResult: Omit<
+      ChildOkrKeyResult,
+      | 'childOkrId'
+      | 'childOkrKeyResultId'
       | 'lastUpdated'
-      | 'secondOkrObjectId'
+      | 'childOkrObjectiveId'
     >
   ) {
-    const secondOkrKeyResultId = this.db.createId();
+    const childOkrKeyResultId = this.db.createId();
     return this.db
-      .doc<SecondOkrKeyResult>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      .doc<ChildOkrKeyResult>(
+        `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives/${childOkrObjectiveId}/childOkrKeyResults/${childOkrKeyResultId}`
       )
       .set({
-        secondOkrKeyResultId,
-        secondOkrObjectId,
-        secondOkrId,
+        childOkrKeyResultId,
+        childOkrObjectiveId,
+        childOkrId,
         lastUpdated: firestore.firestore.Timestamp.now(),
-        ...kyeResult,
+        ...childOkrKeyResult,
       });
   }
 
   createChildOkrKeyResult(
-    secondOkrKeyResult: Omit<
-      SecondOkrKeyResult,
-      'secondOkrKeyResultId' | 'lastUpdated'
+    childOkrKeyResult: Omit<
+      ChildOkrKeyResult,
+      'childOkrKeyResultId' | 'lastUpdated'
     >,
-    secondOkrObjectId: string,
-    secondOkrId: string
+    childOkrObjectiveId: string,
+    childOkrId: string
   ) {
-    const secondOkrKeyResultId = this.db.createId();
+    const childOkrKeyResultId = this.db.createId();
     return this.db
-      .doc<SecondOkrKeyResult>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      .doc<ChildOkrKeyResult>(
+        `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives/${childOkrObjectiveId}/childOkrKeyResults/${childOkrKeyResultId}`
       )
       .set({
-        secondOkrKeyResultId,
+        childOkrKeyResultId,
         lastUpdated: firestore.firestore.Timestamp.now(),
-        ...secondOkrKeyResult,
+        ...childOkrKeyResult,
       });
   }
 
@@ -194,53 +192,50 @@ export class OkrService {
       .valueChanges();
   }
 
-  getSecondOkrs(): Observable<SecondOkr[]> {
+  getChildOkrs(): Observable<ChildOkr[]> {
     return this.db
-      .collection<SecondOkr>(
-        `users/${this.authsearvice.uid}/secondOkrs`,
-        (ref) => ref.orderBy('end', 'desc')
+      .collection<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs`, (ref) =>
+        ref.orderBy('end', 'desc')
       )
       .valueChanges();
   }
 
-  achieveChildOkrIdOkrs(): Observable<SecondOkr[]> {
+  achieveChildOkrIdOkrs(): Observable<ChildOkr[]> {
     return this.db
-      .collection<SecondOkr>(
-        `users/${this.authsearvice.uid}/secondOkrs`,
-        (ref) =>
-          ref.where('isComplete', '==', false).orderBy('end', 'desc').limit(3)
+      .collection<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs`, (ref) =>
+        ref
+          .where('isChildOkrComplete', '==', false)
+          .orderBy('end', 'desc')
+          .limit(3)
       )
       .valueChanges();
   }
 
-  getSecondOkrCollection(): Observable<SecondOkr[]> {
+  getChildOkrCollection(): Observable<ChildOkr[]> {
     return this.db
-      .collection<SecondOkr>(`users/${this.authsearvice.uid}/secondOkrs`)
+      .collection<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs`)
       .valueChanges();
   }
 
-  getChildOkrInProgress(): Observable<SecondOkr[]> {
+  getChildOkrInProgress(): Observable<ChildOkr[]> {
     return this.db
-      .collection<SecondOkr>(
-        `users/${this.authsearvice.uid}/secondOkrs`,
-        (ref) => ref.where('isComplete', '==', true)
+      .collection<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs`, (ref) =>
+        ref.where('isChildOkrComplete', '==', true)
       )
       .valueChanges();
   }
 
-  getSecondOkrObjects(secondOkrId: string): Observable<SecondOkrObject[]> {
+  getChildOkrObjects(childOkrId: string): Observable<ChildOkrObjective[]> {
     return this.db
-      .collection<SecondOkrObject>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects`
+      .collection<ChildOkrObjective>(
+        `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives`
       )
       .valueChanges();
   }
 
-  getSecondOkr(secondOkrId: string): Observable<SecondOkr> {
+  getChildOkr(childOkrId: string): Observable<ChildOkr> {
     return this.db
-      .doc<SecondOkr>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}`
-      )
+      .doc<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs/${childOkrId}`)
       .valueChanges();
   }
 
@@ -265,23 +260,21 @@ export class OkrService {
       .valueChanges();
   }
 
-  getSecondOkrKeyResultsCollection(
-    secondOkrId: string
-  ): Observable<SecondOkrKeyResult[]> {
+  getChildOkrKeyResultsCollection(
+    childOkrId: string
+  ): Observable<ChildOkrKeyResult[]> {
     return this.db
-      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
-        ref.where('secondOkrId', '==', secondOkrId)
+      .collectionGroup<ChildOkrKeyResult>('childOkrKeyResults', (ref) =>
+        ref.where('childOkrId', '==', childOkrId)
       )
       .valueChanges();
   }
 
-  getSecondOkrKeyResultId(
-    secondOkrId: string
-  ): Observable<SecondOkrKeyResult[]> {
+  getChildOkrKeyResultId(childOkrId: string): Observable<ChildOkrKeyResult[]> {
     return this.db
-      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
+      .collectionGroup<ChildOkrKeyResult>('childOkrKeyResults', (ref) =>
         ref
-          .where('secondOkrId', '==', secondOkrId)
+          .where('childOkrId', '==', childOkrId)
           .orderBy('lastUpdated', 'desc')
           .limit(1)
       )
@@ -296,29 +289,27 @@ export class OkrService {
       .delete();
   }
 
-  deleteSecondOkrDocument(secondOkrId): Promise<void> {
+  deleteChildOkrDocument(childOkrId): Promise<void> {
     return this.db
-      .doc<SecondOkr>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}`
-      )
+      .doc<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs/${childOkrId}`)
       .delete();
   }
 
-  deleteSecondOkrKeyResultDocument(
-    secondOkrId,
-    secondOkrObjectId,
-    secondOkrKeyResultId
+  deleteChildOkrKeyResultDocument(
+    childOkrId,
+    childOkrObjectiveId,
+    childOkrKeyResultId
   ): Promise<void> {
     return this.db
-      .doc<SecondOkrKeyResult>(
-        `users/${this.authsearvice.uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}/secondOkrKeyResults/${secondOkrKeyResultId}`
+      .doc<ChildOkrKeyResult>(
+        `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives/${childOkrObjectiveId}/childOkrKeyResults/${childOkrKeyResultId}`
       )
       .delete();
   }
 
-  getSecondOkrKeyResult(uid: string): Observable<SecondOkrKeyResult[]> {
+  getChildOkrKeyResult(uid: string): Observable<ChildOkrKeyResult[]> {
     return this.db
-      .collectionGroup<SecondOkrKeyResult>('secondOkrKeyResults', (ref) =>
+      .collectionGroup<ChildOkrKeyResult>('childOkrKeyResults', (ref) =>
         ref.where('uid', '==', uid)
       )
       .valueChanges();
@@ -334,14 +325,12 @@ export class OkrService {
       .update({ parentOkrObjective });
   }
 
-  updateSecondOkr(
+  updateChildOkr(
     uid: string,
-    secondOkrId: string,
-    secondOkr: SecondOkr
+    childOkrId: string,
+    childOkr: ChildOkr
   ): Promise<void> {
-    return this.db
-      .doc(`users/${uid}/secondOkrs/${secondOkrId}`)
-      .update(secondOkr);
+    return this.db.doc(`users/${uid}/childOkrs/${childOkrId}`).update(childOkr);
   }
 
   updateKeyResult(
@@ -357,42 +346,42 @@ export class OkrService {
       .update({ parentOkrKeyResult });
   }
 
-  updateSecondOkrObject(
-    uid: string,
-    secondOkrId: string,
-    secondOkrObjectId: string,
-    secondOkrObject: Omit<SecondOkrObject, 'secondOkrObject'>
-  ): Promise<void> {
+  updateChildOkrObjectiv(params: {
+    uid: string;
+    childOkrId: string;
+    childOkrObjectiveId: string;
+    childOkrObjective: Omit<ChildOkrObjective, 'childOkrObjective'>;
+  }): Promise<void> {
     return this.db
       .doc(
-        `users/${uid}/secondOkrs/${secondOkrId}/secondOkrObjects/${secondOkrObjectId}`
+        `users/${params.uid}/childOkrs/${params.childOkrId}/childOkrObjectives/${params.childOkrObjectiveId}`
       )
-      .update(secondOkrObject);
+      .update(params.childOkrObjective);
   }
 
   updateChildOkrObjective(params: {
-    childOkrObjective: SecondOkrObject;
+    childOkrObjective: ChildOkrObjective;
     uid: string;
     childOkrId: string;
-    childOkrObjectId: string;
+    childOkrObjectiveId: string;
   }): Promise<void> {
     return this.db
       .doc(
-        `users/${params.uid}/secondOkrs/${params.childOkrId}/secondOkrObjects/${params.childOkrObjectId}`
+        `users/${params.uid}/childOkrs/${params.childOkrId}/childOkrObjectives/${params.childOkrObjectiveId}`
       )
-      .update({ secondOkrObject: params.childOkrObjective });
+      .update({ childOkrObjective: params.childOkrObjective });
   }
 
-  updateSecondOkrKeyResult(params: {
+  updateChildOkrKeyResult(params: {
     uid: string;
     childOkrId: string;
-    childOkrObjectId: string;
+    childOkrObjectiveId: string;
     childOkrKeyResultId: string;
-    childOkrKeyResult: Omit<SecondOkrKeyResult, 'lastUpdated'>;
+    childOkrKeyResult: Omit<ChildOkrKeyResult, 'lastUpdated'>;
   }): Promise<void> {
     return this.db
       .doc(
-        `users/${params.uid}/secondOkrs/${params.childOkrId}/secondOkrObjects/${params.childOkrObjectId}/secondOkrKeyResults/${params.childOkrKeyResultId}`
+        `users/${params.uid}/childOkrs/${params.childOkrId}/childOkrObjectives/${params.childOkrObjectiveId}/childOkrKeyResults/${params.childOkrKeyResultId}`
       )
       .update({
         lastUpdated: firestore.firestore.Timestamp.now(),
