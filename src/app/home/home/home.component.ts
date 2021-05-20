@@ -7,7 +7,7 @@ import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.componen
 import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { DeleteChildOkrDialogComponent } from 'src/app/delete-child-okr-dialog/delete-child-okr-dialog.component';
 import { LoadingService } from 'src/app/services/loading.service';
-import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
+import { DeleteParentOkrDialogComponent } from 'src/app/delete-parent-okr-dialog/delete-parent-okr-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { ParentOkr } from 'src/app/interfaces/parentOkr';
 
@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
   }
 
   deleteOkr(parentOkrId: string) {
-    this.dialog.open(OkrDeleteDialogComponent, {
+    this.dialog.open(DeleteParentOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
       data: {

@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,15 +8,15 @@ import { OkrService } from '../services/okr.service';
 
 @Component({
   selector: 'app-okr-delete-dialog',
-  templateUrl: './okr-delete-dialog.component.html',
-  styleUrls: ['./okr-delete-dialog.component.scss'],
+  templateUrl: './delete-parent-okr-dialog.component.html',
+  styleUrls: ['./delete-parent-okr-dialog.component.scss'],
 })
-export class OkrDeleteDialogComponent implements OnInit {
+export class DeleteParentOkrDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { parentOkrId: string },
     private okrService: OkrService,
-    private dialogRef: MatDialogRef<OkrDeleteDialogComponent>,
+    private dialogRef: MatDialogRef<DeleteParentOkrDialogComponent>,
     private fns: AngularFireFunctions,
     private router: Router,
     private snackBar: MatSnackBar,
