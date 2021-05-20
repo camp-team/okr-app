@@ -36,7 +36,7 @@ const routes: Routes = [
       {
         path: 'achieve',
         loadChildren: () =>
-          import('../okr-achievement/okr-achievement.module').then(
+          import('../child-okr-achievement/child-okr-achievement.module').then(
             (m) => m.OkrAchievementModule
           ),
       },

@@ -5,9 +5,9 @@ import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { OkrService } from 'src/app/services/okr.service';
 
 @Component({
-  selector: 'app-okr-achievement',
-  templateUrl: './okr-achievement.component.html',
-  styleUrls: ['./okr-achievement.component.scss'],
+  selector: 'app-child-okr-achievement',
+  templateUrl: './child-okr-achievement.component.html',
+  styleUrls: ['./child-okr-achievement.component.scss'],
 })
 export class OkrAchievementComponent implements OnInit {
   childOkr: boolean;

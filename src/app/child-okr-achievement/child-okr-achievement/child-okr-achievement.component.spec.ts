@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OkrAchievementComponent } from './okr-achievement.component';
+import { OkrAchievementComponent } from './child-okr-achievement.component';
 
 describe('OkrAchievementComponent', () => {
   let component: OkrAchievementComponent;

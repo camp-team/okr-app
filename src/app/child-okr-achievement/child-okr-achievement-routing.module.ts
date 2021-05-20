@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OkrAchievementComponent } from './okr-achievement/okr-achievement.component';
+import { OkrAchievementComponent } from './child-okr-achievement/child-okr-achievement.component';
 
 const routes: Routes = [
   {
