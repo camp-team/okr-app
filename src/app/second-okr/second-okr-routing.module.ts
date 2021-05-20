@@ -8,7 +8,7 @@ const routes: Routes = [
     component: SecondOkrComponent,
   },
   {
-    path: ':secondOkrId',
+    path: ':childOkrId',
     component: SecondOkrComponent,
   },
 ];
