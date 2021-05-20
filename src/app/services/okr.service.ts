@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ParentOkr } from '../interfaces/parent-okr';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
-import { ParentOkrKeyResult } from '../interfaces/parentOkrKeyResult';
+import { ParentOkrKeyResult } from '../interfaces/parent-okr-key-result';
 import firestore from 'firebase';
 import { ChildOkr } from '../interfaces/child-okr';
 import { ChildOkrKeyResult } from '../interfaces/child-okr-key-result';

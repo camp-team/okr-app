@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 import { ParentOkr } from 'src/app/interfaces/parent-okr';
-import { ParentOkrKeyResult } from 'src/app/interfaces/parentOkrKeyResult';
+import { ParentOkrKeyResult } from 'src/app/interfaces/parent-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
 
