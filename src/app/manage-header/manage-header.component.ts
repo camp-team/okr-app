@@ -14,17 +14,17 @@ import { OkrService } from '../services/okr.service';
 })
 export class ManageHeaderComponent implements OnInit {
   home = this.route.snapshot.params;
-  secondOkrPath = this.route.snapshot.params;
+  childOkrPath = this.route.snapshot.params;
   achieve = this.route.snapshot.params;
   user$ = this.authService.user$;
-  isSecondOkr: boolean;
+  isChildOkr: boolean;
   avatarURL: string;
-  secondOkrs$: Observable<ChildOkr[]> = this.okrService
+  childOkrs$: Observable<ChildOkr[]> = this.okrService
     .getChildOkrs()
     .pipe(tap(() => (this.loadingService.loading = false)));
-  secondOkr: ChildOkr;
-  isComplete: boolean;
-  isCompletes = [];
+  childOkr: ChildOkr;
+  isChildOkrComplete: boolean;
+  isChildOkrCompletes = [];
 
   constructor(
     public authService: AuthService,
@@ -40,28 +40,28 @@ export class ManageHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      if (secondOkrs.length === 0) {
-        this.isSecondOkr = false;
+    this.childOkrs$.subscribe((childOkrs) => {
+      if (childOkrs.length === 0) {
+        this.isChildOkr = false;
       } else {
-        this.isSecondOkr = true;
+        this.isChildOkr = true;
       }
-      secondOkrs.map((secondOkr) => {
-        this.isComplete = secondOkr.isChildOkrComplete;
-        this.isCompletes.push(this.isComplete);
-        this.isCompletes.forEach((isComplete) => {
-          if (isComplete === true) {
-            this.isComplete = true;
+      childOkrs.map((childOkr) => {
+        this.isChildOkrComplete = childOkr.isChildOkrComplete;
+        this.isChildOkrCompletes.push(this.isChildOkrComplete);
+        this.isChildOkrCompletes.forEach((isChildOkrComplete) => {
+          if (isChildOkrComplete === true) {
+            this.isChildOkrComplete = true;
           }
         });
-        if (secondOkr.isChildOkrComplete === true) this.secondOkr = secondOkr;
+        if (childOkr.isChildOkrComplete === true) this.childOkr = childOkr;
       });
     });
   }
 
   progress() {
-    this.router.navigate(['manage/secondOkr'], {
-      queryParams: { id: this.secondOkr.childOkrId },
+    this.router.navigate(['manage/childOkr'], {
+      queryParams: { id: this.childOkr.childOkrId },
     });
   }
 

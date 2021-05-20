@@ -27,7 +27,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'secondOkr',
+        path: 'childOkr',
         loadChildren: () =>
           import('../second-okr/second-okr.module').then(
             (m) => m.SecondOkrModule
