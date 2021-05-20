@@ -180,7 +180,7 @@ export class ChildOkrFormComponent implements OnInit {
       (childOkr) => (childOkr.isChildOkrComplete = true)
     );
     this.router.navigateByUrl(
-      '/manage/secondOkr?id=' + childOkrInProgress[0].childOkrId
+      '/manage/childOkr?id=' + childOkrInProgress[0].childOkrId
     );
   }
 }
