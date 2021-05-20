@@ -289,7 +289,7 @@ export class OkrService {
       .delete();
   }
 
-  deleteChildOkrDocument(childOkrId): Promise<void> {
+  deleteChildOkrDocument(childOkrId: string): Promise<void> {
     return this.db
       .doc<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs/${childOkrId}`)
       .delete();
