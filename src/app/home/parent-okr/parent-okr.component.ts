@@ -9,11 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
 
 @Component({
-  selector: 'app-okr',
-  templateUrl: './okr.component.html',
-  styleUrls: ['./okr.component.scss'],
+  selector: 'app-parent-okr',
+  templateUrl: './parent-okr.component.html',
+  styleUrls: ['./parent-okr.component.scss'],
 })
-export class OkrComponent implements OnInit {
+export class ParentOkrComponent implements OnInit {
   @Input() parentOkr: ParentOkr;
   keyResults: {
     [parentOkrKeyResultId: string]: FormArray;

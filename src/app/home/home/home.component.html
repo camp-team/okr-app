@@ -29,7 +29,7 @@
         <ng-container
           *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
         >
-          <app-okr [parentOkr]="parentOkr"></app-okr>
+          <app-parent-okr [parentOkr]="parentOkr"></app-parent-okr>
         </ng-container>
       </ng-container>
       <ng-template #blank>
