@@ -29,9 +29,7 @@ const routes: Routes = [
       {
         path: 'childOkr',
         loadChildren: () =>
-          import('../child-okr/child-okr.module').then(
-            (m) => m.SecondOkrModule
-          ),
+          import('../child-okr/child-okr.module').then((m) => m.ChildOkrModule),
       },
       {
         path: 'achieve',
