@@ -225,7 +225,7 @@ export class OkrService {
       .valueChanges();
   }
 
-  getChildOkrObjects(childOkrId: string): Observable<ChildOkrObjective[]> {
+  getChildOkrObjectives(childOkrId: string): Observable<ChildOkrObjective[]> {
     return this.db
       .collection<ChildOkrObjective>(
         `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives`
