@@ -14,7 +14,7 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: {
-      secondOkrId: string;
+      childOkrId: string;
     },
     private okrService: OkrService,
     private fns: AngularFireFunctions,
@@ -32,16 +32,16 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
   async deletechildOkr() {
     try {
       this.loadingService.loading = true;
-      const callable = this.fns.httpsCallable('deleteSecondOkr');
+      const callable = this.fns.httpsCallable('deleteChildOkr');
       this.dialogRef.close();
-      await callable(this.data.secondOkrId).toPromise();
-      this.okrService.deleteChildOkrDocument(this.data.secondOkrId);
+      await callable(this.data.childOkrId).toPromise();
+      this.okrService.deleteChildOkrDocument(this.data.childOkrId);
       this.loadingService.loading = false;
       this.snackBar.open('削除しました');
       this.okrService
         .getChildOkrCollection()
-        .subscribe((SecondOkrCollection) => {
-          if (!SecondOkrCollection.length) {
+        .subscribe((childOkrCollection) => {
+          if (!childOkrCollection.length) {
             location.reload();
           }
         });
