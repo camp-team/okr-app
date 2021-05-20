@@ -30,7 +30,7 @@ export class TutorialService {
             'OKR管理画面です！',
             '次は、タスクを作成しよう！',
             'last',
-            '.start-second-okr-edit',
+            '.start-child-okr-edit',
             'bottom'
           ),
         ],
@@ -46,7 +46,7 @@ export class TutorialService {
             '2つ目のOKR作成するよ！',
             '1つ目のOKRで作成した、KeyResults(目標達成のための成果指標)を参考にして目標を作成しよう！',
             'each',
-            '.second-okr-form',
+            '.child-okr-form',
             'bottom'
           ),
           this.getTutorialStep(
@@ -165,7 +165,7 @@ export class TutorialService {
     attachTo: { element: string; on: string };
   } {
     const cancelButton: { classes: string; text: string; type: string } = {
-      classes: 'shepherd-button-secondary',
+      classes: 'shepherd-button-childary',
       text: '閉じる',
       type: 'cancel',
     };
