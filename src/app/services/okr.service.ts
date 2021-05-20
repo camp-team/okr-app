@@ -299,7 +299,7 @@ export class OkrService {
     return this.db.doc(`users/${uid}/childOkrs/${childOkrId}`).update(childOkr);
   }
 
-  updateKeyResult(
+  updateParentOkrKeyResult(
     uid: string,
     parentOkrId: string,
     parentOkrKeyResultId: string,

@@ -84,7 +84,7 @@ export class ParentOkrComponent implements OnInit {
     this.key.valueChanges
       .pipe(debounceTime(500))
       .subscribe((parentOkrKeyResultsForm) => {
-        this.updateKeyResult(
+        this.updateParentOkrKeyResult(
           parentOkrKeyResult.parentOkrKeyResultId,
           parentOkrKeyResultsForm.key
         );
@@ -99,11 +99,11 @@ export class ParentOkrComponent implements OnInit {
     );
   }
 
-  updateKeyResult(
+  updateParentOkrKeyResult(
     parentOkrKeyResultId: string,
     parentOkrKeyResult: ParentOkrKeyResult
   ) {
-    this.okrService.updateKeyResult(
+    this.okrService.updateParentOkrKeyResult(
       this.authService.uid,
       this.parentOkr.parentOkrId,
       parentOkrKeyResultId,
