@@ -12,9 +12,9 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./completed-child-okr-title.component.scss'],
 })
 export class CompletedChildOkrTitleComponent implements OnInit {
-  private secondOkrId = this.route.snapshot.queryParamMap.get('id');
-  secondOkr$: Observable<ChildOkr> = this.okrService.getChildOkr(
-    this.secondOkrId
+  private childOkrId = this.route.snapshot.queryParamMap.get('id');
+  childOkr$: Observable<ChildOkr> = this.okrService.getChildOkr(
+    this.childOkrId
   );
 
   constructor(
