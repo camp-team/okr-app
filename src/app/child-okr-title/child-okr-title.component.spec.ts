@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SecondOkrTitleComponent } from './second-okr-title.component';
+import { SecondOkrTitleComponent } from './child-okr-title.component';
 
 describe('SecondOkrTitleComponent', () => {
   let component: SecondOkrTitleComponent;

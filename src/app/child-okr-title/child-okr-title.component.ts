@@ -9,9 +9,9 @@ import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
-  selector: 'app-second-okr-title',
-  templateUrl: './second-okr-title.component.html',
-  styleUrls: ['./second-okr-title.component.scss'],
+  selector: 'app-child-okr-title',
+  templateUrl: './child-okr-title.component.html',
+  styleUrls: ['./child-okr-title.component.scss'],
 })
 export class SecondOkrTitleComponent implements OnInit {
   differenceInDay: number;
