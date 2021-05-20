@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
-import { ParentOkr } from 'src/app/interfaces/parentOkr';
+import { ParentOkr } from 'src/app/interfaces/parent-okr';
 import { ParentOkrKeyResult } from 'src/app/interfaces/parentOkrKeyResult';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';

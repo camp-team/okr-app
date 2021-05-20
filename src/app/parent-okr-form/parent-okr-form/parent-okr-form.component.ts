@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { OkrService } from 'src/app/services/okr.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { ParentOkr } from 'src/app/interfaces/parentOkr';
+import { ParentOkr } from 'src/app/interfaces/parent-okr';
 import { Router } from '@angular/router';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { LoadingService } from 'src/app/services/loading.service';

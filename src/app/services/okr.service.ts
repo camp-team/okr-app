@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ParentOkr } from '../interfaces/parentOkr';
+import { ParentOkr } from '../interfaces/parent-okr';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ParentOkrKeyResult } from '../interfaces/parentOkrKeyResult';

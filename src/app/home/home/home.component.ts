@@ -9,7 +9,7 @@ import { DeleteChildOkrDialogComponent } from 'src/app/delete-child-okr-dialog/d
 import { LoadingService } from 'src/app/services/loading.service';
 import { DeleteParentOkrDialogComponent } from 'src/app/delete-parent-okr-dialog/delete-parent-okr-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
-import { ParentOkr } from 'src/app/interfaces/parentOkr';
+import { ParentOkr } from 'src/app/interfaces/parent-okr';
 
 @Component({
   selector: 'app-home',

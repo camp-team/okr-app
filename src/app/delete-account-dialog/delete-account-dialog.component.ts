@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ParentOkr } from '../interfaces/parentOkr';
+import { ParentOkr } from '../interfaces/parent-okr';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
