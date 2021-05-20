@@ -5,7 +5,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
 import { ChildOkr } from 'src/app/interfaces/child-okr';
-import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { DeleteChildOkrDialogComponent } from 'src/app/delete-child-okr-dialog/delete-child-okr-dialog.component';
 import { LoadingService } from 'src/app/services/loading.service';
 import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
   }
 
   deleteFindByChildOkr(childOkrId: string) {
-    this.dialog.open(DeleteSecondOkrDialogComponent, {
+    this.dialog.open(DeleteChildOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
       data: {

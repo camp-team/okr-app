@@ -23,7 +23,7 @@ import { OkrDeleteDialogComponent } from './okr-delete-dialog/okr-delete-dialog.
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CompleteOkrDialogComponent } from './complete-okr-dialog/complete-okr-dialog.component';
-import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { DeleteChildOkrDialogComponent } from './delete-child-okr-dialog/delete-child-okr-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -43,7 +43,7 @@ import { MatListModule } from '@angular/material/list';
     OkrDeleteDialogComponent,
     LoginDialogComponent,
     CompleteOkrDialogComponent,
-    DeleteSecondOkrDialogComponent,
+    DeleteChildOkrDialogComponent,
     FooterComponent,
     HeaderComponent,
   ],

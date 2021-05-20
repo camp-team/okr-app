@@ -6,11 +6,11 @@ import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
-  selector: 'app-delete-second-okr-dialog',
-  templateUrl: './delete-second-okr-dialog.component.html',
-  styleUrls: ['./delete-second-okr-dialog.component.scss'],
+  selector: 'app-delete-child-okr-dialog',
+  templateUrl: './delete-child-okr-dialog.component.html',
+  styleUrls: ['./delete-child-okr-dialog.component.scss'],
 })
-export class DeleteSecondOkrDialogComponent implements OnInit {
+export class DeleteChildOkrDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: {
@@ -18,7 +18,7 @@ export class DeleteSecondOkrDialogComponent implements OnInit {
     },
     private okrService: OkrService,
     private fns: AngularFireFunctions,
-    private dialogRef: MatDialogRef<DeleteSecondOkrDialogComponent>,
+    private dialogRef: MatDialogRef<DeleteChildOkrDialogComponent>,
     private snackBar: MatSnackBar,
     private loadingService: LoadingService
   ) {}

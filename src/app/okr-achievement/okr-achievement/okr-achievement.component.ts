@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { DeleteChildOkrDialogComponent } from 'src/app/delete-child-okr-dialog/delete-child-okr-dialog.component';
 import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { OkrService } from 'src/app/services/okr.service';
 
@@ -31,7 +31,7 @@ export class OkrAchievementComponent implements OnInit {
   }
 
   deleteChildOkr(childOkrId: ChildOkr) {
-    this.dialog.open(DeleteSecondOkrDialogComponent, {
+    this.dialog.open(DeleteChildOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
       data: {
