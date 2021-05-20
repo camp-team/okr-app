@@ -20,22 +20,22 @@ export class OkrAchievementComponent implements OnInit {
       childOkrs.map((childOkr: ChildOkr) => {
         if (childOkrs.length === 0) {
           this.childOkr = false;
-        } else if (childOkr.isChildOkrComplete === true) {
+        } else if (childOkr.isChildOkrComplete) {
           this.childOkr = false;
           this.childOkrId = childOkr.childOkrId;
-        } else if (childOkr.isChildOkrComplete === false) {
+        } else if (!childOkr.isChildOkrComplete) {
           this.childOkr = true;
         }
       });
     });
   }
 
-  deleteSecondOkr(secondOkrId: ChildOkr) {
+  deleteChildOkr(childOkrId: ChildOkr) {
     this.dialog.open(DeleteSecondOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
       data: {
-        secondOkrId,
+        childOkrId,
       },
     });
   }
