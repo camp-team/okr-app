@@ -16,7 +16,7 @@ export class OkrService {
   parentOkrs$ = this.authsearvice.afUser$.pipe(
     switchMap((afuser) => {
       if (afuser.uid) {
-        return this.getOkrs();
+        return this.getParentOkrs();
       } else {
         return of(null);
       }
@@ -163,7 +163,7 @@ export class OkrService {
       });
   }
 
-  getOkrs(): Observable<ParentOkr[]> {
+  getParentOkrs(): Observable<ParentOkr[]> {
     return this.db
       .collection<ParentOkr>(`users/${this.authsearvice.uid}/parentOkrs`)
       .valueChanges();

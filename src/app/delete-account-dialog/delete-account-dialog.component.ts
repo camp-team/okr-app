@@ -15,7 +15,7 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./delete-account-dialog.component.scss'],
 })
 export class DeleteAccountDialogComponent implements OnInit {
-  Okrs$: Observable<ParentOkr[]> = this.okrService.getOkrs();
+  Okrs$: Observable<ParentOkr[]> = this.okrService.getParentOkrs();
   okrId: string;
 
   constructor(
