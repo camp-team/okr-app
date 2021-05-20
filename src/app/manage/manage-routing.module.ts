@@ -29,7 +29,7 @@ const routes: Routes = [
       {
         path: 'childOkr',
         loadChildren: () =>
-          import('../second-okr/second-okr.module').then(
+          import('../child-okr/child-okr.module').then(
             (m) => m.SecondOkrModule
           ),
       },

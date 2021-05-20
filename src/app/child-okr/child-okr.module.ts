@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SecondOkrRoutingModule } from './second-okr-routing.module';
-import { SecondOkrComponent } from './second-okr/second-okr.component';
+import { SecondOkrRoutingModule } from './child-okr-routing.module';
+import { SecondOkrComponent } from './child-okr/child-okr.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';

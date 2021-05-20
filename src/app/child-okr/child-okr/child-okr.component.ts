@@ -12,9 +12,9 @@ import { OkrService } from 'src/app/services/okr.service';
 import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
-  selector: 'app-second-okr',
-  templateUrl: './second-okr.component.html',
-  styleUrls: ['./second-okr.component.scss'],
+  selector: 'app-child-okr',
+  templateUrl: './child-okr.component.html',
+  styleUrls: ['./child-okr.component.scss'],
   providers: [DatePipe],
 })
 export class SecondOkrComponent implements OnInit {

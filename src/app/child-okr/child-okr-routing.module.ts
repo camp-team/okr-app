@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SecondOkrComponent } from './second-okr/second-okr.component';
+import { SecondOkrComponent } from './child-okr/child-okr.component';
 
 const routes: Routes = [
   {
