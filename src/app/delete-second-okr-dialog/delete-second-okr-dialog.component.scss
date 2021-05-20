@@ -1,7 +1,7 @@
 @import 'variables';
 @import 'mixins';
 
-.delete-second-okr-dialog {
+.delete-child-okr-dialog {
   padding: 0 24px;
   &__title {
     font-weight: 400;
@@ -34,7 +34,7 @@
       background-color: rgba(0, 0, 0, 0.12);
     }
   }
-  &__delete-second-okr {
+  &__delete-child-okr {
     background-color: #ff5263;
     color: #fff;
     &:hover {
