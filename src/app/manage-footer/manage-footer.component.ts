@@ -13,10 +13,10 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./manage-footer.component.scss'],
 })
 export class ManageFooterComponent implements OnInit {
-  isSecondOkr: boolean;
+  isChildOkr: boolean;
   isComplete: boolean;
-  secondOkr: ChildOkr;
-  secondOkrs$: Observable<ChildOkr[]> = this.okrService
+  childOkr: ChildOkr;
+  childOkrs$: Observable<ChildOkr[]> = this.okrService
     .getChildOkrs()
     .pipe(tap(() => (this.loadingService.loading = false)));
 
@@ -30,22 +30,22 @@ export class ManageFooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      if (secondOkrs.length === 0) {
-        this.isSecondOkr = false;
+    this.childOkrs$.subscribe((childOkrs) => {
+      if (childOkrs.length === 0) {
+        this.isChildOkr = false;
       } else {
-        this.isSecondOkr = true;
+        this.isChildOkr = true;
       }
-      secondOkrs.map((secondOkr) => {
-        this.isComplete = secondOkr.isChildOkrComplete;
-        if (secondOkr.isChildOkrComplete === true) this.secondOkr = secondOkr;
+      childOkrs.map((childOkr) => {
+        this.isComplete = childOkr.isChildOkrComplete;
+        if (childOkr.isChildOkrComplete === true) this.childOkr = childOkr;
       });
     });
   }
 
   progress() {
-    this.router.navigate(['manage/secondOkr'], {
-      queryParams: { v: this.secondOkr.isChildOkrComplete },
+    this.router.navigate(['manage/childOkr'], {
+      queryParams: { v: this.childOkr.isChildOkrComplete },
     });
   }
 }
