@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SecondOkrComponent } from './child-okr/child-okr.component';
+import { ChildOkrComponent } from './child-okr/child-okr.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SecondOkrComponent,
+    component: ChildOkrComponent,
   },
   {
     path: ':childOkrId',
-    component: SecondOkrComponent,
+    component: ChildOkrComponent,
   },
 ];
 
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SecondOkrRoutingModule {}
+export class ChildOkrRoutingModule {}

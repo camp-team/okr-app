@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SecondOkrRoutingModule } from './child-okr-routing.module';
-import { SecondOkrComponent } from './child-okr/child-okr.component';
+import { ChildOkrRoutingModule } from './child-okr-routing.module';
+import { ChildOkrComponent } from './child-okr/child-okr.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SecondOkrTitleComponent } from '../child-okr-title/child-okr-title.component';
+import { ChildOkrTitleComponent } from '../child-okr-title/child-okr-title.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [SecondOkrComponent, SecondOkrTitleComponent],
+  declarations: [ChildOkrComponent, ChildOkrTitleComponent],
   imports: [
     CommonModule,
-    SecondOkrRoutingModule,
+    ChildOkrRoutingModule,
     MatIconModule,
     MatFormFieldModule,
     ReactiveFormsModule,
@@ -25,4 +25,4 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
   ],
 })
-export class SecondOkrModule {}
+export class ChildOkrModule {}

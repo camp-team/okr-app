@@ -13,7 +13,7 @@ import { OkrService } from '../services/okr.service';
   templateUrl: './child-okr-title.component.html',
   styleUrls: ['./child-okr-title.component.scss'],
 })
-export class SecondOkrTitleComponent implements OnInit {
+export class ChildOkrTitleComponent implements OnInit {
   differenceInDay: number;
   private childOkrId = this.route.snapshot.queryParamMap.get('id');
   childOkr$: Observable<ChildOkr> = this.okrService.getChildOkr(

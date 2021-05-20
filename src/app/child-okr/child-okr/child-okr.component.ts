@@ -17,7 +17,7 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./child-okr.component.scss'],
   providers: [DatePipe],
 })
-export class SecondOkrComponent implements OnInit {
+export class ChildOkrComponent implements OnInit {
   private childOkrId = this.route.snapshot.queryParamMap.get('id');
   row: FormGroup;
   rows: {

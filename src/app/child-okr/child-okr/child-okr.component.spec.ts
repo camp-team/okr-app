@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SecondOkrComponent } from './child-okr.component';
+import { ChildOkrComponent } from './child-okr.component';
 
-describe('SecondOkrComponent', () => {
-  let component: SecondOkrComponent;
-  let fixture: ComponentFixture<SecondOkrComponent>;
+describe('ChildOkrComponent', () => {
+  let component: ChildOkrComponent;
+  let fixture: ComponentFixture<ChildOkrComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SecondOkrComponent],
+      declarations: [ChildOkrComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SecondOkrComponent);
+    fixture = TestBed.createComponent(ChildOkrComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
