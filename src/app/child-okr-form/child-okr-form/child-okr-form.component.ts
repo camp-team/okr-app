@@ -128,7 +128,7 @@ export class ChildOkrFormComponent implements OnInit {
           .subscribe((childOkrInProgress) => {
             this.loadingService.loading = false;
             this.snackBar.open('作成しました', null);
-            this.router.navigate(['manage/secondOkr'], {
+            this.router.navigate(['manage/childOkr'], {
               queryParams: { id: childOkrInProgress[0].childOkrId },
             });
           });
