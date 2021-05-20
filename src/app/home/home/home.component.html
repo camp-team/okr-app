@@ -50,7 +50,7 @@
       <p class="home__parent-okr-header">最近のOKR</p>
       <div class="home__list-item-grid">
         <div class="home__tile-Structure">
-          <ng-container *ngIf="childOkrId; else notSecondOkrId">
+          <ng-container *ngIf="childOkrId; else notChildOkrId">
             <a routerLink="/manage/childOkr" [queryParams]="{ id: childOkrId }">
               <div class="home__list-item">
                 <mat-icon>airplanemode_active</mat-icon>
@@ -85,7 +85,7 @@
               </mat-menu>
             </div>
           </ng-container>
-          <ng-template #notSecondOkrId>
+          <ng-template #notChildOkrId>
             <a routerLink="/manage/okr-edit">
               <div class="home__list-item">
                 <mat-icon>airplanemode_active</mat-icon>
@@ -99,7 +99,7 @@
             <div class="home__tile-Structure">
               <a
                 [routerLink]="['/manage/complete']"
-                [queryParams]="{ v: childOkr.secondOkrId }"
+                [queryParams]="{ v: childOkr.childOkrId }"
               >
                 <div class="home__list-item">
                   <mat-icon>airplanemode_active</mat-icon>
@@ -122,14 +122,14 @@
                   <button
                     mat-menu-item
                     [routerLink]="['/manage/complete']"
-                    [queryParams]="{ v: childOkr.secondOkrId }"
+                    [queryParams]="{ v: childOkr.childOkrId }"
                   >
                     <mat-icon>visibility_outline</mat-icon>
                     <span>詳細を表示</span>
                   </button>
                   <button
                     mat-menu-item
-                    (click)="deleteFindByChildOkr(childOkr.secondOkrId)"
+                    (click)="deleteFindByChildOkr(childOkr.childOkrId)"
                   >
                     <mat-icon>delete_outline</mat-icon>
                     <span>OKRを削除</span>
