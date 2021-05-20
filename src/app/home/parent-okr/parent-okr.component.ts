@@ -92,7 +92,7 @@ export class ParentOkrComponent implements OnInit {
   }
 
   updateObjective(parentOkrObjective: ParentOkr) {
-    this.okrService.updateOkr(
+    this.okrService.updateParentOkr(
       this.authService.uid,
       this.parentOkr.parentOkrId,
       parentOkrObjective
@@ -115,7 +115,7 @@ export class ParentOkrComponent implements OnInit {
     const okrValue: ParentOkr = {
       isParentOkrComplete: false,
     };
-    this.okrService.updateOkr(this.authService.uid, okrId, okrValue);
+    this.okrService.updateParentOkr(this.authService.uid, okrId, okrValue);
     this.snackBar.open('お疲れ様でした✨');
   }
 }
