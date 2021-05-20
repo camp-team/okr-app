@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompleteOkrDialogComponent } from './complete-okr-dialog.component';
+import { CompleteOkrDialogComponent } from './complete-child-okr-dialog.component';
 
 describe('CompleteOkrDialogComponent', () => {
   let component: CompleteOkrDialogComponent;

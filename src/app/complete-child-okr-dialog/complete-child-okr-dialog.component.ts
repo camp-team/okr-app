@@ -7,9 +7,9 @@ import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
 
 @Component({
-  selector: 'app-complete-okr-dialog',
-  templateUrl: './complete-okr-dialog.component.html',
-  styleUrls: ['./complete-okr-dialog.component.scss'],
+  selector: 'app-complete-child-okr-dialog',
+  templateUrl: './complete-child-okr-dialog.component.html',
+  styleUrls: ['./complete-child-okr-dialog.component.scss'],
 })
 export class CompleteOkrDialogComponent implements OnInit {
   constructor(

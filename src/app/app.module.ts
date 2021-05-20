@@ -22,7 +22,7 @@ import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-acc
 import { DeleteParentOkrDialogComponent } from './delete-parent-okr-dialog/delete-parent-okr-dialog.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CompleteOkrDialogComponent } from './complete-okr-dialog/complete-okr-dialog.component';
+import { CompleteOkrDialogComponent } from './complete-child-okr-dialog/complete-child-okr-dialog.component';
 import { DeleteChildOkrDialogComponent } from './delete-child-okr-dialog/delete-child-okr-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';

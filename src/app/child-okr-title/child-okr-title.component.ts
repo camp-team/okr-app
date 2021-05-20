@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { CompleteOkrDialogComponent } from '../complete-okr-dialog/complete-okr-dialog.component';
+import { CompleteOkrDialogComponent } from '../complete-child-okr-dialog/complete-child-okr-dialog.component';
 import { ChildOkr } from '../interfaces/child-okr';
 import { AuthService } from '../services/auth.service';
 import { OkrService } from '../services/okr.service';
