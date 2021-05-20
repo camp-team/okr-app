@@ -199,9 +199,9 @@ export class ChildOkrComponent implements OnInit {
       uid: this.authService.uid,
     };
     this.okrService.createChildOkrKeyResult(
-      childOkrKeyResult,
+      this.childOkrId,
       childOkrObjectiveId,
-      this.childOkrId
+      childOkrKeyResult
     );
     this.okrService
       .getChildOkrKeyResultId(this.childOkrId)

@@ -1,8 +1,8 @@
 import * as firebase from 'firebase';
 
 export interface ChildOkrKeyResult {
-  childOkrId: string;
-  childOkrObjectiveId: string;
+  childOkrId?: string;
+  childOkrObjectiveId?: string;
   uid: string;
   childOkrKeyResultId?: string;
   key: string;

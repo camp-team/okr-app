@@ -57,11 +57,19 @@ export class OkrService {
         ...params.okrType,
       });
     params.KeyResultsType.forEach((parentOkrKeyResult) => {
-      this.createPrimary(parentOkrKeyResult, parentOkrId, params.uid);
+      this.createParentOkrKeyResultId(
+        parentOkrKeyResult,
+        parentOkrId,
+        params.uid
+      );
     });
   }
 
-  createPrimary(parentOkrKeyResult: string, parentOkrId: string, uid: string) {
+  createParentOkrKeyResultId(
+    parentOkrKeyResult: string,
+    parentOkrId: string,
+    uid: string
+  ) {
     const parentOkrKeyResultId = this.db.createId();
     const value: ParentOkrKeyResult = {
       parentOkrKeyResult,
@@ -130,18 +138,15 @@ export class OkrService {
         `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives/${childOkrObjectiveId}`
       )
       .set(value);
-    this.createkey(childOkrId, childOkrObjectiveId, kyeResult);
+    this.createChildOkrKeyResult(childOkrId, childOkrObjectiveId, kyeResult);
   }
 
-  createkey(
+  createChildOkrKeyResult(
     childOkrId: string,
     childOkrObjectiveId: string,
     childOkrKeyResult: Omit<
       ChildOkrKeyResult,
-      | 'childOkrId'
-      | 'childOkrKeyResultId'
-      | 'lastUpdated'
-      | 'childOkrObjectiveId'
+      'childOkrKeyResultId' | 'lastUpdated'
     >
   ) {
     const childOkrKeyResultId = this.db.createId();
@@ -153,26 +158,6 @@ export class OkrService {
         childOkrKeyResultId,
         childOkrObjectiveId,
         childOkrId,
-        lastUpdated: firestore.firestore.Timestamp.now(),
-        ...childOkrKeyResult,
-      });
-  }
-
-  createChildOkrKeyResult(
-    childOkrKeyResult: Omit<
-      ChildOkrKeyResult,
-      'childOkrKeyResultId' | 'lastUpdated'
-    >,
-    childOkrObjectiveId: string,
-    childOkrId: string
-  ) {
-    const childOkrKeyResultId = this.db.createId();
-    return this.db
-      .doc<ChildOkrKeyResult>(
-        `users/${this.authsearvice.uid}/childOkrs/${childOkrId}/childOkrObjectives/${childOkrObjectiveId}/childOkrKeyResults/${childOkrKeyResultId}`
-      )
-      .set({
-        childOkrKeyResultId,
         lastUpdated: firestore.firestore.Timestamp.now(),
         ...childOkrKeyResult,
       });
