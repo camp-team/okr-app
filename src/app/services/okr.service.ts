@@ -354,27 +354,4 @@ export class OkrService {
         ...params.childOkrKeyResult,
       });
   }
-
-  updateTitle(
-    uid: string,
-    parentOkrId: string,
-    parentOkr: ParentOkr
-  ): Promise<void> {
-    return this.db
-      .doc(`users/${uid}/parentOkrs/${parentOkrId}`)
-      .update(parentOkr);
-  }
-
-  updatePrimaryTitle(
-    uid: string,
-    parentOkrId: string,
-    parentOkrKeyResultId: string,
-    parentOkrKeyResult: ParentOkrKeyResult
-  ): Promise<void> {
-    return this.db
-      .doc(
-        `users/${uid}/parentOkrs/${parentOkrId}/parentOkrKeyResults/${parentOkrKeyResultId}`
-      )
-      .update(parentOkrKeyResult[0]);
-  }
 }
