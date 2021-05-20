@@ -30,7 +30,7 @@ export class ChildOkrComponent implements OnInit {
   childOkrObjectives: ChildOkrObjective[] = [];
   childOkrObjectives$: Observable<
     ChildOkrObjective[]
-  > = this.okrService.getChildOkrObjects(this.childOkrId);
+  > = this.okrService.getChildOkrObjectives(this.childOkrId);
   childOkrKeyResults$: Observable<
     ChildOkrKeyResult[]
   > = this.okrService.getChildOkrKeyResultsCollection(this.childOkrId);
