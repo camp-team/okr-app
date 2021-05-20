@@ -2,7 +2,6 @@ import { DatePipe, formatDate } from '@angular/common';
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import * as firebase from 'firebase';
 import { combineLatest, Observable } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 import { ChildOkr } from 'src/app/interfaces/child-okr';
@@ -65,23 +64,100 @@ export class SecondOkrComponent implements OnInit {
           this.childOkrObjectivesForm[
             childOkrObjective.childOkrObjectiveId
           ] = this.fb.array([]);
-          this.initializeChildOkrObject(childOkrObjective);
+          this.initializeChildOkrObjectForm(childOkrObjective);
+          this.updateChildOkrObjective(childOkrObjective);
         });
         childOkrKeyResults.forEach((childOkrKeyResult) => {
-          this.initializeInitRows({
-            key: childOkrKeyResult.key,
-            target: childOkrKeyResult.target,
-            current: childOkrKeyResult.current,
-            percentage: childOkrKeyResult.percentage,
-            lastUpdated: childOkrKeyResult.lastUpdated,
-            childOkrObjectiveId: childOkrKeyResult.childOkrObjectiveId,
-            childOkrKeyResultId: childOkrKeyResult.childOkrKeyResultId,
-          });
+          this.initializeInitRows(childOkrKeyResult);
         });
         this.childOkrs = childOkrs;
         this.checkChildOkr();
       });
     // this.determineIfStartingTutorial();
+  }
+
+  initializeChildOkrObjectForm(childOkrObjective: ChildOkrObjective) {
+    this.childOkrObjectiveForm = this.fb.group({
+      childOkrObjective: [
+        childOkrObjective.childOkrObjective,
+        [Validators.required, Validators.maxLength(20)],
+      ],
+    });
+    this.childOkrObjectivesForm[childOkrObjective.childOkrObjectiveId].push(
+      this.childOkrObjectiveForm
+    );
+  }
+
+  updateChildOkrObjective(childOkrObjective: ChildOkrObjective) {
+    this.childOkrObjectiveForm.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((childOkrObjectivesForm) => {
+        this.okrService.updateChildOkrObjective({
+          childOkrObjective: childOkrObjectivesForm.childOkrObjective,
+          uid: this.authService.uid,
+          childOkrId: this.childOkrId,
+          childOkrObjectiveId: childOkrObjective.childOkrObjectiveId,
+        });
+      });
+  }
+
+  determineIfStartingTutorial() {
+    this.tutorialService.startTutorial({
+      okrType: 'childOkr',
+      groupIndex: 2,
+    });
+    this.tutorialService.tutorial = false;
+  }
+
+  getKeyValidation(key: string) {
+    return [key, [Validators.required, Validators.maxLength(20)]];
+  }
+
+  getTargetValidation(target: number) {
+    return [
+      target,
+      [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'),
+        Validators.maxLength(3),
+      ],
+    ];
+  }
+
+  getCurrentValidation(current: number) {
+    return [
+      current,
+      [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'),
+        Validators.maxLength(3),
+      ],
+    ];
+  }
+
+  getPercentageValidation(percentage: string) {
+    return [percentage, [Validators.required]];
+  }
+
+  getLastUpdatedValidation(percentage: string) {
+    return [percentage, [Validators.required]];
+  }
+
+  initializeInitRows(childOkrKeyResult: ChildOkrKeyResult) {
+    const lastUpdated = this.datepipe.transform(
+      childOkrKeyResult.lastUpdated.toDate(),
+      'yyyy/MM/dd'
+    );
+    this.row = this.fb.group({
+      key: this.getKeyValidation(childOkrKeyResult.key),
+      target: this.getTargetValidation(childOkrKeyResult.target),
+      current: this.getCurrentValidation(childOkrKeyResult.current),
+      percentage: this.getPercentageValidation(childOkrKeyResult.percentage),
+      lastUpdated: this.getLastUpdatedValidation(lastUpdated),
+      childOkrKeyResultId: childOkrKeyResult.childOkrKeyResultId,
+    });
+    this.rows[childOkrKeyResult.childOkrObjectiveId].push(this.row);
+    this.inputChildOkrKeyResults(childOkrKeyResult.childOkrObjectiveId);
   }
 
   checkChildOkr() {
@@ -100,96 +176,15 @@ export class SecondOkrComponent implements OnInit {
     });
   }
 
-  initializeChildOkrObject(childOkrObjective: ChildOkrObjective) {
-    this.childOkrObjectiveForm = this.fb.group({
-      childOkrObjective: [
-        childOkrObjective.childOkrObjective,
-        [Validators.required, Validators.maxLength(20)],
-      ],
-    });
-    this.childOkrObjectivesForm[childOkrObjective.childOkrObjectiveId].push(
-      this.childOkrObjectiveForm
-    );
-    this.childOkrObjectiveForm.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((childOkrObjectivesForm) => {
-        this.updateChildOkrObjective(
-          childOkrObjectivesForm.childOkrObjective,
-          childOkrObjective
-        );
-      });
-  }
-
-  determineIfStartingTutorial() {
-    this.tutorialService.startTutorial({
-      okrType: 'childOkr',
-      groupIndex: 2,
-    });
-    this.tutorialService.tutorial = false;
-  }
-
-  initializeInitRows(params: {
-    key: string;
-    target: number;
-    current: number;
-    percentage: string;
-    lastUpdated: firebase.default.firestore.Timestamp;
-    childOkrObjectiveId: string;
-    childOkrKeyResultId: string;
-  }) {
-    const lastUpdated = this.datepipe.transform(
-      params.lastUpdated.toDate(),
-      'yyyy/MM/dd'
-    );
-    this.row = this.fb.group({
-      key: [params.key, [Validators.required, Validators.maxLength(20)]],
-      target: [
-        params.target,
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(3),
-        ],
-      ],
-      current: [
-        params.current,
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(3),
-        ],
-      ],
-      percentage: [params.percentage, [Validators.required]],
-      lastUpdated: [lastUpdated, [Validators.required]],
-      childOkrKeyResultId: params.childOkrKeyResultId,
-    });
-    this.rows[params.childOkrObjectiveId].push(this.row);
-    this.inputChildOkrKeyResults(params.childOkrObjectiveId);
-  }
-
   addRow(childOkrObjectiveId: string) {
     const currentDate = new Date();
     const lastUpdated = formatDate(currentDate, 'yyyy/MM/dd', this.locale);
     const initialForm = this.fb.group({
-      key: ['', [Validators.required, Validators.maxLength(20)]],
-      target: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(3),
-        ],
-      ],
-      current: [
-        0,
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(3),
-        ],
-      ],
-      percentage: [0 + '%', [Validators.required]],
-      lastUpdated: [lastUpdated, [Validators.required]],
+      key: this.getKeyValidation(''),
+      target: this.getTargetValidation(null),
+      current: this.getCurrentValidation(0),
+      percentage: this.getPercentageValidation(0 + '%'),
+      lastUpdated: this.getLastUpdatedValidation(lastUpdated),
     });
     const childOkrKeyResult: Omit<
       ChildOkrKeyResult,
@@ -216,25 +211,11 @@ export class SecondOkrComponent implements OnInit {
           this.childOkrKeyResultId = ChildOkrKeyResult.childOkrKeyResultId;
         });
         this.row = this.fb.group({
-          key: ['', [Validators.required, Validators.maxLength(20)]],
-          target: [
-            '',
-            [
-              Validators.required,
-              Validators.pattern('^[0-9]*$'),
-              Validators.maxLength(3),
-            ],
-          ],
-          current: [
-            0,
-            [
-              Validators.required,
-              Validators.pattern('^[0-9]*$'),
-              Validators.maxLength(3),
-            ],
-          ],
-          percentage: [0 + '%', [Validators.required]],
-          lastUpdated: [lastUpdated, [Validators.required]],
+          key: this.getKeyValidation(''),
+          target: this.getTargetValidation(null),
+          current: this.getCurrentValidation(0),
+          percentage: this.getPercentageValidation(0 + '%'),
+          lastUpdated: this.getLastUpdatedValidation(lastUpdated),
           childOkrKeyResultId: this.childOkrKeyResultId,
         });
         this.rows[childOkrObjectiveId].push(this.row);
@@ -322,18 +303,6 @@ export class SecondOkrComponent implements OnInit {
       childOkrObjectiveId: params.childOkrObjectiveId,
       childOkrKeyResultId: params.childOkrKeyResultId,
       childOkrKeyResult,
-    });
-  }
-
-  updateChildOkrObjective(
-    childOkrObjective: ChildOkrObjective,
-    childOkrObjectives: ChildOkrObjective
-  ) {
-    this.okrService.updateChildOkrObjective({
-      childOkrObjective,
-      uid: this.authService.uid,
-      childOkrId: this.childOkrId,
-      childOkrObjectiveId: childOkrObjectives.childOkrObjectiveId,
     });
   }
 
