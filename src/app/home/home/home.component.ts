@@ -22,9 +22,9 @@ export class HomeComponent implements OnInit {
   childOkrs: ChildOkr[];
   parentOkr: boolean;
   childOkrId: string;
-  achieveChildOkrIdOkrs$: Observable<
+  achieveChildOkrs$: Observable<
     ChildOkr[]
-  > = this.okrService.achieveChildOkrIdOkrs();
+  > = this.okrService.getAchieveChildOkrs();
 
   constructor(
     public okrService: OkrService,

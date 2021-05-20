@@ -169,14 +169,6 @@ export class OkrService {
       .valueChanges();
   }
 
-  getOkr(parentOkrId: string): Observable<ParentOkr> {
-    return this.db
-      .doc<ParentOkr>(
-        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}`
-      )
-      .valueChanges();
-  }
-
   getChildOkrs(): Observable<ChildOkr[]> {
     return this.db
       .collection<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs`, (ref) =>
@@ -185,7 +177,7 @@ export class OkrService {
       .valueChanges();
   }
 
-  achieveChildOkrIdOkrs(): Observable<ChildOkr[]> {
+  getAchieveChildOkrs(): Observable<ChildOkr[]> {
     return this.db
       .collection<ChildOkr>(`users/${this.authsearvice.uid}/childOkrs`, (ref) =>
         ref
