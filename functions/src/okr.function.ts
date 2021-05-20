@@ -13,17 +13,17 @@ export const deleteParentOkr = functions
     return Promise.all([deleteCollectionByReference(parentOkrKeyResultsRef)]);
   });
 
-export const deleteSecondOkr = functions
+export const deleteChildOkr = functions
   .region('asia-northeast1')
-  .https.onCall(async (secondOkrId: any) => {
-    const secondOkrKeyResultsRef = db
-      .collectionGroup(`secondOkrKeyResults`)
-      .where('secondOkrId', '==', secondOkrId);
-    const secondOkrObjectsRef = db
-      .collectionGroup(`secondOkrObjects`)
-      .where('secondOkrId', '==', secondOkrId);
+  .https.onCall(async (childOkrId: any) => {
+    const childOkrKeyResultsRef = db
+      .collectionGroup(`childOkrKeyResults`)
+      .where('childOkrId', '==', childOkrId);
+    const childOkrObjectsRef = db
+      .collectionGroup(`childOkrObjects`)
+      .where('childOkrId', '==', childOkrId);
     return Promise.all([
-      deleteCollectionByReference(secondOkrKeyResultsRef),
-      deleteCollectionByReference(secondOkrObjectsRef),
+      deleteCollectionByReference(childOkrKeyResultsRef),
+      deleteCollectionByReference(childOkrObjectsRef),
     ]);
   });
