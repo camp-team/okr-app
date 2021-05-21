@@ -34,30 +34,28 @@ export const deleteCollection = functions
   .region('asia-northeast1')
   .auth.user()
   .onDelete((user) => {
-    const okrsRef = db
-      .collectionGroup(`okrs`)
-      .where('creatorId', '==', user.uid);
+    const okrsRef = db.collectionGroup(`okrs`).where('uid', '==', user.uid);
     const primariesRef = db
       .collectionGroup(`primaries`)
       .where('uid', '==', user.uid);
-    const secondOkrKeyResultsRef = db
-      .collectionGroup(`secondOkrKeyResults`)
+    const childOkrKeyResultsRef = db
+      .collectionGroup(`childOkrKeyResults`)
       .where('uid', '==', user.uid);
-    const secondOkrObjectsRef = db
-      .collectionGroup(`secondOkrObjects`)
+    const childOkrObjectivesRef = db
+      .collectionGroup(`childOkrObjectives`)
       .where('uid', '==', user.uid);
-    const secondOkrs = db
-      .collectionGroup(`secondOkrs`)
-      .where('creatorId', '==', user.uid);
+    const childOkrs = db
+      .collectionGroup(`childOkrs`)
+      .where('uid', '==', user.uid);
     const customers = db
       .collection(`customers`)
       .where('userId', '==', user.uid);
     return Promise.all([
       deleteCollectionByReference(okrsRef),
       deleteCollectionByReference(primariesRef),
-      deleteCollectionByReference(secondOkrKeyResultsRef),
-      deleteCollectionByReference(secondOkrObjectsRef),
-      deleteCollectionByReference(secondOkrs),
+      deleteCollectionByReference(childOkrKeyResultsRef),
+      deleteCollectionByReference(childOkrObjectivesRef),
+      deleteCollectionByReference(childOkrs),
       deleteCollectionByReference(customers),
     ]);
   });
