@@ -15,47 +15,35 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./delete-account-dialog.component.scss'],
 })
 export class DeleteAccountDialogComponent implements OnInit {
-  Okrs$: Observable<ParentOkr[]> = this.okrService.getParentOkrs();
-  okrId: string;
-
   constructor(
     private dialogRef: MatDialogRef<DeleteAccountDialogComponent>,
     private fns: AngularFireFunctions,
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private loadingService: LoadingService,
-    private okrService: OkrService
+    private loadingService: LoadingService
   ) {}
 
-  ngOnInit(): void {
-    this.Okrs$.subscribe((okrs) => {
-      okrs.forEach((okr) => {
-        this.okrId = okr.parentOkrId;
-      });
-    });
-  }
-  deleteAccount(okrId: string) {
+  ngOnInit(): void {}
+  async deleteAccount() {
     this.loadingService.loading = true;
     this.dialogRef.close();
     const callable = this.fns.httpsCallable('deleteAfUser');
-    return callable(this.authService.uid)
-      .toPromise()
-      .then(() => {
-        this.loadingService.loading = false;
-        this.authService.afAuth.signOut().then(() => {
-          this.router.navigateByUrl('/about');
-          this.snackBar.open(
-            'アカウントが削除されました。ご利用ありがとうございました。'
-          );
-        });
-      })
-      .catch(() => {
+    try {
+      await callable(this.authService.uid).toPromise();
+      this.loadingService.loading = false;
+      this.authService.afAuth.signOut().then(() => {
+        this.router.navigateByUrl('/about');
         this.snackBar.open(
-          '削除に失敗しました。再度ログインしてお試しください。',
-          '閉じる'
+          'アカウントが削除されました。ご利用ありがとうございました。'
         );
       });
+    } catch (e) {
+      this.snackBar.open(
+        '削除に失敗しました。再度ログインしてお試しください。',
+        '閉じる'
+      );
+    }
   }
 
   closeDeleteAccountDialog() {
