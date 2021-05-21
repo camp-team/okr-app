@@ -1,10 +1,10 @@
-<div class="okr">
-  <div class="okr__title">
-    <div *ngFor="let parentOkr of parentOkrs" class="okr__objectives">
+<div class="parentOkr">
+  <div class="parentOkr__title">
+    <div *ngFor="let parentOkr of parentOkrs" class="parentOkr__objectives">
       <span>目標(Objective)</span>
       <form
         [formGroup]="objectives[parentOkr.parentOkrId]"
-        class="okr__form-container"
+        class="parentOkr__form-container"
       >
         <ng-container
           *ngFor="
@@ -14,10 +14,10 @@
         >
           <div
             [formGroupName]="objectiveArrayIndex"
-            class="okr__objective-wrapper"
+            class="parentOkr__objective-wrapper"
           >
             <input
-              class="okr__objective"
+              class="parentOkr__objective"
               type="text"
               formControlName="objective"
               autocomplete="off"
@@ -34,12 +34,15 @@
       </form>
     </div>
   </div>
-  <div *ngFor="let parentOkrKeyResult of primaries" class="okr__keyResults">
-    <span class="okr__content">
+  <div
+    *ngFor="let parentOkrKeyResult of parentOkrKeyResults"
+    class="parentOkr__keyResults"
+  >
+    <span class="parentOkr__content">
       目標達成のための成果指標(Key Result)
     </span>
     <form
-      class="okr__keyResult-container"
+      class="parentOkr__keyResult-container"
       [formGroup]="keyResults[parentOkrKeyResult.parentOkrKeyResultId]"
     >
       <ng-container
@@ -51,7 +54,7 @@
       >
         <div [formGroupName]="KeyResultArrayIndex">
           <input
-            class="okr__keyResult"
+            class="parentOkr__keyResult"
             type="text"
             formControlName="key"
             autocomplete="off"
