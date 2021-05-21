@@ -19,11 +19,11 @@ export const deleteChildOkr = functions
     const childOkrKeyResultsRef = db
       .collectionGroup(`childOkrKeyResults`)
       .where('childOkrId', '==', childOkrId);
-    const childOkrObjectsRef = db
-      .collectionGroup(`childOkrObjects`)
+    const childOkrObjectivesRef = db
+      .collectionGroup(`childOkrObjectives`)
       .where('childOkrId', '==', childOkrId);
     return Promise.all([
       deleteCollectionByReference(childOkrKeyResultsRef),
-      deleteCollectionByReference(childOkrObjectsRef),
+      deleteCollectionByReference(childOkrObjectivesRef),
     ]);
   });
