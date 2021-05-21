@@ -23,7 +23,7 @@ export class ParentOkrComponent implements OnInit {
   } = {};
   obj: FormGroup;
   key: FormGroup;
-  primaries: ParentOkrKeyResult[] = [];
+  parentOkrKeyResults: ParentOkrKeyResult[] = [];
   parentOkrs: ParentOkr[] = [];
 
   constructor(
@@ -42,7 +42,7 @@ export class ParentOkrComponent implements OnInit {
       .subscribe(([parentOkrKeyResults, parentOkrs]) => {
         parentOkrKeyResults.forEach(
           (parentOkrKeyResult: ParentOkrKeyResult) => {
-            this.primaries.push(parentOkrKeyResult);
+            this.parentOkrKeyResults.push(parentOkrKeyResult);
             this.keyResults[
               parentOkrKeyResult.parentOkrKeyResultId
             ] = this.fb.array([]);
