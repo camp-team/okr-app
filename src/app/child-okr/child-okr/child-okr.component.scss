@@ -176,8 +176,10 @@ table {
     margin: 0 auto;
     display: block;
     width: fit-content;
+    background-color: rgba(2, 5, 211, 0.5);
+    color: #fff;
     &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
+      opacity: 0.9;
     }
   }
 }
