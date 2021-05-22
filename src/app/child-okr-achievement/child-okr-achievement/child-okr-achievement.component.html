@@ -64,7 +64,7 @@
   <div class="no-data">
     <h1 class="no-data__title">まだタスクが完了されていません</h1>
     <div class="child-okr-achieve__action">
-      <ng-container *ngIf="childOkrId; else createChildOkr">
+      <ng-container *ngIf="childOkrId">
         <a
           mat-raised-button
           routerLink="/manage/childOkr"
@@ -73,11 +73,6 @@
           タスクに進む
         </a>
       </ng-container>
-      <ng-template #createChildOkr>
-        <a mat-raised-button routerLink="/manage/okr-edit">
-          タスクを作成する
-        </a>
-      </ng-template>
     </div>
   </div>
 </ng-template>
