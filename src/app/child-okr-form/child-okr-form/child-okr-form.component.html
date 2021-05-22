@@ -33,6 +33,7 @@
                   type="text"
                   autocomplete="off"
                   placeholder="例: 「フォロワー100人増やす」など"
+                  (keyup.enter)="focusNextInput(i + 1)"
                   class="create-child-okr__input"
                 />
                 <mat-error *ngIf="option.hasError('maxlength')"

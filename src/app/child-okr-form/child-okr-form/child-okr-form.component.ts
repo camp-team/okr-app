@@ -183,4 +183,13 @@ export class ChildOkrFormComponent implements OnInit {
       '/manage/childOkr?id=' + childOkrInProgress[0].childOkrId
     );
   }
+
+  focusNextInput(nextTarget?: number) {
+    const nextElement = document.querySelectorAll('input')[
+      nextTarget
+    ] as HTMLElement;
+    if (nextElement) {
+      nextElement.focus();
+    }
+  }
 }
