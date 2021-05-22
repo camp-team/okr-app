@@ -10,6 +10,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { DeleteParentOkrDialogComponent } from 'src/app/delete-parent-okr-dialog/delete-parent-okr-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { ParentOkr } from 'src/app/interfaces/parent-okr';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,8 @@ export class HomeComponent implements OnInit {
     public authService: AuthService,
     private dialog: MatDialog,
     private loadingService: LoadingService,
-    private tutorialService: TutorialService
+    private tutorialService: TutorialService,
+    private router: Router
   ) {
     this.loadingService.loading = true;
     combineLatest([
@@ -60,6 +62,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
     this.determineIfStartingTutorial();
   }
 
