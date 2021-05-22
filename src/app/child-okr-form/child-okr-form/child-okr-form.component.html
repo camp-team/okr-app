@@ -19,6 +19,20 @@
         <h3 class="create-child-okr__title">新規タスク</h3>
         <form [formGroup]="childOkrForm" (ngSubmit)="cleateChildOkr()">
           <div class="create-child-okr__contents">
+            <label class="create-child-okr__lavel">対象を選択</label>
+            <mat-form-field appearance="fill">
+              <mat-label>Cars</mat-label>
+              <select formControlName="target" matNativeControl required>
+                <ng-container *ngFor="let parentOkr of parentOkrs">
+                  <option value="{{ parentOkr.parentOkrTarget }}">
+                    {{ parentOkr.parentOkrTarget }}
+                  </option>
+                </ng-container>
+              </select>
+            </mat-form-field>
+          </div>
+
+          <div class="create-child-okr__contents">
             <div
               formArrayName="objectives"
               *ngFor="let option of objectives.controls; let i = index"

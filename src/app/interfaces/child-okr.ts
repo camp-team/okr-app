@@ -6,4 +6,5 @@ export interface ChildOkr {
   uid?: string;
   childOkrId?: string;
   isChildOkrComplete: boolean;
+  childOkrTarget?: string;
 }

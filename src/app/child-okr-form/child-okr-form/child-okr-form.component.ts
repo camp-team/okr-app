@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { debounceTime, tap } from 'rxjs/operators';
 import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { ChildOkrKeyResult } from 'src/app/interfaces/child-okr-key-result';
+import { ParentOkr } from 'src/app/interfaces/parent-okr';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { OkrService } from 'src/app/services/okr.service';
@@ -21,6 +22,7 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./child-okr-form.component.scss'],
 })
 export class ChildOkrFormComponent implements OnInit {
+  parentOkrs: ParentOkr[];
   childOkrs: ChildOkr[];
   minDate: Date;
   maxDate: Date;
@@ -29,6 +31,7 @@ export class ChildOkrFormComponent implements OnInit {
   childOkrForm = this.fb.group({
     objectives: this.fb.array([]),
     end: ['', [Validators.required, Validators.maxLength(20)]],
+    target: new FormControl(),
   });
 
   get objectives(): FormArray {
@@ -56,6 +59,9 @@ export class ChildOkrFormComponent implements OnInit {
     this.okrService.childOkrs$.subscribe((childOkrs) => {
       this.childOkrs = childOkrs;
       this.checkChildOkr();
+    });
+    this.okrService.parentOkrs$.subscribe((parentOkrs) => {
+      this.parentOkrs = parentOkrs;
     });
     this.displayToInitialObjectiveForm();
   }
@@ -104,9 +110,10 @@ export class ChildOkrFormComponent implements OnInit {
     const childOkrObjectiveFormInformation = this.childOkrForm.value;
     const childOkrObjective: Omit<
       ChildOkr,
-      'childOkrId' | 'isChildOkrComplete' | 'start'
+      'childOkrId' | 'isChildOkrComplete'
     > = {
       end: childOkrObjectiveFormInformation.end,
+      childOkrTarget: childOkrObjectiveFormInformation.target,
       childOkrObjectives: childOkrObjectiveFormInformation.objectives,
       uid: this.authService.uid,
     };
