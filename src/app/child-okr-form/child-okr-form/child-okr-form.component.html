@@ -82,8 +82,7 @@
               </mat-datepicker-toggle>
             </div>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error
-              *ngIf="childOkrForm.controls.end.hasError('matEndDateInvalid')"
+            <mat-error *ngIf="endControl.hasError('matDatepickerParse')"
               >期日を入力して下さい</mat-error
             >
           </div>
