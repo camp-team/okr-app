@@ -1,9 +1,9 @@
 <div class="manage-header">
   <div class="manage-header__top-bar">
-    <h1 class="manage-header__titl-row">{{ array[i] }}</h1>
+    <h1 class="manage-header__titl-row">{{ transitionTargetArray[i] }}</h1>
     <ul class="nav">
       <li>
-        <a (click)="a()" routerLink="/manage/home">
+        <a (click)="setTransitionTargetIndex(0)" routerLink="/manage/home">
           <span>ホーム</span>
         </a>
       </li>
@@ -17,13 +17,17 @@
         </ng-container>
 
         <ng-template #blank>
-          <a href="" routerLink="/manage/childOkr">
+          <a
+            href=""
+            (click)="setTransitionTargetIndex(1)"
+            routerLink="/manage/childOkr"
+          >
             <span>進行中のOKR</span>
           </a>
         </ng-template>
       </li>
       <li>
-        <a (click)="aa()" routerLink="/manage/achieve">
+        <a (click)="setTransitionTargetIndex(2)" routerLink="/manage/achieve">
           <span>完了したOKR</span>
         </a>
       </li>

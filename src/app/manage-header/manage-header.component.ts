@@ -25,6 +25,11 @@ export class ManageHeaderComponent implements OnInit {
   childOkr: ChildOkr;
   isChildOkrComplete: boolean;
   isChildOkrCompletes = [];
+  content: number;
+  transitionTargetArray: string[];
+  i: number;
+
+  transitionTargetIndex = [0, 1, 2];
 
   constructor(
     public authService: AuthService,
@@ -33,6 +38,22 @@ export class ManageHeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.transitionTargetArray = ['ホーム', '進行中のOKR', '完了したOKR'];
+    switch (this.router.url) {
+      case '/manage/home':
+        this.i = this.transitionTargetIndex[0];
+        break;
+      case '/manage/childOkr?id=' + this.route.snapshot.queryParamMap.get('id'):
+        this.i = this.transitionTargetIndex[1];
+        break;
+      case '/manage/childOkr':
+        this.i = this.transitionTargetIndex[1];
+        break;
+      case '/manage/achieve':
+        this.i = this.transitionTargetIndex[2];
+        break;
+    }
+
     this.loadingService.loading = true;
     this.authService.getUser(this.authService.uid).subscribe((result) => {
       this.avatarURL = result?.avatarURL;
@@ -59,7 +80,12 @@ export class ManageHeaderComponent implements OnInit {
     });
   }
 
+  setTransitionTargetIndex(index: number) {
+    this.i = this.transitionTargetIndex[index];
+  }
+
   progress() {
+    this.i = 1;
     this.router.navigate(['manage/childOkr'], {
       queryParams: { id: this.childOkr.childOkrId },
     });
