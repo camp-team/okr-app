@@ -3,13 +3,13 @@
     <div class="home__general-next-section">
       <h1 class="home__welcome-text">{{ user }}さん、OKRへようこそ</h1>
       <p class="home__description">
-        以下から、メインのOKRや最近のOKRをご確認ください
+        以下から、プロジェクトや進行中のOKRをご確認ください
       </p>
     </div>
 
     <div class="home__parent-okr-section">
       <div class="home__parent-okr-header">
-        <p>メインのOKR</p>
+        <p>プロジェクト</p>
         <ng-container
           *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
         >
@@ -25,13 +25,27 @@
           </button>
         </ng-container>
       </div>
+
       <ng-container *ngIf="parentOkr; else blank">
         <ng-container
           *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
         >
-          <app-parent-okr [parentOkr]="parentOkr"></app-parent-okr>
+          <div class="home__list-item-grid">
+            <div class="home__tile-Structure">
+              <a
+                routerLink="/manage/okr-project"
+                [queryParams]="{ id: parentOkr.parentOkrId }"
+              >
+                <div class="home__list-item">
+                  <mat-icon>airplanemode_active</mat-icon>
+                </div>
+                <p>{{ parentOkr.parentOkrTarget }}のOKR</p>
+              </a>
+            </div>
+          </div>
         </ng-container>
       </ng-container>
+
       <ng-template #blank>
         <div class="home__list-item-grid">
           <div class="home__tile-Structure">
@@ -47,7 +61,7 @@
     </div>
 
     <div class="home__parent-okr-section">
-      <p class="home__parent-okr-header">最近のOKR</p>
+      <p class="home__parent-okr-header">進行中のOKR</p>
       <div class="home__list-item-grid">
         <div class="home__tile-Structure">
           <ng-container *ngIf="childOkrId; else notChildOkrId">
