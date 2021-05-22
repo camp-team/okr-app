@@ -297,13 +297,15 @@ export class ChildOkrComponent implements OnInit {
       percentage: result + '%',
     };
 
-    this.okrService.updateChildOkrKeyResult({
-      uid: this.authService.uid,
-      childOkrId: this.childOkrId,
-      childOkrObjectiveId: params.childOkrObjectiveId,
-      childOkrKeyResultId: params.childOkrKeyResultId,
-      childOkrKeyResult,
-    });
+    if (childOkrKeyResult.key.length <= 20) {
+      this.okrService.updateChildOkrKeyResult({
+        uid: this.authService.uid,
+        childOkrId: this.childOkrId,
+        childOkrObjectiveId: params.childOkrObjectiveId,
+        childOkrKeyResultId: params.childOkrKeyResultId,
+        childOkrKeyResult,
+      });
+    }
   }
 
   removeRow(childOkrObjectiveId: string, rowIndex: number) {
