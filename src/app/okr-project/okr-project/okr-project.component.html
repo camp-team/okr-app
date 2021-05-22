@@ -1,6 +1,6 @@
 <div class="okr-project">
   <div class="container">
-    <ng-container *ngFor="let parentOkr of this.okrService.parentOkrs$ | async">
+    <ng-container *ngIf="parentOkr$ | async as parentOkr">
       <app-parent-okr [parentOkr]="parentOkr"></app-parent-okr>
     </ng-container>
   </div>
