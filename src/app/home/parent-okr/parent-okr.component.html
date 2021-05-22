@@ -1,31 +1,20 @@
 <div class="parent-okr">
-  <div *ngFor="let parentOkr of parentOkrs" class="parent-okr__section">
-    <h1 class="parent-okr__header">目標(Objective)</h1>
-    <form [formGroup]="objectives[parentOkr.parentOkrId]">
-      <ng-container
-        *ngFor="
-          let objective of objectives[parentOkr.parentOkrId].controls;
-          index as objectiveArrayIndex
-        "
-      >
-        <div [formGroupName]="objectiveArrayIndex">
-          <input
-            class="parent-okr__objective-form"
-            type="text"
-            formControlName="objective"
-            autocomplete="off"
-            placeholder="例) 幸せになる"
-          />
-          <mat-error *ngIf="objective.get('objective').hasError('required')">
-            必須入力です。
-          </mat-error>
-          <mat-error *ngIf="objective.get('objective').hasError('maxlength')">
-            最大文字数は20文字です。
-          </mat-error>
-        </div>
-      </ng-container>
-    </form>
-  </div>
+  <h1 class="parent-okr__header">目標(Objective)</h1>
+  <form [formGroup]="parentOkrObjectiveForm" *ngIf="parentOkrObjectiveForm">
+    <input
+      class="parent-okr__objective-form"
+      type="text"
+      formControlName="objective"
+      autocomplete="off"
+      placeholder="例) 幸せになる"
+    />
+    <mat-error *ngIf="objective.hasError('required')">
+      必須入力です。
+    </mat-error>
+    <mat-error *ngIf="objective.hasError('maxlength')">
+      最大文字数は20文字です。
+    </mat-error>
+  </form>
 
   <div
     *ngFor="let parentOkrKeyResult of parentOkrKeyResults"
@@ -34,11 +23,16 @@
     <h3 class="parent-okr__sub-header">
       目標達成のための成果指標(Key Result)
     </h3>
-    <form [formGroup]="keyResults[parentOkrKeyResult.parentOkrKeyResultId]">
+    <form
+      [formGroup]="
+        parentOkrKeyResultsForm[parentOkrKeyResult.parentOkrKeyResultId]
+      "
+    >
       <ng-container
         *ngFor="
-          let KeyResult of keyResults[parentOkrKeyResult.parentOkrKeyResultId]
-            .controls;
+          let KeyResult of parentOkrKeyResultsForm[
+            parentOkrKeyResult.parentOkrKeyResultId
+          ].controls;
           index as KeyResultArrayIndex
         "
       >

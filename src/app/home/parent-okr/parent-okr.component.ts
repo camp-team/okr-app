@@ -1,13 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { combineLatest } from 'rxjs';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { debounceTime, take } from 'rxjs/operators';
 import { ParentOkr } from 'src/app/interfaces/parent-okr';
 import { ParentOkrKeyResult } from 'src/app/interfaces/parent-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
 import { OkrService } from 'src/app/services/okr.service';
-
 @Component({
   selector: 'app-parent-okr',
   templateUrl: './parent-okr.component.html',
@@ -15,73 +18,70 @@ import { OkrService } from 'src/app/services/okr.service';
 })
 export class ParentOkrComponent implements OnInit {
   @Input() parentOkr: ParentOkr;
-  keyResults: {
+  parentOkrKeyResults: ParentOkrKeyResult[] = [];
+  parentOkrKeyResultsForm: {
     [parentOkrKeyResultId: string]: FormArray;
   } = {};
-  objectives: {
-    [parentOkrId: string]: FormArray;
-  } = {};
-  obj: FormGroup;
-  key: FormGroup;
-  parentOkrKeyResults: ParentOkrKeyResult[] = [];
-  parentOkrs: ParentOkr[] = [];
+  parentOkrkeyResultForm: FormGroup;
+  parentOkrObjectiveForm: FormGroup;
 
   constructor(
     private okrService: OkrService,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    combineLatest([
-      this.okrService.getParentOkrKeyResults(this.parentOkr.parentOkrId),
-      this.okrService.parentOkrs$,
-    ])
+    this.okrService
+      .getParentOkrKeyResults(this.parentOkr.parentOkrId)
       .pipe(take(1))
-      .subscribe(([parentOkrKeyResults, parentOkrs]) => {
+      .subscribe((parentOkrKeyResults) => {
         parentOkrKeyResults.forEach(
           (parentOkrKeyResult: ParentOkrKeyResult) => {
             this.parentOkrKeyResults.push(parentOkrKeyResult);
-            this.keyResults[
+            this.parentOkrKeyResultsForm[
               parentOkrKeyResult.parentOkrKeyResultId
             ] = this.fb.array([]);
-            this.initKeyResult(parentOkrKeyResult);
+            this.initFormParentOkrKeyResult(parentOkrKeyResult);
           }
         );
-        parentOkrs.forEach((parentOkr: ParentOkr) => {
-          this.parentOkrs.push(parentOkr);
-          this.objectives[parentOkr.parentOkrId] = this.fb.array([]);
-          this.initObjective(parentOkr);
+        this.parentOkrObjectiveForm = this.fb.group({
+          objective: [
+            this.parentOkr.parentOkrObjective,
+            [Validators.required, Validators.maxLength(20)],
+          ],
+        });
+        this.updateParentOkrObjective();
+      });
+  }
+
+  get objective(): FormControl {
+    return this.parentOkrObjectiveForm.get('objective') as FormControl;
+  }
+
+  updateParentOkrObjective() {
+    this.parentOkrObjectiveForm.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((parentOkrObjectivesForm: { objective: ParentOkr }) => {
+        this.okrService.updateParentOkrObjective({
+          uid: this.authService.uid,
+          parentOkrId: this.parentOkr.parentOkrId,
+          parentOkrObjective: parentOkrObjectivesForm.objective,
         });
       });
   }
 
-  initObjective(parentOkr: ParentOkr) {
-    this.obj = this.fb.group({
-      objective: [
-        parentOkr.parentOkrObjective,
-        [Validators.required, Validators.maxLength(20)],
-      ],
-    });
-    this.objectives[parentOkr.parentOkrId].push(this.obj);
-    this.obj.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((parentOkrObjectivesForm) => {
-        this.updateObjective(parentOkrObjectivesForm.objective);
-      });
-  }
-
-  initKeyResult(parentOkrKeyResult: ParentOkrKeyResult) {
-    this.key = this.fb.group({
+  initFormParentOkrKeyResult(parentOkrKeyResult: ParentOkrKeyResult) {
+    this.parentOkrkeyResultForm = this.fb.group({
       key: [
         parentOkrKeyResult.parentOkrKeyResult,
         [Validators.required, Validators.maxLength(20)],
       ],
     });
-    this.keyResults[parentOkrKeyResult.parentOkrKeyResultId].push(this.key);
-
-    this.key.valueChanges
+    this.parentOkrKeyResultsForm[parentOkrKeyResult.parentOkrKeyResultId].push(
+      this.parentOkrkeyResultForm
+    );
+    this.parentOkrkeyResultForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe((parentOkrKeyResultsForm) => {
         this.updateParentOkrKeyResult(
@@ -89,14 +89,6 @@ export class ParentOkrComponent implements OnInit {
           parentOkrKeyResultsForm.key
         );
       });
-  }
-
-  updateObjective(parentOkrObjective: ParentOkr) {
-    this.okrService.updateParentOkr(
-      this.authService.uid,
-      this.parentOkr.parentOkrId,
-      parentOkrObjective
-    );
   }
 
   updateParentOkrKeyResult(
@@ -109,13 +101,5 @@ export class ParentOkrComponent implements OnInit {
       parentOkrKeyResultId,
       parentOkrKeyResult
     );
-  }
-
-  okrComplete(okrId: string) {
-    const okrValue: ParentOkr = {
-      isParentOkrComplete: false,
-    };
-    this.okrService.updateParentOkr(this.authService.uid, okrId, okrValue);
-    this.snackBar.open('お疲れ様でした✨');
   }
 }
