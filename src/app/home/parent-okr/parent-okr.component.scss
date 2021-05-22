@@ -1,11 +1,6 @@
 @import 'mixins';
 
-.mat-error {
-  font-size: 12px;
-}
-
-.parentOkr {
-  max-width: 960px;
+.parent-okr {
   padding-top: 32px;
   margin: 0 36px;
   @include md {
@@ -16,65 +11,11 @@
     width: 356px;
     margin: 0 auto;
   }
-  &__form-container {
-    width: 100%;
-    display: flex;
-    @include md {
-      display: block;
-    }
-    @include sm {
-      margin-top: 16px;
-    }
+  &__header {
+    font-size: 20px;
+    font-weight: 400;
   }
-  &__title {
-    position: relative;
-    display: flex;
-    font-size: 24px;
-    margin-bottom: 36px;
-    span {
-      width: 250px;
-      &::after {
-        content: ':';
-      }
-      @include md {
-        &::after {
-          display: none;
-        }
-      }
-      @include sm {
-        font-size: 18px;
-      }
-    }
-    @include md {
-      display: block;
-      &::after {
-        display: none;
-      }
-    }
-    @include sm {
-      display: block;
-      padding-bottom: 20px;
-      font-size: 24px;
-      width: 100%;
-      margin: 0;
-    }
-  }
-  &__objectives {
-    align-items: center;
-    display: flex;
-    width: 100%;
-    @include sm {
-      display: block;
-    }
-  }
-  &__objective-wrapper {
-    width: 100%;
-    text-align: start;
-    @include sm {
-      padding: 0;
-    }
-  }
-  &__objective {
+  &__objective-form {
     width: 100%;
     border: none;
     font-size: 20px;
@@ -86,21 +27,9 @@
       font-size: 18px;
     }
   }
-  &__keyResults {
-    display: flex;
-    padding-bottom: 22px;
-    align-items: center;
-    @include md {
-      display: block;
-    }
-    @include sm {
-      width: 100%;
-      padding-bottom: 20px;
-    }
-  }
-  &__content {
-    width: 700px;
-    font-size: 20px;
+  &__sub-header {
+    font-weight: 400;
+    font-size: 14px;
     &::after {
       content: ':';
     }
@@ -114,17 +43,7 @@
       font-size: 18px;
     }
   }
-  &__keyResult-container {
-    width: 100%;
-    text-align: start;
-    @include sm {
-      position: inherit;
-      width: 100%;
-      right: 0;
-      top: 0;
-    }
-  }
-  &__keyResult {
+  &__keyResult-form {
     border: none;
     background-color: inherit;
     font-size: 16px;

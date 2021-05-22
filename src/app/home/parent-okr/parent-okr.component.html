@@ -1,50 +1,40 @@
-<div class="parentOkr">
-  <div class="parentOkr__title">
-    <div *ngFor="let parentOkr of parentOkrs" class="parentOkr__objectives">
-      <span>目標(Objective)</span>
-      <form
-        [formGroup]="objectives[parentOkr.parentOkrId]"
-        class="parentOkr__form-container"
+<div class="parent-okr">
+  <div *ngFor="let parentOkr of parentOkrs" class="parent-okr__section">
+    <h1 class="parent-okr__header">目標(Objective)</h1>
+    <form [formGroup]="objectives[parentOkr.parentOkrId]">
+      <ng-container
+        *ngFor="
+          let objective of objectives[parentOkr.parentOkrId].controls;
+          index as objectiveArrayIndex
+        "
       >
-        <ng-container
-          *ngFor="
-            let objective of objectives[parentOkr.parentOkrId].controls;
-            index as objectiveArrayIndex
-          "
-        >
-          <div
-            [formGroupName]="objectiveArrayIndex"
-            class="parentOkr__objective-wrapper"
-          >
-            <input
-              class="parentOkr__objective"
-              type="text"
-              formControlName="objective"
-              autocomplete="off"
-              placeholder="例) 幸せになる"
-            />
-            <mat-error *ngIf="objective.get('objective').hasError('required')">
-              必須入力です。
-            </mat-error>
-            <mat-error *ngIf="objective.get('objective').hasError('maxlength')">
-              最大文字数は20文字です。
-            </mat-error>
-          </div>
-        </ng-container>
-      </form>
-    </div>
+        <div [formGroupName]="objectiveArrayIndex">
+          <input
+            class="parent-okr__objective-form"
+            type="text"
+            formControlName="objective"
+            autocomplete="off"
+            placeholder="例) 幸せになる"
+          />
+          <mat-error *ngIf="objective.get('objective').hasError('required')">
+            必須入力です。
+          </mat-error>
+          <mat-error *ngIf="objective.get('objective').hasError('maxlength')">
+            最大文字数は20文字です。
+          </mat-error>
+        </div>
+      </ng-container>
+    </form>
   </div>
+
   <div
     *ngFor="let parentOkrKeyResult of parentOkrKeyResults"
-    class="parentOkr__keyResults"
+    class="parent-okr__section"
   >
-    <span class="parentOkr__content">
+    <h3 class="parent-okr__sub-header">
       目標達成のための成果指標(Key Result)
-    </span>
-    <form
-      class="parentOkr__keyResult-container"
-      [formGroup]="keyResults[parentOkrKeyResult.parentOkrKeyResultId]"
-    >
+    </h3>
+    <form [formGroup]="keyResults[parentOkrKeyResult.parentOkrKeyResultId]">
       <ng-container
         *ngFor="
           let KeyResult of keyResults[parentOkrKeyResult.parentOkrKeyResultId]
@@ -54,7 +44,7 @@
       >
         <div [formGroupName]="KeyResultArrayIndex">
           <input
-            class="parentOkr__keyResult"
+            class="parent-okr__keyResult-form"
             type="text"
             formControlName="key"
             autocomplete="off"
