@@ -1,26 +1,40 @@
 @import 'variables';
 @import 'mixins';
 
+.red {
+  color: red;
+}
+
 li {
   cursor: pointer;
 }
 
 .manage-header {
   position: absolute;
+  position: fixed;
+  top: 0;
+  margin-left: 104px;
+  display: flex;
+  align-items: center;
   z-index: 1000;
-  top: -60px;
-  left: 12%;
-  padding: 0 42px;
+  height: 72px;
   @include sm {
     padding: 0 34px;
+  }
+  &__titl-row {
+    padding-left: 24px;
+    min-height: 32px;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    margin: 0;
   }
 }
 
 .nav {
-  position: fixed;
+  max-width: 1324px;
   z-index: 1000;
   padding: 0;
-  height: 56px;
   display: flex;
   margin: 0 auto;
   list-style: none;
@@ -32,7 +46,9 @@ li {
     justify-content: space-between;
   }
   span {
+    font-size: 14px;
     color: #6f7782;
+    font-weight: 400;
     &:hover {
       color: #000;
     }
@@ -43,7 +59,7 @@ li {
   a {
     text-decoration: none;
     position: relative;
-    padding: 0 14px;
+    padding-left: 24px;
     min-height: 48px;
     align-items: center;
     transition: opacity 0.4s;
@@ -51,14 +67,14 @@ li {
     &::before {
       content: '';
       position: absolute;
-      bottom: -25px;
-      left: 50%;
+      bottom: -13px;
+      left: 60%;
       transform: translateX(-50%);
       width: 0;
       background-color: #151b26;
-      height: 3px;
+      height: 2px;
       border-radius: 2px;
-      transition: width 0.4s;
+      transition: width 0.3s;
       @include sm {
         bottom: -5px;
       }

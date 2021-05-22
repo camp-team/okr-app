@@ -1,29 +1,32 @@
 <div class="manage-header">
-  <ul class="nav">
-    <li>
-      <a routerLink="/manage/home">
-        <span>ホーム</span>
-      </a>
-    </li>
-    <li>
-      <ng-container *ngIf="isChildOkr; else blank">
-        <ng-container *ngIf="isChildOkrComplete === true; else blank">
-          <a (click)="progress()">
+  <div class="manage-header__top-bar">
+    <h1 class="manage-header__titl-row">{{ array[i] }}</h1>
+    <ul class="nav">
+      <li>
+        <a (click)="a()" routerLink="/manage/home">
+          <span>ホーム</span>
+        </a>
+      </li>
+      <li>
+        <ng-container *ngIf="isChildOkr; else blank">
+          <ng-container *ngIf="isChildOkrComplete === true; else blank">
+            <a (click)="progress()">
+              <span>進行中のOKR</span>
+            </a>
+          </ng-container>
+        </ng-container>
+
+        <ng-template #blank>
+          <a href="" routerLink="/manage/childOkr">
             <span>進行中のOKR</span>
           </a>
-        </ng-container>
-      </ng-container>
-
-      <ng-template #blank>
-        <a href="" routerLink="/manage/childOkr">
-          <span>進行中のOKR</span>
+        </ng-template>
+      </li>
+      <li>
+        <a (click)="aa()" routerLink="/manage/achieve">
+          <span>完了したOKR</span>
         </a>
-      </ng-template>
-    </li>
-    <li>
-      <a routerLink="/manage/achieve">
-        <span>完了したOKR</span>
-      </a>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </div>
 </div>
