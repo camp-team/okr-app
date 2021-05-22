@@ -28,7 +28,7 @@ export class ChildOkrFormComponent implements OnInit {
   isChildOkrCompletes: boolean;
   childOkrForm = this.fb.group({
     objectives: this.fb.array([]),
-    end: ['', [Validators.required, Validators.maxLength(40)]],
+    end: ['', [Validators.required, Validators.maxLength(20)]],
   });
 
   get objectives(): FormArray {
