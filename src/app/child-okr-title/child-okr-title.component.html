@@ -1,8 +1,8 @@
-<div class="child-okr-title">
+<div class="child-okr-header">
   <div class="page-toolbar-structure">
     <ng-container *ngIf="childOkr$ | async as childOkr">
       <p class="page-toolbar-structure__left">
-        📅　期日: {{ childOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+        📅 期日: {{ childOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
       </p>
       <div class="page-toolbar-structure__right">
         <button (click)="childOkrComplete()" class="is-completed">

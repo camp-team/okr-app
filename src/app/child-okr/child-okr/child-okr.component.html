@@ -2,98 +2,90 @@
   <ng-container *ngIf="isChildOkrComplete === true; else blank">
     <app-child-okr-title></app-child-okr-title>
     <div class="data">
-      <div
-        *ngFor="let childOkrObjective of childOkrObjectives; let i = index"
-        class="data__container"
-      >
-        <form
-          [formGroup]="
-            childOkrObjectivesForm[childOkrObjective.childOkrObjectiveId]
-          "
+      <div class="data__container">
+        <table>
+          <thead>
+            <tr>
+              <th class="item row-left">
+                タスク名
+                <mat-icon
+                  class="table-icon"
+                  matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
+                >
+                  help_outline
+                </mat-icon>
+              </th>
+              <th class="target">
+                標的
+                <mat-icon class="table-icon" matTooltip="数値を入力">
+                  help_outline
+                </mat-icon>
+              </th>
+              <th class="current">
+                現在
+                <mat-icon class="table-icon" matTooltip="達成した数値を入力">
+                  help_outline
+                </mat-icon>
+              </th>
+              <th class="percentage">
+                達成率
+                <mat-icon class="table-icon" matTooltip="自動で更新されます">
+                  help_outline
+                </mat-icon>
+              </th>
+              <th class="last-update row-right">更新日</th>
+            </tr>
+          </thead>
+        </table>
+        <ng-container
+          *ngFor="let childOkrObjective of childOkrObjectives; let i = index"
         >
-          <div
-            *ngFor="
-              let childOkrObjective of childOkrObjectivesForm[
-                childOkrObjective.childOkrObjectiveId
-              ].controls;
-              index as primaryArrayIndex
-            "
-            class="child-okr__object"
-          >
-            <ng-container [formGroupName]="primaryArrayIndex">
-              <div class="objective">
-                <span class="objective__title">目標(Objective)</span>
-                <input
-                  placeholder="例) 技術者として売れる"
-                  type="text"
-                  formControlName="childOkrObjective"
-                  class="objective__form"
-                  required
-                />
-              </div>
-              <mat-error
-                *ngIf="
-                  childOkrObjective
-                    .get('childOkrObjective')
-                    .hasError('required')
-                "
-              >
-                必須入力です。
-              </mat-error>
-              <mat-error
-                *ngIf="
-                  childOkrObjective
-                    .get('childOkrObjective')
-                    .hasError('maxlength')
-                "
-              >
-                最大文字数は20文字です。
-              </mat-error>
-            </ng-container>
-          </div>
-        </form>
-        <div class="child-okr__table">
           <form [formGroup]="rows[childOkrObjective.childOkrObjectiveId]">
+            <div class="child-okr__objective-structure">
+              <form
+                [formGroup]="
+                  childOkrObjectivesForm[childOkrObjective.childOkrObjectiveId]
+                "
+              >
+                <div
+                  *ngFor="
+                    let childOkrObjective of childOkrObjectivesForm[
+                      childOkrObjective.childOkrObjectiveId
+                    ].controls;
+                    index as primaryArrayIndex
+                  "
+                >
+                  <ng-container [formGroupName]="primaryArrayIndex">
+                    <span class="child-okr__objective">😤目標(Objective)</span>
+                    <input
+                      placeholder="例) 技術者として売れる"
+                      type="text"
+                      formControlName="childOkrObjective"
+                      required
+                    />
+                    <mat-error
+                      *ngIf="
+                        childOkrObjective
+                          .get('childOkrObjective')
+                          .hasError('required')
+                      "
+                    >
+                      必須入力です。
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        childOkrObjective
+                          .get('childOkrObjective')
+                          .hasError('maxlength')
+                      "
+                    >
+                      最大文字数は20文字です。
+                    </mat-error>
+                  </ng-container>
+                </div>
+              </form>
+            </div>
             <table>
-              <thead>
-                <tr>
-                  <th class="item header-left">
-                    タスク名
-                    <mat-icon
-                      class="table-icon"
-                      matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
-                    >
-                      help_outline
-                    </mat-icon>
-                  </th>
-                  <th class="target">
-                    標的
-                    <mat-icon class="table-icon" matTooltip="数値を入力">
-                      help_outline
-                    </mat-icon>
-                  </th>
-                  <th class="current">
-                    現在
-                    <mat-icon
-                      class="table-icon"
-                      matTooltip="達成した数値を入力"
-                    >
-                      help_outline
-                    </mat-icon>
-                  </th>
-                  <th class="percent">
-                    達成率
-                    <mat-icon
-                      class="table-icon"
-                      matTooltip="自動で更新されます"
-                    >
-                      help_outline
-                    </mat-icon>
-                  </th>
-                  <th class="last-update header-right">更新日</th>
-                </tr>
-              </thead>
-
               <tbody>
                 <tr
                   *ngFor="
@@ -101,16 +93,16 @@
                       .controls;
                     index as rowIndex
                   "
-                  class="edit-tr-child-child-okr"
+                  class="child-okr__tr"
                 >
                   <ng-container [formGroupName]="rowIndex">
-                    <td class="body-left">
+                    <td class="row-left">
                       <input
                         placeholder="タスク名を入力"
                         type="text"
                         formControlName="key"
                         autocomplete="off"
-                        class="key child-okr__key-result"
+                        class="key child-okr__key-result-form"
                         (keyup.enter)="focusNextInput(i + i + rowIndex + i + 1)"
                       />
                       <mat-error *ngIf="row.get('key').hasError('required')">
@@ -155,7 +147,7 @@
                         autocomplete="off"
                         required
                         maxlength="20"
-                        class="child-okr__key-result"
+                        class="child-okr__key-result-form"
                       />
                       <mat-error *ngIf="row.get('target').hasError('required')">
                         <span
@@ -185,7 +177,7 @@
                         formControlName="current"
                         autocomplete="off"
                         required
-                        class="child-okr__key-result"
+                        class="child-okr__key-result-form"
                       />
                       <mat-error
                         *ngIf="row.get('current').hasError('required')"
@@ -207,16 +199,16 @@
                         formControlName="percentage"
                         autocomplete="off"
                         disabled
-                        class="child-okr__key-result"
+                        class="child-okr__key-result-form"
                       />
                     </td>
-                    <td class="body-right">
+                    <td class="row-right">
                       <input
                         type="text"
                         formControlName="lastUpdated"
                         autocomplete="off"
                         disabled
-                        class="child-okr__key-result"
+                        class="child-okr__key-result-form"
                       />
                     </td>
                   </ng-container>
@@ -226,22 +218,22 @@
             <button
               *ngIf="rows[childOkrObjective.childOkrObjectiveId].length < 3"
               (click)="addRow(childOkrObjective.childOkrObjectiveId)"
-              class="add-row child-okr__add-task"
+              class="add-row child-okr__add-task-button"
             >
               <mat-icon>add</mat-icon>
               <span>タスクを追加</span>
             </button>
           </form>
-        </div>
-        <div class="child-okr__average">
-          <span class="child-okr__average-text">達成度</span>
-          <ng-container *ngIf="childOkrObjective.average === 0; else blank">
-            <span>{{ childOkrObjective.average }}%</span>
-          </ng-container>
-          <ng-template #blank>
-            <span>{{ childOkrObjective.average }}%</span>
-          </ng-template>
-        </div>
+          <div class="child-okr__average">
+            <span>達成度</span>
+            <ng-container *ngIf="childOkrObjective.average === 0; else blank">
+              <span>{{ childOkrObjective.average }}%</span>
+            </ng-container>
+            <ng-template #blank>
+              <span>{{ childOkrObjective.average }}%</span>
+            </ng-template>
+          </div>
+        </ng-container>
       </div>
     </div>
   </ng-container>
