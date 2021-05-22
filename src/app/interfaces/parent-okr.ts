@@ -1,7 +1,8 @@
 export interface ParentOkr {
   uid?: string;
-  isParentOkrComplete: boolean;
+  isParentOkrComplete?: boolean;
   parentOkrId?: string;
   parentOkrKeyResults?: string;
   parentOkrObjective?: string;
+  parentOkrTarget?: string;
 }

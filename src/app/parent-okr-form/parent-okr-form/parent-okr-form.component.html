@@ -5,6 +5,21 @@
         <h3 class="create-parent-okr__title">新規OKR</h3>
         <form [formGroup]="parentOkrform" (ngSubmit)="createParentOkr()">
           <div class="create-parent-okr__contents">
+            <label class="create-parent-okr__lavel">対象を入力</label>
+            <input
+              formControlName="target"
+              type="text"
+              autocomplete="off"
+              placeholder="例: 「自分」や「会社」など"
+              (keyup.enter)="focusNextInput(1)"
+              class="create-parent-okr__input"
+            />
+            <mat-error *ngIf="targetControl.hasError('maxlength')"
+              >文字数は最大で20文字までです</mat-error
+            >
+          </div>
+
+          <div class="create-parent-okr__contents">
             <label class="create-parent-okr__lavel"
               >なりたい姿を入力(Objective)</label
             >
