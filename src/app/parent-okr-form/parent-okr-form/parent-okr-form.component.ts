@@ -114,4 +114,13 @@ export class ParentOkrFormComponent implements OnInit {
         this.snackBar.open('作成しました');
       });
   }
+
+  focusNextInput(nextTarget?: number) {
+    const nextElement = document.querySelectorAll('input')[
+      nextTarget
+    ] as HTMLElement;
+    if (nextElement) {
+      nextElement.focus();
+    }
+  }
 }
