@@ -1,115 +1,99 @@
-<ng-container
-  class="not-create-child-okr"
-  *ngIf="isChildOkrCompletes === true; else blank"
->
-  <h1 class="not-create-child-okr__title">タスクは作成済みです</h1>
-  <a
-    mat-raised-button
-    class="not-create-child-okr__action"
-    (click)="moveToChildOkrOfProgress()"
-  >
-    タスクへすすむ
-  </a>
-</ng-container>
+<div class="create-child-okr">
+  <div class="create-child-okr__body">
+    <div class="container">
+      <h3 class="create-child-okr__title">新規タスク</h3>
+      <form [formGroup]="childOkrForm" (ngSubmit)="cleateChildOkr()">
+        <div class="create-child-okr__contents">
+          <label class="create-child-okr__lavel">カテゴリーを選択</label>
+          <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <select formControlName="target" matNativeControl required>
+              <ng-container *ngFor="let parentOkr of parentOkrs">
+                <option value="{{ parentOkr.parentOkrTarget }}">
+                  {{ parentOkr.parentOkrTarget }}
+                </option>
+              </ng-container>
+            </select>
+          </mat-form-field>
+        </div>
 
-<ng-template #blank>
-  <div class="create-child-okr">
-    <div class="create-child-okr__body">
-      <div class="container">
-        <h3 class="create-child-okr__title">新規タスク</h3>
-        <form [formGroup]="childOkrForm" (ngSubmit)="cleateChildOkr()">
-          <div class="create-child-okr__contents">
-            <label class="create-child-okr__lavel">対象を選択</label>
-            <mat-form-field appearance="fill">
-              <mat-label>Cars</mat-label>
-              <select formControlName="target" matNativeControl required>
-                <ng-container *ngFor="let parentOkr of parentOkrs">
-                  <option value="{{ parentOkr.parentOkrTarget }}">
-                    {{ parentOkr.parentOkrTarget }}
-                  </option>
-                </ng-container>
-              </select>
-            </mat-form-field>
-          </div>
-
-          <div class="create-child-okr__contents">
-            <div
-              formArrayName="objectives"
-              *ngFor="let option of objectives.controls; let i = index"
-              class="create-child-okr__form-structure"
-            >
-              <label class="create-child-okr__lavel">
-                タスクを追加 {{ i + 1 }}つ目(Objective)
-              </label>
-              <div class="create-child-okr__form">
-                <input
-                  [formControlName]="i"
-                  type="text"
-                  autocomplete="off"
-                  placeholder="例: 「フォロワー100人増やす」など"
-                  (keyup.enter)="focusNextInput(i + 1)"
-                  class="create-child-okr__input"
-                />
-                <mat-error *ngIf="option.hasError('maxlength')"
-                  >文字数は最大で20文字までです</mat-error
-                >
-                <button
-                  *ngIf="i"
-                  mat-raised-button
-                  type="button"
-                  (click)="removeObjectiveForm(i)"
-                  class="create-child-okr__remove-form"
-                >
-                  <mat-icon>remove</mat-icon>
-                  削除
-                </button>
-              </div>
-            </div>
-            <button
-              *ngIf="objectiveForm < 3"
-              class="add-form create-child-okr__add-form"
-              type="button"
-              mat-raised-button
-              (click)="addObjectiveForm()"
-            >
-              <mat-icon>add</mat-icon>
-              追加
-            </button>
-          </div>
-
-          <div class="create-child-okr__contents">
-            <label class="create-child-okr__lavel">期日を追加</label>
-            <div class="create-child-okr-add-date">
+        <div class="create-child-okr__contents">
+          <div
+            formArrayName="objectives"
+            *ngFor="let option of objectives.controls; let i = index"
+            class="create-child-okr__form-structure"
+          >
+            <label class="create-child-okr__lavel">
+              タスクを追加 {{ i + 1 }}つ目(Objective)
+            </label>
+            <div class="create-child-okr__form">
               <input
-                formControlName="end"
-                matInput
-                [min]="minDate"
-                [max]="maxDate"
-                [matDatepicker]="picker"
-                class="create-child-okr-add-date__input"
+                [formControlName]="i"
+                type="text"
+                autocomplete="off"
+                placeholder="例: 「フォロワー100人増やす」など"
+                (keyup.enter)="focusNextInput(i + 1)"
+                class="create-child-okr__input"
               />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-                class="create-child-okr-add-date__icon"
+              <mat-error *ngIf="option.hasError('maxlength')"
+                >文字数は最大で20文字までです</mat-error
               >
-              </mat-datepicker-toggle>
+              <button
+                *ngIf="i"
+                mat-raised-button
+                type="button"
+                (click)="removeObjectiveForm(i)"
+                class="create-child-okr__remove-form"
+              >
+                <mat-icon>remove</mat-icon>
+                削除
+              </button>
             </div>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="endControl.hasError('matDatepickerParse')"
-              >期日を入力して下さい</mat-error
-            >
           </div>
           <button
-            [disabled]="endControl.invalid || childOkrForm.invalid"
-            mat-button
+            *ngIf="objectiveForm < 3"
+            class="add-form create-child-okr__add-form"
+            type="button"
             mat-raised-button
-            class="create-childOkr create-child-okr__button"
+            (click)="addObjectiveForm()"
           >
-            OKRを作成する
+            <mat-icon>add</mat-icon>
+            追加
           </button>
-        </form>
-      </div>
+        </div>
+
+        <div class="create-child-okr__contents">
+          <label class="create-child-okr__lavel">期日を追加</label>
+          <div class="create-child-okr-add-date">
+            <input
+              formControlName="end"
+              matInput
+              [min]="minDate"
+              [max]="maxDate"
+              [matDatepicker]="picker"
+              class="create-child-okr-add-date__input"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+              class="create-child-okr-add-date__icon"
+            >
+            </mat-datepicker-toggle>
+          </div>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="endControl.hasError('matDatepickerParse')"
+            >期日を入力して下さい</mat-error
+          >
+        </div>
+        <button
+          [disabled]="endControl.invalid || childOkrForm.invalid"
+          mat-button
+          mat-raised-button
+          class="create-childOkr create-child-okr__button"
+        >
+          OKRを作成する
+        </button>
+      </form>
     </div>
   </div>
-</ng-template>
+</div>
