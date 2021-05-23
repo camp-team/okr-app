@@ -1,105 +1,92 @@
 <div class="create-parent-okr">
   <div class="create-parent-okr__body">
     <div class="container">
-      <ng-container *ngIf="!isParentOkrcomplete; else blank">
-        <h3 class="create-parent-okr__title">新規OKR</h3>
-        <form [formGroup]="parentOkrform" (ngSubmit)="createParentOkr()">
-          <div class="create-parent-okr__contents">
-            <label class="create-parent-okr__lavel">対象を入力</label>
-            <input
-              formControlName="target"
-              type="text"
-              autocomplete="off"
-              placeholder="例: 「自分」や「会社」など"
-              (keyup.enter)="focusNextInput(1)"
-              class="create-parent-okr__input"
-            />
-            <mat-error *ngIf="targetControl.hasError('maxlength')"
-              >文字数は最大で20文字までです</mat-error
-            >
-          </div>
+      <h3 class="create-parent-okr__title">新規OKR</h3>
+      <form [formGroup]="parentOkrform" (ngSubmit)="createParentOkr()">
+        <div class="create-parent-okr__contents">
+          <label class="create-parent-okr__lavel">カテゴリーを入力</label>
+          <input
+            formControlName="target"
+            type="text"
+            autocomplete="off"
+            placeholder="例: 「自分」や「会社」など"
+            (keyup.enter)="focusNextInput(1)"
+            class="create-parent-okr__input"
+          />
+          <mat-error *ngIf="targetControl.hasError('maxlength')"
+            >文字数は最大で20文字までです</mat-error
+          >
+        </div>
 
-          <div class="create-parent-okr__contents">
+        <div class="create-parent-okr__contents">
+          <label class="create-parent-okr__lavel"
+            >なりたい姿を入力(Objective)</label
+          >
+          <input
+            formControlName="objective"
+            type="text"
+            autocomplete="off"
+            placeholder="例: 「有名になる」など"
+            (keyup.enter)="focusNextInput(2)"
+            class="create-parent-okr__input"
+          />
+          <mat-error *ngIf="objectiveControl.hasError('maxlength')"
+            >文字数は最大で20文字までです</mat-error
+          >
+        </div>
+
+        <div class="create-parent-okr__contents">
+          <div
+            formArrayName="keyResults"
+            *ngFor="let keyResult of keyResults.controls; let i = index"
+            class="create-parent-okr__form-structure"
+          >
             <label class="create-parent-okr__lavel"
-              >なりたい姿を入力(Objective)</label
+              >目標を入力 {{ i + 1 }}つ目</label
             >
-            <input
-              formControlName="objective"
-              type="text"
-              autocomplete="off"
-              placeholder="例: 「有名になる」など"
-              (keyup.enter)="focusNextInput(1)"
-              class="create-parent-okr__input"
-            />
-            <mat-error *ngIf="objectiveControl.hasError('maxlength')"
-              >文字数は最大で20文字までです</mat-error
-            >
-          </div>
-
-          <div class="create-parent-okr__contents">
-            <div
-              formArrayName="keyResults"
-              *ngFor="let keyResult of keyResults.controls; let i = index"
-              class="create-parent-okr__form-structure"
-            >
-              <label class="create-parent-okr__lavel"
-                >目標を入力 {{ i + 1 }}つ目</label
+            <div class="create-parent-okr__form">
+              <input
+                [formControlName]="i"
+                type="text"
+                autocomplete="off"
+                placeholder="例: 「30歳までにフォロワー1万人」など"
+                (keyup.enter)="focusNextInput(i + 3)"
+                class="create-parent-okr__input"
+              />
+              <mat-error *ngIf="keyResult.hasError('maxlength')"
+                >文字数は最大で20文字までです</mat-error
               >
-              <div class="create-parent-okr__form">
-                <input
-                  [formControlName]="i"
-                  type="text"
-                  autocomplete="off"
-                  placeholder="例: 「30歳までにフォロワー1万人」など"
-                  (keyup.enter)="focusNextInput(i + 2)"
-                  class="create-parent-okr__input"
-                />
-                <mat-error *ngIf="keyResult.hasError('maxlength')"
-                  >文字数は最大で20文字までです</mat-error
-                >
-                <button
-                  *ngIf="i"
-                  class="create-parent-okr__remove-form"
-                  type="button"
-                  (click)="removeObjectiveForm(i)"
-                  mat-raised-button
-                >
-                  <mat-icon>remove</mat-icon>
-                  削除
-                </button>
-              </div>
+              <button
+                *ngIf="i"
+                class="create-parent-okr__remove-form"
+                type="button"
+                (click)="removeObjectiveForm(i)"
+                mat-raised-button
+              >
+                <mat-icon>remove</mat-icon>
+                削除
+              </button>
             </div>
-            <button
-              *ngIf="parentOkrObjectiveForm < 3"
-              class="add-form create-parent-okr__add-form"
-              type="button"
-              mat-raised-button
-              (click)="addObjectiveForm()"
-            >
-              <mat-icon>add</mat-icon>
-              追加
-            </button>
           </div>
           <button
-            [disabled]="parentOkrform.invalid"
+            *ngIf="parentOkrObjectiveForm < 3"
+            class="add-form create-parent-okr__add-form"
+            type="button"
             mat-raised-button
-            class="create-okr-button create-parent-okr__button"
+            (click)="addObjectiveForm()"
           >
-            OKRを作成する
+            <mat-icon>add</mat-icon>
+            追加
           </button>
-        </form>
-      </ng-container>
+        </div>
+        <button
+          [disabled]="parentOkrform.invalid"
+          mat-raised-button
+          class="create-okr-button create-parent-okr__button"
+        >
+          OKRを作成する
+        </button>
+      </form>
     </div>
   </div>
 </div>
-
-<ng-template #blank>
-  <div class="no-data-first-okr">
-    <div class="no-data-first-okr__wrapper">
-      <h1 class="no-data-first-okr__title">OKRは作成済みです</h1>
-      <a routerLink="/manage/home" mat-raised-button class="action">
-        OKRへすすむ
-      </a>
-    </div>
-  </div>
-</ng-template>
