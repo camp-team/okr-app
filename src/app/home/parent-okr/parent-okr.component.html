@@ -1,57 +1,113 @@
 <div class="parent-okr">
-  <h1 class="parent-okr__header">目標(Objective)</h1>
-  <form [formGroup]="parentOkrObjectiveForm" *ngIf="parentOkrObjectiveForm">
-    <input
-      class="parent-okr__objective-form"
-      type="text"
-      formControlName="objective"
-      autocomplete="off"
-      placeholder="例) 幸せになる"
-    />
-    <mat-error *ngIf="objective.hasError('required')">
-      必須入力です。
-    </mat-error>
-    <mat-error *ngIf="objective.hasError('maxlength')">
-      最大文字数は20文字です。
-    </mat-error>
-  </form>
+  <div class="project-overview-page-main-content">
+    <h1 class="parent-okr__header">目標(Objective)</h1>
+    <form [formGroup]="parentOkrObjectiveForm" *ngIf="parentOkrObjectiveForm">
+      <input
+        class="parent-okr__objective-form"
+        type="text"
+        formControlName="objective"
+        autocomplete="off"
+        placeholder="例) 幸せになる"
+      />
+      <mat-error *ngIf="objective.hasError('required')">
+        必須入力です。
+      </mat-error>
+      <mat-error *ngIf="objective.hasError('maxlength')">
+        最大文字数は20文字です。
+      </mat-error>
+    </form>
 
-  <div
-    *ngFor="let parentOkrKeyResult of parentOkrKeyResults"
-    class="parent-okr__section"
-  >
-    <h3 class="parent-okr__sub-header">
-      目標達成のための成果指標(Key Result)
-    </h3>
-    <form
-      [formGroup]="
-        parentOkrKeyResultsForm[parentOkrKeyResult.parentOkrKeyResultId]
-      "
+    <div
+      *ngFor="let parentOkrKeyResult of parentOkrKeyResults"
+      class="parent-okr__section"
     >
-      <ng-container
-        *ngFor="
-          let KeyResult of parentOkrKeyResultsForm[
-            parentOkrKeyResult.parentOkrKeyResultId
-          ].controls;
-          index as KeyResultArrayIndex
+      <h3 class="parent-okr__sub-header">
+        目標達成のための成果指標(Key Result)
+      </h3>
+      <form
+        [formGroup]="
+          parentOkrKeyResultsForm[parentOkrKeyResult.parentOkrKeyResultId]
         "
       >
-        <div [formGroupName]="KeyResultArrayIndex">
-          <input
-            class="parent-okr__keyResult-form"
-            type="text"
-            formControlName="key"
-            autocomplete="off"
-            placeholder="例) 3年後に技術者として売れている"
-          />
-          <mat-error *ngIf="KeyResult.get('key').hasError('required')">
-            必須入力です。
-          </mat-error>
-          <mat-error *ngIf="KeyResult.get('key').hasError('maxlength')">
-            最大文字数は20文字です。
-          </mat-error>
+        <ng-container
+          *ngFor="
+            let KeyResult of parentOkrKeyResultsForm[
+              parentOkrKeyResult.parentOkrKeyResultId
+            ].controls;
+            index as KeyResultArrayIndex
+          "
+        >
+          <div [formGroupName]="KeyResultArrayIndex">
+            <input
+              class="parent-okr__keyResult-form"
+              type="text"
+              formControlName="key"
+              autocomplete="off"
+              placeholder="例) 3年後に技術者として売れている"
+            />
+            <mat-error *ngIf="KeyResult.get('key').hasError('required')">
+              必須入力です。
+            </mat-error>
+            <mat-error *ngIf="KeyResult.get('key').hasError('maxlength')">
+              最大文字数は20文字です。
+            </mat-error>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+
+  <div class="parent-okr__parent-okr-section">
+    <p class="parent-okr__parent-okr-header">進行中のOKR</p>
+    <div class="parent-okr__list-item-grid">
+      <ng-container *ngFor="let progressChildOkr of progressChildOkrs">
+        <div class="parent-okr__tile-Structure">
+          <a
+            routerLink="/manage/childOkr"
+            [queryParams]="{ id: progressChildOkr.childOkrId }"
+          >
+            <div class="parent-okr__list-item-blue">
+              <mat-icon>airplanemode_active</mat-icon>
+            </div>
+            <p>{{ progressChildOkr.childOkrTarget }}のOKR</p>
+          </a>
+          <div class="child-okr-description-menu">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Example icon-button with a menu"
+            >
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button
+                mat-menu-item
+                routerLink="/manage/childOkr"
+                [queryParams]="{ id: progressChildOkr.childOkrId }"
+              >
+                <mat-icon>visibility_outline</mat-icon>
+                <span>詳細を表示</span>
+              </button>
+              <button
+                mat-menu-item
+                (click)="deleteFindByChildOkr(progressChildOkr.childOkrId)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+                <span>OKRを削除</span>
+              </button>
+            </mat-menu>
+          </div>
         </div>
       </ng-container>
-    </form>
+      <div class="parent-okr__tile-Structure">
+        <a routerLink="/manage/okr-edit">
+          <div class="parent-okr__dashed-list-item">
+            <mat-icon>add</mat-icon>
+          </div>
+          <p>新規タスク</p>
+        </a>
+        <div class="child-okr-description-menu"></div>
+      </div>
+    </div>
   </div>
 </div>
