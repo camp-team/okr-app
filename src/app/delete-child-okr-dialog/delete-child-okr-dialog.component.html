@@ -1,0 +1,21 @@
+<div class="delete-child-okr-dialog">
+  <h1 class="delete-child-okr-dialog__title">OKRを削除しますか？</h1>
+  <div class="delete-child-okr-dialog__content">
+    <span>1度削除されると元に戻すことはできません。</span>
+  </div>
+  <div class="delete-child-okr-dialog__actions">
+    <a
+      (click)="cancel()"
+      mat-raised-button
+      class="delete-child-okr-dialog__cancel"
+      >キャンセル</a
+    >
+    <a
+      (click)="deletechildOkr()"
+      mat-raised-button
+      class="delete-child-okr-dialog__delete-child-okr"
+    >
+      削除する
+    </a>
+  </div>
+</div>

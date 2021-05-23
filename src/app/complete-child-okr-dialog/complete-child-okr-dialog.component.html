@@ -1,0 +1,28 @@
+<div class="complete-okr-dialog">
+  <h1 class="title">
+    タスクを完了しますか？
+  </h1>
+  <div class="content">
+    <p>タスクを完了すると、進行中のOKRから確認できなくなります。</p>
+    <p>
+      タスクは完了したOKRから確認できます。
+    </p>
+  </div>
+  <div class="actions">
+    <button
+      mat-raised-button
+      (click)="closeDialog()"
+      class="complete-okr-dialog__cancel"
+    >
+      キャンセル
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="completeOkr()"
+      class="complete-okr-dialog__complete-okr-delete"
+    >
+      完了済みにする
+    </button>
+  </div>
+</div>

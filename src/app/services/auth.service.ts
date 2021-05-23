@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import auth from 'firebase/app';
 import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { debounceTime, map, shareReplay, switchMap } from 'rxjs/operators';
+import { shareReplay, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../interfaces/user';
 import { LoadingService } from './loading.service';

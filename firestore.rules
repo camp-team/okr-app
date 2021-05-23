@@ -6,29 +6,29 @@ service cloud.firestore {
       allow create: if request.auth.uid != null;
       allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
       allow delete: if request.auth.uid == resource.data.uid;
-      match /okrs/{okrId} {
+      match /parentOkrs/{parentOkrId} {
         allow read: if true;
         allow create: if request.auth.uid != null;
-        allow update: if request.auth.uid == resource.data.creatorId && resource.data.creatorId == request.resource.data.creatorId;
-        allow delete: if request.auth.uid == resource.data.creatorId;
-        match /primaries/{primaryId} {
+        allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+        allow delete: if request.auth.uid == resource.data.uid;
+        match /parentOkrKeyResults/{parentOkrKeyResultId} {
           allow read: if true;
           allow create: if request.auth.uid != null;
           allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
           allow delete: if request.auth.uid == resource.data.uid;
         }
       }
-      match /secondOkrs/{secondOkrId} {
+      match /childOkrs/{childOkrId} {
         allow read: if true;
         allow create: if request.auth.uid != null;
-        allow update: if request.auth.uid == resource.data.creatorId && resource.data.creatorId == request.resource.data.creatorId;
-        allow delete: if request.auth.uid == resource.data.creatorId;
-        match /secondOkrObjects/{secondOkrObjectId} {
+        allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+        allow delete: if request.auth.uid == resource.data.uid;
+        match /childOkrObjectives/{childOkrObjectiveId} {
           allow read: if true;
           allow create: if request.auth.uid != null;
           allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
           allow delete: if request.auth.uid == resource.data.uid;
-          match /secondOkrKeyResults/{secondOkrKeyResultId} {
+          match /childOkrKeyResults/{childOkrKeyResultId} {
             allow read: if true;
             allow create: if request.auth.uid != null;
             allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
@@ -45,7 +45,7 @@ service cloud.firestore {
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
-    match /{path=**}/secondOkrKeyResults/{secondOkrKeyResultId} {
+    match /{path=**}/childOkrKeyResults/{childOkrKeyResultId} {
       allow read: if true;
       allow create: if request.auth.uid != null;
       allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;

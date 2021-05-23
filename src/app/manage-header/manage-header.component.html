@@ -1,29 +1,36 @@
 <div class="manage-header">
-  <ul class="nav">
-    <li>
-      <a routerLink="/manage/home">
-        <span>ホーム</span>
-      </a>
-    </li>
-    <li>
-      <ng-container *ngIf="isSecondOkr; else blank">
-        <ng-container *ngIf="isComplete === true; else blank">
-          <a (click)="progress()">
+  <div class="manage-header__top-bar">
+    <h1 class="manage-header__titl-row">{{ transitionTargetArray[i] }}</h1>
+    <ul class="nav">
+      <li>
+        <a (click)="setTransitionTargetIndex(0)" routerLink="/manage/home">
+          <span>ホーム</span>
+        </a>
+      </li>
+      <li>
+        <ng-container *ngIf="isChildOkr; else blank">
+          <ng-container *ngIf="isChildOkrComplete === true; else blank">
+            <a (click)="progress()">
+              <span>進行中のOKR</span>
+            </a>
+          </ng-container>
+        </ng-container>
+
+        <ng-template #blank>
+          <a
+            href=""
+            (click)="setTransitionTargetIndex(1)"
+            routerLink="/manage/childOkr"
+          >
             <span>進行中のOKR</span>
           </a>
-        </ng-container>
-      </ng-container>
-
-      <ng-template #blank>
-        <a href="" routerLink="/manage/secondOkr">
-          <span>進行中のOKR</span>
+        </ng-template>
+      </li>
+      <li>
+        <a (click)="setTransitionTargetIndex(2)" routerLink="/manage/achieve">
+          <span>完了したOKR</span>
         </a>
-      </ng-template>
-    </li>
-    <li>
-      <a routerLink="/manage/achieve">
-        <span>完了したOKR</span>
-      </a>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -1,0 +1,155 @@
+@import 'variables';
+@import 'mixins';
+
+.container {
+  margin: 0 auto;
+  @include sm {
+    padding: 0 16px;
+  }
+}
+
+.child-okr-achieve {
+  padding: 12px 62px;
+  text-align: center;
+  &__child-okr-section {
+    width: 672px;
+    margin: 32px auto;
+    @include sm {
+      width: inherit;
+    }
+  }
+  &__child-okr-header {
+    padding: 8px 0;
+    color: #151b26;
+    font-size: 16px;
+    margin: 0 16px;
+    border-bottom: 2px solid #e8ecee;
+  }
+  &__list-item-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 16px;
+    place-items: center;
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  &__tile-Structure {
+    position: relative;
+    padding: 16px 0;
+    a {
+      text-decoration: none;
+    }
+    p {
+      height: 38px;
+      font-size: 12px;
+      text-align: center;
+      color: #151b26;
+      font-weight: 600;
+    }
+    &:hover {
+      .child-okr-achieve-description-menu {
+        display: inline;
+      }
+    }
+  }
+  &__list-item {
+    width: 120px;
+    height: 120px;
+    background-color: rgba(2, 5, 211, 0.5);
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 25%;
+      right: 50%;
+    }
+  }
+
+  &__main {
+    margin-bottom: 24px;
+  }
+  &__childOkr {
+    display: flex;
+    justify-content: center;
+    a {
+      margin: 0 auto;
+      width: 300px;
+      text-decoration: none;
+      color: inherit;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+  &__title {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0;
+    padding-bottom: 56px;
+  }
+  &__title-content {
+    position: relative;
+    font-size: 26px;
+    margin: 0;
+    letter-spacing: 1.5px;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 70px;
+      height: 5px;
+      background-color: #757575;
+      border-radius: 2px;
+    }
+  }
+  &__calendar {
+    margin: 0;
+    display: block;
+  }
+  @include sm {
+    padding: 40px 0;
+  }
+  &__delete {
+    margin: 0;
+    width: inherit;
+    cursor: pointer;
+  }
+}
+
+.child-okr-achieve-description-menu {
+  display: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6f7782;
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 24px;
+  right: 6px;
+}
+
+.no-data {
+  @include sm {
+    padding: 0;
+  }
+  &__title {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 48px;
+    margin-bottom: 36px;
+    @include sm {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+<div class="child-okr-achieve">
+  <div class="container">
+    <ng-container *ngIf="childOkr; else blank">
+      <div class="child-okr-achieve__child-okr-section">
+        <p class="child-okr-achieve__child-okr-header">完了したOKR</p>
+        <div class="child-okr-achieve__list-item-grid">
+          <ng-container
+            *ngFor="let childOkr of this.okrService.childOkrs$ | async"
+          >
+            <ng-container *ngIf="!childOkr.isChildOkrComplete">
+              <div class="child-okr-achieve__tile-Structure">
+                <a
+                  [routerLink]="['/manage/complete']"
+                  [queryParams]="{ id: childOkr.childOkrId }"
+                >
+                  <div class="child-okr-achieve__list-item">
+                    <mat-icon>airplanemode_active</mat-icon>
+                  </div>
+                  <p>📅 {{ childOkr.end.toDate() | date: 'yyyy年MM月dd日' }}</p>
+                </a>
+
+                <div class="child-okr-achieve-description-menu">
+                  <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    aria-label="Example icon-button with a menu"
+                  >
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button
+                      mat-menu-item
+                      [routerLink]="['/manage/complete']"
+                      [queryParams]="{ v: childOkr.childOkrId }"
+                    >
+                      <mat-icon>visibility_outline</mat-icon>
+                      <span>詳細を表示</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="deleteChildOkr(childOkr.childOkrId)"
+                    >
+                      <mat-icon>delete_outline</mat-icon>
+                      <span>OKRを削除</span>
+                    </button>
+                  </mat-menu>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #notChildOkrId>
+              <a routerLink="/manage/okr-edit">
+                <div class="child-okr-achieve__list-item"></div>
+                <p>タスクを作成する</p>
+              </a>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #blank>
+  <div class="no-data">
+    <h1 class="no-data__title">まだタスクが完了されていません</h1>
+    <div class="child-okr-achieve__action">
+      <ng-container *ngIf="childOkrId">
+        <a
+          mat-raised-button
+          routerLink="/manage/childOkr"
+          [queryParams]="{ v: childOkrId }"
+        >
+          タスクに進む
+        </a>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

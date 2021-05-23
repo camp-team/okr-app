@@ -1,0 +1,234 @@
+@import 'variables';
+@import 'mixins';
+
+.data {
+  overflow-x: auto;
+  &__container {
+    padding-bottom: 16px;
+    @include sm {
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      width: 90%;
+    }
+  }
+}
+
+.child-okr {
+  padding: 12px 24px;
+  @include sm {
+    margin: 0;
+    padding: 40px 0;
+  }
+  &__objective-structure {
+    padding: 0 12px;
+    @include sm {
+      min-width: 160px;
+    }
+    input {
+      display: block;
+      font-size: 16px;
+      border: 1px solid #e8ecee;
+      border-radius: 8px;
+      line-height: 20px;
+      width: 250px;
+      @include sm {
+        width: 90%;
+        margin-top: 6px;
+      }
+    }
+  }
+  &__objective {
+    color: #6f7782;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  &__tr {
+    &:hover {
+      background-color: #f6f8f9;
+    }
+  }
+  &__key-result-form {
+    line-height: 20px;
+    border-style: none;
+    background-color: transparent;
+    padding: 0 12px;
+    width: 100%;
+    @include sm {
+      width: inherit;
+      font-size: 16px;
+    }
+  }
+  &__add-task-button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    text-align: start;
+    color: rgba(55, 53, 47, 0.4);
+    background-color: inherit;
+    padding: 4px 12px;
+    cursor: pointer;
+    border: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+    mat-icon {
+      width: auto;
+      height: 18px;
+    }
+  }
+  &__average {
+    padding: 0 12px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: rgba(55, 53, 47, 0.4);
+    margin-right: 8px;
+  }
+}
+
+td {
+  position: relative;
+  border: 1px solid #e8ecee;
+  font-weight: 300;
+  color: #6f7782;
+  &:hover {
+    input {
+      display: inline-block;
+      background-color: #fff;
+      padding: 1px 0 0 11px;
+      border: 1px solid #e8ecee;
+    }
+    // input::placeholder {
+    //   padding: 0;
+    // }
+  }
+  input:focus {
+    position: absolute;
+    z-index: 300;
+    top: -1px;
+    width: 93%;
+    height: 100%;
+    padding: 0 11px 0 11px;
+    background-color: #fff;
+    outline: none;
+    border-top: 1px solid #1296d8;
+    border-bottom: 1px solid #1296d8;
+  }
+}
+
+.percentage,
+.row-right {
+  background-color: #f3f3f4;
+  &:hover {
+    input {
+      background-color: inherit;
+      border: none;
+    }
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.select-child-okr-remove {
+  display: none;
+  position: absolute;
+  z-index: 500;
+  top: 0;
+  right: 10px;
+  color: rgba(0, 0, 0, 0.36);
+  font-size: 12px;
+  cursor: pointer;
+  mat-icon {
+    width: 16px;
+    font-size: 20px;
+  }
+}
+
+.material-icons {
+  font-size: 16px;
+}
+
+.table-icon {
+  position: absolute;
+  top: 9px;
+}
+
+.not-exist {
+  padding-bottom: 0;
+  &__title {
+    text-align: center;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    margin-top: 48px;
+    margin-bottom: 36px;
+    color: #151b26;
+    @include sm {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+  &__action {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+    background-color: rgba(2, 5, 211, 0.5);
+    color: #fff;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.row-right {
+  width: 20%;
+  border-right-style: none;
+}
+.row-left {
+  padding: 0 12px 0 0;
+  width: 30%;
+  position: relative;
+  border-left-style: none;
+  &:hover {
+    .select-child-okr-remove {
+      display: inline;
+    }
+  }
+}
+.target,
+.current,
+.percentage {
+  width: 13%;
+  padding: 0 12px 0 0;
+  input:focus {
+    position: absolute;
+    z-index: 300;
+    top: -1px;
+    width: 93%;
+    height: 100%;
+    padding: 0 0 0 11px;
+    background-color: #fff;
+    outline: none;
+    border-top: 1px solid #1296d8;
+    border-bottom: 1px solid #1296d8;
+  }
+}
+
+th {
+  position: relative;
+  border: 1px solid #e8ecee;
+  font-weight: 300;
+  color: #6f7782;
+  text-align: start;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+tr {
+  width: 100%;
+  height: 36px;
+}

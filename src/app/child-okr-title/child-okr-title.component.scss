@@ -1,0 +1,64 @@
+@import 'variables';
+@import 'mixins';
+
+.child-okr-header {
+  height: 57px;
+  display: flex;
+  align-items: center;
+}
+
+.page-toolbar-structure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: #6f7782;
+  &__left {
+    margin: 0;
+    font-size: 14px;
+    @include sm {
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+  &__right {
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    .material-icons {
+      font-size: 16px;
+    }
+    .differenceInDay {
+      margin: 12px 0 0;
+      font-size: 24px;
+    }
+    p {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+  .is-completed {
+    align-items: center;
+    font-size: 14px;
+    margin: 0 16px;
+    padding: 0 8px;
+    line-height: inherit;
+    color: #6f7782;
+    box-shadow: none;
+    display: flex;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(21, 27, 38, 0.08);
+    }
+  }
+}
+
+mat-icon {
+  padding-top: 1px;
+  width: 16px;
+  height: auto;
+  font-size: 14px !important;
+}

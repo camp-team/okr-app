@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SecondOkr } from '../interfaces/second-okr';
+import { ChildOkr } from '../interfaces/child-okr';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
@@ -14,17 +14,22 @@ import { OkrService } from '../services/okr.service';
 })
 export class ManageHeaderComponent implements OnInit {
   home = this.route.snapshot.params;
-  secondOkrPath = this.route.snapshot.params;
+  childOkrPath = this.route.snapshot.params;
   achieve = this.route.snapshot.params;
   user$ = this.authService.user$;
-  isSecondOkr: boolean;
+  isChildOkr: boolean;
   avatarURL: string;
-  secondOkrs$: Observable<SecondOkr[]> = this.okrService
-    .getSecondOkrs()
+  childOkrs$: Observable<ChildOkr[]> = this.okrService
+    .getChildOkrs()
     .pipe(tap(() => (this.loadingService.loading = false)));
-  secondOkr: SecondOkr;
-  isComplete: boolean;
-  isCompletes = [];
+  childOkr: ChildOkr;
+  isChildOkrComplete: boolean;
+  isChildOkrCompletes = [];
+  content: number;
+  transitionTargetArray: string[];
+  i: number;
+
+  transitionTargetIndex = [0, 1, 2];
 
   constructor(
     public authService: AuthService,
@@ -33,6 +38,22 @@ export class ManageHeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.transitionTargetArray = ['ホーム', '進行中のOKR', '完了したOKR'];
+    switch (this.router.url) {
+      case '/manage/home':
+        this.i = this.transitionTargetIndex[0];
+        break;
+      case '/manage/childOkr?id=' + this.route.snapshot.queryParamMap.get('id'):
+        this.i = this.transitionTargetIndex[1];
+        break;
+      case '/manage/childOkr':
+        this.i = this.transitionTargetIndex[1];
+        break;
+      case '/manage/achieve':
+        this.i = this.transitionTargetIndex[2];
+        break;
+    }
+
     this.loadingService.loading = true;
     this.authService.getUser(this.authService.uid).subscribe((result) => {
       this.avatarURL = result?.avatarURL;
@@ -40,28 +61,33 @@ export class ManageHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      if (secondOkrs.length === 0) {
-        this.isSecondOkr = false;
+    this.childOkrs$.subscribe((childOkrs) => {
+      if (childOkrs.length === 0) {
+        this.isChildOkr = false;
       } else {
-        this.isSecondOkr = true;
+        this.isChildOkr = true;
       }
-      secondOkrs.map((secondOkr) => {
-        this.isComplete = secondOkr.isComplete;
-        this.isCompletes.push(this.isComplete);
-        this.isCompletes.forEach((isComplete) => {
-          if (isComplete === true) {
-            this.isComplete = true;
+      childOkrs.map((childOkr) => {
+        this.isChildOkrComplete = childOkr.isChildOkrComplete;
+        this.isChildOkrCompletes.push(this.isChildOkrComplete);
+        this.isChildOkrCompletes.forEach((isChildOkrComplete) => {
+          if (isChildOkrComplete === true) {
+            this.isChildOkrComplete = true;
           }
         });
-        if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
+        if (childOkr.isChildOkrComplete === true) this.childOkr = childOkr;
       });
     });
   }
 
+  setTransitionTargetIndex(index: number) {
+    this.i = this.transitionTargetIndex[index];
+  }
+
   progress() {
-    this.router.navigate(['manage/secondOkr'], {
-      queryParams: { id: this.secondOkr.secondOkrId },
+    this.i = 1;
+    this.router.navigate(['manage/childOkr'], {
+      queryParams: { id: this.childOkr.childOkrId },
     });
   }
 

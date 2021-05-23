@@ -5,7 +5,7 @@
         <mat-icon>home</mat-icon>
         <span>ホーム</span>
       </a>
-      <ng-container *ngIf="isSecondOkr; else blank">
+      <ng-container *ngIf="isChildOkr; else blank">
         <ng-container *ngIf="isComplete === true; else blank">
           <a (click)="progress()">
             <mat-icon>check_circle_outline</mat-icon>
@@ -15,7 +15,7 @@
       </ng-container>
 
       <ng-template #blank>
-        <a href="" routerLink="/manage/secondOkr">
+        <a href="" routerLink="/manage/childOkr">
           <mat-icon>check_circle_outline</mat-icon>
           <span>進行中</span>
         </a>

@@ -4,26 +4,26 @@ import { deleteCollectionByReference } from './utils/firebase.function';
 
 const db = admin.firestore();
 
-export const deleteOkr = functions
+export const deleteParentOkr = functions
   .region('asia-northeast1')
-  .https.onCall(async (okrId: any) => {
-    const primariesRef = db
-      .collectionGroup(`primaries`)
-      .where('okrId', '==', okrId);
-    return Promise.all([deleteCollectionByReference(primariesRef)]);
+  .https.onCall(async (parentOkrId: any) => {
+    const parentOkrKeyResultsRef = db
+      .collectionGroup(`parentOkrKeyResults`)
+      .where('parentOkrId', '==', parentOkrId);
+    return Promise.all([deleteCollectionByReference(parentOkrKeyResultsRef)]);
   });
 
-export const deleteSecondOkr = functions
+export const deleteChildOkr = functions
   .region('asia-northeast1')
-  .https.onCall(async (secondOkrId: any) => {
-    const secondOkrKeyResultsRef = db
-      .collectionGroup(`secondOkrKeyResults`)
-      .where('secondOkrId', '==', secondOkrId);
-    const secondOkrObjectsRef = db
-      .collectionGroup(`secondOkrObjects`)
-      .where('secondOkrId', '==', secondOkrId);
+  .https.onCall(async (childOkrId: any) => {
+    const childOkrKeyResultsRef = db
+      .collectionGroup(`childOkrKeyResults`)
+      .where('childOkrId', '==', childOkrId);
+    const childOkrObjectivesRef = db
+      .collectionGroup(`childOkrObjectives`)
+      .where('childOkrId', '==', childOkrId);
     return Promise.all([
-      deleteCollectionByReference(secondOkrKeyResultsRef),
-      deleteCollectionByReference(secondOkrObjectsRef),
+      deleteCollectionByReference(childOkrKeyResultsRef),
+      deleteCollectionByReference(childOkrObjectivesRef),
     ]);
   });

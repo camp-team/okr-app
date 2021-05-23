@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SecondOkr } from '../interfaces/second-okr';
+import { ChildOkr } from '../interfaces/child-okr';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
@@ -13,11 +13,11 @@ import { OkrService } from '../services/okr.service';
   styleUrls: ['./manage-footer.component.scss'],
 })
 export class ManageFooterComponent implements OnInit {
-  isSecondOkr: boolean;
+  isChildOkr: boolean;
   isComplete: boolean;
-  secondOkr: SecondOkr;
-  secondOkrs$: Observable<SecondOkr[]> = this.okrService
-    .getSecondOkrs()
+  childOkr: ChildOkr;
+  childOkrs$: Observable<ChildOkr[]> = this.okrService
+    .getChildOkrs()
     .pipe(tap(() => (this.loadingService.loading = false)));
 
   constructor(
@@ -30,22 +30,22 @@ export class ManageFooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.secondOkrs$.subscribe((secondOkrs) => {
-      if (secondOkrs.length === 0) {
-        this.isSecondOkr = false;
+    this.childOkrs$.subscribe((childOkrs) => {
+      if (childOkrs.length === 0) {
+        this.isChildOkr = false;
       } else {
-        this.isSecondOkr = true;
+        this.isChildOkr = true;
       }
-      secondOkrs.map((secondOkr) => {
-        this.isComplete = secondOkr.isComplete;
-        if (secondOkr.isComplete === true) this.secondOkr = secondOkr;
+      childOkrs.map((childOkr) => {
+        this.isComplete = childOkr.isChildOkrComplete;
+        if (childOkr.isChildOkrComplete === true) this.childOkr = childOkr;
       });
     });
   }
 
   progress() {
-    this.router.navigate(['manage/secondOkr'], {
-      queryParams: { v: this.secondOkr.secondOkrId },
+    this.router.navigate(['manage/childOkr'], {
+      queryParams: { id: this.childOkr.isChildOkrComplete },
     });
   }
 }

@@ -4,12 +4,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { combineLatest, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
-import { SecondOkr } from 'src/app/interfaces/second-okr';
-import { DeleteSecondOkrDialogComponent } from 'src/app/delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { ChildOkr } from 'src/app/interfaces/child-okr';
+import { DeleteChildOkrDialogComponent } from 'src/app/delete-child-okr-dialog/delete-child-okr-dialog.component';
 import { LoadingService } from 'src/app/services/loading.service';
-import { OkrDeleteDialogComponent } from 'src/app/okr-delete-dialog/okr-delete-dialog.component';
+import { DeleteParentOkrDialogComponent } from 'src/app/delete-parent-okr-dialog/delete-parent-okr-dialog.component';
 import { TutorialService } from 'src/app/services/tutorial.service';
-import { Okr } from 'src/app/interfaces/okr';
+import { ParentOkr } from 'src/app/interfaces/parent-okr';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,20 +19,21 @@ import { Okr } from 'src/app/interfaces/okr';
 })
 export class HomeComponent implements OnInit {
   user: string;
-  parentOkrs: Okr[];
-  childOkrs: SecondOkr[];
+  parentOkrs: ParentOkr[];
+  childOkrs: ChildOkr[];
   parentOkr: boolean;
   childOkrId: string;
-  achieveChildOkrIdOkrs$: Observable<
-    SecondOkr[]
-  > = this.okrService.achieveChildOkrIdOkrs();
+  achieveChildOkrs$: Observable<
+    ChildOkr[]
+  > = this.okrService.getAchieveChildOkrs();
 
   constructor(
     public okrService: OkrService,
     public authService: AuthService,
     private dialog: MatDialog,
     private loadingService: LoadingService,
-    private tutorialService: TutorialService
+    private tutorialService: TutorialService,
+    private router: Router
   ) {
     this.loadingService.loading = true;
     combineLatest([
@@ -60,6 +62,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
     this.determineIfStartingTutorial();
   }
 
@@ -74,8 +81,8 @@ export class HomeComponent implements OnInit {
 
   checkChildtOkr() {
     this.childOkrs.forEach((childOkr) => {
-      if (childOkr.isComplete) {
-        this.childOkrId = childOkr.secondOkrId;
+      if (childOkr.isChildOkrComplete) {
+        this.childOkrId = childOkr.childOkrId;
       } else {
         return null;
       }
@@ -93,21 +100,21 @@ export class HomeComponent implements OnInit {
   }
 
   deleteFindByChildOkr(childOkrId: string) {
-    this.dialog.open(DeleteSecondOkrDialogComponent, {
+    this.dialog.open(DeleteChildOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
       data: {
-        secondOkrId: childOkrId,
+        childOkrId: childOkrId,
       },
     });
   }
 
   deleteOkr(parentOkrId: string) {
-    this.dialog.open(OkrDeleteDialogComponent, {
+    this.dialog.open(DeleteParentOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
       data: {
-        okrId: parentOkrId,
+        parentOkrId: parentOkrId,
       },
     });
   }

@@ -19,11 +19,11 @@ import {
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MatButtonModule } from '@angular/material/button';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
-import { OkrDeleteDialogComponent } from './okr-delete-dialog/okr-delete-dialog.component';
+import { DeleteParentOkrDialogComponent } from './delete-parent-okr-dialog/delete-parent-okr-dialog.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CompleteOkrDialogComponent } from './complete-okr-dialog/complete-okr-dialog.component';
-import { DeleteSecondOkrDialogComponent } from './delete-second-okr-dialog/delete-second-okr-dialog.component';
+import { CompleteOkrDialogComponent } from './complete-child-okr-dialog/complete-child-okr-dialog.component';
+import { DeleteChildOkrDialogComponent } from './delete-child-okr-dialog/delete-child-okr-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -40,10 +40,10 @@ import { MatListModule } from '@angular/material/list';
     AppComponent,
     NotFoundComponent,
     DeleteAccountDialogComponent,
-    OkrDeleteDialogComponent,
+    DeleteParentOkrDialogComponent,
     LoginDialogComponent,
     CompleteOkrDialogComponent,
-    DeleteSecondOkrDialogComponent,
+    DeleteChildOkrDialogComponent,
     FooterComponent,
     HeaderComponent,
   ],

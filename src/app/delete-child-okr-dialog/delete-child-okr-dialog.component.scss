@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'mixins';
+
+.delete-child-okr-dialog {
+  padding: 0 24px;
+  &__title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    margin: 0;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e8ecee;
+    @include sm {
+      font-size: 20px;
+    }
+  }
+  &__content {
+    padding: 24px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #e8ecee;
+    span {
+      display: block;
+    }
+  }
+  &__actions {
+    display: flex;
+    font-size: 14px;
+    padding-top: 24px;
+    justify-content: space-between;
+  }
+  &__cancel {
+    box-shadow: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+  &__delete-child-okr {
+    background-color: #ff5263;
+    color: #fff;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

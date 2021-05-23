@@ -20,53 +20,34 @@ export const createUser = functions
 export const deleteAfUser = functions
   .region('asia-northeast1')
   .https.onCall((data: any, context: any) => {
-    return admin.auth().deleteUser(data);
-  });
-
-export const deleteUser = functions
-  .region('asia-northeast1')
-  .auth.user()
-  .onDelete((user) => {
-    return db.doc(`users/${user.uid}`).delete();
-  });
-
-export const deleteCollection = functions
-  .region('asia-northeast1')
-  .auth.user()
-  .onDelete((user) => {
-    const okrsRef = db
-      .collectionGroup(`okrs`)
-      .where('creatorId', '==', user.uid);
-    const primariesRef = db
-      .collectionGroup(`primaries`)
-      .where('uid', '==', user.uid);
-    const secondOkrKeyResultsRef = db
-      .collectionGroup(`secondOkrKeyResults`)
-      .where('uid', '==', user.uid);
-    const secondOkrObjectsRef = db
-      .collectionGroup(`secondOkrObjects`)
-      .where('uid', '==', user.uid);
-    const secondOkrs = db
-      .collectionGroup(`secondOkrs`)
-      .where('creatorId', '==', user.uid);
-    const customers = db
-      .collection(`customers`)
-      .where('userId', '==', user.uid);
-    return Promise.all([
-      deleteCollectionByReference(okrsRef),
-      deleteCollectionByReference(primariesRef),
-      deleteCollectionByReference(secondOkrKeyResultsRef),
-      deleteCollectionByReference(secondOkrObjectsRef),
-      deleteCollectionByReference(secondOkrs),
-      deleteCollectionByReference(customers),
-    ]);
-  });
-
-export const deleteUserAccount = functions
-  .region(`asia-northeast1`)
-  .auth.user()
-  .onDelete(async (user: any, _: any) => {
-    const users = db.collection(`users`).where('uid', '==', user.uid);
-    await deleteCollectionByReference(users);
-    return;
+    const usersCollection = db.collection(`users`).where('uid', '==', data);
+    const customers = db.collection(`customers`).where('userId', '==', data);
+    const parentOkrsRef = db
+      .collectionGroup(`parentOkrs`)
+      .where('uid', '==', data);
+    const parentOkrKeyResultsRef = db
+      .collectionGroup(`parentOkrKeyResults`)
+      .where('uid', '==', data);
+    const childOkrsRef = db
+      .collectionGroup(`childOkrs`)
+      .where('uid', '==', data);
+    const childOkrObjectivesRef = db
+      .collectionGroup(`childOkrObjectives`)
+      .where('uid', '==', data);
+    const childOkrKeyResultsRef = db
+      .collectionGroup(`childOkrKeyResults`)
+      .where('uid', '==', data);
+    return {
+      auth: admin.auth().deleteUser(data),
+      userData: db.doc(`users/${data}`).delete(),
+      usersCollection: usersCollection,
+      deleteCollection: Promise.all([
+        deleteCollectionByReference(customers),
+        deleteCollectionByReference(parentOkrsRef),
+        deleteCollectionByReference(parentOkrKeyResultsRef),
+        deleteCollectionByReference(childOkrsRef),
+        deleteCollectionByReference(childOkrObjectivesRef),
+        deleteCollectionByReference(childOkrKeyResultsRef),
+      ]),
+    };
   });

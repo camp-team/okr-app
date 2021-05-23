@@ -13,6 +13,7 @@
               type="text"
               autocomplete="off"
               placeholder="例: 「有名になる」など"
+              (keyup.enter)="focusNextInput(1)"
               class="create-parent-okr__input"
             />
             <mat-error *ngIf="objectiveControl.hasError('maxlength')"
@@ -35,6 +36,7 @@
                   type="text"
                   autocomplete="off"
                   placeholder="例: 「30歳までにフォロワー1万人」など"
+                  (keyup.enter)="focusNextInput(i + 2)"
                   class="create-parent-okr__input"
                 />
                 <mat-error *ngIf="keyResult.hasError('maxlength')"

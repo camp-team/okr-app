@@ -15,7 +15,7 @@
         >
           <button
             mat-menu-item
-            (click)="deleteOkr(parentOkr.okrId)"
+            (click)="deleteOkr(parentOkr.parentOkrId)"
             class="delete-parent-okr"
           >
             <mat-icon>
@@ -29,7 +29,7 @@
         <ng-container
           *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
         >
-          <app-okr [parentOkr]="parentOkr"></app-okr>
+          <app-parent-okr [parentOkr]="parentOkr"></app-parent-okr>
         </ng-container>
       </ng-container>
       <ng-template #blank>
@@ -50,8 +50,8 @@
       <p class="home__parent-okr-header">最近のOKR</p>
       <div class="home__list-item-grid">
         <div class="home__tile-Structure">
-          <ng-container *ngIf="childOkrId; else notSecondOkrId">
-            <a routerLink="/manage/secondOkr" [queryParams]="{ v: childOkrId }">
+          <ng-container *ngIf="childOkrId; else notChildOkrId">
+            <a routerLink="/manage/childOkr" [queryParams]="{ id: childOkrId }">
               <div class="home__list-item">
                 <mat-icon>airplanemode_active</mat-icon>
               </div>
@@ -69,7 +69,7 @@
               <mat-menu #menu="matMenu">
                 <button
                   mat-menu-item
-                  routerLink="/manage/secondOkr"
+                  routerLink="/manage/childOkr"
                   [queryParams]="{ v: childOkrId }"
                 >
                   <mat-icon>visibility_outline</mat-icon>
@@ -85,7 +85,7 @@
               </mat-menu>
             </div>
           </ng-container>
-          <ng-template #notSecondOkrId>
+          <ng-template #notChildOkrId>
             <a routerLink="/manage/okr-edit">
               <div class="home__list-item">
                 <mat-icon>airplanemode_active</mat-icon>
@@ -94,12 +94,12 @@
             </a>
           </ng-template>
         </div>
-        <ng-container *ngFor="let childOkr of achieveChildOkrIdOkrs$ | async">
+        <ng-container *ngFor="let childOkr of achieveChildOkrs$ | async">
           <ng-container *ngIf="!childOkr.isComplete">
             <div class="home__tile-Structure">
               <a
                 [routerLink]="['/manage/complete']"
-                [queryParams]="{ v: childOkr.secondOkrId }"
+                [queryParams]="{ id: childOkr.childOkrId }"
               >
                 <div class="home__list-item">
                   <mat-icon>airplanemode_active</mat-icon>
@@ -122,14 +122,14 @@
                   <button
                     mat-menu-item
                     [routerLink]="['/manage/complete']"
-                    [queryParams]="{ v: childOkr.secondOkrId }"
+                    [queryParams]="{ v: childOkr.childOkrId }"
                   >
                     <mat-icon>visibility_outline</mat-icon>
                     <span>詳細を表示</span>
                   </button>
                   <button
                     mat-menu-item
-                    (click)="deleteFindByChildOkr(childOkr.secondOkrId)"
+                    (click)="deleteFindByChildOkr(childOkr.childOkrId)"
                   >
                     <mat-icon>delete_outline</mat-icon>
                     <span>OKRを削除</span>

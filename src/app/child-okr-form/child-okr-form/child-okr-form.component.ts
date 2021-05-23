@@ -8,9 +8,9 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { debounceTime, take, tap } from 'rxjs/operators';
-import { SecondOkr } from 'src/app/interfaces/second-okr';
-import { SecondOkrKeyResult } from 'src/app/interfaces/second-okr-key-result';
+import { debounceTime, tap } from 'rxjs/operators';
+import { ChildOkr } from 'src/app/interfaces/child-okr';
+import { ChildOkrKeyResult } from 'src/app/interfaces/child-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { OkrService } from 'src/app/services/okr.service';
@@ -21,14 +21,14 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./child-okr-form.component.scss'],
 })
 export class ChildOkrFormComponent implements OnInit {
-  childOkrs: SecondOkr[];
+  childOkrs: ChildOkr[];
   minDate: Date;
   maxDate: Date;
-  objectForm: number = 3;
+  objectiveForm: number = 3;
   isChildOkrCompletes: boolean;
   childOkrForm = this.fb.group({
     objectives: this.fb.array([]),
-    end: ['', [Validators.required, Validators.maxLength(40)]],
+    end: ['', [Validators.required, Validators.maxLength(20)]],
   });
 
   get objectives(): FormArray {
@@ -74,7 +74,7 @@ export class ChildOkrFormComponent implements OnInit {
 
   checkChildOkr() {
     this.childOkrs.forEach((childOkr) => {
-      if (childOkr.isComplete) {
+      if (childOkr.isChildOkrComplete) {
         this.isChildOkrCompletes = true;
       }
     });
@@ -89,31 +89,31 @@ export class ChildOkrFormComponent implements OnInit {
 
   removeObjectiveForm(i: number) {
     this.objectives.removeAt(i);
-    this.objectForm--;
+    this.objectiveForm--;
   }
 
   addObjectiveForm() {
     this.objectives.push(
       new FormControl('', [Validators.required, Validators.maxLength(20)])
     );
-    this.objectForm++;
+    this.objectiveForm++;
   }
 
   cleateChildOkr() {
     this.loadingService.loading = true;
     const childOkrObjectiveFormInformation = this.childOkrForm.value;
     const childOkrObjective: Omit<
-      SecondOkr,
-      'secondOkrId' | 'isComplete' | 'start'
+      ChildOkr,
+      'childOkrId' | 'isChildOkrComplete' | 'start'
     > = {
       end: childOkrObjectiveFormInformation.end,
-      secondOkrObjects: childOkrObjectiveFormInformation.objectives,
-      creatorId: this.authService.uid,
+      childOkrObjectives: childOkrObjectiveFormInformation.objectives,
+      uid: this.authService.uid,
     };
     const childInitialOkrKeyResultsForm = this.getInitialChildOkrKeyResultsForm();
     const childOkrObjectives = childOkrObjectiveFormInformation.objectives;
     this.okrService
-      .createSecondOkr({
+      .createChildOkr({
         childOkr: childOkrObjective,
         Objectives: childOkrObjectives,
         initialForm: childInitialOkrKeyResultsForm,
@@ -128,8 +128,8 @@ export class ChildOkrFormComponent implements OnInit {
           .subscribe((childOkrInProgress) => {
             this.loadingService.loading = false;
             this.snackBar.open('作成しました', null);
-            this.router.navigate(['manage/secondOkr'], {
-              queryParams: { id: childOkrInProgress[0].secondOkrId },
+            this.router.navigate(['manage/childOkr'], {
+              queryParams: { id: childOkrInProgress[0].childOkrId },
             });
           });
       });
@@ -160,11 +160,11 @@ export class ChildOkrFormComponent implements OnInit {
       lastUpdated: [date, [Validators.required]],
     });
     const initialChildOkr: Omit<
-      SecondOkrKeyResult,
-      | 'secondOkrKeyResultId'
+      ChildOkrKeyResult,
+      | 'childOkrKeyResultId'
       | 'lastUpdated'
-      | 'secondOkrObjectId'
-      | 'secondOkrId'
+      | 'childOkrObjectiveId'
+      | 'childOkrId'
     > = {
       key: initialChildOkrForm.value.key,
       target: initialChildOkrForm.value.target,
@@ -177,10 +177,19 @@ export class ChildOkrFormComponent implements OnInit {
 
   moveToChildOkrOfProgress() {
     const childOkrInProgress = this.childOkrs.filter(
-      (childOkr) => (childOkr.isComplete = true)
+      (childOkr) => (childOkr.isChildOkrComplete = true)
     );
     this.router.navigateByUrl(
-      '/manage/secondOkr?id=' + childOkrInProgress[0].secondOkrId
+      '/manage/childOkr?id=' + childOkrInProgress[0].childOkrId
     );
+  }
+
+  focusNextInput(nextTarget?: number) {
+    const nextElement = document.querySelectorAll('input')[
+      nextTarget
+    ] as HTMLElement;
+    if (nextElement) {
+      nextElement.focus();
+    }
   }
 }

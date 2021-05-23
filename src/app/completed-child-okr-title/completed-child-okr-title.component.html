@@ -1,5 +1,5 @@
 <div class="complete-okr-title">
-  <h3 *ngIf="secondOkr$ | async as secondOkr" class="complete-okr-title__date">
-    📅期間: {{ secondOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
+  <h3 *ngIf="childOkr$ | async as childOkr" class="complete-okr-title__date">
+    📅期間: {{ childOkr.end.toDate() | date: 'yyyy年MM月dd日' }}
   </h3>
 </div>

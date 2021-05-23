@@ -27,16 +27,14 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'secondOkr',
+        path: 'childOkr',
         loadChildren: () =>
-          import('../second-okr/second-okr.module').then(
-            (m) => m.SecondOkrModule
-          ),
+          import('../child-okr/child-okr.module').then((m) => m.ChildOkrModule),
       },
       {
         path: 'achieve',
         loadChildren: () =>
-          import('../okr-achievement/okr-achievement.module').then(
+          import('../child-okr-achievement/child-okr-achievement.module').then(
             (m) => m.OkrAchievementModule
           ),
       },
