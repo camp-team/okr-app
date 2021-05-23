@@ -1,11 +1,5 @@
 @import 'mixins';
 
-.project-overview-page-main-content {
-  max-width: 748px;
-  width: 60%;
-  padding: 48px 48px;
-}
-
 .parent-okr {
   display: flex;
   @include md {
@@ -14,6 +8,11 @@
   @include sm {
     width: 356px;
     margin: 0 auto;
+  }
+  &__left {
+    max-width: 748px;
+    width: 60%;
+    padding: 40px 48px;
   }
   &__header {
     margin-top: 0;
@@ -77,11 +76,12 @@
     }
   }
 
-  &__parent-okr-section {
+  &__right {
+    max-width: 398px;
     width: 40%;
-    padding: 32px 24px;
+    padding: 40px;
   }
-  &__parent-okr-header {
+  &__parent-okr-right-header {
     position: relative;
     padding: 8px 0;
     color: #151b26;
@@ -117,6 +117,7 @@
     }
     p {
       margin: 8px 0;
+      height: 38px;
       font-size: 12px;
       text-align: center;
       color: #151b26;
