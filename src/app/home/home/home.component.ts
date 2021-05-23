@@ -23,9 +23,13 @@ export class HomeComponent implements OnInit {
   childOkrs: ChildOkr[];
   parentOkr: boolean;
   childOkrId: string;
+  progressChildOkrs$: Observable<
+    ChildOkr[]
+  > = this.okrService.getChildOkrInProgress();
   achieveChildOkrs$: Observable<
     ChildOkr[]
   > = this.okrService.getAchieveChildOkrs();
+  progressChildOkrs: ChildOkr[];
 
   constructor(
     public okrService: OkrService,
@@ -40,10 +44,13 @@ export class HomeComponent implements OnInit {
       this.okrService.parentOkrs$,
       this.okrService.childOkrs$,
       this.authService.user$,
-    ]).subscribe(([parentOkrs, childOkrs, user]) => {
+      this.progressChildOkrs$,
+    ]).subscribe(([parentOkrs, childOkrs, user, progressChildOkr]) => {
       this.parentOkrs = parentOkrs;
       this.childOkrs = childOkrs;
       this.user = user.name;
+      this.progressChildOkrs = progressChildOkr;
+
       this.checkParentOkr();
       this.checkChildtOkr();
     });
@@ -109,7 +116,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  deleteOkr(parentOkrId: string) {
+  deleteParentOkr(parentOkrId: string) {
     this.dialog.open(DeleteParentOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
