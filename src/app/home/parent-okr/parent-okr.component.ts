@@ -23,16 +23,17 @@ import { OkrService } from 'src/app/services/okr.service';
 export class ParentOkrComponent implements OnInit {
   @Input() parentOkr: ParentOkr;
   parentOkrKeyResults: ParentOkrKeyResult[] = [];
+  parentOkrKeyResults$: Observable<ParentOkrKeyResult[]>;
   parentOkrKeyResultsForm: {
     [parentOkrKeyResultId: string]: FormArray;
   } = {};
   parentOkrkeyResultForm: FormGroup;
   parentOkrObjectiveForm: FormGroup;
+  searchProjectToMatchedChildOkrs$: Observable<ChildOkr[]>;
   progressChildOkrs$: Observable<
     ChildOkr[]
   > = this.okrService.getChildOkrInProgress();
   progressChildOkrs: ChildOkr[];
-
   constructor(
     private okrService: OkrService,
     private authService: AuthService,
@@ -45,27 +46,30 @@ export class ParentOkrComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.okrService
-      .getParentOkrKeyResults(this.parentOkr.parentOkrId)
-      .pipe(take(1))
-      .subscribe((parentOkrKeyResults) => {
-        parentOkrKeyResults.forEach(
-          (parentOkrKeyResult: ParentOkrKeyResult) => {
-            this.parentOkrKeyResults.push(parentOkrKeyResult);
-            this.parentOkrKeyResultsForm[
-              parentOkrKeyResult.parentOkrKeyResultId
-            ] = this.fb.array([]);
-            this.initFormParentOkrKeyResult(parentOkrKeyResult);
-          }
-        );
-        this.parentOkrObjectiveForm = this.fb.group({
-          objective: [
-            this.parentOkr.parentOkrObjective,
-            [Validators.required, Validators.maxLength(20)],
-          ],
-        });
-        this.updateParentOkrObjective();
+    this.parentOkrKeyResults$ = this.okrService.getParentOkrKeyResults(
+      this.parentOkr.parentOkrId
+    );
+    this.searchProjectToMatchedChildOkrs$ = this.okrService.getSearchProjectToMatchedChildOkrs(
+      this.parentOkr.parentOkrTarget
+    );
+    const parentOkrKeyResults$: Observable<
+      ParentOkrKeyResult[]
+    > = this.okrService.getParentOkrKeyResults(this.parentOkr.parentOkrId);
+    parentOkrKeyResults$.pipe(take(1)).subscribe((parentOkrKeyResults) => {
+      parentOkrKeyResults.forEach((parentOkrKeyResult) => {
+        this.parentOkrKeyResultsForm[
+          parentOkrKeyResult.parentOkrKeyResultId
+        ] = this.fb.array([]);
+        this.initFormParentOkrKeyResult(parentOkrKeyResult);
       });
+      this.parentOkrObjectiveForm = this.fb.group({
+        objective: [
+          this.parentOkr.parentOkrObjective,
+          [Validators.required, Validators.maxLength(20)],
+        ],
+      });
+      this.updateParentOkrObjective();
+    });
   }
 
   get objective(): FormControl {

@@ -234,6 +234,20 @@ export class OkrService {
       .valueChanges();
   }
 
+  getSearchProjectToMatchedChildOkrs(
+    parentOkrTarget: string
+  ): Observable<ChildOkr[]> {
+    return this.db
+      .collection<ChildOkr>(
+        `users/${this.authsearvice.uid}/childOkrs/`,
+        (ref) =>
+          ref
+            .where('childOkrTarget', '==', parentOkrTarget)
+            .where('isChildOkrComplete', '==', true)
+      )
+      .valueChanges();
+  }
+
   getChildOkrKeyResultsCollection(
     childOkrId: string
   ): Observable<ChildOkrKeyResult[]> {
