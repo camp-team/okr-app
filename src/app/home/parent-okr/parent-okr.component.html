@@ -1,6 +1,8 @@
 <div class="parent-okr">
-  <div class="project-overview-page-main-content">
-    <h1 class="parent-okr__header">目標(Objective)</h1>
+  <div class="parent-okr__left">
+    <h1 class="parent-okr__header">
+      {{ parentOkr.parentOkrTarget }}の目標(Objective)
+    </h1>
     <form [formGroup]="parentOkrObjectiveForm" *ngIf="parentOkrObjectiveForm">
       <input
         class="parent-okr__objective-form"
@@ -18,7 +20,7 @@
     </form>
 
     <div
-      *ngFor="let parentOkrKeyResult of parentOkrKeyResults"
+      *ngFor="let parentOkrKeyResult of parentOkrKeyResults$ | async"
       class="parent-okr__section"
     >
       <h3 class="parent-okr__sub-header">
@@ -57,19 +59,30 @@
     </div>
   </div>
 
-  <div class="parent-okr__parent-okr-section">
-    <p class="parent-okr__parent-okr-header">進行中のOKR</p>
+  <div class="parent-okr__right">
+    <p class="parent-okr__parent-okr-right-header">進行中のOKR</p>
     <div class="parent-okr__list-item-grid">
-      <ng-container *ngFor="let progressChildOkr of progressChildOkrs">
+      <ng-container
+        *ngFor="
+          let searchProjectToMatchedChildOkr of searchProjectToMatchedChildOkrs$
+            | async
+        "
+      >
         <div class="parent-okr__tile-Structure">
           <a
             routerLink="/manage/childOkr"
-            [queryParams]="{ id: progressChildOkr.childOkrId }"
+            [queryParams]="{ id: searchProjectToMatchedChildOkr.childOkrId }"
           >
             <div class="parent-okr__list-item-blue">
               <mat-icon>airplanemode_active</mat-icon>
             </div>
-            <p>{{ progressChildOkr.childOkrTarget }}のOKR</p>
+            <p>
+              📅期日<br />
+              {{
+                searchProjectToMatchedChildOkr.end.toDate()
+                  | date: 'yyyy年MM月dd日'
+              }}
+            </p>
           </a>
           <div class="child-okr-description-menu">
             <button
@@ -83,14 +96,20 @@
               <button
                 mat-menu-item
                 routerLink="/manage/childOkr"
-                [queryParams]="{ id: progressChildOkr.childOkrId }"
+                [queryParams]="{
+                  id: searchProjectToMatchedChildOkr.childOkrId
+                }"
               >
                 <mat-icon>visibility_outline</mat-icon>
                 <span>詳細を表示</span>
               </button>
               <button
                 mat-menu-item
-                (click)="deleteFindByChildOkr(progressChildOkr.childOkrId)"
+                (click)="
+                  deleteFindByChildOkr(
+                    searchProjectToMatchedChildOkr.childOkrId
+                  )
+                "
               >
                 <mat-icon>delete_outline</mat-icon>
                 <span>OKRを削除</span>
