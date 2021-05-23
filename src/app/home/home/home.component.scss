@@ -90,16 +90,32 @@
       text-decoration: none;
     }
     p {
-      height: 38px;
+      margin: 8px 0;
       font-size: 12px;
       text-align: center;
       color: #151b26;
-      font-weight: 600;
+      font-weight: 500;
     }
     &:hover {
       .child-okr-description-menu {
         display: inline;
       }
+    }
+  }
+  &__dashed-list-item {
+    border: dashed 1px #6f7782;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #6f7782;
+      top: 30%;
+      right: 50%;
     }
   }
   &__list-item-red {
