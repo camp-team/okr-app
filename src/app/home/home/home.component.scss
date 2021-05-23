@@ -102,11 +102,43 @@
       }
     }
   }
-  &__list-item {
+  &__list-item-red {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: #fb5779;
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 30%;
+      right: 50%;
+    }
+  }
+  &__list-item-blue {
     position: relative;
     width: 120px;
     height: 120px;
     background-color: rgba(2, 5, 211, 0.5);
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 30%;
+      right: 50%;
+    }
+  }
+  &__list-item-yellow {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: #f2a100;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
