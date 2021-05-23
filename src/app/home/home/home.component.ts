@@ -21,8 +21,6 @@ export class HomeComponent implements OnInit {
   user: string;
   parentOkrs: ParentOkr[];
   childOkrs: ChildOkr[];
-  parentOkr: boolean;
-  childOkrId: string;
   progressChildOkrs$: Observable<
     ChildOkr[]
   > = this.okrService.getChildOkrInProgress();
@@ -50,9 +48,6 @@ export class HomeComponent implements OnInit {
       this.childOkrs = childOkrs;
       this.user = user.name;
       this.progressChildOkrs = progressChildOkr;
-
-      this.checkParentOkr();
-      this.checkChildtOkr();
     });
     this.isFirstLogin();
     this.loadingService.loading = false;
@@ -75,25 +70,6 @@ export class HomeComponent implements OnInit {
       }
     });
     this.determineIfStartingTutorial();
-  }
-
-  checkParentOkr() {
-    const parentOkrIsEmpty = this.parentOkrs.length;
-    if (parentOkrIsEmpty === 0) {
-      this.parentOkr = false;
-    } else {
-      this.parentOkr = true;
-    }
-  }
-
-  checkChildtOkr() {
-    this.childOkrs.forEach((childOkr) => {
-      if (childOkr.isChildOkrComplete) {
-        this.childOkrId = childOkr.childOkrId;
-      } else {
-        return null;
-      }
-    });
   }
 
   determineIfStartingTutorial() {
