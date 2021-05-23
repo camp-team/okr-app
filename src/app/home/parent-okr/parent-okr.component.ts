@@ -6,7 +6,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
+import { DeleteChildOkrDialogComponent } from 'src/app/delete-child-okr-dialog/delete-child-okr-dialog.component';
+import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { ParentOkr } from 'src/app/interfaces/parent-okr';
 import { ParentOkrKeyResult } from 'src/app/interfaces/parent-okr-key-result';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,12 +28,21 @@ export class ParentOkrComponent implements OnInit {
   } = {};
   parentOkrkeyResultForm: FormGroup;
   parentOkrObjectiveForm: FormGroup;
+  progressChildOkrs$: Observable<
+    ChildOkr[]
+  > = this.okrService.getChildOkrInProgress();
+  progressChildOkrs: ChildOkr[];
 
   constructor(
     private okrService: OkrService,
     private authService: AuthService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) {
+    this.progressChildOkrs$.subscribe((progressChildOkr) => {
+      this.progressChildOkrs = progressChildOkr;
+    });
+  }
 
   ngOnInit(): void {
     this.okrService
@@ -101,5 +114,15 @@ export class ParentOkrComponent implements OnInit {
       parentOkrKeyResultId,
       parentOkrKeyResult
     );
+  }
+
+  deleteFindByChildOkr(childOkrId: string) {
+    this.dialog.open(DeleteChildOkrDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        childOkrId: childOkrId,
+      },
+    });
   }
 }
