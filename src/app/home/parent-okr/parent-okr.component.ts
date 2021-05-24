@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 import { DeleteChildOkrDialogComponent } from 'src/app/delete-child-okr-dialog/delete-child-okr-dialog.component';
+import { DeleteParentOkrDialogComponent } from 'src/app/delete-parent-okr-dialog/delete-parent-okr-dialog.component';
 import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { ParentOkr } from 'src/app/interfaces/parent-okr';
 import { ParentOkrKeyResult } from 'src/app/interfaces/parent-okr-key-result';
@@ -118,6 +119,16 @@ export class ParentOkrComponent implements OnInit {
       parentOkrKeyResultId,
       parentOkrKeyResult
     );
+  }
+
+  deleteParentOkr(parentOkrId: string) {
+    this.dialog.open(DeleteParentOkrDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+      data: {
+        parentOkrId: parentOkrId,
+      },
+    });
   }
 
   deleteFindByChildOkr(childOkrId: string) {

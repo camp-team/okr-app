@@ -1,8 +1,18 @@
 <div class="parent-okr">
   <div class="parent-okr__left">
-    <h1 class="parent-okr__header">
-      {{ parentOkr.parentOkrTarget }}の目標(Objective)
-    </h1>
+    <div class="parent-okr__header">
+      <h1>{{ parentOkr.parentOkrTarget }}の目標(Objective)</h1>
+      <button
+        mat-menu-item
+        (click)="deleteParentOkr(parentOkr.parentOkrId)"
+        class="delete-parent-okr"
+      >
+        <mat-icon>
+          delete_outline
+        </mat-icon>
+        <span>削除</span>
+      </button>
+    </div>
     <form [formGroup]="parentOkrObjectiveForm" *ngIf="parentOkrObjectiveForm">
       <input
         class="parent-okr__objective-form"
