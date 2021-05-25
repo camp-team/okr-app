@@ -1,7 +1,9 @@
 <div class="home">
   <div class="home__container">
     <div class="home__general-next-section">
-      <h1 class="home__welcome-text">{{ user }}さん、OKRへようこそ</h1>
+      <ng-container *ngIf="this.authService.user$ | async as user">
+        <h1 class="home__welcome-text">{{ user?.name }}さん、OKRへようこそ</h1>
+      </ng-container>
       <p class="home__description">
         以下から、プロジェクトや進行中のOKRをご確認ください
       </p>
@@ -67,16 +69,16 @@
               </mat-menu>
             </div>
           </div>
-          <div class="home__tile-Structure">
-            <a routerLink="/manage/edit">
-              <div class="home__dashed-list-item">
-                <mat-icon>add</mat-icon>
-              </div>
-              <p>新規プロジェクト</p>
-            </a>
-            <div class="child-okr-description-menu"></div>
-          </div>
         </ng-container>
+        <div class="home__tile-Structure">
+          <a routerLink="/manage/edit">
+            <div class="home__dashed-list-item">
+              <mat-icon>add</mat-icon>
+            </div>
+            <p>新規プロジェクト</p>
+          </a>
+          <div class="child-okr-description-menu"></div>
+        </div>
       </div>
     </div>
 

@@ -18,7 +18,6 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  user: string;
   parentOkrs: ParentOkr[];
   childOkrs: ChildOkr[];
   progressChildOkrs$: Observable<
@@ -41,12 +40,10 @@ export class HomeComponent implements OnInit {
     combineLatest([
       this.okrService.parentOkrs$,
       this.okrService.childOkrs$,
-      this.authService.user$,
       this.progressChildOkrs$,
-    ]).subscribe(([parentOkrs, childOkrs, user, progressChildOkr]) => {
+    ]).subscribe(([parentOkrs, childOkrs, progressChildOkr]) => {
       this.parentOkrs = parentOkrs;
       this.childOkrs = childOkrs;
-      this.user = user.name;
       this.progressChildOkrs = progressChildOkr;
     });
     this.isFirstLogin();
