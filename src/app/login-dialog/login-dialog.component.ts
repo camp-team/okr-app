@@ -11,20 +11,13 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login-dialog.component.scss'],
 })
 export class LoginDialogComponent implements OnInit {
-  user$: Observable<User> = this.authService.user$;
-  userName: string;
-
   constructor(
     private dialogRef: MatDialogRef<LoginDialogComponent>,
     private router: Router,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    this.user$.subscribe((user) => {
-      this.userName = user.name;
-    });
-  }
+  ngOnInit(): void {}
 
   closeDialog() {
     this.dialogRef.close();
