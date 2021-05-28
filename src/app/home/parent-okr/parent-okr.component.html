@@ -80,7 +80,7 @@
       >
         <div class="parent-okr__tile-Structure">
           <a
-            routerLink="/manage/childOkr"
+            routerLink="/manage/child-okr"
             [queryParams]="{ id: searchProjectToMatchedChildOkr.childOkrId }"
           >
             <div class="parent-okr__list-item-blue">
@@ -105,7 +105,7 @@
             <mat-menu #menu="matMenu">
               <button
                 mat-menu-item
-                routerLink="/manage/childOkr"
+                routerLink="/manage/child-okr"
                 [queryParams]="{
                   id: searchProjectToMatchedChildOkr.childOkrId
                 }"
