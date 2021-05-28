@@ -12,20 +12,6 @@
     <div class="home__parent-okr-section">
       <div class="home__parent-okr-header">
         <p>プロジェクト</p>
-        <ng-container
-          *ngFor="let parentOkr of this.okrService.parentOkrs$ | async"
-        >
-          <button
-            mat-menu-item
-            (click)="deleteParentOkr(parentOkr.parentOkrId)"
-            class="delete-parent-okr"
-          >
-            <mat-icon>
-              delete_outline
-            </mat-icon>
-            <span>削除</span>
-          </button>
-        </ng-container>
       </div>
 
       <div class="home__list-item-grid">
@@ -88,7 +74,7 @@
         <ng-container *ngFor="let progressChildOkr of progressChildOkrs">
           <div class="home__tile-Structure">
             <a
-              routerLink="/manage/childOkr"
+              routerLink="/manage/child-okr"
               [queryParams]="{ id: progressChildOkr.childOkrId }"
             >
               <div class="home__list-item-blue">
@@ -107,7 +93,7 @@
               <mat-menu #menu="matMenu">
                 <button
                   mat-menu-item
-                  routerLink="/manage/childOkr"
+                  routerLink="/manage/child-okr"
                   [queryParams]="{ id: progressChildOkr.childOkrId }"
                 >
                   <mat-icon>visibility_outline</mat-icon>

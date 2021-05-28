@@ -65,13 +65,6 @@
     p {
       margin: 0;
     }
-    &:hover {
-      .delete-parent-okr {
-        display: inline;
-        background-color: inherit;
-        width: auto;
-      }
-    }
   }
   &__list-item-grid {
     display: grid;
@@ -173,20 +166,6 @@
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
-  }
-}
-
-.delete-parent-okr {
-  color: #6f7782;
-  position: absolute;
-  display: none;
-  top: 0;
-  right: 0;
-  width: 120px;
-  background-color: inherit;
-  mat-icon {
-    margin: 0;
-    font-size: 20px;
   }
 }
 
