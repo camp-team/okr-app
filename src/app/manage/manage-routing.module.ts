@@ -34,7 +34,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'childOkr',
+        path: 'child-okr',
         loadChildren: () =>
           import('../child-okr/child-okr.module').then((m) => m.ChildOkrModule),
       },
