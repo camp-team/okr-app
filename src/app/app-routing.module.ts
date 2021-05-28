@@ -24,6 +24,13 @@ const routes: Routes = [
       import('./legal/legal.module').then((m) => m.LegalModule),
   },
   {
+    path: 'use-service',
+    loadChildren: () =>
+      import('./use-service/use-service.module').then(
+        (m) => m.UseServiceModule
+      ),
+  },
+  {
     path: 'manage',
     loadChildren: () =>
       import('./manage/manage.module').then((m) => m.ManageModule),
