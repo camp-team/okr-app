@@ -48,6 +48,7 @@ export class AuthService {
         this.initialLogin = true;
       }
       this.loadingService.loading = true;
+      this.router.navigateByUrl('/manage/home');
       this.snackBar.open('ログインしました', null, {
         duration: 2000,
       });
