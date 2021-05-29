@@ -23,9 +23,6 @@
   &__logo {
     margin: 0;
     height: 26px;
-    @include sm {
-      padding-top: 16px;
-    }
   }
   &__link {
     text-decoration: none;
