@@ -1,6 +1,7 @@
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="プロフィール">
     <div class="profile-settings-account-content">
+      <h3 class="profile-settings-account-content__heading">プロフィール</h3>
       <div class="profile-settings-account-content__section">
         <div class="photo-upload">
           <ng-container *ngIf="authService.user$ | async as user">
