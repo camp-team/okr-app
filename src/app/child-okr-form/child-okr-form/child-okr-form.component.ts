@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 import { ChildOkr } from 'src/app/interfaces/child-okr';
 import { ChildOkrKeyResult } from 'src/app/interfaces/child-okr-key-result';
 import { ParentOkr } from 'src/app/interfaces/parent-okr';
@@ -126,12 +126,10 @@ export class ChildOkrFormComponent implements OnInit {
         initialForm: childInitialOkrKeyResultsForm,
       })
       .then(() => {
+        this.loadingService.loading = true;
         this.okrService
           .getChildOkrInProgress()
-          .pipe(
-            tap(() => (this.loadingService.loading = true)),
-            debounceTime(400)
-          )
+          .pipe(take(1), debounceTime(400))
           .subscribe((childOkrInProgress) => {
             this.loadingService.loading = false;
             this.snackBar.open('作成しました', null);
