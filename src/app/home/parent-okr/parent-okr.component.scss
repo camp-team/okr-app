@@ -6,13 +6,25 @@
     max-width: 500px;
   }
   @include sm {
-    width: 356px;
+    display: block;
     margin: 0 auto;
   }
   &__left {
     max-width: 748px;
     width: 60%;
-    padding: 40px 48px;
+    padding: 40px 48px 0;
+    @include sm {
+      width: auto;
+    }
+    input {
+      padding: 0 12px;
+
+      @include sm {
+        width: 92%;
+        -webkit-appearance: none;
+        font-size: 16px;
+      }
+    }
   }
   &__header {
     position: relative;
@@ -20,9 +32,12 @@
       margin-top: 0;
       margin-bottom: 6px;
       color: #151b26;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       line-height: 28px;
+      @include sm {
+        font-size: 12px;
+      }
     }
     &:hover {
       .delete-parent-okr {
@@ -64,7 +79,7 @@
     }
     @include sm {
       display: block;
-      font-size: 18px;
+      font-size: 12px;
     }
   }
   &__keyResult-form {
@@ -89,6 +104,9 @@
     max-width: 398px;
     width: 40%;
     padding: 40px;
+    @include sm {
+      width: auto;
+    }
   }
   &__parent-okr-right-header {
     position: relative;
