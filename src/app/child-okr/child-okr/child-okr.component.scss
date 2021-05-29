@@ -2,29 +2,20 @@
 @import 'mixins';
 
 .data {
-  overflow-x: auto;
   &__container {
     padding-bottom: 16px;
     @include sm {
       overflow-x: auto;
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
-      width: 90%;
     }
   }
 }
 
 .child-okr {
   padding: 12px 24px;
-  @include sm {
-    margin: 0;
-    padding: 40px 0;
-  }
   &__objective-structure {
     padding: 0 12px;
-    @include sm {
-      min-width: 160px;
-    }
     input {
       display: block;
       font-size: 16px;
@@ -32,10 +23,6 @@
       border-radius: 8px;
       line-height: 20px;
       width: 250px;
-      @include sm {
-        width: 90%;
-        margin-top: 6px;
-      }
     }
   }
   &__objective {
@@ -54,10 +41,6 @@
     background-color: transparent;
     padding: 0 12px;
     width: 100%;
-    @include sm {
-      width: inherit;
-      font-size: 16px;
-    }
   }
   &__add-task-button {
     display: flex;
@@ -153,6 +136,9 @@ table {
   width: 100%;
   border-collapse: collapse;
   white-space: nowrap;
+  @include md {
+    width: 1000px;
+  }
 }
 
 .select-child-okr-remove {
