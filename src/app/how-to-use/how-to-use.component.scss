@@ -12,6 +12,9 @@
     margin-bottom: 148px;
     display: flex;
     align-items: center;
+    @include sm {
+      margin-bottom: 132px;
+    }
   }
   &__title {
     color: #151b26;
@@ -108,9 +111,6 @@
   &__columin-large {
     padding: 0 16px;
     text-align: center;
-    @include sm {
-      margin-bottom: 48px;
-    }
   }
   &__columin-medium {
     margin-left: 8.33333%;
