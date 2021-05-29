@@ -98,9 +98,6 @@ td {
       padding: 1px 0 0 11px;
       border: 1px solid #e8ecee;
     }
-    // input::placeholder {
-    //   padding: 0;
-    // }
   }
   input:focus {
     position: absolute;
@@ -114,6 +111,31 @@ td {
     border-top: 1px solid #1296d8;
     border-bottom: 1px solid #1296d8;
   }
+  mat-error {
+    width: 100%;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid red;
+    transform: scale(1, -1);
+  }
+  &:hover {
+    .overlay-error {
+      display: inline-block;
+    }
+  }
+}
+.overlay-error {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  font-size: 12px;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .percentage,

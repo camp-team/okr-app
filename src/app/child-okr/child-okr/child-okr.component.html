@@ -72,7 +72,8 @@
                           .hasError('required')
                       "
                     >
-                      必須入力です。
+                      <div class="overlay-error">必須入力です。</div>
+                      <div class="overlay"></div>
                     </mat-error>
                     <mat-error
                       *ngIf="
@@ -81,7 +82,8 @@
                           .hasError('maxlength')
                       "
                     >
-                      最大文字数は20文字です。
+                      <div class="overlay-error">最大文字数は20文字です。</div>
+                      <div class="overlay"></div>
                     </mat-error>
                   </ng-container>
                 </div>
@@ -116,11 +118,15 @@
                             )
                           "
                         >
-                          必須入力です。
+                          <div class="overlay-error">必須入力です。</div>
+                          <div class="overlay"></div>
                         </span>
                       </mat-error>
                       <mat-error *ngIf="row.get('key').hasError('maxlength')">
-                        最大文字数は20文字です。
+                        <div class="overlay-error">
+                          最大文字数は20文字です。
+                        </div>
+                        <div class="overlay"></div>
                       </mat-error>
                       <div
                         class="select-child-okr-remove"
@@ -160,16 +166,21 @@
                             )
                           "
                         >
-                          必須入力です。
+                          <div class="overlay-error">必須入力です。</div>
+                          <div class="overlay"></div>
                         </span>
                       </mat-error>
                       <mat-error *ngIf="row.get('target').hasError('pattern')">
-                        半角数値で入力してください。
+                        <div class="overlay-error">
+                          半角英数字で入力してください
+                        </div>
+                        <div class="overlay"></div>
                       </mat-error>
                       <mat-error
                         *ngIf="row.get('target').hasError('maxlength')"
                       >
-                        最大数は999までです。
+                        <div class="overlay-error">最大数は999までです。</div>
+                        <div class="overlay"></div>
                       </mat-error>
                     </td>
                     <td class="current">
@@ -184,15 +195,20 @@
                       <mat-error
                         *ngIf="row.get('current').hasError('required')"
                       >
-                        必須入力です。
+                        <div class="overlay-error">必須入力です。</div>
+                        <div class="overlay"></div>
                       </mat-error>
                       <mat-error *ngIf="row.get('current').hasError('pattern')">
-                        半角数値で入力してください。
+                        <div class="overlay-error">
+                          半角数値で入力してください。
+                        </div>
+                        <div class="overlay"></div>
                       </mat-error>
                       <mat-error
                         *ngIf="row.get('current').hasError('maxlength')"
                       >
-                        最大数は999までです。
+                        <div class="overlay-error">最大数は999までです。</div>
+                        <div class="overlay"></div>
                       </mat-error>
                     </td>
                     <td class="percentage">
