@@ -132,9 +132,6 @@
     color: #6f7782;
     display: block;
     margin-bottom: 8px;
-    @include sm {
-      font-size: 18px;
-    }
   }
   &__input {
     position: relative;
@@ -149,6 +146,8 @@
     height: 34px;
     @include sm {
       width: 92%;
+      font-size: 16px;
+      -webkit-appearance: none;
     }
   }
   &__form {
@@ -168,6 +167,11 @@
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
+    @include sm {
+      font-size: 12px;
+      position: static;
+      padding: 0;
+    }
   }
   &__add-form {
     text-align: start;
@@ -184,6 +188,9 @@
     }
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
+    }
+    @include sm {
+      font-size: 12px;
     }
   }
   &__button {
