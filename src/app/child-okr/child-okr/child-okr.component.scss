@@ -23,6 +23,7 @@
       border-radius: 8px;
       line-height: 20px;
       width: 250px;
+      -webkit-appearance: none;
     }
   }
   &__objective {
@@ -41,6 +42,7 @@
     background-color: transparent;
     padding: 0 12px;
     width: 100%;
+    font-size: 16px;
   }
   &__add-task-button {
     display: flex;
@@ -80,6 +82,7 @@ td {
       background-color: #fff;
       padding: 1px 0 0 11px;
       border: 1px solid #e8ecee;
+      -webkit-appearance: none;
     }
   }
   input:focus {
@@ -128,6 +131,7 @@ td {
     input {
       background-color: inherit;
       border: none;
+      -webkit-appearance: none;
     }
   }
 }
