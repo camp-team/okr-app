@@ -3,6 +3,7 @@
 
 ::ng-deep .mat-tab-labels {
   justify-content: center !important;
+  margin-top: 12px;
   @include sm {
     justify-content: space-around !important;
   }
@@ -13,7 +14,7 @@
   max-width: 650px;
   margin: 0 auto;
   @include sm {
-    padding: 32px 8px;
+    padding: 32px 24px;
   }
   &__heading {
     font-weight: 500;
