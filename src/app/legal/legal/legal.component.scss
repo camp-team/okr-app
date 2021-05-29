@@ -2,12 +2,14 @@
 @import 'mixins';
 
 .container {
+  font-weight: 400;
   max-width: 600px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .title {
+  font-weight: 400;
   text-align: center;
   font-size: 24px;
   margin: 0;
@@ -15,4 +17,13 @@
   @include sm {
     font-size: 20px;
   }
+}
+
+p {
+  color: #646f79;
+}
+
+h3 {
+  color: #151b26;
+  font-weight: 400;
 }
