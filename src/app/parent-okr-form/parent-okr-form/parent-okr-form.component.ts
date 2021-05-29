@@ -30,7 +30,7 @@ export class ParentOkrFormComponent implements OnInit {
   });
 
   get targetControl() {
-    return this.parentOkrform.get('objective') as FormControl;
+    return this.parentOkrform.get('target') as FormControl;
   }
   get keyResults(): FormArray {
     return this.parentOkrform.get('keyResults') as FormArray;
