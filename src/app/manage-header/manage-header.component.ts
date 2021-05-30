@@ -6,16 +6,12 @@ import { ChildOkr } from '../interfaces/child-okr';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { OkrService } from '../services/okr.service';
-
 @Component({
   selector: 'app-manage-header',
   templateUrl: './manage-header.component.html',
   styleUrls: ['./manage-header.component.scss'],
 })
 export class ManageHeaderComponent implements OnInit {
-  home = this.route.snapshot.params;
-  childOkrPath = this.route.snapshot.params;
-  achieve = this.route.snapshot.params;
   user$ = this.authService.user$;
   isChildOkr: boolean;
   avatarURL: string;
@@ -28,8 +24,8 @@ export class ManageHeaderComponent implements OnInit {
   content: number;
   transitionTargetArray: string[];
   i: number;
-
-  transitionTargetIndex = [0, 1, 2];
+  parentOkrTarget: string;
+  transitionTargetIndex = [0, 1, 2, 3, 4, 5];
 
   constructor(
     public authService: AuthService,
@@ -38,21 +34,41 @@ export class ManageHeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.transitionTargetArray = ['ホーム', '進行中のOKR', '完了したOKR'];
-    switch (this.router.url) {
-      case '/manage/home':
-        this.i = this.transitionTargetIndex[0];
-        break;
-      case '/manage/childOkr?id=' + this.route.snapshot.queryParamMap.get('id'):
-        this.i = this.transitionTargetIndex[1];
-        break;
-      case '/manage/childOkr':
-        this.i = this.transitionTargetIndex[1];
-        break;
-      case '/manage/achieve':
-        this.i = this.transitionTargetIndex[2];
-        break;
-    }
+    this.transitionTargetArray = [
+      'ホーム',
+      '進行中のOKR',
+      '完了したOKR',
+      'プロジェクト',
+      '新規OKR',
+      '新規タスク',
+    ];
+    this.router.events.subscribe(() => {
+      switch (this.router.url) {
+        case '/manage/home':
+          this.i = this.transitionTargetIndex[0];
+          break;
+        case '/manage/child-okr?id=' +
+          this.route.snapshot.queryParamMap.get('id'):
+          this.i = this.transitionTargetIndex[1];
+          break;
+        case '/manage/child-okr':
+          this.i = this.transitionTargetIndex[1];
+          break;
+        case '/manage/achieve':
+          this.i = this.transitionTargetIndex[2];
+          break;
+        case '/manage/okr-project?id=' +
+          this.route.snapshot.queryParamMap.get('id'):
+          this.i = this.transitionTargetIndex[3];
+          break;
+        case '/manage/edit':
+          this.i = this.transitionTargetIndex[4];
+          break;
+        case '/manage/okr-edit':
+          this.i = this.transitionTargetIndex[5];
+          break;
+      }
+    });
 
     this.loadingService.loading = true;
     this.authService.getUser(this.authService.uid).subscribe((result) => {
@@ -86,7 +102,7 @@ export class ManageHeaderComponent implements OnInit {
 
   progress() {
     this.i = 1;
-    this.router.navigate(['manage/childOkr'], {
+    this.router.navigate(['manage/child-okr'], {
       queryParams: { id: this.childOkr.childOkrId },
     });
   }
