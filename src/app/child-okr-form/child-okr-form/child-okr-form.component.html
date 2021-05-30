@@ -4,9 +4,17 @@
       <h3 class="create-child-okr__title">新規タスク</h3>
       <form [formGroup]="childOkrForm" (ngSubmit)="cleateChildOkr()">
         <div class="create-child-okr__contents">
-          <label class="create-child-okr__lavel">カテゴリーを選択</label>
+          <div class="create-child-okr__category-wrapper">
+            <label class="create-child-okr__category">カテゴリー</label>
+            <mat-icon
+              class="table-icon"
+              matTooltip="カテゴリーは&#13;&#10;新規プロジェクトで作成します"
+            >
+              help_outline
+            </mat-icon>
+          </div>
           <mat-form-field appearance="fill">
-            <mat-label>Category</mat-label>
+            <mat-label>カテゴリーを選択</mat-label>
             <select formControlName="target" matNativeControl required>
               <ng-container *ngFor="let parentOkr of parentOkrs">
                 <option value="{{ parentOkr.parentOkrTarget }}">
@@ -14,6 +22,9 @@
                 </option>
               </ng-container>
             </select>
+            <mat-error *ngIf="targetControl.hasError('required')">
+              必須選択です
+            </mat-error>
           </mat-form-field>
         </div>
 

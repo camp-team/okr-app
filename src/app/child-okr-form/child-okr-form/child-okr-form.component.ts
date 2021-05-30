@@ -31,7 +31,7 @@ export class ChildOkrFormComponent implements OnInit {
   childOkrForm = this.fb.group({
     objectives: this.fb.array([]),
     end: ['', [Validators.required, Validators.maxLength(20)]],
-    target: new FormControl(),
+    target: new FormControl('', Validators.required),
   });
 
   get objectives(): FormArray {
@@ -39,6 +39,9 @@ export class ChildOkrFormComponent implements OnInit {
   }
   get endControl() {
     return this.childOkrForm.get('end') as FormControl;
+  }
+  get targetControl() {
+    return this.childOkrForm.get('target');
   }
 
   constructor(
