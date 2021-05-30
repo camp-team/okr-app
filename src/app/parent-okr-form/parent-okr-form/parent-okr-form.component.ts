@@ -59,7 +59,7 @@ export class ParentOkrFormComponent implements OnInit {
 
   ngOnInit() {
     this.initObjectiveForm();
-    // this.determineIfStartingTutorial();
+    this.startingTutorial();
   }
 
   initObjectiveForm() {
@@ -85,12 +85,12 @@ export class ParentOkrFormComponent implements OnInit {
     }
   }
 
-  // determineIfStartingTutorial(): void {
-  //   this.tutorialService.startTutorial({
-  //     okrType: 'parentOkr',
-  //     groupIndex: 0,
-  //   });
-  // }
+  startingTutorial(): void {
+    this.tutorialService.startTutorial({
+      okrType: 'parentOkr',
+      groupIndex: 0,
+    });
+  }
 
   removeObjectiveForm(i: number) {
     this.keyResults.removeAt(i);
