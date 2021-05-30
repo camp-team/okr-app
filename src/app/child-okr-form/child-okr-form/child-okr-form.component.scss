@@ -63,17 +63,25 @@
   &__form-structure {
     margin-bottom: 32px;
   }
-  &__lavel {
+  &__category-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  &__category {
     font-size: 12px;
     line-height: 18px;
     display: inline-block;
     font-weight: 500;
-    color: #6f7782;
     display: block;
     margin-bottom: 8px;
     @include sm {
       margin-bottom: 0;
     }
+  }
+  mat-icon {
+    color: #6f7782;
+    padding-left: 6px;
+    font-size: 14px;
   }
 
   &__input {
@@ -159,28 +167,6 @@ mat-form-field {
     height: 34px;
     @include sm {
       width: 152px;
-    }
-  }
-}
-
-.child-step {
-  &__field {
-    display: block;
-    max-width: 400px;
-  }
-  &__lavel {
-    padding: 30px 0 0 0;
-    font-size: 24px;
-    @include sm {
-      font-size: 24px;
-    }
-  }
-  &__action {
-    margin-top: 60px;
-    display: flex;
-    justify-content: space-between;
-    @include sm {
-      margin-top: 40px;
     }
   }
 }
