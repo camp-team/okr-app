@@ -65,13 +65,6 @@
     p {
       margin: 0;
     }
-    &:hover {
-      .delete-parent-okr {
-        display: inline;
-        background-color: inherit;
-        width: auto;
-      }
-    }
   }
   &__list-item-grid {
     display: grid;
@@ -90,11 +83,11 @@
       text-decoration: none;
     }
     p {
-      height: 38px;
+      margin: 8px 0;
       font-size: 12px;
       text-align: center;
       color: #151b26;
-      font-weight: 600;
+      font-weight: 500;
     }
     &:hover {
       .child-okr-description-menu {
@@ -102,11 +95,59 @@
       }
     }
   }
-  &__list-item {
+  &__dashed-list-item {
+    border: dashed 1px #6f7782;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #6f7782;
+      top: 30%;
+      right: 50%;
+    }
+  }
+  &__list-item-red {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: #fb5779;
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 30%;
+      right: 50%;
+    }
+  }
+  &__list-item-blue {
     position: relative;
     width: 120px;
     height: 120px;
     background-color: rgba(2, 5, 211, 0.5);
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    mat-icon {
+      position: absolute;
+      font-size: 48px;
+      color: #fff;
+      top: 30%;
+      right: 50%;
+    }
+  }
+  &__list-item-yellow {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: #f2a100;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
@@ -125,20 +166,6 @@
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
-  }
-}
-
-.delete-parent-okr {
-  color: #6f7782;
-  position: absolute;
-  display: none;
-  top: 0;
-  right: 0;
-  width: 120px;
-  background-color: inherit;
-  mat-icon {
-    margin: 0;
-    font-size: 20px;
   }
 }
 

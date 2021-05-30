@@ -28,7 +28,7 @@ export class GuestGuard implements CanActivate, CanLoad {
     | boolean
     | UrlTree {
     return this.authService.afUser$.pipe(
-      map((user) => !user),
+      map((afUser) => !afUser),
       tap((isGuest) => {
         if (!isGuest) {
           this.router.navigateByUrl('/manage/home');
@@ -41,7 +41,7 @@ export class GuestGuard implements CanActivate, CanLoad {
     segments: UrlSegment[]
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.afUser$.pipe(
-      map((user) => !user),
+      map((afUser) => !afUser),
       take(1),
       tap((isGuest) => {
         if (!isGuest) {

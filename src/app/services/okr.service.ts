@@ -163,6 +163,14 @@ export class OkrService {
       });
   }
 
+  getParentOkr(parentOkrId: string): Observable<ParentOkr> {
+    return this.db
+      .doc<ParentOkr>(
+        `users/${this.authsearvice.uid}/parentOkrs/${parentOkrId}`
+      )
+      .valueChanges();
+  }
+
   getParentOkrs(): Observable<ParentOkr[]> {
     return this.db
       .collection<ParentOkr>(`users/${this.authsearvice.uid}/parentOkrs`)
@@ -226,6 +234,20 @@ export class OkrService {
       .valueChanges();
   }
 
+  getSearchProjectToMatchedChildOkrs(
+    parentOkrTarget: string
+  ): Observable<ChildOkr[]> {
+    return this.db
+      .collection<ChildOkr>(
+        `users/${this.authsearvice.uid}/childOkrs/`,
+        (ref) =>
+          ref
+            .where('childOkrTarget', '==', parentOkrTarget)
+            .where('isChildOkrComplete', '==', true)
+      )
+      .valueChanges();
+  }
+
   getChildOkrKeyResultsCollection(
     childOkrId: string
   ): Observable<ChildOkrKeyResult[]> {
@@ -281,14 +303,14 @@ export class OkrService {
       .valueChanges();
   }
 
-  updateParentOkr(
-    uid: string,
-    parentOkrId: string,
-    parentOkrObjective: ParentOkr
-  ): Promise<void> {
+  updateParentOkrObjective(params: {
+    uid: string;
+    parentOkrId: string;
+    parentOkrObjective: ParentOkr;
+  }): Promise<void> {
     return this.db
-      .doc(`users/${uid}/parentOkrs/${parentOkrId}`)
-      .update({ parentOkrObjective });
+      .doc(`users/${params.uid}/parentOkrs/${params.parentOkrId}`)
+      .update({ parentOkrObjective: params.parentOkrObjective });
   }
 
   updateChildOkr(

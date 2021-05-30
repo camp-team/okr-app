@@ -19,6 +19,7 @@ li {
   z-index: 1000;
   height: 72px;
   @include sm {
+    display: none;
     padding: 0 34px;
   }
   &__titl-row {

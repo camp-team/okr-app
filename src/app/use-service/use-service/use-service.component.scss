@@ -1,3 +1,6 @@
+@import 'variables';
+@import 'mixins';
+
 .use-service {
   &__head-line {
     text-align: center;
@@ -6,6 +9,9 @@
     background-color: #f6f8f9;
     margin-right: calc(50% - 50vw);
     margin-left: calc(50% - 50vw);
+    @include sm {
+      padding: 80px 16px;
+    }
   }
   &__heading {
     font-size: 56px;
@@ -16,6 +22,9 @@
     line-height: 40px;
     color: #151b26;
     margin-bottom: 32px;
+    @include sm {
+      font-size: 40px;
+    }
   }
   &__sub-heading {
     font-size: 22px;
@@ -23,11 +32,19 @@
     margin-left: auto;
     margin-right: auto;
     color: #646f79;
+    @include sm {
+      font-size: 16px;
+      padding: 0 16px;
+    }
   }
 }
 
 .parent-okr-description {
   padding: 120px 0;
+  @include sm {
+    font-size: 22px;
+    padding: 80px 0;
+  }
   &__heading {
     text-align: center;
     font-size: 45px;
@@ -35,6 +52,10 @@
     color: #151b26;
     font-weight: 400;
     margin-bottom: 32px;
+    @include sm {
+      margin: 0;
+      font-size: 22px;
+    }
   }
   &__sub-heading {
     text-align: center;
@@ -42,36 +63,62 @@
     font-size: 22px;
     font-weight: 400;
     margin-bottom: 80px;
+    @include sm {
+      padding: 0 16px;
+      font-size: 16px;
+    }
   }
   &__image-text {
     display: flex;
     align-items: center;
+    @include sm {
+      display: block;
+    }
   }
   &__image {
     margin-left: 8.33333%;
     width: 500px;
     height: 400px;
+    @include sm {
+      width: 318px;
+      height: 228px;
+    }
     // background-color: #bbb;
     // box-shadow: 0 20px 30px 0 rgb(36 50 66 / 14%);
   }
   &__text-stack {
     max-width: 33.33333%;
     margin-left: 8.33333%;
+    @include sm {
+      padding: 0 16px;
+      max-width: inherit;
+      margin-left: 0;
+    }
   }
   &__title {
     font-size: 28px;
     color: #222b37;
     margin-bottom: 16px;
     font-weight: 400;
+    @include sm {
+      font-size: 22px;
+    }
   }
   &__sub-title {
     font-size: 20px;
     color: #646f79;
+    font-weight: 300;
+    @include sm {
+      font-size: 16px;
+    }
   }
 }
 
 .child-okr-description {
   padding: 120px 0;
+  @include sm {
+    padding: 80px 0 0;
+  }
   &__heading {
     text-align: center;
     font-size: 45px;
@@ -80,6 +127,10 @@
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 32px;
+    @include sm {
+      margin: 0;
+      font-size: 22px;
+    }
   }
   &__sub-heading {
     text-align: center;
@@ -87,28 +138,57 @@
     font-size: 22px;
     font-weight: 400;
     margin-bottom: 80px;
+    @include sm {
+      padding: 0 16px;
+      font-size: 16px;
+    }
   }
   &__image-text {
     display: flex;
     align-items: center;
+    @include sm {
+      position: relative;
+      display: block;
+      margin-left: 8.33333%;
+      flex-direction: column-reverse;
+      padding-top: 224px;
+    }
   }
   &__image {
     width: 600px;
     height: 400px;
+    @include sm {
+      width: 318px;
+      height: 228px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
   &__text-stack {
     max-width: 33.33333%;
     margin-right: 8.33333%;
     margin-left: 8.33333%;
+    @include sm {
+      padding: 0 16px;
+      max-width: inherit;
+      margin-left: 0;
+    }
   }
   &__title {
     font-size: 28px;
     color: #222b37;
     margin-bottom: 16px;
     font-weight: 400;
+    @include sm {
+      font-size: 22px;
+    }
   }
   &__sub-title {
     font-size: 20px;
     color: #646f79;
+    @include sm {
+      font-size: 16px;
+    }
   }
 }

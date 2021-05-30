@@ -23,9 +23,6 @@
   &__logo {
     margin: 0;
     height: 26px;
-    @include sm {
-      padding-top: 16px;
-    }
   }
   &__link {
     text-decoration: none;
@@ -47,7 +44,11 @@
     line-height: 30px !important;
     height: 36px;
   }
-
+  &__settings {
+    @include sm {
+      display: none;
+    }
+  }
   &__progress {
     &:hover {
       cursor: pointer;

@@ -2,8 +2,8 @@
 @import 'mixins';
 
 .footer {
-  text-align: center;
-  padding: 60px 0;
+  background-color: #222b37;
+  padding: 32px 0;
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -12,8 +12,8 @@
   }
 }
 
-.footer-navigations {
-  margin-bottom: 40px;
+.footer-navs {
+  margin-bottom: 20px;
   color: #ffffff;
 }
 
@@ -22,11 +22,29 @@ a {
   margin-right: 16px;
   color: inherit;
   @include sm {
+    font-size: 12px;
     display: block;
-    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+}
+.creator-details {
+  @include sm {
+    text-align: center;
+  }
+}
+.twitter-icon {
+  cursor: pointer;
+  margin-bottom: 20px;
+  @include sm {
+    margin-bottom: 0;
   }
 }
 .copyright {
   color: #ffffff;
   font-size: 16px;
+  display: block;
+  margin: 0;
+  @include sm {
+    font-size: 12px;
+  }
 }

@@ -6,11 +6,13 @@
       class="main__img"
     />
     <div class="main__content">
-      <h1 class="main__title">
-        {{ userName }}さん、<br />
-        OKRへようこそ！
-      </h1>
-      <p>目標に向かって頑張りましょう！</p>
+      <ng-container *ngIf="this.authService.user$ | async as user">
+        <h1 class="main__title">
+          {{ user?.name }}さん、<br />
+          OKRへようこそ！
+        </h1>
+      </ng-container>
+      <p>まずは、新規プロジェクトを作成しましょう！</p>
     </div>
   </div>
 
@@ -21,7 +23,7 @@
       (click)="createParentOkr()"
       class="action__transition-childOkr"
     >
-      OKRを作成する
+      プロジェクトを作成する
     </a>
   </div>
 </div>

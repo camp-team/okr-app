@@ -3,6 +3,7 @@
 
 .terms {
   &__title {
+    font-weight: 400;
     text-align: center;
     font-size: 28px;
     margin: 0;
@@ -14,6 +15,8 @@
 }
 
 .container {
+  font-weight: 400;
+
   padding: 0 56px 24px;
   max-width: 600px;
   margin: 0 auto;
@@ -26,7 +29,14 @@ hr {
   margin: 0;
 }
 
+h3 {
+  color: #151b26;
+  font-weight: 400;
+}
+
 p {
+  color: #646f79;
+
   line-height: 1.5;
   font-size: 14px;
 }

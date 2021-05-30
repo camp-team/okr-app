@@ -1,0 +1,5 @@
+<div class="okr-project">
+  <ng-container *ngIf="parentOkr$ | async as parentOkr">
+    <app-parent-okr [parentOkr]="parentOkr"></app-parent-okr>
+  </ng-container>
+</div>

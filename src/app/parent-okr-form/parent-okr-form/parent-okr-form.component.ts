@@ -24,10 +24,14 @@ export class ParentOkrFormComponent implements OnInit {
   parentOkrObjectiveForm: number = 3;
   isParentOkrcomplete: boolean;
   parentOkrform = this.fb.group({
+    target: ['', [Validators.required, Validators.maxLength(40)]],
     objective: ['', [Validators.required, Validators.maxLength(40)]],
     keyResults: this.fb.array([]),
   });
 
+  get targetControl() {
+    return this.parentOkrform.get('target') as FormControl;
+  }
   get keyResults(): FormArray {
     return this.parentOkrform.get('keyResults') as FormArray;
   }
@@ -55,7 +59,7 @@ export class ParentOkrFormComponent implements OnInit {
 
   ngOnInit() {
     this.initObjectiveForm();
-    // this.determineIfStartingTutorial();
+    this.startingTutorial();
   }
 
   initObjectiveForm() {
@@ -81,12 +85,12 @@ export class ParentOkrFormComponent implements OnInit {
     }
   }
 
-  // determineIfStartingTutorial(): void {
-  //   this.tutorialService.startTutorial({
-  //     okrType: 'parentOkr',
-  //     groupIndex: 0,
-  //   });
-  // }
+  startingTutorial(): void {
+    this.tutorialService.startTutorial({
+      okrType: 'parentOkr',
+      groupIndex: 0,
+    });
+  }
 
   removeObjectiveForm(i: number) {
     this.keyResults.removeAt(i);
@@ -100,6 +104,7 @@ export class ParentOkrFormComponent implements OnInit {
       parentOkrObjective: parentOkrForm.objective,
       parentOkrKeyResults: parentOkrForm.keyResults,
       uid: this.authService.uid,
+      parentOkrTarget: parentOkrForm.target,
     };
     const parentOkrKeyResults = parentOkrForm.keyResults;
     this.okrService

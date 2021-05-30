@@ -2,7 +2,7 @@
   <mat-toolbar-row class="header__inner">
     <div class="header__left">
       <div class="header__logo">
-        <a routerLink="/about" class="header__link">
+        <a routerLink="/manage/home" class="header__link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -103,7 +103,7 @@
       <mat-menu #userMenu="matMenu">
         <button mat-menu-item routerLink="/manage/edit" class="header__menu">
           <mat-icon>edit</mat-icon>
-          <span>OKRを作成する</span>
+          <span>新規プロジェクト</span>
         </button>
         <button
           mat-menu-item
@@ -111,7 +111,7 @@
           class="header__menu"
         >
           <mat-icon>edit</mat-icon>
-          <span>タスクを作成する</span>
+          <span>新規タスク</span>
         </button>
         <button
           mat-menu-item
@@ -122,7 +122,11 @@
           <mat-icon>login</mat-icon>
           <span>ログイン</span>
         </button>
-        <button mat-menu-item routerLink="/settings" class="header__menu">
+        <button
+          mat-menu-item
+          routerLink="/settings"
+          class="header__settings header__menu"
+        >
           <mat-icon>settings</mat-icon>
           <span>設定</span>
         </button>

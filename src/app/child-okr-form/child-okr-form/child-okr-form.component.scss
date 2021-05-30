@@ -32,7 +32,7 @@
   max-width: 420px;
   margin: 0 auto;
   @include sm {
-    padding: 30px 0;
+    padding: 30px 0 0;
   }
   &__body {
     padding: 32px 0;
@@ -54,26 +54,36 @@
     margin-bottom: 32px;
     @include sm {
       padding: 0;
+      margin: 0;
     }
     mat-error {
       font-size: 14px;
     }
   }
   &__form-structure {
-    padding-bottom: 22px;
+    margin-bottom: 32px;
   }
-  &__lavel {
+  &__category-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  &__category {
     font-size: 12px;
     line-height: 18px;
     display: inline-block;
     font-weight: 500;
-    color: #6f7782;
     display: block;
     margin-bottom: 8px;
     @include sm {
-      font-size: 18px;
+      margin-bottom: 0;
     }
   }
+  mat-icon {
+    color: #6f7782;
+    padding-left: 6px;
+    font-size: 14px;
+  }
+
   &__input {
     position: relative;
     width: 356px;
@@ -87,10 +97,14 @@
     height: 34px;
     @include sm {
       width: 92%;
+      font-size: 16px;
+      -webkit-appearance: none;
     }
   }
   &__form {
     position: relative;
+    font-size: 16px;
+    box-shadow: none;
   }
   &__remove-form {
     position: absolute;
@@ -105,6 +119,10 @@
     }
     &:hover {
       background-color: rgba(0, 0, 0, 0.12);
+    }
+    @include sm {
+      position: static;
+      padding: 0;
     }
   }
   &__add-form {
@@ -128,10 +146,15 @@
     width: 100%;
     background-color: rgba(2, 5, 211, 0.5);
     color: #fff;
+    margin-top: 48px;
     &:hover {
       opacity: 0.9;
     }
   }
+}
+
+mat-form-field {
+  margin-bottom: 12px;
 }
 
 .create-child-okr-add-date {
@@ -142,27 +165,8 @@
     border: 2px solid #e8ecee;
     border-radius: 6px;
     height: 34px;
-  }
-}
-
-.child-step {
-  &__field {
-    display: block;
-    max-width: 400px;
-  }
-  &__lavel {
-    padding: 30px 0 0 0;
-    font-size: 24px;
     @include sm {
-      font-size: 24px;
-    }
-  }
-  &__action {
-    margin-top: 60px;
-    display: flex;
-    justify-content: space-between;
-    @include sm {
-      margin-top: 40px;
+      width: 152px;
     }
   }
 }

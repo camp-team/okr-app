@@ -6,6 +6,7 @@ import { ShepherdService } from 'angular-shepherd';
 })
 export class TutorialService {
   tutorial: boolean;
+  parentOkrTutorial: boolean;
 
   tutorialSteps = {
     rootOkr: {},
@@ -121,18 +122,18 @@ export class TutorialService {
       createScreen: [
         [
           this.getTutorialStep(
-            '1つ目のOKR作成するよ！！',
-            'さっそく、使い方を説明していきます！',
+            'カテゴリー',
+            'OKRの対象は自由です',
             'first',
-            null,
-            'bottom'
+            '.category',
+            'right'
           ),
           this.getTutorialStep(
-            'フォームに入力しよう！',
-            'ますは、なりたい姿を入力しよう！',
-            'last',
-            '.okr-edit',
-            'bottom'
+            'Key result',
+            '目標は3つがおすすめです。',
+            'end',
+            '.objective-form',
+            'right'
           ),
         ],
       ],

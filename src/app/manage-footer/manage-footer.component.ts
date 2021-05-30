@@ -44,7 +44,7 @@ export class ManageFooterComponent implements OnInit {
   }
 
   progress() {
-    this.router.navigate(['manage/childOkr'], {
+    this.router.navigate(['manage/child-okr'], {
       queryParams: { id: this.childOkr.isChildOkrComplete },
     });
   }

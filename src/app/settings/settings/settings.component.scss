@@ -3,20 +3,27 @@
 
 ::ng-deep .mat-tab-labels {
   justify-content: center !important;
+  margin-top: 12px;
   @include sm {
     justify-content: space-around !important;
   }
 }
 
 .profile-settings-account-content {
-  padding: 16px 0;
+  padding: 32px 0;
   max-width: 650px;
   margin: 0 auto;
   @include sm {
-    padding: 32px 8px;
+    padding: 32px 24px;
+  }
+  &__heading {
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0;
+    padding-bottom: 64px;
+    text-align: center;
   }
   &__section {
-    padding: 32px 0;
     @include sm {
       padding: 0;
     }
@@ -26,13 +33,13 @@
 .photo-upload {
   display: flex;
   align-items: center;
+  margin-bottom: 64px;
   @include sm {
     display: block;
   }
   &__photo-display {
     margin-right: 20px;
     @include sm {
-      border-bottom: 1px solid #cbd4db;
       padding-bottom: 32px;
       margin: 0;
     }
@@ -47,8 +54,8 @@
     border-radius: 50%;
     cursor: pointer;
     @include sm {
-      width: 130px;
-      height: 130px;
+      width: 100px;
+      height: 100px;
     }
   }
   &__avatar-icon-wrap {
@@ -94,8 +101,8 @@
   &__heading {
     font-weight: 500;
     font-size: 20px;
-    margin-bottom: 32px;
-    padding-bottom: 32px;
+    margin: 0;
+    padding-bottom: 64px;
     text-align: center;
     @include sm {
       margin-top: 0;
@@ -118,6 +125,7 @@
       opacity: 0.9;
     }
     @include sm {
+      margin-top: 48px;
       margin-bottom: 32px;
     }
   }

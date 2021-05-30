@@ -20,6 +20,13 @@ const routes: Routes = [
           import('../home/home.module').then((m) => m.HomeModule),
       },
       {
+        path: 'okr-project',
+        loadChildren: () =>
+          import('../okr-project/okr-project.module').then(
+            (m) => m.OkrProjectModule
+          ),
+      },
+      {
         path: 'okr-edit',
         loadChildren: () =>
           import('../child-okr-form/child-okr-form.module').then(
@@ -27,7 +34,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'childOkr',
+        path: 'child-okr',
         loadChildren: () =>
           import('../child-okr/child-okr.module').then((m) => m.ChildOkrModule),
       },

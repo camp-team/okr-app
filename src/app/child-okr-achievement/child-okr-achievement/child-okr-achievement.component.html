@@ -63,16 +63,5 @@
 <ng-template #blank>
   <div class="no-data">
     <h1 class="no-data__title">まだタスクが完了されていません</h1>
-    <div class="child-okr-achieve__action">
-      <ng-container *ngIf="childOkrId">
-        <a
-          mat-raised-button
-          routerLink="/manage/childOkr"
-          [queryParams]="{ v: childOkrId }"
-        >
-          タスクに進む
-        </a>
-      </ng-container>
-    </div>
   </div>
 </ng-template>

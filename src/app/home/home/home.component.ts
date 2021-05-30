@@ -18,14 +18,15 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  user: string;
   parentOkrs: ParentOkr[];
   childOkrs: ChildOkr[];
-  parentOkr: boolean;
-  childOkrId: string;
+  progressChildOkrs$: Observable<
+    ChildOkr[]
+  > = this.okrService.getChildOkrInProgress();
   achieveChildOkrs$: Observable<
     ChildOkr[]
   > = this.okrService.getAchieveChildOkrs();
+  progressChildOkrs: ChildOkr[];
 
   constructor(
     public okrService: OkrService,
@@ -39,13 +40,11 @@ export class HomeComponent implements OnInit {
     combineLatest([
       this.okrService.parentOkrs$,
       this.okrService.childOkrs$,
-      this.authService.user$,
-    ]).subscribe(([parentOkrs, childOkrs, user]) => {
+      this.progressChildOkrs$,
+    ]).subscribe(([parentOkrs, childOkrs, progressChildOkr]) => {
       this.parentOkrs = parentOkrs;
       this.childOkrs = childOkrs;
-      this.user = user.name;
-      this.checkParentOkr();
-      this.checkChildtOkr();
+      this.progressChildOkrs = progressChildOkr;
     });
     this.isFirstLogin();
     this.loadingService.loading = false;
@@ -70,25 +69,6 @@ export class HomeComponent implements OnInit {
     this.determineIfStartingTutorial();
   }
 
-  checkParentOkr() {
-    const parentOkrIsEmpty = this.parentOkrs.length;
-    if (parentOkrIsEmpty === 0) {
-      this.parentOkr = false;
-    } else {
-      this.parentOkr = true;
-    }
-  }
-
-  checkChildtOkr() {
-    this.childOkrs.forEach((childOkr) => {
-      if (childOkr.isChildOkrComplete) {
-        this.childOkrId = childOkr.childOkrId;
-      } else {
-        return null;
-      }
-    });
-  }
-
   determineIfStartingTutorial() {
     if (this.tutorialService.tutorial) {
       this.tutorialService.startTutorial({
@@ -109,7 +89,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  deleteOkr(parentOkrId: string) {
+  deleteParentOkr(parentOkrId: string) {
     this.dialog.open(DeleteParentOkrDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
