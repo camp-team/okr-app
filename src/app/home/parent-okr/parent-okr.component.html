@@ -1,17 +1,23 @@
 <div class="parent-okr">
   <div class="parent-okr__left">
-    <div class="parent-okr__header">
-      <h1>{{ parentOkr.parentOkrTarget }}の目標(Objective)</h1>
-      <button
-        mat-menu-item
-        (click)="deleteParentOkr(parentOkr.parentOkrId)"
-        class="delete-parent-okr"
-      >
-        <mat-icon>
-          delete_outline
-        </mat-icon>
-        <span>削除</span>
-      </button>
+    <div class="parent-okr__header-structure">
+      <h1 class="parent-okr__heading">
+        {{ parentOkr.parentOkrTarget }}の目標(Objective)
+        <button
+          mat-menu-item
+          (click)="deleteParentOkr(parentOkr.parentOkrId)"
+          class="delete-parent-okr"
+        >
+          <mat-icon>
+            delete_outline
+          </mat-icon>
+          <span>削除</span>
+        </button>
+      </h1>
+      <p class="parent-okr__sub-heading">
+        成し遂げたい目標<br />
+        {{ parentOkr.parentOkrTarget }}の最終ゴール
+      </p>
     </div>
     <form [formGroup]="parentOkrObjectiveForm" *ngIf="parentOkrObjectiveForm">
       <input
@@ -29,13 +35,20 @@
       </mat-error>
     </form>
 
+    <div class="parent-okr__header-structure">
+      <h3 class="parent-okr__heading">
+        目標達成のための成果指標(Key Result)
+      </h3>
+      <p class="parent-okr__sub-heading">
+        課題<br />
+        新規タスクはこれらのKey Resultをもとに作成
+      </p>
+    </div>
+
     <div
       *ngFor="let parentOkrKeyResult of parentOkrKeyResults$ | async"
       class="parent-okr__section"
     >
-      <h3 class="parent-okr__sub-header">
-        目標達成のための成果指標(Key Result)
-      </h3>
       <form
         [formGroup]="
           parentOkrKeyResultsForm[parentOkrKeyResult.parentOkrKeyResultId]
