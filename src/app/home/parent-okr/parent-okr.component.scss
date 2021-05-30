@@ -18,7 +18,7 @@
     }
     input {
       padding: 0 12px;
-
+      width: 580px;
       @include sm {
         width: 92%;
         -webkit-appearance: none;
@@ -62,36 +62,41 @@
       font-size: 18px;
     }
   }
-  &__sub-header {
+  &__header-structure {
+    position: relative;
     margin-top: 18px;
     margin-bottom: 6px;
-
     color: #151b26;
-    font-weight: 400;
-    font-size: 14px;
-    &::after {
-      content: ':';
-    }
-    @include md {
-      &::after {
-        display: none;
-      }
-    }
     @include sm {
       display: block;
       font-size: 12px;
     }
   }
+  &__heading {
+    font-size: 16px;
+    font-weight: 400;
+    &:hover {
+      .delete-parent-okr {
+        display: inline;
+        background-color: inherit;
+        width: auto;
+      }
+    }
+  }
+  &__sub-heading {
+    font-size: 14px;
+    color: #6f7782;
+  }
   &__keyResult-form {
     border: none;
     color: #151b26;
-
     background-color: inherit;
     font-size: 16px;
     width: 100%;
     border: 2px solid #e8ecee;
     border-radius: 8px;
     height: 34px;
+    margin-bottom: 16px;
     @include sm {
       padding: 0;
       font-size: 18px;
@@ -187,7 +192,7 @@
   color: #6f7782;
   position: absolute;
   display: none;
-  top: 50%;
+  top: 14px;
   right: 0;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(0%, -50%);
