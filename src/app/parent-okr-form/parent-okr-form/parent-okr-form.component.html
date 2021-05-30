@@ -3,7 +3,7 @@
     <div class="container">
       <h3 class="create-parent-okr__title">新規OKR</h3>
       <form [formGroup]="parentOkrform" (ngSubmit)="createParentOkr()">
-        <div class="create-parent-okr__contents">
+        <div class="create-parent-okr__contents category">
           <label class="create-parent-okr__lavel">カテゴリーを入力</label>
           <input
             formControlName="target"
@@ -41,7 +41,7 @@
             *ngFor="let keyResult of keyResults.controls; let i = index"
             class="create-parent-okr__form-structure"
           >
-            <label class="create-parent-okr__lavel"
+            <label class="create-parent-okr__lavel objective-form"
               >目標を入力 {{ i + 1 }}つ目</label
             >
             <div class="create-parent-okr__form">
