@@ -53,7 +53,7 @@
     }
   }
   &__parent-okr-section {
-    margin: 32px 0;
+    margin-top: 32px;
   }
   &__parent-okr-header {
     position: relative;
@@ -79,6 +79,9 @@
   &__tile-Structure {
     position: relative;
     padding: 16px 0;
+    max-width: 120px;
+    height: 230px;
+    box-sizing: border-box;
     a {
       text-decoration: none;
     }
