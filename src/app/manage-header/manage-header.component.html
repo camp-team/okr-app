@@ -1,16 +1,29 @@
 <div class="manage-header">
   <div class="manage-header__top-bar">
     <h1 class="manage-header__titl-row">{{ transitionTargetArray[i] }}</h1>
-    <ul class="nav">
-      <li>
-        <a (click)="setTransitionTargetIndex(0)" routerLink="/manage/home">
+    <ul role="tablist" class="nav">
+      <li role="presentation">
+        <a
+          role="tab"
+          aria-controls="home-panel"
+          [attr.aria-selected]="tab === 'home-panel'"
+          (click)="setTabState($event)"
+          (click)="setTransitionTargetIndex(0)"
+          routerLink="/manage/home"
+        >
           <span>ホーム</span>
         </a>
       </li>
-      <li>
+      <li role="presentation">
         <ng-container *ngIf="isChildOkr; else blank">
           <ng-container *ngIf="isChildOkrComplete === true; else blank">
-            <a (click)="progress()">
+            <a
+              role="tab"
+              aria-controls="child-okr-panel"
+              [attr.aria-selected]="tab === 'child-okr-panel'"
+              (click)="setTabState($event)"
+              (click)="progress()"
+            >
               <span>進行中のOKR</span>
             </a>
           </ng-container>
@@ -18,6 +31,11 @@
 
         <ng-template #blank>
           <a
+            role="tab"
+            aria-controls="child-okr-panel"
+            [attr.aria-selected]="tab === 'child-okr-panel'"
+            (click)="setTabState($event)"
+            aria-current="page"
             href=""
             (click)="setTransitionTargetIndex(1)"
             routerLink="/manage/child-okr"
@@ -26,8 +44,15 @@
           </a>
         </ng-template>
       </li>
-      <li>
-        <a (click)="setTransitionTargetIndex(2)" routerLink="/manage/achieve">
+      <li role="presentation">
+        <a
+          role="tab"
+          aria-controls="achieve-panel"
+          [attr.aria-selected]="tab === 'achieve-panel'"
+          (click)="setTabState($event)"
+          (click)="setTransitionTargetIndex(2)"
+          routerLink="/manage/achieve"
+        >
           <span>完了したOKR</span>
         </a>
       </li>
