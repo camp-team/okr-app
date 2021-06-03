@@ -13,10 +13,14 @@
   align-items: center;
   width: 100%;
   color: #6f7782;
+  @include sm {
+    display: block;
+  }
   &__left {
     margin: 0;
     font-size: 14px;
     @include sm {
+      padding-left: 6px;
       font-size: 12px;
     }
   }
@@ -54,6 +58,9 @@
     background-color: inherit;
     border: none;
     cursor: pointer;
+    @include sm {
+      margin: 0;
+    }
 
     &:hover {
       background-color: rgba(21, 27, 38, 0.08);
