@@ -3,40 +3,49 @@
     <app-child-okr-title></app-child-okr-title>
     <div class="data">
       <div class="data__container">
-        <table>
-          <thead>
-            <tr>
-              <th class="item row-left">
+        <div class="table">
+          <div class="row">
+            <div class="cell">
+              <p>
                 タスク名
                 <mat-icon
-                  class="table-icon"
                   matTooltip="目標を達成するための項目&#13;&#10;数値的項目を入力"
                 >
                   help_outline
                 </mat-icon>
-              </th>
-              <th class="target">
+              </p>
+            </div>
+            <div class="cell cell--small">
+              <p>
                 標的
-                <mat-icon class="table-icon" matTooltip="数値を入力">
+                <mat-icon matTooltip="数値を入力">
                   help_outline
                 </mat-icon>
-              </th>
-              <th class="current">
+              </p>
+            </div>
+            <div class="cell cell--small">
+              <p>
                 現在
-                <mat-icon class="table-icon" matTooltip="達成した数値を入力">
+                <mat-icon matTooltip="達成した数値を入力">
                   help_outline
                 </mat-icon>
-              </th>
-              <th class="percentage">
+              </p>
+            </div>
+            <div class="cell cell--small">
+              <p>
                 達成率
-                <mat-icon class="table-icon" matTooltip="自動で更新されます">
+                <mat-icon matTooltip="自動で更新されます">
                   help_outline
                 </mat-icon>
-              </th>
-              <th class="last-update row-right">更新日</th>
-            </tr>
-          </thead>
-        </table>
+              </p>
+            </div>
+            <div class="cell cell--midium">
+              <p>
+                更新日
+              </p>
+            </div>
+          </div>
+        </div>
         <ng-container
           *ngFor="let childOkrObjective of childOkrObjectives; let i = index"
         >
@@ -94,156 +103,152 @@
                 </div>
               </form>
             </div>
-            <table>
-              <tbody>
-                <tr
-                  *ngFor="
-                    let row of rows[childOkrObjective.childOkrObjectiveId]
-                      .controls;
-                    index as rowIndex
-                  "
-                  class="child-okr__tr"
-                >
-                  <ng-container [formGroupName]="rowIndex">
-                    <td class="row-left">
-                      <input
-                        placeholder="タスク名を入力"
-                        type="text"
-                        formControlName="key"
-                        autocomplete="off"
-                        class="key child-okr__key-result-form"
-                        (keyup.enter)="focusNextInput(i + i + rowIndex + i + 1)"
-                      />
-                      <mat-error *ngIf="row.get('key').hasError('required')">
-                        <span
-                          [hidden]="
-                            !(
-                              row.get('key').errors?.required &&
-                              row.get('key').dirty
-                            )
-                          "
-                        >
-                          <div class="overlay"></div>
-                          <div class="overlay-error">必須入力です。</div>
-                        </span>
-                      </mat-error>
-                      <mat-error *ngIf="row.get('key').hasError('maxlength')">
-                        <div class="overlay"></div>
-                        <div class="overlay-error">
-                          最大文字数は20文字です。
-                        </div>
-                      </mat-error>
-                      <div
-                        class="select-child-okr-remove"
-                        type="button"
-                        (click)="
-                          removeRow(
-                            childOkrObjective.childOkrObjectiveId,
-                            rowIndex
+            <div class="table">
+              <div
+                *ngFor="
+                  let row of rows[childOkrObjective.childOkrObjectiveId]
+                    .controls;
+                  index as rowIndex
+                "
+                class="row"
+              >
+                <ng-container [formGroupName]="rowIndex">
+                  <div class="cell">
+                    <input
+                      placeholder="タスク名を入力"
+                      type="text"
+                      formControlName="key"
+                      autocomplete="off"
+                      class="key child-okr__key-result-form"
+                      (keyup.enter)="focusNextInput(i + i + rowIndex + i + 1)"
+                    />
+                    <mat-error *ngIf="row.get('key').hasError('required')">
+                      <span
+                        [hidden]="
+                          !(
+                            row.get('key').errors?.required &&
+                            row.get('key').dirty
                           )
                         "
                       >
-                        <mat-icon class="select-child-okr-remove-icon">
-                          minimize
-                        </mat-icon>
-                        <span>
-                          削除
-                        </span>
+                        <div class="overlay"></div>
+                        <div class="overlay-error">必須入力です。</div>
+                      </span>
+                    </mat-error>
+                    <mat-error *ngIf="row.get('key').hasError('maxlength')">
+                      <div class="overlay"></div>
+                      <div class="overlay-error">
+                        最大文字数は20文字です。
                       </div>
-                    </td>
-                    <td class="target">
-                      <input
-                        placeholder="数値を入力"
-                        name="target"
-                        type="text"
-                        formControlName="target"
-                        autocomplete="off"
-                        required
-                        maxlength="20"
-                        class="child-okr__key-result-form"
-                      />
-                      <mat-error *ngIf="row.get('target').hasError('required')">
-                        <span
-                          [hidden]="
-                            !(
-                              row.get('target').errors?.required &&
-                              row.get('target').dirty
-                            )
-                          "
-                        >
-                          <div class="overlay"></div>
-                          <div class="overlay-error">必須入力です。</div>
-                        </span>
-                      </mat-error>
-                      <mat-error *ngIf="row.get('target').hasError('pattern')">
-                        <div class="overlay"></div>
-                        <div class="overlay-error">
-                          半角英数字で入力してください
-                        </div>
-                      </mat-error>
-                      <mat-error
-                        *ngIf="
-                          row.get('target').hasError('maxlength') &&
-                          !row.get('target').hasError('pattern')
+                    </mat-error>
+                    <div
+                      class="select-child-okr-remove"
+                      type="button"
+                      (click)="
+                        removeRow(
+                          childOkrObjective.childOkrObjectiveId,
+                          rowIndex
+                        )
+                      "
+                    >
+                      <mat-icon class="select-child-okr-remove-icon">
+                        minimize
+                      </mat-icon>
+                      <span>
+                        削除
+                      </span>
+                    </div>
+                  </div>
+                  <div class="cell cell--small">
+                    <input
+                      placeholder="数値を入力"
+                      name="target"
+                      type="text"
+                      formControlName="target"
+                      autocomplete="off"
+                      required
+                      maxlength="20"
+                      class="child-okr__key-result-form"
+                    />
+                    <mat-error *ngIf="row.get('target').hasError('required')">
+                      <span
+                        [hidden]="
+                          !(
+                            row.get('target').errors?.required &&
+                            row.get('target').dirty
+                          )
                         "
-                      >
-                        <div class="overlay"></div>
-                        <div class="overlay-error">最大数は999までです。</div>
-                      </mat-error>
-                    </td>
-                    <td class="current">
-                      <input
-                        placeholder="数値を入力"
-                        type="text"
-                        formControlName="current"
-                        autocomplete="off"
-                        required
-                        class="child-okr__key-result-form"
-                      />
-                      <mat-error
-                        *ngIf="row.get('current').hasError('required')"
                       >
                         <div class="overlay"></div>
                         <div class="overlay-error">必須入力です。</div>
-                      </mat-error>
-                      <mat-error *ngIf="row.get('current').hasError('pattern')">
-                        <div class="overlay"></div>
-                        <div class="overlay-error">
-                          半角数値で入力してください。
-                        </div>
-                      </mat-error>
-                      <mat-error
-                        *ngIf="
-                          row.get('current').hasError('maxlength') &&
-                          !row.get('current').hasError('pattern')
-                        "
-                      >
-                        <div class="overlay"></div>
-                        <div class="overlay-error">最大数は999までです。</div>
-                      </mat-error>
-                    </td>
-                    <td class="percentage">
-                      <input
-                        type="text"
-                        formControlName="percentage"
-                        autocomplete="off"
-                        disabled
-                        class="child-okr__key-result-form"
-                      />
-                    </td>
-                    <td class="row-right">
-                      <input
-                        type="text"
-                        formControlName="lastUpdated"
-                        autocomplete="off"
-                        disabled
-                        class="child-okr__key-result-form"
-                      />
-                    </td>
-                  </ng-container>
-                </tr>
-              </tbody>
-            </table>
+                      </span>
+                    </mat-error>
+                    <mat-error *ngIf="row.get('target').hasError('pattern')">
+                      <div class="overlay"></div>
+                      <div class="overlay-error">
+                        半角英数字で入力してください
+                      </div>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        row.get('target').hasError('maxlength') &&
+                        !row.get('target').hasError('pattern')
+                      "
+                    >
+                      <div class="overlay"></div>
+                      <div class="overlay-error">最大数は999までです。</div>
+                    </mat-error>
+                  </div>
+                  <div class="cell cell--small">
+                    <input
+                      placeholder="数値を入力"
+                      type="text"
+                      formControlName="current"
+                      autocomplete="off"
+                      required
+                      class="child-okr__key-result-form"
+                    />
+                    <mat-error *ngIf="row.get('current').hasError('required')">
+                      <div class="overlay"></div>
+                      <div class="overlay-error">必須入力です。</div>
+                    </mat-error>
+                    <mat-error *ngIf="row.get('current').hasError('pattern')">
+                      <div class="overlay"></div>
+                      <div class="overlay-error">
+                        半角数値で入力してください。
+                      </div>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        row.get('current').hasError('maxlength') &&
+                        !row.get('current').hasError('pattern')
+                      "
+                    >
+                      <div class="overlay"></div>
+                      <div class="overlay-error">最大数は999までです。</div>
+                    </mat-error>
+                  </div>
+                  <div class="cell cell--small disabled">
+                    <input
+                      type="text"
+                      formControlName="percentage"
+                      autocomplete="off"
+                      disabled
+                      class="child-okr__key-result-form"
+                    />
+                  </div>
+                  <div class="cell cell--midium disabled">
+                    <input
+                      type="text"
+                      formControlName="lastUpdated"
+                      autocomplete="off"
+                      disabled
+                      class="child-okr__key-result-form"
+                    />
+                  </div>
+                </ng-container>
+              </div>
+            </div>
             <button
               *ngIf="rows[childOkrObjective.childOkrObjectiveId].length < 3"
               (click)="addRow(childOkrObjective.childOkrObjectiveId)"
