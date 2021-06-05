@@ -3,13 +3,23 @@
 
 .data {
   &__container {
-    padding-bottom: 16px;
-    @include sm {
-      overflow-x: auto;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-    }
+    overflow: auto;
   }
+}
+
+.fa {
+  padding-top: 104px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 16px;
+}
+
+.table-header {
+  top: 128px;
+  position: fixed;
+  z-index: 1000;
+  padding: 0 24px;
+  background: #fff;
 }
 
 .table {
@@ -19,6 +29,25 @@
   width: 100%;
   @include md {
     width: 1000px;
+  }
+  &--header {
+    position: fixed;
+    top: 128px;
+    z-index: 1000;
+    background: #fff;
+    @include md {
+      width: 1000px;
+    }
+  }
+}
+
+.row-header {
+  padding: 0 24px;
+  &:hover {
+    .cell {
+      background: #fff;
+    }
+    background-color: #fff !important;
   }
 }
 
@@ -31,13 +60,22 @@
     }
     background-color: #f6f8f9;
   }
+  &--header {
+    padding: 0 24px;
+    &:hover {
+      .cell {
+        background: #fff;
+      }
+      background-color: #fff !important;
+    }
+  }
 }
 
 .cell {
   position: relative;
   color: #6f7782;
   border: solid 1px #e8ecee;
-  border-right: none;
+  border-left: none;
   font-weight: 300;
   height: 100%;
   padding-left: 12px;
@@ -53,13 +91,7 @@
     }
   }
   &:first-child {
-    position: sticky;
-    z-index: 1000;
-    left: 0;
-    background: #fff;
-    z-index: 600px;
     border-left-style: none;
-    // border-right: 1px solid #ddd;
     min-width: 350px;
     &:hover {
       .select-child-okr-remove {
@@ -106,25 +138,29 @@
 }
 
 .child-okr {
-  padding: 12px 24px;
   &__objective-structure {
+    width: 350px;
+    padding: 12px 0;
     input {
+      box-sizing: border-box;
+      height: 35px;
       font-size: 16px;
-      border: 1px solid #e8ecee;
-      border-radius: 8px;
+      border: none;
+      border-top: 1px solid #e8ecee;
+      border-bottom: 1px solid #e8ecee;
       line-height: 20px;
-      width: 250px;
-      -webkit-appearance: none;
+      padding-left: 12px;
+      width: 100%;
     }
   }
   &__objective {
+    padding-left: 12px;
     font-weight: 400;
     color: #6f7782;
-    padding: 0 15px;
+    margin: 0;
     font-size: 12px;
   }
   &__objective-form {
-    padding-left: 7px;
     position: relative;
     &:hover {
       .overlay-error {
@@ -135,7 +171,7 @@
   .objective-form-overlay {
     position: absolute;
     top: 1px;
-    left: 257px;
+    right: 0;
     border-left: 10px solid transparent;
     border-bottom: 10px solid red;
     transform: scale(1, -1);
@@ -166,7 +202,6 @@
     }
     mat-icon {
       width: auto;
-      height: 18px;
     }
   }
   &__average {
@@ -180,6 +215,7 @@
 
 .overlay {
   position: absolute;
+  z-index: 900;
   top: 0;
   right: 0;
   border-left: 10px solid transparent;
@@ -190,12 +226,20 @@
 .overlay-error {
   display: none;
   position: absolute;
-  z-index: 500;
+  z-index: 999;
   top: 0;
   left: 100%;
-  font-size: 12px;
+  border-left: 2px solid red;
   width: 100%;
   height: 100%;
+  font-size: 12px;
+  box-shadow: 0 4px 8px 3px rgb(60 64 67 / 15%);
+  background: #fff;
+  padding: 12px;
+  p {
+    margin: 0;
+    display: flex;
+  }
 }
 
 .disabled {
