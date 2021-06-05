@@ -2,8 +2,13 @@
 @import 'mixins';
 
 .child-okr-header {
-  height: 57px;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  top: 72px;
+  height: 56px;
   display: flex;
+  z-index: 1000;
   align-items: center;
 }
 
@@ -13,6 +18,7 @@
   align-items: center;
   width: 100%;
   color: #6f7782;
+  padding: 0 24px;
   @include sm {
     display: block;
   }
