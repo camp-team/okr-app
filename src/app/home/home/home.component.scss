@@ -3,13 +3,14 @@
 .home {
   padding: 12px 0;
   @include sm {
-    padding: 40px 0;
+    padding: 40px 0 0 0;
   }
   &__container {
     max-width: 840px;
     margin: 32px auto;
     @include sm {
       padding: 0 12px;
+      margin: 0;
     }
   }
   &__general-next-section {
