@@ -25,7 +25,6 @@
 .table {
   display: grid;
   gap: 1px;
-  padding: 1px 0;
   width: 100%;
   @include md {
     width: 1000px;
@@ -109,6 +108,9 @@
   &--small {
     width: 180px;
     flex: none;
+  }
+  &--last {
+    border-right: none;
   }
 
   p {
