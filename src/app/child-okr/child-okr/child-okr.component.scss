@@ -1,9 +1,81 @@
 @import 'variables';
 @import 'mixins';
 
-.data {
-  &__container {
-    overflow: auto;
+.child-okr {
+  overflow: auto;
+  &__objective-structure {
+    width: 350px;
+    padding: 12px 0;
+    input {
+      box-sizing: border-box;
+      height: 35px;
+      font-size: 16px;
+      border: none;
+      border-top: 1px solid #e8ecee;
+      border-bottom: 1px solid #e8ecee;
+      line-height: 20px;
+      padding-left: 12px;
+      width: 100%;
+    }
+  }
+  &__objective {
+    padding-left: 12px;
+    font-weight: 400;
+    color: #6f7782;
+    margin: 0;
+    font-size: 12px;
+  }
+  &__objective-form {
+    position: relative;
+    &:hover {
+      .overlay-error {
+        display: inline-block;
+      }
+    }
+  }
+  .objective-form-overlay {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid red;
+    transform: scale(1, -1);
+  }
+  &__key-result-form {
+    border: none;
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background-color: inherit;
+    @include sm {
+      font-size: 16px;
+    }
+  }
+  &__add-task-button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    text-align: start;
+    color: rgba(55, 53, 47, 0.4);
+    background-color: inherit;
+    padding: 12px 12px 0;
+    cursor: pointer;
+    border: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+    mat-icon {
+      font-size: 16px;
+      width: auto;
+      height: auto;
+      padding-bottom: 2px;
+    }
+  }
+  &__average {
+    padding: 12px;
+    font-size: 14px;
+    color: rgba(55, 53, 47, 0.4);
   }
 }
 
@@ -136,82 +208,6 @@
   }
   mat-error {
     width: 100%;
-  }
-}
-
-.child-okr {
-  &__objective-structure {
-    width: 350px;
-    padding: 12px 0;
-    input {
-      box-sizing: border-box;
-      height: 35px;
-      font-size: 16px;
-      border: none;
-      border-top: 1px solid #e8ecee;
-      border-bottom: 1px solid #e8ecee;
-      line-height: 20px;
-      padding-left: 12px;
-      width: 100%;
-    }
-  }
-  &__objective {
-    padding-left: 12px;
-    font-weight: 400;
-    color: #6f7782;
-    margin: 0;
-    font-size: 12px;
-  }
-  &__objective-form {
-    position: relative;
-    &:hover {
-      .overlay-error {
-        display: inline-block;
-      }
-    }
-  }
-  .objective-form-overlay {
-    position: absolute;
-    top: 1px;
-    right: 0;
-    border-left: 10px solid transparent;
-    border-bottom: 10px solid red;
-    transform: scale(1, -1);
-  }
-  &__key-result-form {
-    border: none;
-    font-size: 14px;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    background-color: inherit;
-    @include sm {
-      font-size: 16px;
-    }
-  }
-  &__add-task-button {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    text-align: start;
-    color: rgba(55, 53, 47, 0.4);
-    background-color: inherit;
-    padding: 4px 12px;
-    cursor: pointer;
-    border: none;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.12);
-    }
-    mat-icon {
-      width: auto;
-    }
-  }
-  &__average {
-    padding: 0 12px;
-    font-size: 14px;
-    margin-bottom: 12px;
-    color: rgba(55, 53, 47, 0.4);
-    margin-right: 8px;
   }
 }
 
