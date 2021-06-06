@@ -2,6 +2,7 @@
 @import 'mixins';
 
 .terms {
+  padding-bottom: 160px;
   &__title {
     font-weight: 400;
     text-align: center;
@@ -11,17 +12,6 @@
     @include sm {
       font-size: 20px;
     }
-  }
-}
-
-.container {
-  font-weight: 400;
-
-  padding: 0 56px 24px;
-  max-width: 600px;
-  margin: 0 auto;
-  @include sm {
-    padding: 0 16px;
   }
 }
 
