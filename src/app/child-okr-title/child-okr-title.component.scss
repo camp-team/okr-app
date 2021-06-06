@@ -2,8 +2,13 @@
 @import 'mixins';
 
 .child-okr-header {
-  height: 57px;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  top: 72px;
+  height: 56px;
   display: flex;
+  z-index: 1000;
   align-items: center;
 }
 
@@ -13,10 +18,15 @@
   align-items: center;
   width: 100%;
   color: #6f7782;
+  padding: 0 24px;
+  @include sm {
+    display: block;
+  }
   &__left {
     margin: 0;
     font-size: 14px;
     @include sm {
+      padding-left: 6px;
       font-size: 12px;
     }
   }
@@ -46,7 +56,7 @@
     align-items: center;
     font-size: 14px;
     margin: 0 16px;
-    padding: 0 8px;
+    padding: 4px;
     line-height: inherit;
     color: #6f7782;
     box-shadow: none;
@@ -54,6 +64,9 @@
     background-color: inherit;
     border: none;
     cursor: pointer;
+    @include sm {
+      margin: 0;
+    }
 
     &:hover {
       background-color: rgba(21, 27, 38, 0.08);

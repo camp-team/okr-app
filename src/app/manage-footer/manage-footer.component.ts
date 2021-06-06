@@ -15,6 +15,8 @@ import { OkrService } from '../services/okr.service';
 export class ManageFooterComponent implements OnInit {
   isChildOkr: boolean;
   isComplete: boolean;
+  isChildOkrComplete: boolean;
+  isChildOkrCompletes = [];
   childOkr: ChildOkr;
   childOkrs$: Observable<ChildOkr[]> = this.okrService
     .getChildOkrs()
@@ -37,7 +39,13 @@ export class ManageFooterComponent implements OnInit {
         this.isChildOkr = true;
       }
       childOkrs.map((childOkr) => {
-        this.isComplete = childOkr.isChildOkrComplete;
+        this.isChildOkrComplete = childOkr.isChildOkrComplete;
+        this.isChildOkrCompletes.push(this.isChildOkrComplete);
+        this.isChildOkrCompletes.forEach((isChildOkrComplete) => {
+          if (isChildOkrComplete === true) {
+            this.isChildOkrComplete = true;
+          }
+        });
         if (childOkr.isChildOkrComplete === true) this.childOkr = childOkr;
       });
     });
@@ -45,7 +53,7 @@ export class ManageFooterComponent implements OnInit {
 
   progress() {
     this.router.navigate(['manage/child-okr'], {
-      queryParams: { id: this.childOkr.isChildOkrComplete },
+      queryParams: { id: this.childOkr.childOkrId },
     });
   }
 }

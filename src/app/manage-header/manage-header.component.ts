@@ -26,6 +26,7 @@ export class ManageHeaderComponent implements OnInit {
   i: number;
   parentOkrTarget: string;
   transitionTargetIndex = [0, 1, 2, 3, 4, 5];
+  tab: string;
 
   constructor(
     public authService: AuthService,
@@ -46,16 +47,19 @@ export class ManageHeaderComponent implements OnInit {
       switch (this.router.url) {
         case '/manage/home':
           this.i = this.transitionTargetIndex[0];
+          this.tab = 'home-panel';
           break;
         case '/manage/child-okr?id=' +
           this.route.snapshot.queryParamMap.get('id'):
           this.i = this.transitionTargetIndex[1];
+          this.tab = 'child-okr-panel';
           break;
         case '/manage/child-okr':
           this.i = this.transitionTargetIndex[1];
           break;
         case '/manage/achieve':
           this.i = this.transitionTargetIndex[2];
+          this.tab = 'achieve-panel';
           break;
         case '/manage/okr-project?id=' +
           this.route.snapshot.queryParamMap.get('id'):
@@ -94,6 +98,12 @@ export class ManageHeaderComponent implements OnInit {
         if (childOkr.isChildOkrComplete === true) this.childOkr = childOkr;
       });
     });
+  }
+
+  setTabState(event: MouseEvent): void {
+    const element = event.currentTarget as HTMLElement;
+    const tabState = element.getAttribute('aria-controls');
+    this.tab = tabState;
   }
 
   setTransitionTargetIndex(index: number) {

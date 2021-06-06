@@ -1,33 +1,31 @@
 <footer class="sp-footer">
-  <div class="container">
-    <div class="sp-footer__navs">
-      <a routerLink="/manage/home">
-        <mat-icon>home</mat-icon>
-        <span>ホーム</span>
-      </a>
-      <ng-container *ngIf="isChildOkr; else blank">
-        <ng-container *ngIf="isComplete === true; else blank">
-          <a (click)="progress()">
-            <mat-icon>check_circle_outline</mat-icon>
-            <span>進行中</span>
-          </a>
-        </ng-container>
-      </ng-container>
-
-      <ng-template #blank>
-        <a href="" routerLink="/manage/child-okr">
+  <div class="sp-footer__navs">
+    <a routerLink="/manage/home">
+      <mat-icon>home</mat-icon>
+      <span>ホーム</span>
+    </a>
+    <ng-container *ngIf="isChildOkr; else blank">
+      <ng-container *ngIf="isChildOkrComplete === true; else blank">
+        <a (click)="progress()">
           <mat-icon>check_circle_outline</mat-icon>
           <span>進行中</span>
         </a>
-      </ng-template>
-      <a routerLink="/manage/achieve">
-        <mat-icon>cached</mat-icon>
-        <span>完了済</span>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #blank>
+      <a href="" routerLink="/manage/child-okr">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>進行中</span>
       </a>
-      <a routerLink="/settings">
-        <mat-icon>settings</mat-icon>
-        <span>設定</span>
-      </a>
-    </div>
+    </ng-template>
+    <a routerLink="/manage/achieve">
+      <mat-icon>cached</mat-icon>
+      <span>完了済</span>
+    </a>
+    <a routerLink="/settings">
+      <mat-icon>settings</mat-icon>
+      <span>設定</span>
+    </a>
   </div>
 </footer>

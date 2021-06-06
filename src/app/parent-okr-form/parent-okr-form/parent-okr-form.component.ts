@@ -24,8 +24,8 @@ export class ParentOkrFormComponent implements OnInit {
   parentOkrObjectiveForm: number = 3;
   isParentOkrcomplete: boolean;
   parentOkrform = this.fb.group({
-    target: ['', [Validators.required, Validators.maxLength(40)]],
-    objective: ['', [Validators.required, Validators.maxLength(40)]],
+    target: ['', [Validators.required, Validators.maxLength(20)]],
+    objective: ['', [Validators.required, Validators.maxLength(20)]],
     keyResults: this.fb.array([]),
   });
 

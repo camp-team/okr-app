@@ -6,9 +6,9 @@
   border-bottom: 1px solid #e8ecee;
   max-width: 1324px;
   &__inner {
-    z-index: 300;
-    height: 72px;
     position: fixed;
+    z-index: 1000;
+    height: 72px;
     justify-content: space-between;
     left: 50%;
     transform: translate(-50%, 0);
